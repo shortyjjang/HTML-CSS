@@ -1,0 +1,194 @@
+{% if custom_theme.settings.custom_css %}
+<style type="text/css">
+{{custom_theme.settings.custom_css}}
+</style>
+{% endif %}
+{{"js/cart.js"| common_asset_script}}
+<script type="text/javascript">
+var storeID = "{{seller.id}}";
+var csrftoken = "{{ csrf_token }}";
+var path_prefix = "{{path_prefix}}/";
+(function(){
+	// dom content loaded
+	function domReady(fn) {
+		var d = document;
+		if (d.addEventListener) {
+			d.addEventListener('DOMContentLoaded', fn, false);
+		} else {
+			d.attachEvent('onreadystatechange', function(){ d.readyState === 'interactive' && fn() });
+		}
+	};
+	function addEvent(el, type, handler) {
+		if (el.addEventListener) {
+			el.addEventListener(type, handler, false);
+		} else if (el.attachEvent) {
+			el.attachEvent('on'+type, function(){ handler(window.event); });
+		}
+	};
+	{% if is_original_preview or is_custom_preview or is_demo %}
+	// append preview parameter for all a tags for preview mode
+	function keepPreview(event){
+		var preview_key = '{% if is_original_preview %}preview={% else %}theme_id={% endif %}';
+		var seller_key = 'seller_id=';
+		var admin_key = 'admin';
+		event = event || window.event;
+		var target = event.target || event.srcElement;
+        var preview = location.search.match(preview_key + "([^&]*)");
+        var seller = location.search.match(seller_key + "([^&]*)");
+        var admin = location.search.match("admin") ? '&admin' : '';
+        var mobile = location.search.match('mobile=true') ? '&mobile=true' : '';
+		while(target.nodeName && target.nodeName != 'BODY') {
+			if (target.nodeName == 'A') { 
+				var href = target.getAttribute('href');
+				if( href[0] == "#" ) break;
+				// disable external links
+				var internal = new RegExp('^https?:\\/\\/'+location.hostname.replace(/\./g, '\\.'), 'i');
+				if( /^(https?|mailto|ftp):/i.test(href) && !internal.test(href) && target.target != '_top') {
+					if (window.console && console.warn) console.warn('External links are disallowed in preview mode.');
+					if (event.preventDefault) event.preventDefault(); // modern browsers
+					else event.returnValue = false; // ie8 and eariler
+					break;
+				}
+				if( preview && href.indexOf(preview_key) <0 ) {
+				    var changed = href+(href.indexOf("?")>-1?"&":"?")+preview_key+preview[1]+mobile+admin;
+				    if (seller) {
+					changed = changed + "&" + seller_key + seller[1];
+				    }
+				    target.setAttribute("href", changed);
+				}
+				break;
+			}
+			target = target.parentNode;
+		}
+	}
+	addEvent(document, 'click', keepPreview);
+
+	document.title = 'Preview of {% if is_original_preview %}{{theme.name}}{% else %}{{custom_theme.settings.page_title}}{% endif %}';
+	{% endif %}
+	{% if is_full_domain and current_host != secure_url %}
+	function get_cors(method, url) {
+		var xhr = new XMLHttpRequest();
+		if ("withCredentials" in xhr) {
+			xhr.open(method, url, true);
+		} else if (typeof XDomainRequest != "undefined") {
+			xhr = new XDomainRequest();
+			xhr.open(method, url);
+		} else { xhr = null; }
+		return xhr;
+	}
+	var cors = get_cors('GET', "https://{{secure_url}}/{{seller.username}}/session?_sf_uid=" + {{viewer.id|default:0}});
+	if (cors) {
+		cors.withCredentials = true;
+		cors.send();
+		cors.onreadystatechange = function() {
+			if(cors.readyState == 4 && cors.status == 200) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '/fancy_login', true)
+				xhr.setRequestHeader('Content-type', "application/json");
+				xhr.setRequestHeader('X-CSRFToken', csrftoken);
+				xhr.send('{"s" : "'+ cors.responseText + '"}');
+				xhr.onreadystatechange = function() {
+					if (xhr.responseText.indexOf('status_code": 1') >= 0) {
+						window.location.reload(); 
+					}
+				}
+			}		
+		}
+	}
+	{% endif %}
+
+	{% if viewer.id == seller.id and not is_preview %}
+	domReady(function(){
+		var dashboard = document.querySelector('a.btn-dashboard');
+		var customize = document.querySelector('a.btn-customize');
+
+		if (dashboard) {
+			dashboard.setAttribute('target', '_top');
+			dashboard.setAttribute('href', '{{urls.fancy_home}}/merchant/dashboard');
+		}
+		if (customize) {
+			{% if custom_theme.id %}
+			customize.setAttribute('target', '_top');
+			customize.setAttribute('href', '{{urls.fancy_home}}/merchant/themes/customize?theme_id={{custom_theme.id}}');
+			{% else %}
+			customize.style.display = 'none';
+			{% endif %}
+		}
+	});
+	{% endif %}
+
+	addEvent(window, 'message', function(event){
+		if (!/^https?:\/\/(.+\.)?fancy\.com/.test(event.origin)) return;
+		if (event.data && event.data == 'reload') location.reload();
+	});
+})();
+</script>
+
+{% if is_preview and current_page == 'index' %}
+    {{"js/placeholder.js"| common_asset_script}}
+    {{"css/placeholder.css"| common_asset_css}}
+    {{"css/inter-ui.css"| common_asset_css}}
+{%endif%}
+
+{% if not storefront.metadata.legacy_tracking %}
+{% if storefront.ga_tracking_id %}
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '{{storefront.ga_tracking_id|escapejs}}', 'auto');
+ga('require', 'linker');
+{% if current_host != secure_url %}ga('linker:autoLink', ['{{secure_url}}']);{% endif %}
+ga('send', 'pageview');
+</script>
+{% endif %}
+{% if storefront.fb_pixel_id %}
+<!-- Facebook Pixel Code -->
+<script>!function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{{storefront.fb_pixel_id}}'); fbq('track', 'PageView');</script>
+<noscript><img height="1" width="1" src="https://www.facebook.com/tr?id={{storefront.fb_pixel_id}}&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel Code -->
+{% if current_page == "product" %}
+<script>fbq('track', 'ViewContent', { content_type: 'product', content_ids: ['{{thing.sale.id}}'], content_name: '{{thing.sale.title}}',
+    value: '{{thing.sale.price}}', currency: 'USD' });</script>
+{% endif %}
+{% endif %}
+<script>window.uses_tracking = true;</script>
+
+<script>
+try {
+    if(window.ga) {
+        function addEvent(element, eventName, cb, isCapture) {
+            if (window.addEventListener) { element.addEventListener(eventName, cb, isCapture); }
+            else if (window.attachEvent) { element.attachEvent("on" + eventName, cb); }
+            else { element["on" + eventName] = cb; }
+        }
+        addEvent(document, "click", function(e) {
+            try {
+                for (var target=e.target; target && target!=this; target=target.parentNode) {
+                    // loop parent nodes from the target to the delegation node
+                    var product_url_pattern = /^\/(shop|product|thing)\/\d+([\/\?].*)?$/
+                    if (target.matches('a')) {
+                        var href = target.getAttribute('href');
+                        if(href.match(product_url_pattern)) {
+                            href = href.replace(/\?.*/,'');
+                            ga('send', 'event', {
+                                eventCategory: 'UserAction',
+                                eventAction: 'ViewProduct',
+                                eventLabel: href,
+                            });
+                        }
+                    }
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        }, false);
+    }
+} catch(e) {
+}
+</script>
+
+{% endif %}
+

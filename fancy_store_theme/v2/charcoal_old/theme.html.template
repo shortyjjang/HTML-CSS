@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=1300, user-scalable=yes" />
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	{% if thing %}
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+	{% endif %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	{{ 'theme.css' | asset_css }}
+	{{ header_content }}
+	{{ 'js/jquery.js' | common_asset_script }}
+	{{ 'js/jquery-ui.js' | common_asset_script }}
+	{{ 'js/underscore.js' | common_asset_script }}
+	{{ 'js/contact.js' | common_asset_script }}
+	{{ 'js/popup.js' | common_asset_script }}
+	{{ 'js/tabpage.js' | common_asset_script }}
+	{{ 'main.js' | asset_script }}
+</head>
+<body>
+	<div id="widget">
+		<div class="after">
+			{%if viewer.id == seller.id and not is_preview %}
+			<a class="btn-dashboard"><i class="icon"></i>Dashboard</a>
+			<a class="btn-customize"><i class="icon"></i>Customize</a>
+			{%else%}
+			<a href="#cart" class="btn-cart" ><i class="icon"></i>Cart <small class="count">0</small></a>
+			<div id="cart" class="cart_popup">
+				<div class="not-empty" style='display:none'>
+					<table>
+						<thead><tr><th>ITEM</th><th class="qty">QTY</th><th class="price">PRICE</th></thead>
+						<tbody>
+							<script type="template">
+							<% _.each(items, function(item){ %>
+								<tr data-id="<%= item.id %>" data-option-id="<%= item.option_id %>">
+									<td class="info">
+										<a href="{{path_prefix}}/shop/<%= item.thing_id %>">
+											<img src="/_static/_ui/images/common/blank.gif" style="background-image:url(<%= item.image_url %>);background-size:cover">
+											<strong><%= item.title %></strong><br><%= item.option %>
+										</a>
+									</td>
+									<td class="qty">
+										<input type="text" class="text quantity" value="<%= item.quantity %>" data-value="<%= item.quantity %>">
+										<a href="#" class="remove"></a>
+									</td>
+                                    <% if (item.item_retail_price > 0) { %>
+                                    <td class="price sales">$<%= item.item_price %> <small class="before">$<%= item.item_retail_price %></small></td>
+                                    <% } else { %>
+									<td class="price">$<%= item.item_price %></td>
+                                    <% } %>
+								</tr>
+							<% }); %>
+							</script>
+						</tbody>
+					</table>
+					<div class="summary">
+						<strong>Order Sub Total: </strong>
+						<span class="subtotal_">$0</span>
+					</div>
+					<div class="after">
+						<span>Proceed to Checkout</span>
+						{%if viewer.id != seller.id%}
+						<a href="#" class="btns-blue-embo btn-checkout">Proceed to Checkout</a>
+						{%else%}
+						<button class="buttons btn-checkout" disabled>You can't purchase from your own store</button>
+						{%endif%}
+					</div>
+				</div>
+				<div class="empty">
+					<i class="icon"></i>There are no items in your cart.
+				</div>
+			</div>
+			{%endif%}			
+		</div>
+	</div>
+	<div id="wrap">
+		<header id="header">
+		<div class="inner after bg">
+			<h1 class="logo"><a href="{{path_prefix}}/">{%if settings.logo_image %}<img src="{{settings.logo_image|asset_url}}" alt="{{settings.page_title}}">{%else%}{{settings.page_title}}{%endif%}</a></h1>
+			<ul class="navigation">
+				<li><a href="{{path_prefix}}/" {% if path_prefix|add:'/'|startswith:current_path %}class="current"{% endif %}><span>HOME</span></a>
+				<li><a href="{{path_prefix}}/shop" {% if path_prefix|add:'/shop'|is_prefix_of:current_path %}class="current"{% endif %}><span>SHOP</span></a></li>
+				<li><a href="{{path_prefix}}/about" {% if path_prefix|add:'/about'|is_prefix_of:current_path %}class="current"{% endif %}><span>ABOUT</span></a></li>
+				<li><a href="{{path_prefix}}/contact" {% if path_prefix|add:'/contact'|is_prefix_of:current_path%}class="current"{% endif %}><span>CONTACT</span></a></li>				
+			</ul>
+		</div>
+		</header>
+		<div id="container">
+			<div id="content">
+
+				{{ main_content }}
+
+			</div>
+		</div>
+		<div id="footer">
+			<div class="inner after">
+				<ul class="sns">
+					<li><a href="{{path_prefix}}/policies">POLICIES</a></li>
+                {% if seller.external_links|length > 0 %}
+                {% for social in seller.external_links %}
+					<li><a href="{{social.link}}">{{social.name}}</a></li>
+                {% endfor %}
+                {% endif %}                
+                </ul>
+                <div class="search">
+					<fieldset>
+						<input type="text" name="q" placeholder="Search">
+					</fieldset>
+				</div>
+				<p class="copyright"><a href="http://fancy.com">POWERED BY <b>FANCY</b></a></p>
+			</div>
+		</div>		
+	</div>
+	<div id="popup_container">		
+		<div id="zoom_photo" class="popup zoom_photo">
+			<ul class="figure-list">
+				<script type="template">
+				<% _.each(images, function(img, index){ %>
+					<li><img src="<%= img.src %>"></li>
+				<% }); %>
+				</script>
+			</ul>
+			<button class="popup_close"></button>
+		</div>
+	</div>
+  <script>
+    $('a[href="/pages/return-policy"]').attr('href','/policies');
+  </script>
+  </body>
+</html>

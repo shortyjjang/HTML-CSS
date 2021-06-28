@@ -1,0 +1,152 @@
+<div id="cart" class="page loading">
+	<h2 class="title inner">Shopping Cart</h2>
+	<div class="inner">
+		<div class="not-empty">
+			<ul class="order-list">
+				<li id="template" data-id="" style="display:none">
+					<div class="item"><div class="product">
+						<b class="title"><%= item.title %></b>
+						<img src="{{'img/blank.gif'|common_asset_url}}" style="/*background-image:url();*/">
+						<span class="option">
+							<span class="selectBox"><select data-option-id=""></select></span>
+						</span>
+					</div></div>
+					<div class="price"></div>
+					<div class="qty">
+						<span class="selectBox"><select class="quantity" data-value=""></select></span>
+					</div>
+					<div class="btn"><a href="#" class="remove">Remove</a></div>
+				</li>
+			</ul>
+			<div class="sub-total after">
+				<span class="label">Sub Total</span>
+				<b class="price subtotal_">$0</b>
+			</div>
+			<div class="btn-area">
+				<a class="buttons btn-checkout">Proceed to checkout</a>
+			</div>
+		</div>
+		<div class="empty">
+			<i class="icon"></i>There are no items in your cart.
+		</div>
+	</div>		
+</div>
+<script>
+(function($){
+	var $orderlist, $tpl;
+
+	$('#wrap').attr('class', 'cart sub');
+
+	$orderlist = ($tpl = $('#template')).parent();
+	$tpl.remove().removeAttr('id').removeAttr('style');
+	
+	// draw cart
+	function drawCart(json) {
+		var $page = $('#cart').removeClass('loading'), count = 0;
+		if (!json || !json.items || !json.items.length) {
+			$page.find('.empty').show();
+			$page.find('.not-empty').hide();
+			return;
+		}
+
+		// subtotal
+		$page.find('.subtotal_').text('$'+json.subtotal_price);
+
+		// checkout url
+		$page.find('.btn-checkout').attr('href', json.checkout_url);
+
+		$.each(json.items, function(idx, item){ count += item.quantity; updateRow(item) });
+		$('#widget .count').text(count);
+
+		$page.find('.empty').hide();
+		$page.find('.not-empty').show();
+	};
+	function updateRow(item) {
+		var $row = $orderlist.find('>li[data-id="'+item.id+'"]'), $sel, isNew = false;
+
+		if (!$row.length) {
+			isNew = true;
+			$row  = $tpl.clone();
+			$row.find('img').attr('src', item.image_url);
+		}
+
+		$row
+			.attr('data-id', item.id)
+			.find('.title').text(item.title).end()
+			.find('.quantity').val(item.quantity).attr('data-value', item.quantity).end()
+			.find('.price').text('$'+item.item_price).end()
+			.find('.total').text('$'+item.subtotal_price).end();
+
+        if (item.item_retail_price > 0) {
+            $row.find('.price').addClass('sales');
+            $row.find('.price')
+                .html('$'+item.item_price+' <small class="before">$'+item.item_retail_price+'</small>');
+        }
+
+		$qty = $row.find(".quantity").attr('data-value', item.quantity).empty();
+		var max_quantity = Math.min( item.quantity+10, item.remaining_quantity);
+		for(var i=1; i<=max_quantity; i++){
+			$('<option value="'+i+'" />').text(i).appendTo($qty);
+		}
+		$qty.find('option[value="'+ Math.min(item.quantity, item.remaining_quantity) +'"]').prop('selected',true);
+
+		if (item.option) {
+			$sel = $row.find('.option').css('display','').find('select').attr('data-option-id', item.option_id).empty();
+			$.each(item.available_options, function(i, opt){
+				$('<option value="'+opt.id+'" />').text(opt.name).appendTo($sel);
+			});
+			$sel.find('option[value="'+item.option_id+'"]').prop('selected', true);
+		}else{
+			$sel = $row.find('.option').css('display','').find('select').empty();
+			$sel.prop('disabled',true).html("<option>No Options Available</option>");
+		}
+
+		if (isNew) $row.appendTo($orderlist);
+	};
+	function loadCart() {
+		Cart.get().then(drawCart);
+	};
+	loadCart();
+
+	function lockRow($elem) {
+		var $row = $elem.closest('tr').addClass('locked');
+		$row.find('input,select').prop('disabled', true);
+	};
+
+	function unlockRow($elem) {
+		var $row = $elem.closest('tr').removeClass('locked');
+		$row.find('input,select').prop('disabled', false);
+	};
+
+	function locked($elem) {
+		return $elem.closest('tr').hasClass('locked');
+	};
+
+	$orderlist
+		.on('change', '.option select', function(event){
+			var $this = $(this), cartItemID = $this.closest('[data-id]').attr('data-id');
+
+			lockRow($this);
+			Cart.update(cartItemID, null, this.value).then(updateRow).then(function(){ unlockRow($this) });
+		})
+		.on('change', '.quantity', function(event){
+			
+			var $this = $(this), qty = parseInt($.trim(this.value)), cartItemID = $this.closest('[data-id]').attr('data-id');
+
+			if (isNaN(qty) || qty < 0) this.value = qty = 1;
+			if (qty == $this.attr('data-value')) return;
+
+			lockRow($this);
+			Cart.update(cartItemID, qty).then(updateRow).then(loadCart).then(function(){ unlockRow($this) });
+		})
+		.on('click', 'a.remove', function(event){
+			event.preventDefault();
+			var $this = $(this), $tr = $this.closest('[data-id]'), cartItemID = $tr.attr('data-id');
+
+			if (locked($tr)) return;
+
+			lockRow($tr);
+			Cart.remove(cartItemID).then(loadCart).then(function(){ $tr.remove(); });
+		});
+})(jQuery);
+</script>

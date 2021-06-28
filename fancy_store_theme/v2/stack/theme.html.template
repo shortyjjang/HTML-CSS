@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+	<link rel="shortcut icon"href="{{ 'img/favicon.ico' | asset_url }}">
+	<link href="https://fonts.googleapis.com/css?family=Khula:300,400,600,700,800" rel="stylesheet">
+
+	{% if thing %}
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+	{% endif %}
+
+	{{ 'theme.css' | asset_css }}
+	{{ 'js/jquery.js' | common_asset_script }}
+	{{ 'js/jquery-ui.js' | common_asset_script }}
+	{{ header_content }}
+	{{ 'js/underscore.js' | common_asset_script }}
+	{{ 'js/popup.js' | common_asset_script }}
+	{{ 'main.js' | asset_script }}
+</head>
+<body {%if is_preview %} class="new-stack-theme"{%endif%}>
+<!-- store -->
+
+<!-- header -->
+<header id="header">
+	<div class="header-wrap">
+		<div class="inner">
+			<h1 class="logo"><a href="{{path_prefix}}/">{%if settings.logo_image %}<img src="{{settings.logo_image|asset_url}}" alt="{{settings.page_title}}">{%else%}{{settings.page_title}}{%endif%}</a></h1>
+
+			<div class="navigation">
+				<ul>
+					<li><a href="{{path_prefix}}/">Home</a></li>
+					<li><a href="{{path_prefix}}/shop">Shop</a></li>
+					{%if seller.collections|length > 0 %}
+					<li><a href="{{path_prefix}}/collections">Collections</a></li>
+					{%endif%}
+					{%if seller.blog_posts|length > 0 and settings.blogposts %}  
+					<li><a href="{{path_prefix}}/blog">Blog</a></li>
+					{%endif%}
+					<li><a href="{{path_prefix}}/about">About</a></li>
+				</ul>
+			</div>
+
+			<div class="menu">
+				<a href="{{path_prefix}}/cart" class="btn-cart"><i class="icon"></i><small class="count"><b>0</b></small></a>
+				<div class="search"><input type="text" placeholder="" name="q" /></div>
+				<a href="#!" onclick="$('#header').toggleClass('hover');return false;" class="m_menu"></a>
+				{% if viewer.is_anonymous %}
+					<a href="https://{{secure_url}}/{{seller.username}}/login{% if LANG %}?lang={{LANG}}{% endif %}" id="login" class="account"></a>
+				{% else %}
+					<a onclick="location.href='{{path_prefix}}/wishlist';" href="{{path_prefix}}/wishlist" class="wishlist"></a>
+					<a href="https://{{secure_url}}/{{seller.username}}/orders{% if LANG %}?lang={{LANG}}{% endif %}" class="account"></a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</header>
+<!-- / header -->  
+<div id="wrap">
+
+	<div id="container">
+		<div id="content">
+{{ main_content }}
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div id="footer">
+
+		<div id="wrap-fix">
+			<div class="footer-menu">
+				<dl><dt><h1 class="logo"><a href="{{path_prefix}}/">{{settings.page_title}}</a></h1></dt></dl>
+				<dl>
+					<dt>Info</dt>
+					<dd><ul>
+						<li><a href="{{path_prefix}}/shop">Shop</a></li>
+						{%if seller.collections|length > 0 %}
+						<li><a href="{{path_prefix}}/collections">Collections</a></li>
+						{%endif%}
+						<li><a href="{{path_prefix}}/about">About Us</a></li>
+						<li><a href="{{path_prefix}}/contact">Contact Us</a></li>
+					</ul></dd>
+				</dl>
+				<dl>
+					<dt>Policies</dt>
+					<dd><ul>
+						<li><a href="{{path_prefix}}/terms">Terms of Service</a></li>
+						<li><a href="{{path_prefix}}/shipping-information">Shipping Information</a></li>
+						<li><a href="{{path_prefix}}/returns-exchanges">Returns & Exchanges</a></li>
+					</ul></dd>
+				</dl>
+				{%if settings.facebook_username or settings.twitter_username or settings.instagram_username or settings.pinterest_username%}
+				<dl>
+					<dt>Social</dt>
+					<dd><ul>
+						{%if settings.facebook_username%}<li><a href="https://www.facebook.com/{{settings.facebook_username}}/" target="_blank">Facebook</a></li>{%endif%}
+						{%if settings.twitter_username%}<li><a href="https://twitter.com/{{settings.twitter_username}}" target="_blank">Twitter</a></li>{%endif%}
+						{%if settings.instagram_username%}<li><a href="https://instagram.com/{{settings.instagram_username}}" target="_blank">Instagram</a></li>{%endif%}
+						{%if settings.pinterest_username%}<li><a href="https://www.pinterest.com/{{settings.pinterest_username}}/" target="_blank">Pinterest</a></li>{%endif%}
+					</ul></dd>
+				</dl>
+				{%endif%}
+				{%if settings.newsletter and settings.newsletter.display_in_footer%}
+				{{ 'js/subscribe_email.js' | common_asset_script }}
+				<div data-component="subscribe-email" class="newsletter">
+					<h2>Newsletter</h2>
+					<form>
+						<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+						<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+						<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+						<button class="btn-send">Sign Up</button>
+					</form>
+				</div>
+				{%endif%}
+			</div>
+		</div>
+
+		<div class="bottom">
+			<div id="wrap-fix">  
+				<p class="cr">Powered by <a href="http://fancy.com">Fancy</a></p>
+			</div>
+		</div>  
+	</div>
+</div>
+
+<div id="popup_container">
+	<div class="popup information shipping">
+		<div class="text">
+			<h3 class="title">Shipping Information</h3>
+			<p>{{seller.shipping_policy}}</p>
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+	<div class="popup information returns">
+		<div class="text">
+			<h3 class="title">Returns & Exchanges</h3>
+			<p>{{seller.custom_policy}}</p>
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+</div>
+<script>
+	$('a[href="/pages/return-policy"]').attr('href','#').attr('onclick',"$('#popup_container').addClass('returns').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.returns').height()){$('.popup.returns').css('margin-top',($('#popup_container').height()-$('.popup.returns').height())/2+'px');}},10);return false;");
+</script>
+</body>
+</html>

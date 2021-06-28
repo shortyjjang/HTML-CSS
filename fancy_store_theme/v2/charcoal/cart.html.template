@@ -1,0 +1,190 @@
+<div class="shoptitle bag">
+    <h3>Shopping Bag</h3>
+</div> 
+<div class="cart">
+    <div class="not-empty">
+      <table cellspacing="0" cellpadding="0">
+        <colgroup>
+          <col width="120">
+          <col>
+          <col width="150">
+          <col width="68">
+          <col width="150">
+        </colgroup>
+        <thead>
+          <tr>
+            <th colspan="2">Item</th>
+            <th id="mweb-r">Price</th>
+            <th id="mweb-r" class="qty">Quantity</th>
+            <th id="mweb-r">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="template" data-id="" style="display:none">
+            <td width="80px" class="mweb-img"><img src="/_ui/images/common/blank.gif" style="/*background-image:url();*/"></td>
+            <td class="info">
+              <strong class="title"></strong>
+              <span class="option" style="display:none">
+                <span class="selectBox"><select data-option-id=""></select></span>
+              </span>
+              <a href="#" class="remove">Remove</a>
+            </td>
+            <td class="price"></td>
+            <td class="qty"><input type="text" class="text quantity" value="1" data-value="1"></td>
+            <td class="total"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="summary">
+        <span class="subtotal_"><label>Sub Total</label> <b class='total_'></b></span>
+        <span>Excluding tax and shipping fee</span>
+      </div>
+      <div class="btn-area">
+        {%if viewer.id != seller.id%}
+        <a href="#" class="buttons btn-checkout">Proceed to checkout</a>
+        {%else%}
+        <button class="buttons btn-checkout" disabled>You can't purchase from your own store</button>
+        {%endif%}
+      </div>
+    </div>
+    <div class="empty" style="display:none;">
+      <p class="wl-empty">There are no items in your basket.</p>
+    </div>
+</div>
+
+<script>
+(function($){
+    var $tbody, $tpl;
+
+    $('#wrap').attr('class', 'cart sub');
+    $tbody = ($tpl = $('#template')).parent();
+    $tpl.remove().removeAttr('id').removeAttr('style');
+
+    // draw cart
+    function drawCart(json) {
+        var $page = $('.cart').removeClass('loading'), count = 0;
+        if (!json || !json.items || !json.items.length) {
+            $page.find('.empty').show();
+            $page.find('.not-empty').hide();
+            return;
+        }
+
+        // subtotal
+        $page.find('.total_').text('$'+json.subtotal_price);
+
+        // checkout url
+        $page.find('.btn-checkout').attr('href', json.checkout_url);
+        try {
+          ga(function(tracker) { 
+            var href = json.checkout_url;
+            if (href.indexOf("?") > 0) href = href + "&" + tracker.get('linkerParam');
+            else href = href + "?" + tracker.get('linkerParam');
+            $page.find('.btn-checkout').attr('href', href);
+          } );
+        } catch(e) { }
+
+        $.each(json.items, function(idx, item){ count += item.quantity; updateRow(item) });
+        $('#header .btn-cart').find('.count b').text(count);
+
+        $page.find('.empty').hide();
+        $page.find('.not-empty').show();
+    };
+    function updateRow(item) {
+        var $row = $tbody.find('>tr[data-id="'+item.id+'"]'), $sel, isNew = false;
+
+        if (!$row.length) {
+            isNew = true;
+            $row  = $tpl.clone();
+            $row.find('img').attr('src', item.image_url);
+        }
+
+        $row
+            .attr('data-id', item.id)
+            .find('a').attr('href', '{{path_prefix}}/shop/'+item.thing_id).end()
+            .find('.title').text(item.title).end()
+            .find('.quantity').val(item.quantity).attr('data-value', item.quantity).end()
+            .find('.price').text('$'+item.item_price).end()
+            .find('.total').text('$'+item.subtotal_price).end();
+
+        if (item.item_retail_price > 0) {
+            $row.find('.price').addClass('sales');
+            $row.find('.price')
+                .html('$'+item.item_price+' <small class="before">$'+item.item_retail_price+'</small>');
+        }
+
+        if (item.option) {
+            $sel = $row.find('.option').css('display','').find('select').attr('data-option-id', item.option_id).empty();
+            $.each(item.available_options, function(i, opt){
+                $('<option value="'+opt.id+'" />').text(opt.name).appendTo($sel);
+            });
+            $sel.find('option[value="'+item.option_id+'"]').prop('selected', true);
+        }
+
+        if (isNew) $row.appendTo($tbody);
+    };
+    function loadCart() {
+        Cart.get().then(drawCart);
+    };
+    loadCart();
+
+    function lockRow($elem) {
+        var $row = $elem.closest('tr').addClass('locked');
+        $row.find('input,select').prop('disabled', true);
+    };
+
+    function unlockRow($elem) {
+        var $row = $elem.closest('tr').removeClass('locked');
+        $row.find('input,select').prop('disabled', false);
+    };
+
+    function locked($elem) {
+        return $elem.closest('tr').hasClass('locked');
+    };
+
+    function updateFailed(err, msg){
+        if(err.responseText){
+            var json = JSON.parse(err.responseText);
+            if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+                alert("You can only order a maximum quantity of "+json.quantity+" for this item");
+                var $qty = $tbody.find("input.quantity");
+                $qty.val( json.quantity ).trigger("blur");
+            }else{
+                alert('Unable to update quantity. Please try again later.');
+                var $qty = $tbody.find("input.quantity");
+                $qty.val( $qty.attr('data-value') );
+            }
+        }
+    }
+
+    $tbody
+        .on('change', '.option select', function(event){
+            var $this = $(this), cartItemID = $this.closest('tr').attr('data-id');
+
+            lockRow($this);
+            Cart.update(cartItemID, null, this.value).then(updateRow).then(function(){ unlockRow($this) });
+        })
+        .on('blur keyup', 'input.quantity', function(event){
+            if (event.type == 'keyup') {
+                if (event.which != 13) return;
+                event.preventDefault();
+            }
+
+            var $this = $(this), qty = parseInt($.trim(this.value)), cartItemID = $this.closest('tr').attr('data-id');
+
+            if (isNaN(qty) || qty < 0) this.value = qty = 1;
+            if (qty == $this.attr('data-value')) return;
+
+            lockRow($this);
+            Cart.update(cartItemID, qty).then(updateRow).fail(updateFailed).then(loadCart).always(function(){ unlockRow($this) });
+        })
+        .on('click', 'a.remove', function(event){
+            event.preventDefault();
+            var $this = $(this), $tr = $this.closest('tr'), cartItemID = $tr.attr('data-id');
+
+            if (locked($tr)) return;
+
+            lockRow($tr);
+            Cart.remove(cartItemID).then(loadCart).then(function(){ $tr.remove(); });
+        });
+})(jQuery);
+</script>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AI 데이터 표준화 포럼</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	<div id="header">
+		<div class="inner">
+			<a href="index.html" class="logo">AI 데이터 표준화 포럼 <small>AI  Data  Standardization  Forum</small></a>
+			<a href="#" class="menu" title="메뉴열기" onclick="$('#header').toggleClass('open');return false;"><i></i></a>
+			<ul class="navigation">
+				<li><a href="about.html">포럼소개</a>
+					<small>
+						<a href="about.html">AI데이터란?</a>
+						<a href="business.html">주요사업</a>
+						<a href="organization.html">조직도</a>
+						<a href="members.html">회원현황</a>
+					</small>
+				</li>
+				<li><a href="standard.html">표준화참여</a>
+					<small>
+						<a href="standard.html">포럼표준</a>
+						<a href="iso.html">국내외 표준</a>
+					</small>
+				</li>
+				<li><a href="news.html">알림마당</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<!-- content area -->
+		<style>
+		</style>
+		<div class="slideshow">
+			<div class="background">
+				<span style="background-image:url('./_static/images/slideshow01.jpg')" class="current"></span>
+				<span style="background-image:url('./_static/images/slideshow02.jpg')"></span>
+				<span style="background-image:url('./_static/images/slideshow03.jpg')"></span>
+			</div>
+			<div class="paging">
+				<a href="#" class="current"></a>
+				<a href="#"></a>
+				<a href="#"></a>
+			</div>
+			<h1>AI<br/> Data<br/> Standardization<br/> Forum</h1>
+		</div>
+		<ul class="banner">
+			<li><span class="bg" style="background-image:url('./_static/images/banner_join.jpg')"></span><a href="#">AI데이터 표준화 포럼 <b>회원 모집</b> <small>신청서 다운로드</small></a></li>
+			<li><span class="bg" style="background-image:url('./_static/images/banner_down.jpg')"></span><a href="#">AI데이터 표준화 <b>상시 수요조사</b> <small>조사서 다운로드</small></a></li>
+		</ul>
+		<!-- //content area -->
+		<div id="footer">
+			<div class="inner">
+			<a href="index.html" class="logo">AI 데이터 표준화 포럼 <small>AI  Data  Standardization  Forum</small></a>
+				<div class="privacy-menu">
+					<a href="terms.html">이용약관</a>
+					<a href="privacy.html">개인정보처리방침</a>
+					<a href="email.html">이메일주소 무단 수집 거부</a>
+				</div>
+				<div class="contact-info">
+					<address>서울특별시 중구 세종대로9길 42 부영빌딩 8층 한국데이터산업진흥원</address>
+					<span class="email">이메일 : <a href="mailto:aiforum@kdata.or.kr;">aiforum@kdata.or.kr</a></span>
+				</div>
+				<div class="copyright">Copyright © 2020. All Rights Reserved.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+jQuery(function($){
+	var $slide = $('.slideshow'), timer, num;
+	$slide
+		.height($(window).height())
+		.find('.paging a').click(function(){
+			slideshow($(this).index()-1);
+			return false;
+		});
+	if($(window).width()<900) $slide.height($(window).height() - 200);
+	$(window).resize(function(){
+		$slide.height($(window).height());
+		if($(window).width()<900) $slide.height($(window).height() - 200);
+	});
+	function slideshow(num){
+		clearTimeout(timer);
+		num = num + 1;
+		if (num === $slide.find('.background span').length) num = 0;
+		$slide.find('.background span, .paging a').removeClass('current').end().find('.background span:eq('+num+'), .paging a:eq('+num+')').addClass('current');
+		timer = setTimeout(function(){
+			slideshow(num);
+		},5000);
+	}
+	timer = setTimeout(function(){
+		slideshow(0);
+	},10000);
+});
+
+</script>
+</body>
+
+</html>

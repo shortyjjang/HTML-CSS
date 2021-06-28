@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" href="./css/checkout.v2.css">
+</head>
+<body>
+<div id="checkout">
+	<div class="after">
+		<div class="left">
+			<div class="summary">
+				<h1 class="logo"><a href="#" class="logo-img"><img src="//thefancy-media-ec1.thefancy.com/test_ThemeAssets/12/header_b7822acf4f5c.png" alt="" /></a>
+				<b>Cake</b>
+				Apparel and home goods. NYC Shop now<br />
+				<a href="#">cake.fancy.com</a>, <a href="#">abc@defg.com</a></h1>
+			</div>
+			<div class="sign start">
+				<h2>Buy with Fancy</h2>
+				<p>Have a Fancy account? Sign in for easy checkout.</p>
+				<div class="btn-area"><a href="#" class="btn-sign"onclick="$('.sign, .payment .frm, .shipping .frm, .error-box').hide();$('.user-info, .payment .go-new, .payment .save-card, .shipping .save').show();return false;">Sign In</a></div>
+				<fieldset>
+					<h2>Guest checkout <span class="tooltip">Why is my email required<small>Your email address is used for your order confirmation and shipment notification. We never share your information with third parties.</small></span></h2>
+					<input type="text" class="text" placeholder=" Email Address" />
+				</fieldset>
+			</div>
+			<div class="user-info" style="display:none;">
+				<h2>Buy with Fancy</h2>
+				<p>Signed in as <b>hojee</b></p>
+				<a href="#" class="go-signout" onclick="$('.sign, .user-info, .shipping .save,.shipping .go-back,.shipping .go-new').hide();$('.sign.start, .shipping .frm').show();return false;">Edit</a>
+			</div>
+			<div class="frm">
+				<div class="shipping">
+					<h2>Shipping</h2>
+					<a href="#" class="go-new" style="display:none;" onclick="$('.shipping-info,.shipping .go-new, .shipping .save').hide();$('.shipping, .shipping .frm,.shipping .go-back').show();return false;">Add new Shipping Address</a>
+					<a href="#" class="go-back" style="display:none;"onclick="$('.shipping-info,.shipping .go-back, .shipping .frm').hide();$('.shipping, .shipping .save,.shipping .go-new, .shipping .save-adds').show();return false;">Back</a>
+
+					<fieldset style="display:none;" class="save">
+						<div class="save-adds" >
+							<span class="selectBox"><select>
+								<option>Work</option>
+							</select></span>
+						</div>
+						<address>
+							<b>Hojung Kim</b><br />
+							Spring Street<br />
+							New York, New York 10012<br />
+							United States
+						</address>
+					</fieldset>
+
+					<fieldset class="frm">
+						<p class="error-box"><i class="icon"></i>Please enter a valid shipping address</p>
+						<p class="name"><input type="text" class="text" placeholder="Full name" /></p>
+						<p class="nick"><input type="text" class="text" placeholder="Shipping Nickname" /></p>
+						<p class="addr1"><input type="text" class="text" placeholder="Address Line 1" />
+						<span class="error-msg" style="display:block;" data-msg-empty="Please enter your full name">Street Name</span></p>
+						<p class="addr2"><input type="text" class="text" placeholder="Address Line 2" /></p>
+						<p class="country"><span class="selectBox"><select>
+							<option>United States</option>
+						</select></span></p>
+						<p class="city"><input type="text" class="text" placeholder="City" /></p>
+						<p class="state"><span class="selectBox"><select>
+							<option>New York</option>
+						</select></span></p>
+						<p class="zip"><input type="text" class="text" placeholder="Zip" /></p>
+						<p class="phone"><input type="text" class="text" placeholder="Phone" /></p>
+					</fieldset>
+				</div>
+				<div class="shipping-type">
+					<h2>Shipping Type</h2>
+					<fieldset>
+						<ul >
+							<li><input type="radio" checked onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="standard" name="shipping-type"/> <label for="standard">International Standard - <b>$5.00</b></label></li>
+							<li><input type="radio"  onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="express" name="shipping-type"/> <label for="express">International Express - <b>$20.00</b></label></li>
+						</ul>
+					</fieldset>
+				</div>
+				<div class="gift-option">
+					<h2>Gift Options</h2>
+					<input type="checkbox" onclick="$(this).closest('.gift-option').find('fieldset').toggle();" id="mark_gift" /> <label for="mark_gift">Make this order a gift</label>
+					<fieldset style="display:none;"><textarea placeholder="Include a gift message" class="text"></textarea></fieldset>
+				</div>
+				<div class="order-note">
+					<h2>Note to Cake</h2>
+					<fieldset><textarea class="text" placeholder="Add a note for the seller"></textarea></fieldset>
+				</div>
+				<div class="order-coupon">
+					<h2>Coupons</h2>
+					<fieldset>
+						<p class="add">
+							<input type="text" class="text"onkeypress="$(this).closest('p').addClass('error');" placeholder="Coupon Code" />
+							<button class="btn-apply" onclick="$('.coupon-list').show();$(this).closest('p').removeClass('error');">Apply</button>
+							<span class="error-msg">The coupon is invalid</span>
+						</p>
+						<p class="coupon-list" style="display:none;">
+							<b class="name">TENPERCENT</b>
+							<span class="detail">You received 10% off</span>
+							<a href="#" class="remove">Remove</a></li>
+						</p>
+					</fieldset>
+				</div>
+				<div class="payment">
+					<h2>Payment</h2>
+					<fieldset>
+						<a href="#" class="go-back" style="display:none;" onclick="$('.payment .frm, .payment .go-back').hide();$('.payment .save-card, .payment .go-new').show();return false;">Back</a>
+						<a href="#" class="go-new" style="display:none;" onclick="$('.payment .frm, .payment .go-back').show();$('.payment .save-card, .payment .go-new').hide();return false;">Add new Credit Card</a>
+						<div class="save-card" style="display:none;">
+							<span class="card visa"></span>
+							<span class="selectBox"><select>
+								<option>Work</option>
+							</select></span>
+						</div>
+						<p class="error-box"><i class="icon"></i>Please enter a valid card number.</p>
+						<div class="frm">
+							<p class="name"><input type="text" class="text" placeholder="Name on card" /></p>
+							<p class="number">
+								<span class="card"></span>
+								<input type="text" class="text" placeholder="Credit Card Number" />
+								<span class="error-msg" style="display:block;">Credit Card Number</span>
+							</p>
+							<p class="date">
+								<span class="selectBox month"><select>
+									<option>04</option>
+								</select></span>
+								<span class="selectBox year"><select>
+									<option>2014</option>
+								</select></span>
+							</p>
+							<p class="cvc"><input type="text" class="text" placeholder="CVC" /></p>
+							<p class="billing"><input type="checkbox" id="use_billing" checked onclick="$('.billing-frm').toggle();"/> <label for="use_billing">Billing address same as Shipping</label></p>
+							<div class="billing-frm after" style="display:none;">
+								<p class="addr1"><input type="text" class="text" placeholder="Address Line 1" />
+								<span class="error-msg" data-msg-empty="Please enter your full name">Please enter street name</span></p>
+								<p class="addr2"><input type="text" class="text" placeholder="Address Line 2" /></p>
+								<p class="country"><span class="selectBox"><select>
+									<option>United States</option>
+								</select></span></p>
+								<p class="city"><input type="text" class="text" placeholder="City" /></p>
+								<p class="state"><span class="selectBox"><select>
+									<option>New York</option>
+								</select></span></p>
+								<p class="zip"><input type="text" class="text" placeholder="Zip" /></p>
+								<p class="phone"><input type="text" class="text" placeholder="Phone" /></p>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="quick-button">
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+		<div class="right">
+			<div class="summary">
+				<h2>Order Summary</h2>
+				<ul class="order-list">
+					<li class="after">
+						<div class="item">
+							<img src="//thefancy-media-ec2.thefancy.com/commerce/310/20170124/6412af509f514d32a1351d268255c4a4.png" alt="">
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+						<div class="cs">
+							<a href="#" class="show" onclick="$(this).fadeOut('fast').closest('.cs').find('.add').slideToggle();return false;">Customize this item</a>
+							<div class="add">
+								<label>Customize</label>
+								<textarea class="text" placeholder="Type your request..."></textarea>
+							</div>
+						</div>
+					</li>
+					<li class="after">
+						<div class="item">
+							<img src="//thefancy-media-ec2.thefancy.com/commerce/310/20170124/6412af509f514d32a1351d268255c4a4.png" alt="">
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+					</li>
+				</ul>
+				<ul class="receipt">
+					<li><label class="label">Subtotal</label> <span class="price">$291.00</span></li>
+					<li><label class="label">Shipping</label> <span class="price yet">Address not set</span></li>
+					<li><label class="label">Estimated Tax <span class="tooltip"><i class="icon"></i><small>Actual tax will be calculated when your order is processed. Tax may vary slighely from what is displayed here</small></span></label> <span class="price yet">Address not set</span></li>
+					<li class="total"><label class="label">Order Total</label> <span class="price">$230.00</span></li>
+				</ul>
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$('#checkout .signin h2 small a').hover(function(){
+	$('#checkout .signin .sns-other').css('left',$('#checkout .signin h2 small').width() - ($(this).width()/2) + 30 +'px');
+});
+</script>
+</body>
+</html>

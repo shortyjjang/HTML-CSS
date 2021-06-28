@@ -1,0 +1,61 @@
+<div id="shop" class="page">
+	<div class="search">
+		<ul class="sort">
+			<li class="category">
+				<select class="mn-sort" id="category">
+					{% for c in settings.categories%}
+						<option value="#categories={{c.key}}" {%if params.categories == c.key %}selected{%endif%}>{{c.name}}</option>
+					{% endfor %}
+				</select>
+			</li>
+		</ul>
+	</div>
+	<div class="inner figure-list"  data-component='infiniteshow' data-nextpage="{{next_page}}">
+		<h3>PRODUCTS</h3>
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{t.id}}">
+					<span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ t.image.url }})"></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						<span class="price{% if t.sale.retail_price %} sales{% endif %}">
+						{% if t.sale.price_varies %}
+							From ${{t.sale.price_min|amount_nodecimals|intcomma}}
+						{% else %}
+                            {% if t.sale.retail_price %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                            {% else %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            {% endif %}
+						{% endif %}
+						</span>
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator"><span class="loading">Loading...</span></div>		
+	</div>
+</div>
+{{ 'js/infiniteshow.js' | common_asset_script }}
+<script>
+jQuery(function($){ $('#wrap').attr('class', 'list sub'); });
+
+
+$(".sort select").change(function(event){
+	event.preventDefault();
+
+	var param = $(event.target).val().slice(1).split("=");
+	
+	var url = location.pathname, args = location.search.slice(1);
+	url = path_prefix+"things";
+	var regex = new RegExp("&?"+param[0]+"=[^&]*");
+	args = args.replace(regex,'');
+	if(param[1])		
+		args += '&'+param[0]+'='+param[1];
+
+	document.location.href = url + "?" + args;
+})
+</script>

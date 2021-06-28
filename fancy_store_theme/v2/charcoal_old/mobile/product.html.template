@@ -1,0 +1,181 @@
+<div id="thing" class="page">
+	<div class="inner">
+		<div class="figure-item after">
+			<div class="photo">
+				<ul class="figure-list">
+					{% for image in thing.sale.images %}
+					{% if image.url %}
+					<li><img src="{{image.url}}"></a></li>
+					{% endif %}
+					{% endfor %}
+				</ul>				
+				<div class="paging">
+					{% for image in thing.sale.images %}
+					{% if image.url %}
+						<a href="#" data-index="{{forloop.counter}}">{{forloop.counter}}</a>
+					{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="info">
+				<h2 class="title">{{thing.sale.title}}</h2>
+                {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price%}
+				<p class="price sales"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b>
+                <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small><small> USD</small></p>
+                {% else %}
+				<p class="price"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b> <small>USD</small></p>
+                {% endif %}
+				<fieldset class="frm">
+					<p class="option">
+					<label class="label">SELECT OPTION</label>
+					<span class="selectBox">
+						<select name="option" {% if not thing.sale.options|length %}disabled{%endif%}>
+							{% if not thing.sale.options|length %}
+							<option>No Options Available</option>
+							{% endif %}
+							{% for opt in thing.sale.options %}
+							<option data-price="{{opt.price}}" value="{{opt.id}}" data-quantity="{{opt.quantity}}" {% if opt.soldout %}disabled{% endif %}>{{opt.title}}</option>
+							{% endfor %}
+						</select>
+					</span>
+					</p>
+					<p class="qty">
+						<label class="label">QUANTITY</label>
+						<select name="qty">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+					</p>
+                                        {% if thing.sale.available %}
+                                        <button class="buttons btn-cart">ADD TO CART</button>
+                                        {% else %}
+                                        <button class="buttons btn-cart" disabled>{{thing.sale.status.upper}}</button>
+                                        {% endif %}
+				</fieldset>
+				<div class="detail" data-component="tabpage">
+					<ul class="detail-menu">
+						<li><a href="#tab-description" class="link_">DESCRIPTION</a></li>
+						<li><a href="#tab-shipping" class="link_">SHIPPING INFO</a></li>
+					</ul>
+					<dl id="tab-description" class="description">
+						<dt>DESCRIPTION</dt>
+						<dd>{{thing.sale.description|safe}}</dd>
+					</dl>
+					<dl id="tab-shipping" class="shipping">
+						<dt>SHIPPING INFO</dt>
+						<dd>{{thing.sale.shipping_policy|safe}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="minimum-list similar">
+			<h3>SIMILAR ITEMS</h3>
+			<ul class="after">
+				{% for thing in similar_things %}
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{thing.image.url | resize_url:'231x160'}})" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+jQuery(function($){
+	$('#wrap').attr('class', 'things sub');
+
+        $('select[name="option"]').on('change', function(event){
+               event.preventDefault();
+               var $selected = $(this).find(':selected');
+               if ($selected.length > 0 && $selected.data('price')) {
+                       $(this).parents('.info').find('.price b').text('$' + $selected.data('price'));
+              }
+        }).change();
+
+	var $figures = $('.figure-list'), $paging = $('.paging')
+	$(".paging a").click(function(event){
+		event.preventDefault();
+		$this = $(event.currentTarget);
+		var width = $figures.width();
+		var length = $figures.find("li").length;
+		var idx = $this.prevAll("a").length;
+		var toLeft = Math.max(width*idx, 0);
+		$figures.animate({scrollLeft: toLeft+"px"},300,"easeInOutExpo");
+		$paging.find('a.current').removeClass('current');
+		$this.addClass("current");
+	})	
+	$figures.swipe({
+		//allowPageScroll:"horizontal",
+		threshold:30,
+		triggerOnTouchEnd:false,
+		swipeRight:function(e){
+			$paging.find("a.current").prev("a").trigger("click");
+		},
+		swipeLeft:function(e){
+			$paging.find("a.current").next("a").trigger("click");
+		}
+	});
+	$paging.find("a:eq(0)").addClass('current');
+
+	$('.btn-cart').on('click', function(){
+		var qty = $('select[name="qty"]').val(), opt = $('select[name="option"]').val();
+		Cart.add({{thing.sale.id}}, qty, opt)
+			.then(function(data){
+				var count = 0;
+				if (data && data.items) {
+					for (var i=0; i < data.items.length; i++) {
+						if (data.items[i].seller_id != storeID) continue;
+						count += data.items[i].quantity;
+					}
+					$('#widget .count').text( count );
+				}
+			})
+			.fail(function(xhr){
+				var res = {}
+				try{res = JSON.parse(xhr.response);}catch(e){}
+				if(res.error_fields && res.error_fields[0] == 'quantity'){
+					alert("You can only order a maximum quantity of "+res.quantity+" for this item");
+				}
+			});
+	});
+
+	var quantity = Math.min(10,  $("select[name=option] option:selected").data('quantity')||{{thing.sale.quantity}});
+
+	function resetAvailableQuantity(quantity){
+		if(!quantity) quantity = 1;
+		if(quantity>10) quantity = 10;
+		$("select[name=qty]").empty();
+		for(var i=1 ; i<=quantity; i++){
+			$("<option value='"+i+"'>"+i+"</option>").appendTo( $("select[name=qty]") );
+		}
+	}
+	resetAvailableQuantity(quantity);
+	
+	$('select[name="option"]').on('change', function(event){
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0){
+           		if( typeof $selected.data('quantity') == 'undefined' ) return;
+           		var quantity = Math.min( $selected.data("quantity"), 10);
+				resetAvailableQuantity(quantity);
+				if( $selected.data('price') )
+                   $(this).parents('.info').find('.price b').text('$' + $selected.data('price'));
+          }
+    }).change();
+
+});
+</script>
+{{ 'js/tabpage.js' | common_asset_script }}
+{{ 'js/jquery-ui.js' | common_asset_script }}
+{{ 'js/jquery.touchSwipe.js' | common_asset_script }}

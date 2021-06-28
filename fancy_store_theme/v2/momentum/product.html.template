@@ -1,0 +1,146 @@
+<div id="thing" class="page">
+	<div class="inner">
+		<div class="figure-item after">
+			<div class="photo" aria-hidden="true">
+				<div class="zoom"><img src="{{thing.sale.images.0.url}}"></div>
+				<ul class="figure-list" style="display:none">
+					{% for image in thing.sale.images %}
+					{% if image.url %}
+					<li><a href="#{{forloop.counter}}" data-image="{{image.url}}"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{image.url}})"></a></li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<a href="#" class="prev"></a>
+				<a href="#" class="next"></a>
+			</div>
+			<div class="info">
+				<h2 class="title">{{thing.name}}</h2>
+                {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price%}
+				<p class="price sales"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b>
+                <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small><small> USD</small></p>
+                {% else %}
+				<p class="price"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b> <small>USD</small></p>
+                {% endif %}
+				<fieldset class="frm">
+					{%if thing.sale.options %}
+					<p class="option">
+					<label class="label">SELECT OPTION</label>
+					<span class="selectBox">
+						<select name="option">
+							{% for opt in thing.sale.options %}
+							<option data-price="{{opt.price}}" value="{{opt.id}}" {% if opt.soldout %}disabled{% endif %}>{{opt.title}}</option>
+							{% endfor %}
+						</select>
+					</span>
+					</p>
+					{%endif%}
+					<p class="qty">
+						<label class="label">QUANTITY</label>
+						<input type="text" class="text" name="qty" value="1">
+					</p>
+					<div class="btn-area">
+						{%if viewer.id != seller.id%}
+						{%if thing.sale.available %}
+						<button class="buttons btn-cart">ADD TO CART</button>
+						{%else%}
+						<button class="buttons btn-cart" disabled>{{thing.sale.status.upper}}</button>
+						{%endif%}
+						{%else%}
+						<a href="{{urls.fancy_home}}/merchant/products/{{thing.sale.id}}/edit" class="buttons btn-cart" target="_blank">EDIT SALE</a>
+						{%endif%}
+					</div>
+				</fieldset>
+				<div class="detail" data-component="tabpage">
+					<ul class="detail-menu">
+						<li><a href="#tab-description" class="link_">DESCRIPTION</a></li>
+						<li><a href="#tab-shipping" class="link_">SHIPPING INFO</a></li>
+					</ul>
+					<dl id="tab-description" class="description">
+						<dt>DESCRIPTION</dt>
+						<dd>{{thing.sale.description|safe}}</dd>
+					</dl>
+					<dl id="tab-shipping" class="shipping">
+						<dt>SHIPPING INFO</dt>
+						<dd>{{thing.sale.shipping_policy|linebreaksbr|safe}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="minimum-list similar">
+			<h3>SIMILAR ITEMS</h3>
+			<ul class="after">
+				{% for thing in similar_things %}
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{thing.sale.images.0.url | resize_url:'313x313'}})" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+                        {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price%}
+                        <p class="price sales"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b>
+                        <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small><small> USD</small></p>
+                        {% else %}
+						<span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+                        {% endif %}
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+jQuery(function($){
+	$('#wrap').attr('class', 'things sub');
+	$('.figure-list').on('click', 'a[href]', function(event){
+		event.preventDefault();
+		$("ul.figure-list li.current").removeClass("current");
+		$(event.currentTarget).closest("li").addClass("current");
+		$('.zoom img').attr('src', $(this).attr('data-image'));
+		$(".photo a.prev,.photo a.next").hide();
+		if( $("ul.figure-list li.current").eq(0).prev().find("a")[0] ){
+			$(".photo a.prev").show();
+		}
+		if( $("ul.figure-list li.current").eq(0).next().find("a")[0] ){
+			$(".photo a.next").show();
+		}
+	});
+	$("ul.figure-list li:eq(0) a").trigger("click");
+	$(".photo")
+		.on('click', 'a.prev', function(event){
+			event.preventDefault();
+			$("ul.figure-list li.current").eq(0).prev().find("a").trigger("click");		
+		})
+		.on('click', 'a.next', function(event){
+			event.preventDefault();
+			$("ul.figure-list li.current").eq(0).next().find("a").trigger("click");		
+		})
+
+    $('select[name="option"]').on('change', function(event){               
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0 && $selected.data('price')) {
+                   $(this).parents('.info').find('.price b').text('$' + $selected.data('price'));
+          }
+    }).change();
+
+	$('button.btn-cart').on('click', function(){
+		var qty = $('input[name="qty"]').val(), opt = $('select[name="option"]').val();
+		Cart.add({{thing.sale.id}}, qty, opt)
+			.then(function(){
+				location.href = $("a.btn-cart").click().attr("href");
+			})
+			.fail(function(res){
+				if(res.responseText){
+					var json = JSON.parse(res.responseText);
+					if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+                        alert("The item(s) in your cart are all that is currently available");
+						$('input[name="qty"]').val(json.quantity);
+					}else{
+						alert('Unable to add to cart. Please try again later.');
+					}
+				}else{
+					alert('Unable to add to cart. Please try again later.');
+				}
+			});
+	});
+});
+</script>

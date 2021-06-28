@@ -1,0 +1,214 @@
+{% load pipeline_assets %}{% load i18n %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html class="secure-checkout">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta charset="utf-8">
+	<title>{{seller_profile.brand_name}} - Checkout</title>
+    {% pipeline_css 'themes/_common/css/checkout.v2.css' %}
+	{% pipeline_compressed_js 'shop_common.min.js' %}
+    {% if storefront.custom_theme or storefront.custom_css %}
+    <style type="text/css">
+        {%comment%} PLEASE NOTE CSS SHOULD BE SANITIZED IF WE ARE GOING TO LET MERCHANTS EDIT THIS {%endcomment %}
+        {%if storefront.custom_theme and storefront.custom_theme.settings.custom_css%}
+        	{{storefront.custom_theme.settings.custom_css|safe}}
+        {%else%}
+        	{{storefront.custom_css|safe}}
+        {%endif%}
+    </style>
+    {% endif %}
+</head>
+<body>
+<div id="checkout">
+	<div class="after">
+		<div class="left">
+			<div class="summary">
+                <h1 class="logo">{% if logo_url %}<a href="{{ store_url }}" class="logo-img"><img src="{{ logo_url }}" alt=""></a>{% endif %}
+                    <b class="brand"><a href="{{store_url}}">{{seller_profile.brand_name}}</a></b>
+                <span class="tagline">{{seller_profile.tagline}}</span><br/>
+                <a href="{{store_url}}">{{store_url|simplify_url}}</a></h1>				
+			</div>
+			<div id="signup" class="sign start" {%if logged_in%}style="display:none"{%endif%}>
+                <h2>Buy with Paypal</h2>
+                {% if storefront and storefront.has_own_users %}
+                <p style="width: auto;">{% blocktrans with name=seller_profile.brand_name %}Have a {{name}} account?{% endblocktrans %}
+                <a href="{% url 'store_front_login' seller_name=owner.username %}?next={{request.get_full_path|urlencode}}" class="btn-sign">{% trans "Click here to sign in." %}</a></p>
+                {% else %}
+                <p>{% trans "Have a Fancy account?" %}
+                <a href="https://{{FANCY_DOMAIN}}/login?next=https://{{SECURE_FANCY_COM_DOMAIN}}{{request.get_full_path|urlencode}}" class="btn-sign">{% trans "Click here to sign in." %}</a></p>
+                {% endif %}
+				<fieldset>
+                    <h2>{% trans "Guest checkout" %} <span class="tooltip">{% trans "Why is my email required?" %} <small>{% trans "Your email address is used for your order confirmation and shipment notification. We never share your information with third parties." %}</small></span></h2>
+                    <p><input type="text" name="email" class="text" placeholder="{% trans "Email Address" %}" />
+                    <span class="error-msg" style="display:none;" data-msg="{% trans "Email Address" %}">{% trans "Email Address" %}</span></p>
+				</fieldset>
+			</div>
+			<div id="user_info" class="user-info" {%if not logged_in%}style="display:none"{%endif%}>
+                <h2>Buy with Paypal</h2>
+                <p>{% trans "Signed in as" %} <b>{{viewer.full_name}}</b></p>
+			</div>
+			<div class="frm">
+				<div class="shipping">
+                    <h2>{% trans "Shipping" %}</h2>
+					<fieldset class="save">
+						<address data-bind="current_addr">
+							<script type="template">
+								<% if(current_addr) { var addr = current_addr.attributes; %>
+									<%= addr.address1 %><br>
+									<% if(addr.address2){ %><%= addr.address2 %><br><% } %>
+									<%= addr.city %> <%= addr.state %> <%= addr.zip %><br>
+									<%= addr.country_name %>
+								<% } %>
+							</script>
+						</address>
+					</fieldset>
+				</div>
+				<div class="shipping-type" style="display:none;">
+					<h2>{% trans "Shipping Type" %}</h2>
+                    <fieldset>
+						<ul>
+							<script type="template"><% _.each(shipping_options, function(option){ %>
+<li class="shipping-type-item-<%= option.id %>"><input type="radio" name="shipping-type" id="shipping-type-<%= option.id %>" value="<%=option.id%>" <% if (option.selected) { %>checked<% } %>><label for="shipping-type-<%= option.id %>"> <span><%= option.label %></span> - <b>{{currency.symbol}}{% if convert_currency %}<%=option.amount_converted%>{% else %}<%=option.amount + option.other_sellers_shipping_cost%>{% endif %}</b></label></li><% }) %></script>
+						</ul>
+					</fieldset>
+				</div>
+				<div class="gift-option">
+					<h2>{% trans "Gift Options" %}</h2>
+					<input type="checkbox" data-bind="is_gift" onclick="$(this).closest('.gift-option').find('fieldset').toggle();" id="mark_gift"> <label for="mark_gift">{% trans "Make this order a gift" %}</label>
+					<fieldset style="display:none;">
+                        {% if limit_gift_message %}
+                        <textarea placeholder="{% trans "Include a gift message" %} ({% blocktrans %}Maximum {{limit_gift_message}} characters.{% endblocktrans %})" class="text" data-bind="gift_message" maxlength={{limit_gift_message}}></textarea>
+                        {% else %}
+                        <textarea placeholder="{% trans "Include a gift message" %}" class="text" data-bind="gift_message"></textarea>
+                        {% endif %}
+                    </fieldset>
+				</div>
+				<div class="order-note">
+					<h2>{% trans "Note to Merchant" %}</h2>
+					<fieldset><textarea class="text" placeholder="{% trans "Add a note for the seller" %}" data-bind="note"></textarea></fieldset>
+				</div>
+				<div class="order-coupon coupon_" style="">
+					<h2>{% trans "Coupons" %}</h2>
+					<fieldset>
+						<p class="add input_">
+							<input type="text" name="code" class="text" placeholder="{% trans "Coupon Code" %}">
+							<button class="btn-apply">{% trans "Apply" %}</button>
+							<span class="error-msg">{% trans "The coupon is invalid." %}</span>
+						</p>
+						<p class="coupon-list list_" style="display:none;" data-bind="coupons">
+							<script type="template">
+							<% _.each(coupons, function(coupon){ %>
+								<b class="name"><%= coupon.code %></b>
+								<span class="detail"><%= coupon.description %></span>
+								<a href="#<%= coupon.code %>" class="remove">Remove</a></li>
+							<% }); %>
+							</script>
+						</p>
+					</fieldset>
+				</div>			
+			</div>
+			<div class="quick-button">
+				<button class="btn-submit">{% trans "Submit Order" %}</button>
+			</div>
+		</div>
+		<div class="right">
+			<div class="summary">
+				<h2>{% trans "Order Summary" %}</h2>
+				<ul class="order-list items_" data-bind="items">
+					<script type="template">
+					<% _.each(items, function(item){ %>
+                        <li class="after" data-discount="<%= item.get('item_discount_percentage') %>" data-coupon-adjusted="<%= item.get('coupon_adjusted_price') %>" data-sale-id="<%=item.get('sale_id')%>" data-option-id="<%=item.get('option_id')%>" data-brand="<%=(item.get('brand') || '').replace('"', '&quot;')%>">
+							<div class="item">
+								<img src="<%= item.get('sale_image_url') %>" alt="">
+								<b class="title"><%= item.get('title') %></b>
+                                <% if (item.get('seller_name')!='{{owner.username}}') { %> <span class="seller">from <a href="https://fancy.com/shop/<%= item.get('seller_name') %>"><%= item.get('brand_name') || item.get('seller_name') %></a></span> <%}%>
+								<span class="option"><%= item.get('option') %><% if (item.get('personalization')) { %> | <%=item.get('personalization')%><% } %></span>
+								<span class="qty">{% trans "Qty" %}: <%= item.get('quantity') %></span>
+							</div>
+                            <span class="price">{{currency.symbol}}{% if convert_currency %}<%= item.get('item_price_converted') %>{% else %}<%= item.get('item_price') %>{% endif %}</span>
+                            <% if (item.get('preorder')) { %><span class="preorder-deposit">{% trans "Deposit" %}<br/>{{currency.symbol}}<%=parseFloat(item.get('preorder').deposit).toFixed(2)%></span><% } %>
+						</li>
+					<% }); %>
+					</script>
+				</ul>
+				<ul class="receipt">
+					<li><label class="label">{% trans "Subtotal" %}</label> <span class="price">{{currency.symbol}}<em data-bind="summary.subtotal_price">0</em></span></li>
+                    <li class="discount_amount_ hidden"><label class="label">{% trans "Discount" %}</label><span class="price">-{{currency.symbol}}<em data-bind="summary.discount_amount">0</em></span></li>
+					<li class="shipping_v"><label class="label">{% trans "Shipping" %}</label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.shipping">0</em></span></li>
+					<li class="tax_v"><label class="label">{% trans "Estimated Tax" %} <span class="tooltip"><i class="icon"></i><small>{% trans "Actual tax will be calculated when your order is processed. Tax may vary slightly from what is displayed here" %}</small></span></label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.tax">0</em></span></li>
+					<li class="coupon_amount_ hidden"><label class="label">{% trans "Coupon" %}</label> <span class="price">-{{currency.symbol}}<em data-bind="summary.coupon_amount"></em></span></li>
+                    <li class="fancy_rebate_ hidden"><label class="label">{% trans "Fancy Rebate" %}</label> <span class="price">-{{currency.symbol}}<em data-bind="summary.fancy_rebate"></em></span></li>
+                    <li class="fancy_gift_card_ hidden"><label class="label">{% if storefront.has_own_users %}{% trans "Gift Certificates" %}{% else %}{% trans "Gift card" %}{%endif%}</label> <span class="price">-{{currency.symbol}}<em data-bind="summary.fancy_gift_card"></em></span></li>
+                    <li class="antavo_discount_ hidden"><label class="label">Toad Points (<em data-bind="summary.antavo_points"></em> points)</label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">-{{currency.symbol}}<em data-bind="summary.antavo_discount">0</em></span></li>
+					<li class="total total_price_v"><label class="label">{% trans "Order Total" %}</label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.total_price">0</em></span></li>
+					<li class="preorder_remainder_" style="display:none"><label class="label">{% trans "Remainder" %}</label> <span class="price">{{currency.symbol}}<em data-bind="summary.preorder_remainder">0</em></span></li>
+					<li class="preorder_remainder_discount_" style="display:none"><label class="label">{% trans "Remainder Coupon" %}</label> <span class="price">-{{currency.symbol}}<em data-bind="summary.preorder_remainder_discount">0</em></span></li>
+					<li class="preorder_shipping_v" style="display:none"><label class="label">{% trans "Shipping" %}</label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.preorder_shipping">0</em></span></li>
+					<li class="preorder_tax_v" style="display:none"><label class="label">{% trans "Estimated Tax" %} <span class="tooltip"><i class="icon"></i><small>{% trans "Actual tax will be calculated when your order is processed. Tax may vary slightly from what is displayed here" %}</small></span></label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.preorder_tax">0</em></span></li>
+					<li class="preorder_remainder_total_v total" style="display:none;"><label class="label">{% trans "Pay Later" %}</label> <span class="price yet">{% trans "Address not set" %}</span><span class="price set hide">{{currency.symbol}}<em data-bind="summary.preorder_remainder_total">0</em></span></li>
+				</ul>
+				<button class="btn-submit">{% trans "Submit Order" %}</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% pipeline_js "common/js/model/checkout.js" %}
+{% pipeline_js "common/js/model/cartitem.js" %}
+{% pipeline_js "common/js/model/cart_coupon.js" %}
+{% pipeline_js "common/js/model/address.js" %}
+{% pipeline_js "common/js/model/credit_card.js" %}
+{% pipeline_js "common/js/model/order.js" %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<div id="fb-root"></div>
+<script>
+	namespace('Fancy.globals').sellerInfo = { id : "{{owner.id}}", username : "{{owner.username}}", 
+        url : "{{owner.absolute_html_url}}", store_url : "{{store_url}}" };
+
+    {%if logged_in%}
+	namespace('Fancy.globals').userInfo  = { id : "{{viewer.id}}", username : "{{viewer.username}}"};
+	{%endif%}
+    {% if 'staging' in request.GET %}
+    namespace('Fancy.globals').staging = true;
+    {% endif %}
+    {% if storefront %}
+    namespace('Fancy.globals').storefront = true;
+    {% endif %}
+    {% if convert_currency %}
+    namespace('Fancy.globals').convert_currency = true; 
+    {% endif %}
+    namespace('Fancy.globals').paypal_payment = { paymentId: '{{paypal_payment_id|escapejs}}', token: '{{paypal_token|escapejs}}', payerId: '{{paypal_payer_id|escapejs}}' };
+    namespace('Fancy.globals').STRIPE_PUBLISHABLE_KEY = '{{STRIPE_PUBLISHABLE_KEY}}';
+    (function() {
+		var txts = document.getElementsByTagName('TEXTAREA') 
+		for(var i = 0, l = txts.length; i < l; i++) {
+			if(/^[0-9]+$/.test(txts[i].getAttribute("maxlength"))) { 
+				var func = function() { 
+					var len = parseInt(this.getAttribute("maxlength"), 10); 
+					
+					if(this.value.length > len) { 
+						this.value = this.value.substr(0, len); 
+						return false; 
+					} 
+				}
+				txts[i].onkeyup = func;
+				txts[i].onblur = func;
+			} 
+		}
+	})();
+</script>
+<script src="/shop/themes/_common/js/checkout.stripe.unified.js"></script>
+<script type="text/javascript">
+  window.___gcfg = {
+    parsetags: 'explicit',
+    {% if request.session.user_signed_out %}isSignedOut: true,{% endif %}
+  };
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js?onload=initialize_google';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% include "seller_themes/_common/_tracking.html" %}
+{% if storefront.fb_pixel_id %}<script>fbq('track', 'InitiateCheckout');</script>{% endif %}
+</body>
+</html>

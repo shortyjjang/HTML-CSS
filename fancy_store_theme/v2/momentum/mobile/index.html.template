@@ -1,0 +1,75 @@
+<div id="home" class="page">
+   {%if settings.slideshow_image %}
+	<div class="cover">
+        <div class="slidesfx">
+          <div id="slides" {%if settings.slideshow_image|length < 2%}class='noslideshow'{%endif%}>
+           	  {% for slide in settings.slideshow_image %}
+              <div class="slide-item">
+                <a href="{{slide.link}}"><img src="{{ 'blank.gif' | asset_url }}" style="background-image:url({{ slide.name | asset_url }});"></a>
+                <div class="text" id="intro">
+                  <a href="{{slide.link}}">
+                    {% if settings.page_title %}<span class="category">{{settings.page_title}}</span>{%endif%}
+                    {% if slide.text %}<div>{{slide.text}}</div>{%endif%}
+                    {% if slide.button_text %}<span class="button">{{slide.button_text|default:''}}</span>{%endif%}
+                  </a>
+                </div>
+              </div>
+              {%endfor%}
+		  </div> 
+        </div>
+	</div>
+   {%endif%}
+   {% if settings.collections %}
+	<div class="collection-list">
+		<h3>COLLECTIONS</h3>
+		<ul class="after inner">
+			{% for c in settings.collections|to_collections:settings %}			
+			<li data-id="{{c.id}}">
+				<a href="{{path_prefix}}/collections/{{c.id}}">
+					<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url('{{c.image_url}}')" alt="">
+					<b class="title">{{c.name}}</b>
+					<span class="description">{{c.description}}</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>	
+   {%endif%}	
+</div>
+<script>
+$('#wrap').attr('class', 'home');
+</script>
+{%if settings.slideshow_image %}
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+{{ 'jquery.slides.min.js' | asset_script }}
+<script>
+    $(function() {
+        $('#content').attr('class', 'index');
+        $('#slides:not(.noslideshow)').slidesjs({
+            width: 1120,
+            height: 483,
+            navigation: {
+                effect: "fade"
+            },
+            pagination: {
+                effect: "fade"
+            },
+            effect: {
+                slide: {
+                    speed: 3000
+                }
+            },
+            play: {
+            active: false,
+            effect: "fade",
+            interval: 12000,
+            auto: true,
+            swap: false,
+            pauseOnHover: true,
+            restartDelay: 8000
+
+          }
+        });
+    });
+</script>
+{%endif%}

@@ -1,0 +1,23 @@
+<div id="collection" class="page">
+	<div class="inner figure-list">
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{t.id}}">
+					<span class="figure"><img src="{{t.image.url}}"/></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						{% if t.sale %}<span class="price">${{t.sale.price|amount_nodecimals|intcomma}}</span>{% endif %}						
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator" style='display:none'>
+			<span class="loading">Loading more products...</span>
+		</div>
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'list sub'); 
+</script>

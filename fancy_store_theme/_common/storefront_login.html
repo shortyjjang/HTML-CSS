@@ -1,0 +1,227 @@
+{% load pipeline_assets %}{% load i18n %}{% load humanize %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>{{seller_profile.brand_name}} - Sign in</title>
+	<link rel="apple-touch-icon" sizes="114x114" href="{% pipeline_url '_ui/images/ios-114.png' %}">
+	<link rel="apple-touch-icon" sizes="57x57" href="{% pipeline_url '_ui/images/ios-57.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% pipeline_url '_ui/images/ios-72.png' %}">
+	<link rel="shortcut icon" href="{% pipeline_url '_ui/images/favicon.ico' %}" type="image/x-icon" />
+    {% pipeline_css 'themes/_common/css/checkout.css' %}
+	{% pipeline_compressed_js 'shop_common.min.js' %}
+</head>
+<body>
+<div id="checkout">
+	<div id="signin" class="sign signin">
+		{% if logo_url %}<h1 class="logo"><a href="{{store_url}}"><img src="{{ logo_url }}" alt="" /></a></h1>{% endif %}
+        <h2>{% blocktrans with name=seller_profile.brand_name %}Sign in to {{name}}{% endblocktrans %}</h2>
+		<fieldset style="border-top:none;">
+			<h3>{% trans 'Sign in with your email or username' %}</h3>
+			<p><input type="text" name="email" class="text" placeholder="{% trans 'Email or username' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter your email or username' %}">{% trans 'Please enter your email or username' %}</span></p>
+			<p><input type="password" name="password" class="text" placeholder="{% trans 'Password' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter your password' %}">{% trans 'Please enter your password' %}</span></p>
+			<div class="btn-area">
+				<button class="btn-signin">{% trans 'Sign in' %}</button>
+                <a href="{% url 'store_front_forgot_password' seller_name=owner.username %}" class="go-pw">{% trans 'Forgot password?' %}</a>
+			</div>
+		</fieldset>
+	</div>
+	<div id="signup" class="sign signin">
+        <h2>{% trans "Or, Sign up" %}</h2>
+		<fieldset style="border-top:none;">
+			<p><input type="text" name="fullname" class="text" placeholder="{% trans 'Full name' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter your name' %}">{% trans 'Please enter your name' %}</span></p>
+			<p><input type="text" name="username" class="text" placeholder="{% trans 'Username' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter username' %}">{% trans 'Please enter username' %}</span></p>
+			<p><input type="text" name="email" class="text" placeholder="{% trans 'Email' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter your email address' %}">{% trans 'Please enter your email address' %}</span></p>
+			<p><input type="password" name="password" class="text" placeholder="{% trans 'Create password' %}" />
+            <span class="error-msg" data-msg-empty="{% trans 'Please enter your password' %}">{% trans 'Please enter your password' %}</span></p>
+			<div class="btn-area">
+				<button class="btn-signup">{% trans 'Sign up' %}</button>
+			</div>
+		</fieldset>
+	</div>
+</div>
+<div id="fb-root"></div>
+<script type="text/javascript">
+jQuery(function ($) {
+    var View = namespace('Fancy.View'), globals = namespace('Fancy.globals');
+
+    View.StorefrontSignin = Backbone.View.extend({
+		el : '#signin',
+		events : {
+			'click .btn-signin' : 'onSignin',
+			'click a.go-back' : 'onGoBack',
+			'click span.error-msg' : 'onClickErrorMsg',
+			'focus input' : 'onFocusInput',
+			'keypress input' : 'onSignin'
+		},
+		initialize : function(options) {
+			_.bindAll(this, 'render');
+		},
+		close : function() {
+			return this;
+		},
+		render : function() {
+			return this;
+		},
+		onSignin: function(e){
+			if(e.type=='keypress' && e.which != 13) return;
+
+			var $this = this;
+			var $target = $(e.currentTarget);
+			var $email = this.$('input[name=email]');
+			var $password = this.$('input[name=password]');
+
+			var isValid = true;
+			if(!$email.val()){
+				var $errorMsg = $email.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!$password.val()){
+				var $errorMsg = $password.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!isValid) return;
+			$target[0].disabled = true;
+			$this.$el.addClass('loading');
+			$.post('{% url 'store_front_login_json' seller_name=owner.username %}', {'username':$.trim($email.val()), 'password':$password.val(), 'callback':''},
+				function(response){
+					if (response.status_code != undefined && response.status_code == 1) {
+						navigateToNext();
+					} else if (response.status_code != undefined && response.status_code == 0) {
+						alert(response.message);
+					}
+				},
+				'json'
+			)
+            .fail(function(xhr) {
+                alert("Error occured. please try again.\n"+xhr.status + ' ' + xhr.statusText);
+            })
+            .always(function() {
+                $target[0].disabled = false;
+                $this.$el.removeClass('loading');
+            })
+		},
+		onGoBack: function(e){
+            if (e) e.preventDefault();
+			history.go(-1);
+		},
+		onClickErrorMsg: function(e){
+			var $target = $(e.currentTarget);
+			$target.parent().removeClass("error").find("input").trigger("focus");
+		},
+		onFocusInput: function(e){
+			var $target = $(e.currentTarget);
+			$target.parent().removeClass("error");
+		}
+
+	});
+
+    View.StorefrontSignup = Backbone.View.extend({
+		el : '#signup',
+		events : {
+			'click .btn-signup' : 'onSignup',
+			'click a.go-back' : 'onGoBack',
+			'click span.error-msg' : 'onClickErrorMsg',
+			'focus input' : 'onFocusInput',
+			'keypress input' : 'onSignup'
+		},
+		initialize : function(options) {
+			_.bindAll(this, 'render');
+		},
+		close : function() {
+			return this;
+		},
+		render : function() {
+			return this;
+		},
+		onSignup: function(e){
+			if(e.type=='keypress' && e.which != 13) return;
+
+			var $this = this;
+			var $target = $(e.currentTarget);
+			var $email = this.$('input[name=email]');
+			var $password = this.$('input[name=password]');
+			var $fullname = this.$('input[name=fullname]');
+			var $username = this.$('input[name=username]');
+
+			var isValid = true;
+			if(!$username.val()){
+				var $errorMsg = $username.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!$fullname.val()){
+				var $errorMsg = $fullname.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!$email.val()){
+				var $errorMsg = $email.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!$password.val()){
+				var $errorMsg = $password.parent().addClass("error").find("span.error-msg");
+				$errorMsg.text($errorMsg.attr("data-msg-empty"));
+				isValid = false;
+			}
+			if(!isValid) return;
+			$target[0].disabled = true;
+			$this.$el.addClass('loading');
+			var params = {'email':$.trim($email.val()), 'password':$password.val(), 'callback':'', 'fullname' : $.trim($fullname.val()), 'username' : $.trim($username.val())}
+			$.post('{% url 'store_front_signup_json' seller_name=owner.username %}', params,
+				function(response){
+                    if (response.status_code != undefined && response.status_code == 1) {
+                        {% if storefront.fb_pixel_id %}try { fbq('track', 'CompleteRegistration'); } catch (e) {}{% endif %}
+						navigateToNext();
+					} else if (response.status_code != undefined && response.status_code == 0) {
+						alert(response.message);
+					}
+				},
+				'json'
+			)
+            .fail(function(xhr) {
+                alert("Error occured. please try again.\n"+xhr.status + ' ' + xhr.statusText);
+            })
+            .always(function() {
+                $target[0].disabled = false;
+                $this.$el.removeClass('loading');
+            })
+
+		},
+		onGoBack: function(e){
+            if (e) e.preventDefault();
+			history.go(-1);
+		},
+		onClickErrorMsg: function(e){
+			var $target = $(e.currentTarget);
+			$target.parent().removeClass("error").find("input").trigger("focus");
+		},
+		onFocusInput: function(e){
+			var $target = $(e.currentTarget);
+			$target.parent().removeClass("error");
+		}
+
+	});
+
+    function navigateToNext() {
+        var nextURL = "{{ next | escapejs }}"
+        location.href = nextURL;
+    }
+
+    namespace('Fancy.globals').viewSignin = new Fancy.View.StorefrontSignin();
+    namespace('Fancy.globals').viewSignup = new Fancy.View.StorefrontSignup();
+});
+
+</script>
+{% include "seller_themes/_common/_tracking.html" %}
+</body>
+</html>

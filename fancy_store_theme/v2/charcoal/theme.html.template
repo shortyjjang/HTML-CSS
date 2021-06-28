@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+	<link rel="shortcut icon"href="{{ 'img/favicon.ico' | asset_url }}">
+	<link href="https://fonts.googleapis.com/css?family=Khula:300,400,600,700,800" rel="stylesheet">
+
+	{% if thing %}
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+	{% endif %}
+
+	{{ 'theme.css' | asset_css }}
+	{{ 'js/jquery.js' | common_asset_script }}
+	{{ 'js/jquery-ui.js' | common_asset_script }}
+	{{ header_content }}
+	{{ 'js/underscore.js' | common_asset_script }}
+	{{ 'js/popup.js' | common_asset_script }}
+	{{ 'main.js' | asset_script }}
+</head>
+<body {%if is_preview %} class="new-stack-theme"{%endif%}>
+<!-- store -->
+
+<!-- header -->
+<header id="header">
+	<div class="header-wrap">
+		<div class="inner">
+			<h1 class="logo"><a href="{{path_prefix}}/">{%if settings.logo_image %}<img src="{{settings.logo_image|asset_url}}" alt="{{settings.page_title}}">{%else%}{{settings.page_title}}{%endif%}</a></h1>
+
+			<div class="navigation">
+				<ul>
+					<li><a href="{{path_prefix}}/">Home</a></li>
+					<li><a href="{{path_prefix}}/shop">Shop</a></li>
+					{%if seller.collections|length > 0 %}
+					<li><a href="{{path_prefix}}/collections">Collections</a></li>
+					{%endif%}
+					{%if seller.blog_posts|length > 0 and settings.blogposts %}  
+					<li><a href="{{path_prefix}}/blog">Blog</a></li>                    
+					{%endif%}
+					<li><a href="{{path_prefix}}/about">About</a></li>
+					<div class="mwview">
+						{% if viewer.is_anonymous %}
+						<li><a href="https://{{secure_url}}/{{seller.username}}/login{% if LANG %}?lang={{LANG}}{% endif %}" id="login" class="account">Account</a></li>
+						{% else %}
+						<li><a onclick="location.href='{{path_prefix}}/wishlist';" href="{{path_prefix}}/wishlist" class="wishlist">Wishlist</a></li>
+						<li><a href="https://{{secure_url}}/{{seller.username}}/orders{% if LANG %}?lang={{LANG}}{% endif %}" class="account">Account</a></li>
+						{% endif %}
+						<li><div class="search"><input type="text" placeholder="Search" name="q" /></div></li>
+					</div>
+				</ul>
+			</div>
+
+			<div class="menu">
+				<a href="{{path_prefix}}/cart" class="btn-cart">Cart<small class="count"><b>0</b></small></a>
+				<div class="search"><input type="text" placeholder="Search" name="q" /></div>
+				<a href="#!" onclick="$('#header').toggleClass('hover');return false;" class="m_menu"></a>
+				{% if viewer.is_anonymous %}
+					<a href="https://{{secure_url}}/{{seller.username}}/login{% if LANG %}?lang={{LANG}}{% endif %}" id="login" class="account">Account</a>
+				{% else %}
+					<a onclick="location.href='{{path_prefix}}/wishlist';" href="{{path_prefix}}/wishlist" class="wishlist">Wishlist</a>
+					<a href="https://{{secure_url}}/{{seller.username}}/orders{% if LANG %}?lang={{LANG}}{% endif %}" class="account">Account</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</header>
+<!-- / header -->
+<div id="wrap">
+
+<div id="container">
+	<div id="content">
+{{ main_content }}
+	</div>
+</div>
+<!-- footer -->
+
+<div id="footer">
+	<div class="footer-menu">
+		<dl><dd><ul>
+			<li><a href="{{path_prefix}}/shop">Shop</a></li>
+			{%if seller.collections|length > 0 %}
+			<li><a href="{{path_prefix}}/collections">Collections</a></li>
+			{%endif%}
+			<li><a href="{{path_prefix}}/about">About Us</a></li>
+			<li><a href="{{path_prefix}}/contact">Contact Us</a></li>
+		</ul></dd></dl>
+		<dl><dd><ul>
+			<li><a href="{{path_prefix}}/terms">Terms of Service</a></li>
+			<li><a href="{{path_prefix}}/shipping-information">Shipping Information</a></li>
+			<li><a href="{{path_prefix}}/returns-exchanges">Returns & Exchanges</a></li>
+		</ul></dd></dl>
+		{%if settings.newsletter and settings.newsletter.display_in_footer%}
+		{{ 'js/subscribe_email.js' | common_asset_script }}
+		<div data-component="subscribe-email" class="newsletter">
+			<form>
+				<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+				<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+				<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+				<button class="btn-send">Sign Up</button>
+			</form>
+		</div>
+		{%endif%}
+		{%if settings.facebook_username or settings.twitter_username or settings.instagram_username or settings.pinterest_username%}
+		<dl><dd><ul>
+			{%if settings.facebook_username%}<li><a href="https://www.facebook.com/{{settings.facebook_username}}/" target="_blank">Facebook</a></li>{%endif%}
+			{%if settings.twitter_username%}<li><a href="https://twitter.com/{{settings.twitter_username}}" target="_blank">Twitter</a></li>{%endif%}
+			{%if settings.instagram_username%}<li><a href="https://instagram.com/{{settings.instagram_username}}" target="_blank">Instagram</a></li>{%endif%}
+			{%if settings.pinterest_username%}<li><a href="https://www.pinterest.com/{{settings.pinterest_username}}/" target="_blank">Pinterest</a></li>{%endif%}
+		</ul></dd></dl>
+		{%endif%}
+		<p class="cr">Powered by <a href="http://fancy.com">Fancy</a></p>
+	</div>
+</div>
+
+
+</div>
+<div id="popup_container">
+	<div class="popup information shipping">
+		<div class="text">
+			<h3 class="title">Shipping Information</h3>
+			<p>Please visit our <a href="{{path_prefix}}/shipping-information">shipping section</a> for full Shipping Information. {{settings.page_title}} ships worldwide and the exact shipping cost for each item will be calculated during checkout.</p>
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+	<div class="popup information returns">
+		<div class="text">
+			<h3 class="title">Returns & Exchanges</h3>
+			<p>We are happy to process returns for most purchases within 30 days of receipt if the item is unused and in its original condition, unless specifically stated otherwise at the time of purchase. Any returned item that is not in its original condition must be damaged or missing parts due to our error. Shipping and taxes are not refundable.</p>
+			<p>We will issue site credit for the item subtotal once your return is received, inspected and processed through our return center. All purchases paid with a coupon code, rebate or discount are final sale and may not be returned. </p>
+			<p>Please note, we cannot accept returns on final-sale merchandise, monogrammed/personalized items, special-order items or items damaged through normal wear and tear.</p>
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+</div>
+<script>
+	$('a[href="/pages/return-policy"]').attr('href','#').attr('onclick',"$('#popup_container').addClass('returns').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.returns').height()){$('.popup.returns').css('margin-top',($('#popup_container').height()-$('.popup.returns').height())/2+'px');}},10);return false;");
+</script>
+</body>
+</html>

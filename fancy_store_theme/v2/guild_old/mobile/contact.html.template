@@ -1,0 +1,34 @@
+<div id="contact" class="page" data-component="shop-contact">
+	<form class="frm">
+		<h3 class="title">CONTACT US <small>WE’D LOVE TO HEAR FROM YOU</small></h3>
+		<fieldset>
+			<input type="hidden" name="seller_username" value="{{seller.username}}">
+			<input type="hidden" name="subject" value="E-mail from a customer">
+			<p class="container_">
+				<input type="text" name="from_name" id="contact-from_name" class="text name" placeholder="Your name" value="{{viewer.full_name}}">
+				<label class="error-msg" for="contact-from_name" data-text="NAME REQUIRED"></label>
+			</p>
+			<p class="container_">
+				<input type="text" name="from_email" id="contact-from_email" class="text email" placeholder="Your email" value="{{viewer.email}}">
+				<label class="error-msg" for="contact-from_email" data-text="EMAIL REQUIRED"></label>
+			</p>
+			<p class="container_">
+				<textarea name="message" class="text msg" id="contact-message" placeholder="Your message"></textarea>
+				<label class="error-msg" for="contact-message" data-text="MESSAGE REQUIRED"></label>
+			</p>
+			<button type="submit" class="buttons btn-send" disabled>SEND MESSAGE</button>
+		</fieldset>
+		<address>
+			<span class="adds">{{settings.company_name}}</span><br/>
+			<span class="adds">{{settings.company_address}}</span>
+			<span class="tel">{{settings.company_tel}}</span>
+		</address>					
+	</form>
+	<p class="complete" style="display:none">
+		{{settings.msg_message_sent}}
+	</p>
+</div>
+<script>
+$('#wrap').attr('class', 'merchant-contact');
+</script>
+{{ 'js/contact.js' | common_asset_script }}

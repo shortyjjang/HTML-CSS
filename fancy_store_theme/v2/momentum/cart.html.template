@@ -1,0 +1,202 @@
+<div id="cart" class="page loading">
+	<h2 class="title inner">Shopping Cart</h2>
+	<div class="cart">		
+		<div class="inner">
+			<div class="not-empty">
+				<div class="inner">
+					<table class="order-list">
+						<colgroup>
+							<col width="*">
+							<col width="120">
+							<col width="90">
+							<col width="120">
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="item">Item</th>
+								<th class="price">Price</th>
+								<th class="qty">Quantity</th>
+								<th class="total">Total</th>
+								<th class="btn"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="template" data-id="" style="display:none">
+								<td class="item"><div class="product">
+									<img src="{{ 'img/blank.gif' | common_asset_url }}" style="/*background-image:url();*/">
+									<b class="title"></b>
+									<span class="option" style="display:none">
+										<span class="selectBox"><select data-option-id=""></select></span>
+									</span>
+									<span class='error' style='display:none'></span>
+								</div></td>
+								<td class="price"></td>
+								<td class="qty"><input type="text" class="text quantity" value="1" data-value="1"></td>
+								<td class="total"></td>
+								<td class="btn"><a href="#" class="remove"><i class="icon"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="sub-total">
+						<span class="label">Sub Total</span>
+						<b class="price subtotal_">$0</b>
+					</div>
+				</div>
+				<div class="btn-area">
+					{%if viewer.id != seller.id%}
+					<a href="#" class="buttons btn-checkout">Proceed to checkout</a>
+					{%else%}
+					<button class="buttons btn-checkout" disabled>You can't purchase from your own store</button>
+					{%endif%}		
+				</div>
+			</div>
+			<div class="empty">
+				<i class="icon"></i>There are no items in your cart.
+			</div>
+		</div>						
+	</div>
+</div>
+<script>
+(function($){
+	var $tbody, $tpl;
+
+	$('#wrap').attr('class', 'cart sub');
+	$tbody = ($tpl = $('#template')).parent();
+	$tpl.remove().removeAttr('id').removeAttr('style');
+
+	// draw cart
+	function drawCart(json) {
+		var $page = $('#cart').removeClass('loading'), count = 0, isAvailable = true;
+		if (!json || !json.items || !json.items.length) {
+			$page.find('.empty').show();
+			$page.find('.not-empty').hide();
+			return;
+		}
+
+		// subtotal
+		$page.find('.subtotal_').text('$'+json.subtotal_price);
+
+		$.each(json.items, function(idx, item){ 
+			count += item.quantity; 
+			if(!item.available_before_shipping) isAvailable = false;
+			updateRow(item) 
+		});
+		$('#widget .count').text(count);
+
+		// checkout url
+		if(isAvailable){
+			$page.find('.btn-checkout').attr('href', json.checkout_url).removeAttr('disabled');
+		}else{
+			$page.find('.btn-checkout').attr('href', '#').attr('disabled', 'disabled');
+		}
+
+		$page.find('.empty').hide();
+		$page.find('.not-empty').show();
+	};
+	function updateRow(item) {
+		var $row = $tbody.find('>tr[data-id="'+item.id+'"]'), $sel, isNew = false;
+
+		if (!$row.length) {
+			isNew = true;
+			$row  = $tpl.clone();
+			$row.find('img').attr('src', item.image_url);
+		}
+
+		$row
+			.attr('data-id', item.id)
+			.find('.title').text(item.title).end()
+			.find('.quantity').val(item.quantity).attr('data-value', item.quantity).end()
+			.find('.price').text('$'+item.item_price).end()
+			.find('.total').text('$'+item.subtotal_price).end();
+
+        if (item.item_retail_price > 0) {
+            $row.find('.price').addClass('sales');
+            $row.find('.price')
+                .html('$'+item.item_price+' <small class="before">$'+item.item_retail_price+'</small>');
+        }
+
+		if (item.option) {
+			$sel = $row.find('.option').css('display','').find('select').attr('data-option-id', item.option_id).empty();
+			$.each(item.available_options, function(i, opt){
+				$('<option value="'+opt.id+'" />').text(opt.name).appendTo($sel);
+			});
+			if( !$sel.find('option[value="'+item.option_id+'"]').length ){
+				$('<option value="'+item.option_id+'" disabled/>').text(item.option+(item.is_sold_out?' - Soldout':'')).appendTo($sel);
+            }
+			$sel.find('option[value="'+item.option_id+'"]').prop('selected', true);
+		}
+
+		if (!item.available_before_shipping){
+			$row.find("span.error").text( item.error_message_before_shipping ).show();
+		}else{
+			$row.find("span.error").text( "" ).hide();
+		}
+
+		if (isNew) $row.appendTo($tbody);
+	};
+	function loadCart() {
+		Cart.get().then(drawCart);
+	};
+	loadCart();
+
+	function lockRow($elem) {
+		var $row = $elem.closest('tr').addClass('locked');
+		$row.find('input,select').prop('disabled', true);
+	};
+
+	function unlockRow($elem) {
+		var $row = $elem.closest('tr').removeClass('locked');
+		$row.find('input,select').prop('disabled', false);
+	};
+
+	function locked($elem) {
+		return $elem.closest('tr').hasClass('locked');
+	};
+
+	function updateFailed(err, msg){
+		if(err.responseText){
+			var json = JSON.parse(err.responseText);
+			if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+				alert("You can only order a maximum quantity of "+json.quantity+" for this item");
+				var $qty = $tbody.find("input.quantity");
+		        $qty.val( json.quantity ).trigger("blur");
+			}else{
+				alert('Unable to update quantity. Please try again later.');
+				var $qty = $tbody.find("input.quantity");
+		        $qty.val( $qty.attr('data-value') );
+			}
+		}
+	}
+
+	$tbody
+		.on('change', '.option select', function(event){
+			var $this = $(this), cartItemID = $this.closest('tr').attr('data-id');
+
+			lockRow($this);
+			Cart.update(cartItemID, null, this.value).then(updateRow).then(function(){ unlockRow($this) });
+		})
+		.on('blur keyup', 'input.quantity', function(event){
+			if (event.type == 'keyup') {
+				if (event.which != 13) return;
+				event.preventDefault();
+			}
+
+			var $this = $(this), qty = parseInt($.trim(this.value)), cartItemID = $this.closest('tr').attr('data-id');
+
+			if (isNaN(qty) || qty < 0) this.value = qty = 1;
+			if (qty == $this.attr('data-value')) return;
+
+			lockRow($this);
+			Cart.update(cartItemID, qty).then(updateRow).fail(updateFailed).then(loadCart).always(function(){ unlockRow($this) });
+		})
+		.on('click', 'a.remove', function(event){
+			event.preventDefault();
+			var $this = $(this), $tr = $this.closest('tr'), cartItemID = $tr.attr('data-id');
+
+			if (locked($tr)) return;
+
+			lockRow($tr);
+			Cart.remove(cartItemID).then(loadCart).then(function(){ $tr.remove(); });
+		});
+})(jQuery);
+</script>

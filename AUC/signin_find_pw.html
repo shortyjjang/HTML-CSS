@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper" class="sign">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">비밀번호찾기</a>
+	</div>
+	<div id="content" class="fix_btns find_pw">
+		<!-- content area -->
+		<fieldset class="frm">
+			<input  type="text" class="text" placeholder="아이디" />
+			<input  type="text" class="text" placeholder="이메일" />
+		</fieldset>
+		<button class="button" disabled>다음</button>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.find_pw input.text').keydown(function(){
+		$('.button').removeAttr('disabled');
+	});
+	$('.button').click(function(){
+		location.href='./signin_find_pw_step2.html'
+	});
+});
+
+</script>
+</body>
+
+</html>

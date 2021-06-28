@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">스캔</a>
+	</div>
+	<div id="content" class="scan">
+		<span class="shadow"></span>
+
+		<canvas id="camera--sensor"></canvas>
+		<!-- 기기의 카메라에 접근하여 영상을 페이지에 재생한다. -->
+		<video id="camera--view" autoplay="" playsinline=""></video>
+		<img src="//:0" alt="" id="camera--output">
+		<button id="camera--trigger">사진촬영</button>
+
+		<div class="qr_area"></div>
+
+		<script>
+
+			let constraints = { video: { facingMode: "environment"}, audio: false};
+			const cameraView = document.querySelector("#camera--view");
+			const cameraOutput = document.querySelector("#camera--output");
+			const cameraSensor = document.querySelector("#camera--sensor");
+			const cameraTrigger = document.querySelector("#camera--trigger");
+
+
+			function cameraStart(){
+				navigator.mediaDevices.getUserMedia(constraints)
+				.then(function(stream){
+					track = stream.getTracks()[0];
+					cameraView.srcObject = stream;
+
+				})
+				.catch(function(error){
+					console.error("카메라에 문제가 있습니다.", error);
+				})
+			}
+
+			//촬영 버튼 클릭 리스너
+			cameraTrigger.addEventListener("click", function(){
+
+				cameraSensor.width = cameraView.videoWidth; //640으로 정해져서 나오네?
+				cameraSensor.height = cameraView.videoHeight;
+				cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
+				cameraOutput.src = cameraSensor.toDataURL("image/webp");
+				console.log(cameraSensor.height);
+			});
+
+			// 페이지가 로드되면 함수 실행
+			window.addEventListener("load", cameraStart, false);
+		</script>
+</div>
+</div>
+
+<script>
+jQuery(function($){
+});
+
+</script>
+</body>
+
+</html>

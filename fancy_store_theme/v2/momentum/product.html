@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=1300, user-scalable=yes" />
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+
+	<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href="./assets/theme.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div id="widget" style="">
+	<div class="after">
+		<div class="dropdown">
+			<a class="btn-dashboard"><i class="icon"></i>Dashboard</a>
+			<div class="dropdown_list">
+				<ul>
+					<li><a href="http://fancy.com/merchant/dashboard">Dashboard</a></li>
+					<li><a href="http://fancy.com/merchant/orders/open">Orders</a></li>
+					<li><a href="http://fancy.com/merchant/products">Products</a></li>
+					<li><a href="http://fancy.com/merchant/storefront">Storefront</a></li>
+					<li><a href="http://fancy.com/merchant/campaigns">Campaigns</a></li>
+				</ul>
+				<ul>
+					<li><a href="http://fancy.com/about/merchants/mobile">Download Seller App</a></li>
+					<li><a href="http://fancy.com/about/merchants">Help Center</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="dropdown" >
+			<a href="http://fancy.com/merchant/storefront#set_password" class="btn-pw {%if storefront.prop.is_locked%}on{%endif%}">Password</a>
+			<div class="dropdown_list">
+				<dl class="pw_off" {%if storefront.prop.is_locked%}style="display: none;"{%endif%}>
+					<dt>Password Off</dt>
+					<dd>
+						<p>Anyone can view your Storefront by visiting <b>{{request.hostname}}</b></p>
+						<a href="http://fancy.com/merchant/storefront#set_password" class="change" >Set a new password</a>
+					</dd>
+				</dl>
+				<dl class="pw_on" {%if not storefront.prop.is_locked%}style="display: none;"{%endif%}>
+					<dt>Password On</dt>
+					<dd>
+						<p>Your Storefront is currently protected by a password.</p>
+						<p>Only customers who know the password will be able to access your Storefront.</p>
+						<a href="http://fancy.com/merchant/storefront#set_password" class="change" >Change your password</a>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<a class="btn-customize"><i class="icon"></i>Customize</a>
+	</div>
+</div>
+<div id="wrap">
+	<header id="header">
+		<div class="inner after bg">
+			<h1 class="logo"><a href="{{path_prefix}}/"><img src="//thefancy-media-ec3.thefancy.com/themes/custom/26490/assets/img/logotype-b_4eec742c5ddb.svg" alt="{{settings.page_title}}"></a></h1>
+			<ul class="collection-list" id="ov-collection">
+				<li data-id="{{c.id}}">
+				<a href="{{path_prefix}}/collections/{{c.id}}"><b class="title">{{c.name}}</b></a>
+				</li>
+			</ul>
+			<ul class="navigation">
+				<li><a href="{{path_prefix}}/cart" class="btn-cart"><i class="icon"></i> CART</a>
+				<li><a href="{{path_prefix}}/shop" {% if path_prefix|add:'/shop'|is_prefix_of:current_path %}class="current"{% endif %}><span>SHOP</span></a>
+				<small id="ov-category"><a href="{{path_prefix}}/shop?categories={{c.key}}">{{c.name}}</a></small>
+				</li>
+				<li><a href="{{path_prefix}}/about" {% if path_prefix|add:'/about'|is_prefix_of:current_path %}class="current"{% endif %}><span>ABOUT</span></a></li>
+				<li><a href="{{path_prefix}}/contact" {% if path_prefix|add:'/contact'|is_prefix_of:current_path %}class="current"{% endif %}><span>CONTACT</span></a></li>
+				<li><a href="{{path_prefix}}/policies" {% if path_prefix|add:'/policies'|is_prefix_of:current_path %}class="current"{% endif %}><span>POLICIES</span></a></li>
+				<li><a href="{{path_prefix}}/newsletter" {% if path_prefix|add:'/newsletter'|is_prefix_of:current_path %}class="current"{% endif %}><span>NEWSLETTER</span></a></li>
+			</ul>
+			<div class="search">
+				<fieldset>
+					<input type="text" name="q">
+					<button class="btn-search">SEARCH</button>
+				</fieldset>
+			</div>
+		</div>
+	</header>
+	<div id="container">
+		<div id="content">
+
+<div id="thing" class="page">
+	<div class="inner">
+		<div class="figure-item after">
+			<div class="photo" aria-hidden="true">
+				<div class="zoom"><img src="https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg"></div>
+				<ul class="figure-list" style="display:none">
+					<li><a href="#{{forloop.counter}}" data-image="{{image.url}}"><img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)"></a></li>
+				</ul>
+				<a href="#" class="prev"></a>
+				<a href="#" class="next"></a>
+			</div>
+			<div class="info">
+				<h2 class="title">{{thing.name}}</h2>
+				<p class="price"><b>$55.00</b> <small>USD</small></p>
+				<fieldset class="frm">
+					<p class="option">
+						<label class="label">SELECT OPTION</label>
+						<span class="selectBox">
+							<select name="option">
+								<option data-price="{{opt.price}}" value="{{opt.id}}" {% if opt.soldout %}disabled{% endif %}>{{opt.title}}</option>
+							</select>
+						</span>
+						</p>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="text">
+							<li><a href="#" class="disabled">Small</a></li>
+							<li><a href="#">Medium</a></li>
+							<li><a href="#" class="selected">Large</a></li>
+						</ul>
+					</div>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="color">
+							<li><a href="#" style="background: #9FA2A7" class="disabled">#9FA2A7</a></li>
+							<li><a href="#" style="background: #B6D4A8">#B6D4A8</a></li>
+							<li><a href="#" style="background: #64739A" class="selected">#64739A</a></li>
+						</ul>
+					</div>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="thumbnail">
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="disabled">Small</a></li>
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)">Medium</a></li>
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="selected">Large</a></li>
+						</ul>
+					</div>
+					<p class="qty">
+						<label class="label">QUANTITY</label>
+						<input type="text" class="text" name="qty" value="1">
+					</p>
+					<div class="btn-area">
+						<button class="buttons btn-cart">ADD TO CART</button>
+					</div>
+				</fieldset>
+				<div class="detail" data-component="tabpage">
+					<ul class="detail-menu">
+						<li><a href="#tab-description" class="link_ current">DESCRIPTION</a></li>
+						<li><a href="#tab-shipping" class="link_">SHIPPING INFO</a></li>
+					</ul>
+					<dl id="tab-description" class="description current">
+						<dt>DESCRIPTION</dt>
+						<dd>{{thing.sale.description|safe}}</dd>
+					</dl>
+					<dl id="tab-shipping" class="shipping">
+						<dt>SHIPPING INFO</dt>
+						<dd>{{thing.sale.shipping_policy|linebreaksbr|safe}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="minimum-list similar">
+			<h3>SIMILAR ITEMS</h3>
+			<ul class="after">
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+						<span class="price">$35.00</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+						<span class="price">$35.00</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+						<span class="price">$35.00</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{path_prefix}}/shop/{{thing.id}}">
+						<img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" aria-hidden="true">
+						<b class="title">{{thing.name}}</b>
+						<span class="price">$35.00</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+jQuery(function($){
+	$('#wrap').attr('class', 'things sub');
+	$('.figure-list').on('click', 'a[href]', function(event){
+		event.preventDefault();
+		$("ul.figure-list li.current").removeClass("current");
+		$(event.currentTarget).closest("li").addClass("current");
+		$('.zoom img').attr('src', $(this).attr('data-image'));
+		$(".photo a.prev,.photo a.next").hide();
+		if( $("ul.figure-list li.current").eq(0).prev().find("a")[0] ){
+			$(".photo a.prev").show();
+		}
+		if( $("ul.figure-list li.current").eq(0).next().find("a")[0] ){
+			$(".photo a.next").show();
+		}
+	});
+	$("ul.figure-list li:eq(0) a").trigger("click");
+	$(".photo")
+		.on('click', 'a.prev', function(event){
+			event.preventDefault();
+			$("ul.figure-list li.current").eq(0).prev().find("a").trigger("click");		
+		})
+		.on('click', 'a.next', function(event){
+			event.preventDefault();
+			$("ul.figure-list li.current").eq(0).next().find("a").trigger("click");		
+		})
+
+    $('select[name="option"]').on('change', function(event){               
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0 && $selected.data('price')) {
+                   $(this).parents('.info').find('.price b').text('$' + $selected.data('price'));
+          }
+    }).change();
+
+	$('button.btn-cart').on('click', function(){
+		var qty = $('input[name="qty"]').val(), opt = $('select[name="option"]').val();
+		Cart.add({{thing.sale.id}}, qty, opt)
+			.then(function(){
+				location.href = $("a.btn-cart").click().attr("href");
+			})
+			.fail(function(res){
+				if(res.responseText){
+					var json = JSON.parse(res.responseText);
+					if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+                        alert("The item(s) in your cart are all that is currently available");
+						$('input[name="qty"]').val(json.quantity);
+					}else{
+						alert('Unable to add to cart. Please try again later.');
+					}
+				}else{
+					alert('Unable to add to cart. Please try again later.');
+				}
+			});
+	});
+});
+</script>
+
+		</div>
+	</div>
+	<div id="footer">
+		<div class="inner after">
+			<ul class="sns">
+				<li><a href="{{social.link}}" class='{{social.service}}'>{{social.name}}</a></li>
+			</ul>
+			<p class="copyright"><a href="http://fancy.com">POWERED BY <b>FANCY</b></a></p>
+		</div>
+	</div>
+</div>
+<script>
+	jQuery(function($){
+		$('a[href="../../../pages/return-policy"]').attr('href','/policies');
+	});
+</script>
+</body>
+</html>

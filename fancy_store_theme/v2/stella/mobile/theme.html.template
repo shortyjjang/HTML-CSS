@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" type="text/css">	
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	{{ 'mobile.css' | asset_css }}
+	{% if request.mobile_agent|lower == 'iphone' %}
+	<meta name="viewport" content="user-scalable=yes, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, width=640px, minimal-ui" />
+	<style>
+	@media screen and (-webkit-min-device-pixel-ratio:2){
+		body {font-size: 1.6em;}
+		.cart .order-list .btn a, .btn-nav, body #common-widget .btn-cart .icon, #footer .copyright b, #header .btn-cart .icon, #header .navigation .btn-cart a:before, .popup .popup_close:before {background-image:url('{{'m_theme2x.png'|asset_url}}');background-size:200px 200px;}
+	}
+	</style>
+	{%else%}<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">{%endif%}
+	{{ header_content }}
+	{{ 'js/jquery.js' | common_asset_script }}
+	{{ 'js/underscore.js' | common_asset_script }}
+	{{ 'js/popup.js' | common_asset_script }}
+	{{ 'js/tabpage.js' | common_asset_script }}
+	{{ 'mobile.js' | asset_script }}
+</head>
+<body>
+	<div id="wrap" class="home">
+		<header id="header">
+			<div class="navigation ">
+				<ul>
+					<li><a href="{{path_prefix}}/shop" {% if path_prefix|add:'/shop'|is_prefix_of:current_path %}class="current"{% endif %}>SHOP</a></li>
+					<li><a href="{{path_prefix}}/about" {% if path_prefix|add:'/about'|is_prefix_of:current_path %}class="current"{% endif %}>ABOUT</a></li>
+					<li><a href="{{path_prefix}}/contact" {% if path_prefix|add:'/contact'|is_prefix_of:current_path %}class="current"{% endif %}>CONTACT</a></li>
+				</ul>
+				<ul class="sns after">
+					{% for sns in seller.external_links %}
+					<li><a href="{{sns.link}}">{{sns.name}}</a></li>
+                	{% endfor %}
+				</ul>
+				<p class="copyright"><a href="http://fancy.com">POWERED BY <b>FANCY</b></a></p>
+			</div>
+			<div class="inner after bg">
+				<h1 class="logo"><a href="{{path_prefix}}/"><img src="{{settings.logo_image|asset_url}}" alt="hardgift" /></a></h1>
+				<a href="#" class="btn-nav" onclick="$(this).toggleClass('current');$('.navigation').slideToggle('fast');return false;"></a>
+				<a href="{{path_prefix}}/cart" class="btn-cart"><i class="icon"></i>Cart <small class="count">0</small></a>
+			</div>
+		</header>
+		<div id="container">
+			<div id="content">
+				{{ main_content }}
+			</div>
+		</div>
+	</div>
+
+	<div id="popup_container">
+		<div id="things" class="popup things">
+			<div class="figure-item after">
+				<div class="info">
+					<h2 class="title title_"></h2>
+					<p class="price">$<b class="price_"></b> <small class="currency_">USD</small></p>
+					<fieldset class="frm">
+						<p class="option">
+							<label class="label">SELECT OPTION</label>
+							<span class="selectBox"><select name="option">
+								<script type="template">
+								<% _.each(options, function(opt, index) { %>
+									<% if(!opt.soldout){ %>
+									<option value="<%= opt.id %>" data-soldout="<%= opt.soldout %>" data-price="<%= opt.price %>" data-quantity="<%= opt.quantity%>"><%= opt.name %></option>
+									<% } %>
+								<% }); %>
+								</script>
+							</select></span>
+						</p>
+						<p class="qty">
+							<label class="label">QUANTITY</label>
+							<span class="selectBox"><select name='qty'>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+								<option>6</option>
+								<option>7</option>
+								<option>8</option>
+								<option>9</option>
+								<option>10</option>
+							</select></span>
+						</p>
+						{%if viewer.id != seller.id%}
+						<button class="buttons btn-cart">ADD TO CART</button>
+						{%else%}
+						<button class="buttons btn-cart" disabled>You can't purchase from your own store</button>
+						{%endif%}
+					</fieldset>
+					<div class="detail"  data-component="tabpage">
+						<ul class="detail-menu">
+							<li><a href="#tab-description" class="link_">DESCRIPTION</a></li>
+							<li><a href="#tab-shipping" class="link_">SHIPPING INFO</a></li>
+						</ul>
+						<dl id="tab-description" class="description">
+							<dt>DESCRIPTION</dt>
+							<dd class="description_"></dd>
+						</dl>
+						<dl id="tab-shipping" class="shipping">
+							<dt>SHIPPING INFO</dt>
+							<dd class="shipping_policy_"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<button class="popup_close" onclick="$('#popup_container').hide().css('opacity','0');"></button>
+		</div>
+	</div>
+</body>
+</html>

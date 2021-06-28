@@ -1,0 +1,172 @@
+{%if settings.slideshow_image|length %}
+<div class="cover">
+  <div class="slidesfx">
+    <div id="slides" {%if settings.slideshow_image|length < 2%}class='noslideshow'{%endif%}>
+        {% for slide in settings.slideshow_image %}
+        <div class="slide-item">
+              <a href="{{slide.link}}">
+              <img src="{{ 'blank.gif' | asset_url }}" style="background-image:url({{ slide.name | asset_url }});">
+              </a>
+              <div class="text" id="intro">
+                  <a href="{{slide.link}}">
+                    {%if slide.text%}<div>{{slide.text}}</div>{%endif%}
+                    {%if slide.button_text%}<span class="button">{{slide.button_text|default:''}}</span>{%endif%}
+                  </a>
+              </div>
+        </div>
+        {%endfor%}
+    </div> 
+  </div>
+</div>
+{%endif%}
+
+{% if settings.intro_body %}
+<div class="intro_text">
+  <h3>{{settings.intro_title|default:'Our Story'}}</h3>
+  {% if settings.intro_body %}<p>{{settings.intro_body|safe}}</p>{% endif%}
+</div>
+{%endif%}
+
+{% if settings.featured_collections %}
+<div class="shoptitle collections index">
+	<h3>{{settings.featured_collections_title|default:'Collections'}}</h3>
+	<ul class="after inner">
+		{% for c in settings.featured_collections|shuffle|slice:":2"|to_collections %}
+		<li>
+			<a href="{{path_prefix}}/collections/{{c.id}}">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{c.image_url}})" alt="">
+				<b class="title">{{c.name}}</b>
+			</a>
+		</li>
+		{%empty%}
+		<li>
+			<a href="#">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-color:#f9f9f9;" alt="">
+				<b class="title">Collection Name</b>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-color:#f9f9f9;" alt="">
+				<b class="title">Collection Name</b>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-color:#f9f9f9;" alt="">
+				<b class="title">Collection Name</b>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
+
+  {%if settings.new_items %}  
+  <div class="shoptitle index top">
+    <h3>{{settings.new_in_title|default:'New In'}}</h3>
+    <div class="featuredList">
+      <ol class="stream">
+      {% for thing in settings.new_items|shuffle|slice:":3"|to_things %} 
+          <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+          <span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{thing.image.url}})" /></span>
+          <span class="figcaption">
+            <b class="title">{{thing.name}}</b> 
+            <span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+            </span>
+          </span>
+          </a></li>
+      {% endfor %}
+      </ol>
+    </div>
+  </div>  
+  {%endif%}
+  {%if settings.trending_items %} 
+  <div class="shoptitle index">
+    <h3>{{settings.trending_title|default:'Trending'}}</h3>
+    {% for thing in settings.trending_items|shuffle|slice:":1"|to_things %}         
+      <div class="featuredCover">
+        <div class="itemElement" style="background:{{settings.trending_background_color|default:"#5c765e"}};">
+          <span class="figure" style="background-image:url({{thing.image.url}})"><img src="{{ 'blank.gif' | asset_url }}"></span>
+          <span class="figcaption">
+            <span class="bg" style="background-image:url({{thing.image.url}}); background-size: 212%;"></span>
+            <b class="title">{{thing.name}}</b>
+            <a href="{{path_prefix}}/shop/{{thing.id}}" style="background:#ffffff;">Shop Now</a>
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {%endif%}
+
+  {%if seller.blog_posts|length > 0 and settings.blogposts %}  
+  <div class="shoptitle index blogSection">
+     <h3>Blog</h3>
+        <ul class="blogList">
+          {%for post in seller.blog_posts|slice:settings.blogposts.count %}
+          <li class="blogElement {{settings.blogposts.type}} {{settings.blogposts.size}}"><a href="blog/{{post.slug}}">
+          <img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{post.cover_image_url}})" />
+          <b class="title">{{post.title}}</b>
+          <small class="date">{{post.date_created|date:"F j, Y"}}</small>
+          <span class="description">
+            {{post.plaintext_content|truncate_string:"200"}}
+          </span>
+          <small class="more">Read More</small>
+        </a></li>
+          {%endfor%}
+        </ul>
+    </div>
+  {%endif%}
+  
+{%if settings.customer_picks_items %} 
+<div class="shoptitle index">
+ <h3>{{settings.customer_picks_title|default:"Shoppers' Picks"}}</h3>
+ <div class="featuredList">
+    <ol class="stream smfx">
+    {% for thing in settings.customer_picks_items|shuffle|slice:":3"|to_things %}         
+    <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+      <span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{thing.image.url}})" /></span>
+      <span class="figcaption">
+         <b class="title">{{thing.name}}</b> 
+        <span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+      </span>
+      </a></li>
+    {% endfor %}
+    </ol>
+ </div>
+</div>
+{%endif%}
+
+{{ 'jquery.slides.min.js' | asset_script }}
+<script>
+    $(function() {
+        $('#content').attr('class', 'index');
+		{%if settings.slideshow_image|length %}
+        $('#slides:not(.noslideshow)').slidesjs({
+            width: 1120,
+            height: 483,
+            navigation: {
+                effect: "slide"
+            },
+            pagination: {
+                effect: "slide"
+            },
+            effect: {
+                slide: {
+                    speed: 2000
+                }
+            },
+            play: {
+            active: false,
+            effect: "slide",
+            interval: 12000,
+            auto: true,
+            swap: false,
+            pauseOnHover: true,
+            restartDelay: 8000
+
+          }
+        });
+		{%endif%}
+    });
+</script>

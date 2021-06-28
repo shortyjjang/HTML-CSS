@@ -1,0 +1,20 @@
+<div id="collection" class="page">
+	<div class="inner figure-list">
+		<ol class="stream after">
+			{% for thing in things %}
+			<li>
+				<a {% if thing.sale.available or seller.id == viewer.id %} href="#things" data-thingid="{{thing.id}}" data-component="popup"{% endif %}>
+					<span class="figure"><img src="{{ thing.image.url}}"></span>
+					<span class="figcaption">
+						<b class="title">{{thing.name}}</b>
+						<span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'sub list');
+</script>

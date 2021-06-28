@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" href="./css/checkout.css">
+</head>
+<body>
+<div id="checkout">
+	<div class="after">
+		<div class="left">
+			<div class="summary">
+				<h1 class="logo"><a href="#" class="logo-img"><img src="//thefancy-media-ec1.thefancy.com/test_ThemeAssets/12/header_b7822acf4f5c.png" alt="" /></a>
+				<b>Cake</b>
+				Apparel and home goods. NYC Shop now<br />
+				<a href="#">cake.fancy.com</a>, <a href="#">abc@defg.com</a></h1>
+				<ul class="order-list">
+					<li class="after">
+						<div class="item">
+							<img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt="" />
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+					</li>
+					<li class="after">
+						<div class="item">
+							<img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt="" />
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+					</li>
+				</ul>
+				<ul class="receipt">
+					<li><label class="label">Subtotal</label> <span class="price">$291.00</span></li>
+					<li><label class="label">Shipping</label> <span class="price yet">Address not set</span></li>
+					<li><label class="label">Tax</label> <span class="price yet">Address not set</span></li>
+					<li class="total"><label class="label">Order Total</label> <span class="price">$230.00</span></li>
+				</ul>
+			</div>
+			<div class="order-note">
+				<h2>Note to Merchant</h2>
+				<fieldset><textarea class="text"></textarea></fieldset>
+			</div>
+			<div class="order-coupon">
+				<h2>Coupons</h2>
+				<fieldset>
+					<p class="add">
+						<input type="text" class="text"onkeypress="$(this).closest('p').addClass('error');" placeholder="Coupon Code" />
+						<button class="btn-apply" onclick="$('.coupon-list').show();$(this).closest('p').removeClass('error');">Apply</button>
+						<span class="error-msg">The coupon is invalid</span>
+					</p>
+					<p class="coupon-list" style="display:none;">
+						<b class="name">TENPERCENT</b>
+						<span class="detail">You received 10% off</span>
+						<a href="#" class="remove">Remove</a></li>
+					</p>
+				</fieldset>
+			</div>
+		</div>
+		<div class="right">
+			<div id="twitter-signup" class="sign register">
+				<h2>Create Account with Twitter</h2>
+				<fieldset>
+					<p class="linked-tw">Linked with <b>@username</b></p>
+					<p><input type="text" name="fullname" class="text" placeholder="Full Name">
+					<span class="error-msg" data-msg-empty="Please enter your full name">Please enter your full name</span></p>
+					<p><input type="text" name="email" class="text" placeholder="Email">					
+					<span class="error-msg" data-msg-empty="Please enter your email address" data-msg-invalid="Please enter valid email address">Please enter your email address</span></p>
+					<div class="btn-area">
+						<button class="btn-create">Create my account</button>
+					</div>
+				</fieldset>
+			</div>
+			<div class="sign register loading" style="display:none;">
+				<h2>Create Account <small>Sign up with <b class="logo">FANCY</b></small></h2>
+				<fieldset>
+					<p class="error"><input type="text" class="text" placeholder="Full Name" />
+					<span class="error-msg">Please enter your full name</span></p>
+					<p><input type="text" class="text" placeholder="Email" /></p>
+					<p><input type="password" class="text" placeholder="Password" /></p>
+					<div class="btn-area">
+						<button class="btn-create" onclick="$('.sign').hide();$('.user-info, .shipping fieldset').show();return false;">Create my account</button>
+						Already have an account? <a href="#" class="go-signin" onclick="$('.sign').hide();$('.signin').show();return false;">Sign In</a>
+					</div>
+				</fieldset>
+			</div>
+			<div class="sign signin loading" style="display:none;">
+				<h2>Sign in to Fancy <small>Connect with a social network or <a href="#"  onclick="$('.sns-other').show();setTimeout(function(){$('.sns-other').addClass('show');},200);return false;">other social networks</a></small></h2>
+				<div class="sns-other" onclick="$('.sns-other').removeClass('show');setTimeout(function(){$('.sns-other').hide();},200);return false;">
+                    <ul>
+                        <li><button class="btn-b"><span class="icon"><i></i></span> <b>ВКонтакте</b></button></li>
+                        <li><button class="btn-r"><span class="icon"><i></i></span> <b>Renren</b></button></li>
+                        <li><button class="btn-w"><span class="icon"><i></i></span> <b>Weibo</b></button></li>
+                    </ul>
+                </div>
+				<ul class="sns after">
+					<li><button class="btn-fb"><i class="icon"></i>Facebook</button></li>
+					<li><button class="btn-gg"><i class="icon"></i>Google+</button></li>
+					<li><button class="btn-tw"><i class="icon"></i>Twitter</button></li>
+				</ul>
+				<fieldset>
+					<h3>Sign in with your email address</h3>
+					<p><input type="text" class="text" placeholder="Email" /></p>
+					<p><input type="password" class="text" placeholder="Password" /></p>
+					<div class="btn-area">
+						<button class="btn-signin" onclick="$('.sign').hide();$('.user-info, .shipping fieldset').show();return false;">Sign in</button>
+						<a href="#" class="go-back" onclick="$('.sign').hide();$('.register').show();return false;">Back</a>
+						<a href="#" class="go-pw" onclick="$('.sign').hide();$('.forgot_pw').show();return false;">Forgot password?</a>
+					</div>
+				</fieldset>
+			</div>
+			<div class="sign forgot_pw" style="display:none;">
+				<h2>Forgot Password <small>Forgot your password? Enter your email address to reset it.</small></h2>
+				<fieldset>
+					<p><input type="text" class="text" placeholder="Email" /></p>
+					<div class="btn-area">
+						<a href="#" class="go-back" onclick="$('.sign').hide();$('.signin').show();return false;">Back</a>
+						<button class="btn-reset">Reset Password</button>
+					</div>
+				</fieldset>
+			</div>
+			<div class="user-info" style="display:none;">
+				<p>Hojung Kim<br />abcd@gmail.com</p>
+				<a href="#" class="go-signout" onclick="$('.sign, .user-info').hide();$('.signin').show();return false;">Sign Out</a>
+			</div>
+			<div class="shipping">
+				<h2>Shipping Address</h2>
+				<fieldset style="display:none;">
+					<a href="#" class="go-back" style="display:none;"onclick="$('.shipping-info,.shipping .go-back').hide();$('.shipping, .shipping fieldset,.shipping .go-new, .shipping .save-adds').show();return false;">Back</a>
+					<a href="#" class="go-new" style="display:none;"onclick="$('.shipping-info,.shipping .go-new, .shipping .save-adds').hide();$('.shipping, .shipping fieldset,.shipping .go-back').show();return false;">Add new address</a>
+					<div class="save-adds" style="display:none;">
+						<span class="selectBox"><select>
+							<option>Work</option>
+						</select></span>
+						<button class="btn-delete"><i class="icon"></i></button>
+					</div>
+					<p class="name"><input type="text" class="text" placeholder="Full name" /></p>
+					<p class="nick"><input type="text" class="text" placeholder="Shipping Nickname" /></p>
+					<p class="addr1"><input type="text" class="text" placeholder="Address Line 1" /></p>
+					<p class="addr2"><input type="text" class="text" placeholder="Address Line 2" /></p>
+					<p class="country"><span class="selectBox"><select>
+						<option>United States</option>
+					</select></span></p>
+					<p class="city"><input type="text" class="text" placeholder="City" /></p>
+					<p class="state"><span class="selectBox"><select>
+						<option>New York</option>
+					</select></span></p>
+					<p class="zip"><input type="text" class="text" placeholder="Zip" /></p>
+					<p class="phone"><input type="text" class="text" placeholder="Phone" /></p>
+					<div class="btn-area">
+						<button class="btn-next" onclick="$('.shipping-info,.shipping .go-back, .payment fieldset,.shipping-type fieldset').show();$('.shipping, .shipping fieldset,.shipping .go-new, .shipping .save-adds').hide();return false;">Next</button>
+					</div>
+				</fieldset>
+			</div>
+			<div class="shipping-info" style="display:none;">
+				<address>
+					Spring Street<br />
+					New York, New York 10012<br />
+					United States
+				</address>
+				<a href="#" class="go-edit" onclick="$('.shipping-info,.shipping .go-back, .payment fieldset').hide();$('.shipping, .shipping fieldset,.shipping .go-new, .shipping .save-adds').show();return false;">Edit</a>
+			</div>
+			<div class="shipping-type">
+				<h2>Shipping Type</h2>
+				<fieldset style="display:none;">
+					<ul >
+						<li><input type="radio" checked onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="standard" name="shipping-type"/> <label for="standard">International Standard - <b>$5.00</b></label></li>
+						<li><input type="radio"  onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="express" name="shipping-type"/> <label for="express">International Express - <b>$20.00</b></label></li>
+					</ul>
+				</fieldset>
+			</div>
+			<div class="shipping-type-info" style="display:none;">
+				<p>International Standard - <b>$5.00</b></p>
+				<a href="#" class="go-edit" onclick="$('.shipping-type-info').hide();$('.shipping-type').show();return false;">Edit</a>
+			</div>
+			<div class="payment">
+				<h2>Payment</h2>
+				<fieldset>
+					<a href="#" class="go-back" style="display:none;" onclick="$('.payment .frm, .payment .go-back').hide();$('.payment .save-card, .payment .go-new').show();return false;">Back</a>
+					<a href="#" class="go-new" style="display:none;" onclick="$('.payment .frm, .payment .go-back').show();$('.payment .save-card, .payment .go-new').hide();return false;">Use a different card</a>
+					<div class="save-card" style="display:none;">
+						<span class="card visa"></span>
+						<span class="selectBox"><select>
+							<option>Work</option>
+						</select></span>
+						<button class="btn-delete"><i class="icon"></i></button>
+					</div>
+					<div class="frm">
+						<p class="name"><input type="text" class="text" placeholder="Name on card" /></p>
+						<p class="number">
+							<span class="card"></span>
+							<input type="text" class="text" placeholder="Credit Card Number" />
+						</p>
+						<p class="date">
+							<span class="selectBox month"><select>
+								<option>04</option>
+							</select></span>
+							<span class="selectBox year"><select>
+								<option>2014</option>
+							</select></span>
+						</p>
+						<p class="cvc"><input type="text" class="text" placeholder="CVC" /></p>
+						<p class="billing"><input type="checkbox" id="use_billing" checked onclick="$('.billing-frm').toggle();"/> <label for="use_billing">Billing address same as Shipping</label></p>
+						<div class="billing-frm after" style="display:none;">
+							<p class="addr1"><input type="text" class="text" placeholder="Address Line 1" /></p>
+							<p class="addr2"><input type="text" class="text" placeholder="Address Line 2" /></p>
+							<p class="country"><span class="selectBox"><select>
+								<option>United States</option>
+							</select></span></p>
+							<p class="city"><input type="text" class="text" placeholder="City" /></p>
+							<p class="state"><span class="selectBox"><select>
+								<option>New York</option>
+							</select></span></p>
+							<p class="zip"><input type="text" class="text" placeholder="Zip" /></p>
+							<p class="phone"><input type="text" class="text" placeholder="Phone" /></p>
+						</div>
+					</div>
+					<div class="btn-area">
+						<button class="btn-submit" onclick="$('.payment .frm').hide();$('.payment .save-card, .payment .go-new').show();">Submit Order</button>
+						<span class="security"><i class="icon"></i>Secure Transaction</span>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+<script>
+$('#checkout .signin h2 small a').hover(function(){
+	$('#checkout .signin .sns-other').css('left',$('#checkout .signin h2 small').width() - ($(this).width()/2) + 30 +'px');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<html class="secure-checkout">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta charset="utf-8">
+	<title>Fancy - Checkout</title>
+	<link href="https://secure.fancy.com/shop/themes/_common/css/checkout.v2.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<link href="./css/checkout.css" rel="stylesheet" type="text/css">
+	<script src="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.ko.drzgjtuDo5I.O/m=client,plusone/rt=j/sv=1/d=1/ed=1/am=AQ/rs=AGLTcCNBoU2IvZbewLWE4YtaPEs-NuBTFg/cb=gapi.loaded_0" async=""></script><script src="https://apis.google.com/js/client:plusone.js?onload=initialize_google" type="text/javascript" async="" gapi_processed="true"></script><script src="https://static-ec2.thefancy.com/_static_gen/common/js/shop_common.min.cd7fb4cce41d.js" type="text/javascript" charset="utf-8"></script>
+    
+</head>
+<body>
+<div id="checkout">
+	<div class="after">
+		<div class="left">
+			<div class="summary">
+                <h1 class="logo"><a class="logo-img" href="http://uncommon.fancy.com"><img alt="" src="https://thefancy-media-ec2.thefancy.com/CoverImages/default/fancy_saleitemsellerlogo_49913_ea49dd6b0a46.png"></a>
+                    <b class="brand"><a href="http://uncommon.fancy.com">UNCOMMON</a></b>
+                <span class="tagline">Shop the Uncarrier movement</span><br>
+                <a href="http://uncommon.fancy.com">uncommon.fancy.com</a></h1>				
+			</div>
+			<div class="sign start">
+				<h2>Customer Information</h2>
+				<fieldset>
+					<input type="text" class="text" placeholder=" Email Address">
+						<p class="error-box"><i class="icon"></i>Please enter a valid email address</p>
+				</fieldset>
+				<p>Have a Fancy account? Sign in for easy checkout. <a href="#" class="btn-sign" onclick="$('.sign, .payment .frm, .shipping .frm, .error-box').hide();$('.user-info, .payment .go-new, .payment .save-card, .shipping .save').show();return false;">Sign In</a></p>
+			</div>
+			<div class="user-info" style="display:none;">
+				<h2>Buy with Fancy</h2>
+				<p>Signed in as <b>hojee</b></p>
+				<a href="#" class="go-signout" onclick="$('.sign, .user-info, .shipping .save,.shipping .go-back,.shipping .go-new').hide();$('.sign.start, .shipping .frm').show();return false;">Edit</a>
+			</div>
+			<div class="frm">
+				<div class="shipping">
+					<h2>Shipping</h2>
+					<a href="#" class="go-new" style="display:none;" onclick="$('.shipping-info,.shipping .go-new, .shipping .save').hide();$('.shipping, .shipping .frm,.shipping .go-back').show();return false;">Add new Shipping Address</a>
+					<a href="#" class="go-back" style="display:none;" onclick="$('.shipping-info,.shipping .go-back, .shipping .frm').hide();$('.shipping, .shipping .save,.shipping .go-new, .shipping .save-adds').show();return false;">Back</a>
+
+					<fieldset style="display:none;" class="save">
+						<div class="save-adds">
+							<span class="selectBox"><select>
+								<option>Work</option>
+							</select></span>
+						</div>
+						<address>
+							<b>Hojung Kim</b><br>
+							Spring Street<br>
+							New York, New York 10012<br>
+							United States
+						</address>
+					</fieldset>
+
+					<fieldset class="frm">
+						<p class="error-box"><i class="icon"></i>Please enter a valid shipping address</p>
+						<p class="name"><input type="text" class="text" placeholder="Full name"></p>
+						<p class="nick"><input type="text" class="text" placeholder="Shipping Nickname"></p>
+						<p class="addr1"><input type="text" class="text" placeholder="Address Line 1">
+						<span class="error-msg" style="display:block;" data-msg-empty="Please enter your full name">Street Name</span></p>
+						<p class="addr2"><input type="text" class="text" placeholder="Address Line 2"></p>
+						<p class="country"><span class="selectBox"><select>
+							<option>United States</option>
+						</select></span></p>
+						<p class="city"><input type="text" class="text" placeholder="City"></p>
+						<p class="state"><span class="selectBox"><select>
+							<option>New York</option>
+						</select></span></p>
+						<p class="zip"><input type="text" class="text" placeholder="Zip"></p>
+						<p class="phone"><input type="text" class="text" placeholder="Phone"></p>
+					</fieldset>
+				</div>
+				<div class="shipping-type">
+					<h2>Shipping Type</h2>
+					<fieldset>
+						<ul>
+							<li><input type="radio" checked="" onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="standard" name="shipping-type"> <label for="standard">International Standard - <b>$5.00</b></label></li>
+							<li><input type="radio" onclick="$('.shipping-type').hide();$('.shipping-type-info').show();" id="express" name="shipping-type"> <label for="express">International Express - <b>$20.00</b></label></li>
+						</ul>
+					</fieldset>
+				</div>
+				<div class="gift-option">
+					<h2>Gift Options</h2>
+					<input type="checkbox" onclick="$(this).closest('.gift-option').find('fieldset').toggle();" id="mark_gift"> <label for="mark_gift">Make this order a gift</label>
+					<fieldset style="display:none;"><textarea placeholder="Include a gift message" class="text"></textarea></fieldset>
+				</div>
+				<div class="order-note">
+					<h2>Note to Cake</h2>
+					<fieldset><textarea class="text" placeholder="Add a note for the seller"></textarea></fieldset>
+				</div>
+				<div class="order-coupon">
+					<h2>Coupons</h2>
+					<fieldset>
+						<p class="add">
+							<input type="text" class="text" onkeypress="$(this).closest('p').addClass('error');" placeholder="Coupon Code">
+							<button class="btn-apply" onclick="$('.coupon-list').show();$(this).closest('p').removeClass('error');">Apply</button>
+							<span class="error-msg">The coupon is invalid</span>
+						</p>
+						<p class="coupon-list" style="display:none;">
+							<b class="name">TENPERCENT</b>
+							<span class="detail">You received 10% off</span>
+							<a href="#" class="remove">Remove</a>
+						</p>
+					</fieldset>
+				</div>
+				<div class="payment">
+					<h2>Payment</h2>
+					<fieldset>
+						<a href="#" class="go-back" style="display:none;" onclick="$('.payment .frm, .payment .go-back').hide();$('.payment .save-card, .payment .go-new').show();return false;">Back</a>
+						<a href="#" class="go-new" style="display:none;" onclick="$('.payment .frm, .payment .go-back').show();$('.payment .save-card, .payment .go-new').hide();return false;">Add new Credit Card</a>
+						<div class="save-card" style="display:none;">
+							<span class="card visa"></span>
+							<span class="selectBox"><select>
+								<option>Work</option>
+							</select></span>
+						</div>
+						<p class="error-box"><i class="icon"></i>Please enter a valid card number.</p>
+						<div class="frm">
+							<p class="name"><input type="text" class="text" placeholder="Name on card"></p>
+							<p class="number">
+								<span class="card"></span>
+								<input type="text" class="text" placeholder="Credit Card Number">
+								<span class="error-msg" style="display:block;">Credit Card Number</span>
+							</p>
+							<p class="date">
+								<span class="selectBox month"><select>
+									<option>04</option>
+								</select></span>
+								<span class="selectBox year"><select>
+									<option>2014</option>
+								</select></span>
+							</p>
+							<p class="cvc"><input type="text" class="text" placeholder="CVC"></p>
+							<p class="billing"><input type="checkbox" id="use_billing" checked="" onclick="$('.billing-frm').toggle();"> <label for="use_billing">Billing address same as Shipping</label></p>
+							<div class="billing-frm after" style="display:none;">
+								<p class="addr1"><input type="text" class="text" placeholder="Address Line 1">
+								<span class="error-msg" data-msg-empty="Please enter your full name">Please enter street name</span></p>
+								<p class="addr2"><input type="text" class="text" placeholder="Address Line 2"></p>
+								<p class="country"><span class="selectBox"><select>
+									<option>United States</option>
+								</select></span></p>
+								<p class="city"><input type="text" class="text" placeholder="City"></p>
+								<p class="state"><span class="selectBox"><select>
+									<option>New York</option>
+								</select></span></p>
+								<p class="zip"><input type="text" class="text" placeholder="Zip"></p>
+								<p class="phone"><input type="text" class="text" placeholder="Phone"></p>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="quick-button">
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+		<div class="right">
+			<div class="summary">
+				<h2>Order Summary</h2>
+				<ul class="order-list">
+					<li class="after">
+						<div class="item">
+							<img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt="">
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+					</li>
+					<li class="after">
+						<div class="item">
+							<img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt="">
+							<b class="title">Classic HG Laptop Folio / Heritage abcdefg</b>
+							<span class="option">Chestnut Brown</span>
+							<span class="qty">Qty: 1</span>
+						</div>
+						<span class="price">$250.231</span>
+					</li>
+				</ul>
+				<ul class="receipt">
+					<li><label class="label">Subtotal</label> <span class="price">$291.00</span></li>
+					<li><label class="label">Shipping</label> <span class="price yet">Address not set</span></li>
+					<li><label class="label">Estimated Tax <span class="tooltip"><i class="icon"></i><small>Actual tax will be calculated when your order is processed. Tax may vary slighely from what is displayed here</small></span></label> <span class="price yet">Address not set</span></li>
+					<li class="total"><label class="label">Order Total</label> <span class="price">$230.00</span></li>
+				</ul>
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://static-ec4.thefancy.com/_static_gen/common/js/model/checkout.f4275af59f4f.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://static-ec3.thefancy.com/_static_gen/common/js/model/cartitem.a73a0533128e.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://static-ec6.thefancy.com/_static_gen/common/js/model/cart_coupon.3a4a80912ef8.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://static-ec4.thefancy.com/_static_gen/common/js/model/address.11a990fb6288.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://static-ec1.thefancy.com/_static_gen/common/js/model/credit_card.382e7f0315e3.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://static-ec1.thefancy.com/_static_gen/common/js/model/order.9f2c62a27c52.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.stripe.com/v2/" type="text/javascript"></script>
+<div id="fb-root"></div>
+<script>
+	namespace('Fancy.globals').sellerInfo = { id : "31201037", username : "uncommon", 
+        url : "https://fancy.com/uncommon", store_url : "http://uncommon.fancy.com" };
+
+    
+	namespace('Fancy.globals').userInfo  = { id : "1596591", username : "shortyjjang"};
+	
+    
+    
+    namespace('Fancy.globals').storefront = true;
+    
+    namespace('Fancy.globals').STRIPE_PUBLISHABLE_KEY = 'pk_live_llUC6PWehu2Zw0nuQM1bFMlj';
+    (function() {
+		var txts = document.getElementsByTagName('TEXTAREA') 
+		for(var i = 0, l = txts.length; i < l; i++) {
+			if(/^[0-9]+$/.test(txts[i].getAttribute("maxlength"))) { 
+				var func = function() { 
+					var len = parseInt(this.getAttribute("maxlength"), 10); 
+					
+					if(this.value.length > len) { 
+						this.value = this.value.substr(0, len); 
+						return false; 
+					} 
+				}
+				txts[i].onkeyup = func;
+				txts[i].onblur = func;
+			} 
+		}
+	})();
+</script>
+<script src="/shop/themes/_common/js/checkout.stripe.unified.js"></script>
+<script type="text/javascript">
+  window.___gcfg = {
+    parsetags: 'explicit',
+    
+  };
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js?onload=initialize_google';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+
+
+
+
+
+<iframe name="stripeXDM_default37760_provider" id="stripeXDM_default37760_provider" src="https://js.stripe.com/v2/channel.html?stripe_xdm_e=https%3A%2F%2Fsecure.fancy.com&amp;stripe_xdm_c=default37760&amp;stripe_xdm_p=1#__stripe_transport__" border="0" frameborder="0" style="left: 0px; top: -2000px; position: absolute;"></iframe><iframe name="oauth2relay1658723807" tabindex="-1" id="oauth2relay1658723807" src="https://accounts.google.com/o/oauth2/postmessageRelay?parent=https%3A%2F%2Fsecure.fancy.com&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.ko.drzgjtuDo5I.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAGLTcCNBoU2IvZbewLWE4YtaPEs-NuBTFg#rpctoken=265196344&amp;forcesecure=1" style="top: -100px; width: 1px; height: 1px; position: absolute;"></iframe></body></html>

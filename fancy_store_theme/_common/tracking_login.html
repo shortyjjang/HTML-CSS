@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" href="./css/checkout.css">
+</head>
+<body>
+<div id="checkout">
+	<div class="sign signin">
+		<h1 class="logo"><a href="#"><img src="./img/dummy/cake-200_360.png" alt="" /></a></h1>
+		<h2>Sign in to Fancy <small>Connect with a social network or <a href="#"  onclick="$('.sns-other').show();setTimeout(function(){$('.sns-other').addClass('show');},200);return false;">other social networks</a></small></h2>
+		<div class="sns-other" onclick="$('.sns-other').removeClass('show');setTimeout(function(){$('.sns-other').hide();},200);return false;">
+			<ul>
+				<li><button class="btn-b"><span class="icon"><i></i></span> <b>ВКонтакте</b></button></li>
+				<li><button class="btn-r"><span class="icon"><i></i></span> <b>Renren</b></button></li>
+				<li><button class="btn-w"><span class="icon"><i></i></span> <b>Weibo</b></button></li>
+			</ul>
+		</div>
+		<ul class="sns after">
+			<li><button class="btn-fb"><i class="icon"></i>Facebook</button></li>
+			<li><button class="btn-gg"><i class="icon"></i>Google+</button></li>
+			<li><button class="btn-tw"><i class="icon"></i>Twitter</button></li>
+		</ul>
+		<fieldset>
+			<h3>Sign in with your email address</h3>
+			<p><input type="text" class="text" placeholder="Email" /></p>
+			<p><input type="password" class="text" placeholder="Password" /></p>
+			<div class="btn-area">
+				<button class="btn-signin" onclick="$('.sign').hide();$('.user-info, .shipping fieldset').show();return false;">Sign in</button>
+				<a href="#" class="go-back" onclick="$('.sign').hide();$('.register').show();return false;">Back</a>
+				<a href="#" class="go-pw" onclick="$('.sign').hide();$('.forgot_pw').show();return false;">Forgot password?</a>
+			</div>
+		</fieldset>
+	</div>
+</div>
+<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+<script>
+$('#checkout .signin h2 small a').hover(function(){
+	$('#checkout .signin .sns-other').css('left',$('#checkout .signin h2 small').width() - ($(this).width()/2) + 30 +'px');
+});
+</script>
+</body>
+</html>

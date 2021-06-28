@@ -1,0 +1,17 @@
+
+    	<div class="breadcrumb"><a href="../{{path_prefix}}">Home</a> <span class="arrow">/</span> <a href="../{{path_prefix}}shop">Shop</a> <span class="arrow">/</span>Featured</div>
+    	<div class="collections">
+      	<h2 class="tit">Featured</h2>
+		{% if settings.featured_collections %}
+      	<ul class="collection-list">
+            {% for c in settings.featured_collections|shuffle|slice:":3"|to_collections %}
+			<li class="item">
+              <img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url('{{c.image_url}}">
+              <div class="text" id="intro">
+                <a href="{{path_prefix}}/collections/{{c.id}}">
+                  <span class="category">{{c.name}}</span>{{c.description}}</a>
+              </div>
+        	</li>
+            {% endfor %}
+        </ul>      
+        {%endif%}

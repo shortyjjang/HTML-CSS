@@ -1,0 +1,145 @@
+{% load pipeline_assets %}{% load i18n %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html class="secure-checkout">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta charset="utf-8">
+    <title>{{seller_profile.brand_name}} - Checkout</title>
+    <link rel="stylesheet" href="/shop/themes/_common/css/checkout.v5.css" type="text/css"></link>
+	<link rel="shortcut icon" href="{% pipeline_url '_ui/images/favicon_checkout.ico' %}" type="image/x-icon" />
+    {% pipeline_css '_ui/css/popup/common.css' %}
+    {% pipeline_compressed_js 'shop_common.min.js' %}
+    {% if storefront.custom_theme or storefront.custom_css %}
+    <style type="text/css">
+        {%comment%} PLEASE NOTE CSS SHOULD BE SANITIZED IF WE ARE GOING TO LET MERCHANTS EDIT THIS {%endcomment %}
+        {%if storefront.custom_theme and storefront.custom_theme.settings.custom_css%}
+            {{storefront.custom_theme.settings.custom_css|safe}}
+        {%else%}
+            {{storefront.custom_css|safe}}
+        {%endif%}
+    </style>
+    {% endif %}
+    {%if storefront.metadata.bitcoin_enabled %}
+    <script src="https://bitpay.com/bitpay.js"></script>
+    {%endif%}
+    <script>
+        var seller = { id : "{{owner.id}}", username : "{{owner.username}}", email : "{{owner.seller_profile.storefront_email}}", url : "{{owner.absolute_html_url}}", store_url : "{{store_url}}", store_url_simple : "{{store_url|simplify_url}}", logo_url : "{{logo_url}}", brand_name : "{{seller_profile.brand_name}}", tagline : "{{seller_profile.tagline}}"};
+        {% if logged_in and viewer %}
+        var viewer = {id:{{viewer.id}}, username:"{{viewer.username}}", html_url:"/{{viewer.username}}", fullname:"{{viewer.full_name}}", full_name:"{{viewer.full_name}}", image_url:"{{viewer.get_profile.user_square_images.33}}", user_square_image_small:"{{viewer.get_profile.user_square_images.33}}"};
+        {% endif %}
+        var countries = [{% for c2,c3,s in COUNTRY_CODES %}{c2:'{{c2}}', c3:'{{c3}}', s:'{{s}}' }, {%endfor%}];
+        var states = [{% for v, s in STATE_CHOICES %}{v:'{{v}}', s:'{{s}}' }, {%endfor%}];
+
+        {% if storefront and storefront.has_own_users %}
+        var has_own_users = true;
+        {% endif %}
+        {% if request.domain_with_checkout %}
+        var domain_with_checkout = true;
+        {%endif%}
+        {% if 'staging' in request.GET %}
+        var staging = true;
+        {% endif %}
+        {% if storefront %}
+        var storefront = true;
+        {% endif %}
+        var STRIPE_PUBLISHABLE_KEY = '{{STRIPE_PUBLISHABLE_KEY}}';
+        {% if usesandbox %}
+        var usesandbox = true;
+        {% endif %}
+        {% if paypal_api %}
+        var paypal_api = true;
+        var paypal_env = {% if paypal_api.is_sandbox %}"sandbox"{% else %}"production"{% endif %};
+        {% endif %}
+        {% if paypal_payment_id %}
+        var paypal_payment = { paymentId: '{{paypal_payment_id|escapejs}}', token: '{{paypal_token|escapejs}}', payerId: '{{paypal_payer_id|escapejs}}' };
+        {% endif %}
+        {% if convert_currency %}
+        var convert_currency = true; 
+        {% endif %}
+        var default_country = "{{DEFAULT_COUNTRY}}";
+        {%if storefront.metadata.bitcoin_enabled %}
+        var use_bitcoin = true;
+        {%endif%}
+        
+    </script>
+</head>
+<body class="lang-{{CURRENT_LANGCODE}}">
+    <div id="wrap">
+    </div>
+    <div id="popup_container">
+        {% include "fancy4_0/_popup_currency.html" %}
+    </div>
+    {% pipeline_i18n_js CURRENT_LANGCODE %}
+    {% pipeline_preload_asset '_ui/js/main.new.min.js' script %}
+    {% pipeline_compressed_js '_ui/js/main.new.min.js' %}
+    {% pipeline_preload_asset '_ui/js/shared-deps.min.js' script %}
+    {% pipeline_preload_asset '_ui/js/libf.min.js' script %}
+    {% pipeline_compressed_js '_ui/js/shared-deps.min.js' %}
+    {% pipeline_compressed_js '_ui/js/libf.min.js' %}
+    {% pipeline_js '_ui/js/alertify.min.js' %}
+    {% pipeline_js '_ui/js/jquery.creditCardValidator.js' %}
+    {% pipeline_js '_ui/js/creditcard.js' %}
+    {% pipeline_js '_ui/js/storefront-checkout.js' %}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <div id="fb-root"></div>
+    
+	<script>
+	jQuery(function($){
+		$(window).scroll(function(){
+			if ($(window).width()>999 && $('#container').outerHeight()>$(window).height()) {
+				if ($('#summary').outerHeight()<$('#checkout').outerHeight()) {
+					if ($(window).scrollTop() > $('#checkout').offset().top-20) {
+						$('#summary').addClass('fixed');
+					}else {
+						$('#summary').removeClass('fixed bottom');
+					}
+				}else{
+					if ($(window).scrollTop() > $('#checkout').offset().top+$('#summary').outerHeight()) {
+						$('#summary').addClass('fixed bottom');
+					}else{
+						$('#summary').removeClass('fixed bottom');
+					}
+				}
+			}else{
+				$('#summary').removeClass('fixed bottom');
+			}
+		});
+		$(window).resize(function(){
+			if ($(window).width()>999 && $('#container').outerHeight()>$(window).height()) {
+				if ($('#summary').outerHeight()<$('#checkout').outerHeight()) {
+					if ($(window).scrollTop() > $('#checkout').offset().top-20) {
+						$('#summary').addClass('fixed');
+					}else {
+						$('#summary').removeClass('fixed bottom');
+					}
+				}else{
+					if ($(window).scrollTop() > $('#checkout').offset().top+$('#summary').outerHeight()) {
+						$('#summary').addClass('fixed bottom');
+					}else{
+						$('#summary').removeClass('fixed bottom');
+					}
+				}
+			}else{
+				$('#summary').removeClass('fixed bottom');
+			}
+		});
+	});
+	</script>
+    {% if paypal_api %}
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    {% endif %}
+    <script type="text/javascript">
+      window.___gcfg = {
+        parsetags: 'explicit',
+        {% if request.session.user_signed_out %}isSignedOut: true,{% endif %}
+      };
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=initialize_google';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+    {% include "seller_themes/_common/_tracking.html" %}
+    {% if storefront.fb_pixel_id %}<script>fbq('track', 'InitiateCheckout');</script>{% endif %}
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">내정보</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container account">
+		<!-- content area -->
+		<div class="frm">
+			<p><label class="label">이메일</label>
+			<input type="text" class="text" placeholder="chiandit@gmail.com"/></p>
+			<p><label class="label">휴대전화번호</label>
+				<span class="certification">
+					<input type="tel" class="text" placeholder="휴대전화번호">
+					<button class="btn-check">본인인증</button>
+				</span>
+				<span class="check-certification"><input type="tel" class="text" placeholder="인증번호"><small>2:58</small></span>
+			</p>
+			<p><label class="label">이름</label>
+			<input type="text" class="text" placeholder="홍길동"/></p>
+		</div>
+		<div class="btn-area">
+			<button class="btn-submit">기본정보 변경</button>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+</div>
+<script>
+	//번호인증하기
+	$('.certification input.text').on('keyup',function(){
+		$(this).closest('p').find('.check-certification').css('display','block').end().find('.btn-check').text('재인증');
+	});
+	$('.check-certification input.text').on('keyup',function(){
+		$(this).closest('p').find('.btn-check').addClass('on').text('인증완료');
+	});
+</script>
+</body>
+</html>

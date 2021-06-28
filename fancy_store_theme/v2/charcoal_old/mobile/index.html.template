@@ -1,0 +1,45 @@
+<div id="home" class="page">
+	{%if settings.cover_images %}
+	<div class="cover" >
+		<ul class="slide">
+			{% for img in settings.cover_images %}
+				<li><img src="{{img|asset_url}}"></li>
+			{% endfor %}
+		</ul>
+		<div class="paging">
+			{% for img in settings.cover_images %}
+				<a href="#">{{forloop.counter}}</a>
+			{% endfor %}
+		</div>			
+	</div>
+	{%endif%}
+	<div class="featured minimum-list inner">
+		<h3>NEW ARRIVALS</h3>
+		<ul class="after">		
+			{% for thing in settings.featured_items|to_things %}			
+			{% if thing.sale %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{thing.id}}">
+					<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ thing.image.url | resize_url:'231x160' }})" alt="">
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="sale minimum-list inner">
+		<h3>SALE</h3>
+		<a href="{{path_prefix}}/shop" class="more">See All</a>
+		<ul class="after">
+			{% for thing in settings.new_items|to_things %}
+			{% if thing.sale %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{thing.id}}">
+					<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ thing.image.url | resize_url:'231x160' }})" alt="">
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

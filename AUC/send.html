@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">보내기</a>
+	</div>
+	<div id="content" class="fix_btns">
+		<!-- content area -->
+		<div class="tab">
+			<a href="#" tab-cont="address" class="current">지갑주소</a>
+			<a href="#" tab-cont="email">아이디(이메일)</a>
+			<a href="#" tab-cont="tel">휴대폰번호</a>
+		</div>
+		<div class="frm send">
+			<p class="type">
+				<span class="address tab-cont">
+					<input type="text" class="text address" placeholder="지갑주소" />
+					<a href="send_scan.html" class="btn-scan">QR코드 스캔하기</a>
+				</span>
+				<input type="text" class="text email tab-cont" placeholder="이메일" style="display:none;"/>
+				<input type="tel" class="text phone tab-cont" placeholder="휴대폰번호" style="display:none;" />
+			</p>
+
+			<input type="text" class="text" placeholder="전송수량(AUC)" />
+			<p class="current">
+				보유량: 1,487,4587.0000 AUC<br />
+				<b>수수료: 0.05 AUC</b>
+			</p>
+		</div>
+		<div class="keypad">
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>4</button>
+			<button>5</button>
+			<button>6</button>
+			<button>7</button>
+			<button>8</button>
+			<button>9</button>
+			<button></button>
+			<button>0</button>
+			<button class="remove">지우기</button>
+		</div>
+		<a href="send_pin.html" class="button">다음</a>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.tab a').click(function(){
+		var tabCont = $(this).attr('tab-cont');
+		$('.tab-cont').hide();
+		$('.tab-cont.'+tabCont).show();
+	});
+});
+
+</script>
+</body>
+
+</html>

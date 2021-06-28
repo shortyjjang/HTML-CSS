@@ -1,0 +1,26 @@
+
+<div class="blogSection">
+	<div class="inner">
+	  <h2 class="tit">
+	    Blog
+	  </h2>
+	  <ul class="blogList">
+	    {%for post in posts%}
+	    <li class="blogElement {{settings.blogposts.type}} {{settings.blogposts.size}}"><a href="#blog-post" data-component="popup" data-seller_id="{{seller.id}}" data-blogpostid="{{post.id}}">
+	      <img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{post.cover_image_url}})" />
+	      <b class="title">{{post.title}}</b>
+	      <small class="date">{{post.date_created|date:"F j, Y"}}</small>
+	      <span class="description">
+		{{post.plaintext_content|truncate_string:"200"}}
+	      </span>
+	      <small class="more">Read More</small>
+	    </a></li>
+	    {%endfor%}
+	  </ul>
+	</div>
+</div>
+<script>
+(function($){
+	$('#wrap').attr('class', 'blog sub');
+})(jQuery);
+</script>

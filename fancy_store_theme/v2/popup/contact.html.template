@@ -1,0 +1,21 @@
+{{ 'js/contact.js' | common_asset_script }}
+
+<div class="shoptitle general">
+    <h3>Contact Us</h3>
+</div>
+<div class="about">
+    <p>
+    {{settings.contact_us|linebreaks}}
+    </p>
+    <fieldset class="contact_frm" data-component="shop-contact">
+        <form>
+        <input type="hidden" name="seller_username" value="{{seller.username}}">
+        <input type="hidden" name="subject" value="E-mail from a customer">
+        <p class="name"><label class="label">Name</label> <input type="text" class="text" name="from_name" id="contact-from_name" value="{{viewer.full_name}}" placeholder="Enter your name" /></p>
+        <p class="email"><label class="label">Email</label> <input type="text" class="text" name="from_email" id="contact-from_email" value="{{viewer.email|default:''}}" placeholder="Enter your email address" /></p>
+        <p class="msg"><label class="label">Message</label> <textarea type="text" class="textarea" rows="7" placeholder="Enter your message" name="message" id="contact-message"></textarea></p>
+        <button class="btn-send">Send Message</button>
+        </form>
+    </fieldset>
+</div>  
+              

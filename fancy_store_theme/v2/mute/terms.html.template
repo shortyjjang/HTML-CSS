@@ -1,0 +1,28 @@
+<div class="shoptitle general">
+	<h3>Terms of Service</h3>
+   <div class="intro"></div>
+</div>
+<div class="about">
+  <div class="menu">
+    <dl>
+      <dd><ul>
+        <li><a href="https://fancy.com/about/terms-copyright" target="blank">Copyright Policy</a></li>
+        <li><a href="{{path_prefix}}/terms">Terms of Service</a></li>
+        <li><a href="https://fancy.com/about/terms-privacy" target="blank">Privacy Policy</a></li>
+        </ul></dd>
+    </dl>
+  </div>
+  {%if seller.terms_of_services%}
+  <h2 class="tit">Terms of Service</h2>
+  <p>{{seller.terms_of_services|linebreaks}}</p>
+  {%endif%}
+  {%if seller.shipping_policy%}
+  <h2 class="tit">Shipping Policy</h2>
+  <p>{{seller.shipping_policy|linebreaks}}</p>
+  {%endif%}
+  {%if seller.custom_policy%}
+  <h2 class="tit">Return Policy</h2>
+  <p>{{seller.custom_policy|linebreaks}}</p>
+  {%endif%}  
+</div>
+              

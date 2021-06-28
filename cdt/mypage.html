@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<ul id="naviation">
+	<li><a href="index.html" class="home">홈</a></li>
+	<li><a href="inout.html" class="inout">입출금</a></li>
+	<li><a href="exchange.html" class="exchange">교환</a></li>
+	<li><a href="staking.html" class="staking">스테이킹</a></li>
+	<li><a href="purchases.html" class="purchases">거래내역</a></li>
+</ul>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">마이페이지</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container profile">
+		<!-- content area -->
+		<p class="info"><small>안녕하세요!</small> <b>chaindit@gmail.com</b> 님</p>
+		<div class="frm">
+			<h2 class="stit">기본정보수정</h2>
+			<p><label class="label">이메일</label>
+			<input type="text" class="text" placeholder="chiandit@gmail.com"/></p>
+			<p><label class="label">휴대전화번호</label>
+				<span class="certification">
+					<input type="tel" class="text" placeholder="휴대전화번호">
+					<button class="btn-check">본인인증</button>
+				</span>
+				<span class="check-certification"><input type="tel" class="text" placeholder="인증번호"><small>2:58</small></span>
+			</p>
+			<p><label class="label">이름</label>
+			<input type="text" class="text" placeholder="홍길동"/></p>
+			<button class="btn-submit">수정</button>
+		</div>
+		<div class="frm">
+			<h2 class="stit">비밀번호변경</h2>
+			<p><label class="label">현재 비밀번호를 입력해주세요</label>
+				<input type="password" class="text" placeholder="현재 비밀번호" />
+				<span class="check" data-pw="en">영문포함</span>
+				<span class="check" data-pw="num">숫자포함</span>
+				<span class="check" data-pw="emo">특수문자포함</span>
+				<span class="check" data-pw="min">8자리이상</span>
+			</p>
+			<p><label class="label">새로운 비밀번호를 입력해주세요</label>
+				<input type="password" class="text" placeholder="새로운 비밀번호" />
+				<span class="check" data-pw="en">영문포함</span>
+				<span class="check" data-pw="num">숫자포함</span>
+				<span class="check" data-pw="emo">특수문자포함</span>
+				<span class="check" data-pw="min">8자리이상</span>
+			</p>
+			<button class="btn-submit">수정</button>
+		</div>
+		<div class="frm">
+			<h2 class="stit">간편 비밀번호변경</h2>
+			<p><label class="label">모바일 인증</label>
+				<input type="text" class="text" placeholder="인증코드" />
+				<button class="btn-submit btn-code">모바일인증 코드 요청</button>
+			</p>
+			<p><label class="label">현재 간편 비밀번호를 입력해주세요</label>
+				<input type="password" class="text" placeholder="현재 비밀번호"onfocus="$(this).closest('.profile').addClass('show_keypad');"onblur="$(this).closest('.profile').removeClass('show_keypad');" />
+			</p>
+			<p><label class="label">새로운 간편 비밀번호를 입력해주세요</label>
+				<input type="password" class="text" placeholder="새로운 비밀번호"onfocus="$(this).closest('.profile').addClass('show_keypad');"onblur="$(this).closest('.profile').removeClass('show_keypad');" />
+			</p>
+			<button class="btn-submit">수정</button>
+			<div class="keypad">
+				<button value="1">1</button>
+				<button value="2">2</button>
+				<button value="3">3</button>
+				<button value="4">4</button>
+				<button value="5">5</button>
+				<button value="6">6</button>
+				<button value="7">7</button>
+				<button value="8">8</button>
+				<button value="9">9</button>
+				<button value="0">0</button>
+				<button class="btn-delete">Delete</button>
+			</div>
+		</div>
+		<ul>
+			<li><a href="#">회원탈퇴</a></li>
+			<li><a href="#">로그아웃</a></li>
+		</ul>
+	</div>
+</div>
+<div id="popup_container">
+</div>
+<script>
+	//번호인증하기
+	$('.certification input.text').on('keyup',function(){
+		$(this).closest('p').find('.check-certification').css('display','block').end().find('.btn-check').text('재인증');
+	});
+	$('.check-certification input.text').on('keyup',function(){
+		$(this).closest('p').find('.btn-check').addClass('on').text('인증완료');
+	});
+</script>
+</body>
+</html>

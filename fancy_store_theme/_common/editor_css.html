@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<link rel="stylesheet" href="./css/editor.css" type="text/css">
+	<link rel="stylesheet" href="http://bigbird.fancy.com/_static/common/js/codemirror/lib/codemirror.css" type="text/css">
+	<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+	<script src="http://bigbird.fancy.com/_static/common/js/codemirror/lib/codemirror.js"></script>
+	<script src="http://bigbird.fancy.com/_static/common/js/codemirror/mode/css/css.js"></script>
+</head>
+<body>
+	<div id="customize_bar" class="view-css">
+		<div class="topbar after">
+			<button class="btn-back">Unsaved</button>
+			<h2 class="default">Customize</h2>
+			<h2 class="css">Custom CSS</h2>
+			<button class="btn-blue btn-save" disabled>Save</button>
+		</div>
+		<div class="edit-contents">
+			<div class="scroll edit-css">
+				<div class="css-note">
+					<textarea id="custom_css">/* User custom CSS */</textarea>
+					<div class="position">Line 12, Column 32
+					<a href="#" class="btn-full" onclick="$(this).closest('#customize_bar').toggleClass('full');"></a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+(function($){
+	// code editor
+	this.$css = this.$('#custom_css');
+	if (window.CodeMirror) {
+		var editor = this.$css.data('editor');
+		if (!editor) {
+			editor = CodeMirror.fromTextArea(this.$css[0], {
+				lineNumbers : true
+			});
+			this.$css.data('editor', editor);
+
+			$(window)
+				.resize(function(){
+					var height = $(this).height() - self.$css.parent().offset().top - 10;
+					editor.setSize(null, height);
+				})
+				.resize();
+		}
+	}
+})(jQuery);
+</script>
+</body>
+</html>

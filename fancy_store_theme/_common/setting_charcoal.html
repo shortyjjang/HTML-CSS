@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<link rel="stylesheet" href="./css/customize.css">
+<link rel="stylesheet" href="http://fancy.com/_static/common/js/colpick/colpick.css" type="text/css">
+<link rel="stylesheet" href="http://fancy.com/_static/common/js/nanoscroller/nanoscroller.css" type="text/css">
+<link rel="stylesheet" href="http://fancy.com/_static/common/js/codemirror/lib/codemirror.css" type="text/css">
+<link rel="stylesheet" href="http://fancy.com/_static/common/js/codemirror/theme/neo.css" type="text/css">
+<style>.nano .nano-pane {width:8px}</style>
+
+<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+<!--[if IE]><style>#customize_bar .edit-basic .section {max-width:277px;} #customize_bar .controller .type_text .value, #customize_bar .controller .type_textarea .value {width:252px;}</style><![endif]-->
+</head>
+<body class="winOS">
+<script>
+	if (navigator.platform.indexOf('Win') != -1) {$('body').addClass('winOS');}
+	if (navigator.userAgent.indexOf('Chrome') < 0 && navigator.userAgent.indexOf('Safari') < 0 && navigator.userAgent.indexOf('Firefox') < 0){$("body").append("<style>#customize_bar .edit-basic {width:calc(100% - 14px);}</style>");}
+</script>
+<div id="customize_bar">
+	<div class="topbar after">
+		<button class="btn-black btn-exit">Exit</button>
+		<button class="btn-back">Back</button>
+		<h2 class="default">Customize</h2>
+		<h2 class="css">Custom CSS</h2>
+		<button class="btn-blue btn-save">
+			<span class="save">Save</span>
+			<span class="saved">Saved</span>
+			<div class="loader" title="6">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="7px" viewBox="0 0 20 7" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+					<rect x="0" y="0" width="6" height="7" fill="#dde6ed"><animate attributeName="opacity" attributeType="XML" values="1; .2; 1" begin="0s" dur="0.6s" repeatCount="indefinite"></animate></rect>
+					<rect x="7" y="0" width="6" height="7" fill="#dde6ed"><animate attributeName="opacity" attributeType="XML" values="1; .2; 1" begin="0.2s" dur="0.6s" repeatCount="indefinite"></animate></rect>
+					<rect x="14" y="0" width="6" height="7" fill="#dde6ed"><animate attributeName="opacity" attributeType="XML" values="1; .2; 1" begin="0.4s" dur="0.6s" repeatCount="indefinite"></animate></rect>
+				</svg>
+			</div>
+		</button>
+	</div>
+	<div class="edit-contents nano">
+		<div class="scroll edit-basic nano-content">
+		
+			<section id="optionContainer">
+<div class="section basic">
+	<h3 class="theme-tit">Basics</h3>
+	<div class="content_">
+		<div class="controller">
+			<ul class="after">
+			
+				
+				<li class="title type_text">
+					<label class="label" for="b-opt-1">Page Title <span class="tooltip"><i class="icon"></i><em>Page title displayed in the browser</em></span></label>
+					<span class="trick-input">cho712</span>
+					<input type="text" name="page_title" id="b-opt-1" class="value" value="">
+				</li>
+				
+			
+				
+				<li class="type_number">
+					<input type="hidden" name="items_per_page" value="21">
+					<label class="label" for="b-opt-2">Products Per Page </label>
+					<span class="value"><em class="trick-select"><a href="#popup-number" class="btn-page selector" data-bind="items_per_page" data-popup="">21</a></em></span>
+					<p class="desc" style="display:none">Set the number of products to display on your Storefront Shop page.</p>
+				</li>
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<div class="section logo">
+	<h3 class="theme-tit">LogoType</h3>
+	<div class="content_">
+		<div class="controller">
+			<ul class="after">
+				<li class="type_image">
+					<input type="hidden" name="logo_image" value="company_logotype.png">
+					<label class="label" for="l-opt-3">
+						Your Logotype
+						<small title="Logotype in JPG, GIF or PNG">Logotype in JPG, GIF or PNG</small>
+					</label>
+					<span class="value"><em class="add loaded" style="background-image: url(http://thefancy-media-ec5.thefancy.com/CoverImages/default/fancy_saleitemsellerlogo_1_c43c2199b776.png);"></em></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section appearance">
+	<h3 class="theme-tit">Custom Setting</h3>
+	<div class="content_" style="display: none;">
+		<div class="controller general">
+			<ul class="after">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="section feature">
+	<div class="content_">
+		<div class="controller image-list type_image-list">
+			<input type="hidden" name="cover_images" value="[&quot;company_cover.png&quot;]" class="image-list">
+			<label class="label"><b>Cover Images</b> <small title="Slideshow images for the front page. Dimensions: 970x480">Slideshow images for the front page. Dimensions: 970x480</small></label>
+			<ul class="after">
+				<li>
+					<span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt=""></span>
+					<span class="btns">
+						<a href="#" class="btn-white btn-move"><i class="icon"></i></a>
+						<a href="#" class="btn-white btn-edit"><i class="icon"></i></a>
+					</span>
+				</li>
+				<li>
+					<span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_2.png')" alt=""></span>
+					<span class="btns">
+						<a href="#" class="btn-white btn-move"><i class="icon"></i></a>
+						<a href="#" class="btn-white btn-edit"><i class="icon"></i></a>
+					</span>
+				</li>
+				<li>
+					<span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_3.png')" alt=""></span>
+					<span class="btns">
+						<a href="#" class="btn-white btn-move"><i class="icon"></i></a>
+						<a href="#" class="btn-white btn-edit"><i class="icon"></i></a>
+					</span>
+				</li>
+				<li>
+					<span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_4.png')" alt=""></span>
+					<span class="btns">
+						<a href="#" class="btn-white btn-move"><i class="icon"></i></a>
+						<a href="#" class="btn-white btn-edit"><i class="icon"></i></a>
+					</span>
+				</li>
+				<li><a href="#" class="btn-add" onclick="$(this).closest('.image-list').find('li:first-child').addClass('loading');"><i class="icon"></i> Add Product</a></li>
+			</ul>
+			<div class="btn-area">
+				<button class="btn-blue btn-save">Save</button>
+				<button class="btn-gray btn-save">Cancel</button>
+			</div>
+			<div class="drop-txt"><b>Drag Image Here</b></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#customize_bar .controller.image-list .btn-move').click(function(){
+		$(this).closest('li').addClass('hint-drop').closest('.image-list').addClass('editing');
+		$('<li class="dragging">'+$(this).closest('li').html()+'</li>').appendTo("#customize_bar .controller.image-list.editing ul");
+	});
+	$('#customize_bar .controller.image-list .btn-area button').click(function(){
+		$(this).closest('.image-list').removeClass('editing').find('.dragging').remove().end().find('.hint-drop').removeClass('hint-drop');
+	});
+</script>
+
+
+
+
+<div class="section feature">
+	<div class="content_">
+		<div class="controller image-list type_thing-list">
+			<input type="hidden" name="featured_items" class="thing-list" value="[]">
+			<label class="label"><b>Featured Items</b> <small title="Products displayed in Featured Items section">Products displayed in Featured Items section</small></label>
+			<ul class="after">
+				
+				<li><a href="#popup-thing-list" class="btn-add" data-popup=""><i class="icon"></i> Add Product</a></li>
+			</ul>
+			<div class="drop-txt"><b>Drag Image Here</b></div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="section feature">
+	<div class="content_">
+		<div class="controller image-list type_thing-list">
+			<input type="hidden" name="new_items" class="thing-list" value="[]">
+			<label class="label"><b>New Arrival items</b> <small title="Products displayed in New Arrival section">Products displayed in New Arrival section</small></label>
+			<ul class="after">
+				
+				<li><a href="#popup-thing-list" class="btn-add" data-popup=""><i class="icon"></i> Add Product</a></li>
+			</ul>
+			<div class="drop-txt"><b>Drag Image Here</b></div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section categories">
+	<div class="content_">
+		<div class="controller">
+			<ul class="after">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li class="type_category">
+					<label class="label">Categories <span class="tooltip"><i class="icon"></i><em>List of categories to show</em></span></label>
+					<input type="hidden" name="categories" class="category" value="[{&quot;name&quot;:&quot;Everything&quot;,&quot;key&quot;:&quot;&quot;}]">
+					<span class="value"><em class="trick-select"><a href="#popup-category" class="select-cate selector" data-popup="">0</a></em></span>							
+					
+				</li>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section info">
+	<div class="content_">
+		<div class="controller products">
+			<ul class="after">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<li class="type_text">
+					<label class="label" for="txt-opt-">Company Name <span class="tooltip"><i class="icon"></i><em>Your Company Name</em></span></label>
+					
+					<span class="trick-input">cho712</span>
+					<input type="text" id="txt-opt-8" name="company_name" class="value" value="">
+					
+				</li>
+				
+				
+				
+				
+				
+				<li class="type_text">
+					<label class="label" for="txt-opt-">Company Address <span class="tooltip"><i class="icon"></i><em>Your Company Address</em></span></label>
+					
+					<span class="trick-input">FRESH MEADOWS, NY</span>
+					<input type="text" id="txt-opt-9" name="company_address" class="value" value="">
+					
+				</li>
+				
+				
+				
+				
+				
+				<li class="type_text">
+					<label class="label" for="txt-opt-">Company Tel <span class="tooltip"><i class="icon"></i><em>Your Company Tel</em></span></label>
+					
+					<span class="trick-input">+001234567</span>
+					<input type="text" id="txt-opt-10" name="company_tel" class="value" value="">
+					
+				</li>
+				
+				
+				
+				
+				
+				<li class="type_textarea">
+					<label class="label" for="txt-opt-">About Company <span class="tooltip"><i class="icon"></i><em>About your Company</em></span></label>
+					
+					<span class="trick-input">boom boom boom
+nononon</span>
+					<textarea id="txt-opt-11" name="about" class="value"></textarea>
+					
+				</li>
+				
+				
+				
+				
+				
+				<li class="type_textarea">
+					<label class="label" for="txt-opt-">Message Sent Confirmation <span class="tooltip"><i class="icon"></i><em>Message Sent Confirmation</em></span></label>
+					
+					<span class="trick-input">Message sent. We'll be in touch</span>
+					<textarea id="txt-opt-12" name="msg_message_sent" class="value"></textarea>
+					
+				</li>
+				
+				
+				
+			</ul>
+		</div>
+	</div>
+</div>
+</section>
+<a href="/merchant/themes/editor?theme_id=3566#settings" class="btn-gray btn-customize">Custom Settings</a>
+
+		
+		</div>
+		<div class="scroll edit-css">
+			<div class="css-note">
+				<textarea id="custom_css" name="custom_css" placeholder="Code goes here..."></textarea>
+				<div class="position">
+					<span class="status"><script type="template">Line <%=line+1%>, Column <%=ch+1%></script></span>
+					<a href="#fullscreen" class="btn-full"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="preview"><iframe src="http://shop.donggi.net?theme_id=3566"></iframe></div>
+<div id="popup-number" class="select-popup number">
+	<dl>
+		<dt class="name_"></dt>
+		<dd class="after">
+		<p class="desc_"></p>
+		<div data-trigger="spinner" class="spinner">
+			<a href="#" data-spin="down" class="btns-gray-embo down"><i class="icon">-</i></a><input type="text" value="" class="text number" data-rule="quantity"><a href="#" data-spin="up" class="btns-gray-embo up"><i class="icon">+</i></a>
+		</div>
+		</dd>
+	</dl>
+</div>
+<div id="popup-category" class="select-popup cate-list">
+	<dl class="active">
+		<dt><a href="#" class="toggle"><!-- Text defined in CSS --></a>Select categories</dt>
+		<dd>
+			<ul class="after all">
+				
+				<li><input type="checkbox" value="Mens" id="cate-a-1"><label for="cate-a-1"> Men's</label></li>
+				
+				<li><input type="checkbox" value="Womens" id="cate-a-2"><label for="cate-a-2"> Women's</label></li>
+				
+				<li><input type="checkbox" value="Kids" id="cate-a-3"><label for="cate-a-3"> Kids</label></li>
+				
+				<li><input type="checkbox" value="Pets" id="cate-a-4"><label for="cate-a-4"> Pets</label></li>
+				
+				<li><input type="checkbox" value="Home" id="cate-a-5"><label for="cate-a-5"> Home</label></li>
+				
+				<li><input type="checkbox" value="Gadgets" id="cate-a-6"><label for="cate-a-6"> Gadgets</label></li>
+				
+				<li><input type="checkbox" value="Art" id="cate-a-7"><label for="cate-a-7"> Art</label></li>
+				
+				<li><input type="checkbox" value="Food" id="cate-a-8"><label for="cate-a-8"> Food</label></li>
+				
+				<li><input type="checkbox" value="Media" id="cate-a-9"><label for="cate-a-9"> Media</label></li>
+				
+				<li><input type="checkbox" value="Architecture" id="cate-a-10"><label for="cate-a-10"> Architecture</label></li>
+				
+				<li><input type="checkbox" value="travel-and-destinations" id="cate-a-11"><label for="cate-a-11"> Travel &amp; Destinations</label></li>
+				
+				<li><input type="checkbox" value="sports-and-outdoors" id="cate-a-12"><label for="cate-a-12"> Sports &amp; Outdoors</label></li>
+				
+				<li><input type="checkbox" value="diy-and-crafts" id="cate-a-13"><label for="cate-a-13"> DIY &amp; Crafts</label></li>
+				
+				<li><input type="checkbox" value="Workspace" id="cate-a-14"><label for="cate-a-14"> Workspace</label></li>
+				
+				<li><input type="checkbox" value="cars-and-vehicles" id="cate-a-15"><label for="cate-a-15"> Cars &amp; Vehicles</label></li>
+				
+				<li><input type="checkbox" value="Other" id="cate-a-16"><label for="cate-a-16"> Other</label></li>
+				
+			</ul>
+			<ul class="after active">
+				
+				<li><input type="checkbox" value="Home" id="cate-b-1"><label for="cate-b-1"> Home</label></li>
+				
+				<li><input type="checkbox" value="Gadgets" id="cate-b-2"><label for="cate-b-2"> Gadgets</label></li>
+				
+				<li><input type="checkbox" value="Food" id="cate-b-3"><label for="cate-b-3"> Food</label></li>
+				
+				<li><input type="checkbox" value="Media" id="cate-b-4"><label for="cate-b-4"> Media</label></li>
+				
+				<li><input type="checkbox" value="Architecture" id="cate-b-5"><label for="cate-b-5"> Architecture</label></li>
+				
+				<li><input type="checkbox" value="Workspace" id="cate-b-6"><label for="cate-b-6"> Workspace</label></li>
+				
+			</ul>
+		</dd>
+	</dl>
+</div>
+<div id="popup-collection" class="select-popup cate-list">
+	<dl class="all">
+		<dt>Select collections</dt>
+		<dd>
+			<div class="add-collection" style="display: none;">
+				You do not have any collections.
+				<a href="/merchant/products/collections" target="_blank">Edit Collections</a>
+			</div>
+			<ul class="after all">
+				
+				
+				<li><input type="checkbox" value="43440448" id="coll-1"><label for="coll-1"> test cover</label></li>
+				
+				<li><input type="checkbox" value="43206754" id="coll-2"><label for="coll-2"> Hot</label></li>
+				
+				<li><input type="checkbox" value="43204360" id="coll-3"><label for="coll-3"> Cool</label></li>
+				
+				<li><input type="checkbox" value="42903506" id="coll-4"><label for="coll-4"> test!</label></li>
+				
+				<li><input type="checkbox" value="42376214" id="coll-5"><label for="coll-5"> Test</label></li>
+				
+				<li><input type="checkbox" value="42195100" id="coll-6"><label for="coll-6"> Big Sale!</label></li>
+				
+				<li><input type="checkbox" value="31929929" id="coll-7"><label for="coll-7"> Girls</label></li>
+				
+				<li><input type="checkbox" value="31929911" id="coll-8"><label for="coll-8"> Cool Gadgets</label></li>
+				
+				<li><input type="checkbox" value="5808017" id="coll-9"><label for="coll-9"> For Summer!</label></li>
+				
+				<li><input type="checkbox" value="10355" id="coll-10"><label for="coll-10"> Gadgets</label></li>
+				
+			</ul>
+		</dd>
+	</dl>
+</div>
+<div id="popup-color" class="select-popup color-picker"><div class="colpick colpick_hex colpick_hex_ns colpick_dark" id="collorpicker_39" style="display: block; position: relative;"><div class="colpick_color" style="background-color: rgb(0, 149, 255);"><div class="colpick_color_overlay1"><div class="colpick_color_overlay2"><div class="colpick_selector_outer" style="left: 116px; top: 34px;"><div class="colpick_selector_inner"></div></div></div></div></div><div class="colpick_hue" style="background:-webkit-linear-gradient(top,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); background: -o-linear-gradient(top,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); background: -ms-linear-gradient(top,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); background:-moz-linear-gradient(top,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); -webkit-linear-gradient(top,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); background:linear-gradient(to bottom,#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000); "><div class="colpick_hue_arrs" style="top: 67px;"><div class="colpick_hue_larr"></div><div class="colpick_hue_rarr"></div></div></div><div class="colpick_new_color" style="background-color: rgb(50, 137, 199);"></div><div class="colpick_current_color" style="background-color: rgb(50, 137, 199);"></div><div class="colpick_hex_field"><div class="colpick_field_letter">#</div><input type="text" maxlength="6" size="6"></div><div class="colpick_rgb_r colpick_field"><div class="colpick_field_letter">R</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_rgb_g colpick_field"><div class="colpick_field_letter">G</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_rgb_b colpick_field"><div class="colpick_field_letter">B</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_hsb_h colpick_field"><div class="colpick_field_letter">H</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_hsb_s colpick_field"><div class="colpick_field_letter">S</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_hsb_b colpick_field"><div class="colpick_field_letter">B</div><input type="text" maxlength="3" size="3"><div class="colpick_field_arrs"><div class="colpick_field_uarr"></div><div class="colpick_field_darr"></div></div></div><div class="colpick_submit">OK</div></div></div>
+<div id="popup-image" class="select-popup upload-image">
+	<div class="img-editor">
+		<button class="btn-white btn-del"><i class="icon"></i><span>Delete</span></button>
+		<em class="add"></em>
+	</div>
+	<ul style="display:none">
+		<li>
+			<span class="label">Position</span>
+			<span class="value">
+				<span class="trick-select">
+					<a href="#" class="selector">top left</a>
+					<select>
+						<option>top left</option>
+						<option>top right</option>
+						<option>bottom left</option>
+						<option>bottom right</option>
+					</select>
+				</span>
+			</span>
+		</li>
+	</ul>
+</div>
+<div id="popup-slideshow" class="select-popup slideshow top show" style="top: 392px; bottom: auto; left: 86px;">
+	<dl>
+		<dt>Image Settings <a href="#" class="remove"><i class="icon"></i> Remove</a></dt>
+		<dd>
+			<fieldset>
+				<input type="text" class="text" placeholder="Link URL">
+				<input type="checkbox" id="slideshow-open_new_window"><label for="slideshow-open_new_window">Open link in new window</label>
+			</fieldset>
+		</dd>
+	</dl>
+</div>
+<div id="popup-thing-list" class="select-popup selected-product">
+	<dl>
+		<dt class="selected">Featured Items</dt>
+		<dd class="after">
+			<fieldset class="search-product">
+				<input type="text" name="q" autocomplete="off">
+				<a href="#clear" class="btn-remove" style="display:none">Clear</a>
+			</fieldset>
+			<div class="loading"></div>
+			<div class="no-result">No items found</div>
+			<div class="product-list">
+				<script type="template">
+					<li <% if(selected){ %>class="selected"<% } %> data-id="<%=id%>" data-image="<%=image.src%>"><img src="/_ui/images/common/blank.gif" style="background-image:url('<%=image.src%>')"></li>
+				</script>
+				<ul class="after"></ul>
+			</div>
+		</dd>
+	</dl>
+</div>
+
+
+</body></html>

@@ -1,0 +1,95 @@
+jQuery(function($){
+    
+    jQuery.cookie = {
+        'get' : function(name){
+            var regex = new RegExp('(^|[ ;])'+name+'\\s*=\\s*([^\\s;]+)');
+            return regex.test(document.cookie)?unescape(RegExp.$2):null;
+        },
+        'set' : function(name, value, days){
+            var expire = new Date();
+            expire.setDate(expire.getDate() + (days||0));
+            cookie_str = name+'='+escape(value)+(days?';expires='+expire:'');
+            if (name =='lang') cookie_str +='; path=/';
+            document.cookie = cookie_str;
+        }
+    };
+
+	$('#popup_container')
+		.on('click', function(event){
+			if(event.target === this) {
+				$(this).hide().removeAttr('class');
+			}
+		});
+	$('.popup .ly-close')
+		.on('click', function(event){
+				$(this).closest('#popup_container').hide().removeAttr('class');
+		});
+	$('script[type="template"]').each(function(){
+		var $tpl = $(this);
+		$tpl.parent().data('template', _.template($tpl.remove().html()));
+	});
+
+	$('.search input').on('focus',function(event){
+		$(this).closest('.search').addClass('focus');
+	});
+	$('.search input').on('blur',function(event){
+      	var $this = $(this);
+        if($this.val()==''){
+          setTimeout(function(){
+            $this.closest('.search').removeClass('focus');
+          },100);
+        }
+	});
+  
+	// search field
+	$("#header .search input[type=text][name=q]")
+		.keydown(function(event){
+			if (event.which != 13) return;
+			event.preventDefault();
+
+			var keyword = $.trim(event.currentTarget.value);
+			if (!keyword.length){
+				return;
+			}
+
+			var url = location.pathname, args = location.search.slice(1);
+			url = path_prefix+"shop";
+			args = args.replace(/&?(q|p|c|sort_by_price|categories)=[^&]*/g,'');
+			args += '&q='+keyword;
+
+			document.location.href = url + "?" + args;
+		})
+   	    
+    $(".btn-wishlist, a.wishlist").on('click', function(event) {
+      event.preventDefault();
+      var $this = $(this), tid = $(this).attr('data-tid'), wanted = $(this).hasClass('on');
+      if ($(this).hasClass("require-login")) {
+        location.href = $('a#login').attr('href');
+        return;
+	  }
+      $.ajax({ url: '/rest-api/v1/things/' + tid, method: 'put',
+            data:{ 'wanted': wanted ? 'false' : 'true'},
+            headers : {'X-CSRFToken':csrftoken},
+            success: function(result) {
+              if (wanted) {
+                $this.text('Save to Wishlist').removeClass('on');
+              } else {
+                $this.text('Remove from Wishlist').addClass('on');
+              }
+            }
+      });
+    });
+
+    Cart.get().then(function(data){
+		var count = 0;
+		if (data && data.items) {
+			for (var i=0; i < data.items.length; i++) {
+				count += data.items[i].quantity;
+			}
+		}
+        $('#header .btn-cart').find('.count b').text(count);
+	});
+  
+});
+
+

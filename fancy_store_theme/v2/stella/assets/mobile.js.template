@@ -1,0 +1,103 @@
+jQuery(function($){
+	
+	$('script[type="template"]').each(function(){
+		var $tpl = $(this);
+		$tpl.parent().data('template', _.template($tpl.remove().html()));
+	});
+
+
+	function resetAvailableQuantity(quantity){
+		if(!quantity) quantity = 1;
+		if(quantity>10) quantity = 10;
+		$("select[name=qty]").empty();
+		for(var i=1 ; i<=quantity; i++){
+			$("<option value='"+i+"'>"+i+"</option>").appendTo( $("select[name=qty]") );
+		}
+	}
+    
+	$('select[name="option"]').on('change', function(event){
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0){
+           		if( typeof $selected.data('quantity') == 'undefined' ) return;
+           		var quantity = Math.min( $selected.data("quantity"), 10);
+				resetAvailableQuantity(quantity);
+				if( $selected.data('price') )
+                   $(this).parents('.info').find('.price b').text('$' + $selected.data('price'));
+          }
+    });
+	
+	// thing layer
+	$(document).on('click', 'a[data-thingid]', function(e){		
+		e.preventDefault();
+		$("#things.popup").addClass("loading");
+		var id = $(this).attr("data-thingid");
+		var url = '/rest-api/v1/things/'+id;		
+		$.get(url,{},function(res){
+			if(res.sales){
+				$("#things").attr('data-saleid', res.sales.id);
+				for(var k in res.sales){
+					$("#things ."+k+"_").html(res.sales[k]);					
+				}
+				if(res.sales.options.length){
+					$("#things select[name=option]").removeAttr('disabled').html($("#things select[name=option]").data("template")({options:res.sales.options})).change();
+				}else{
+					$("#things select[name=option]").html("<option value=''>No Options Available</option>").attr('disabled','disabled').change();
+				}		
+				var quantity = Math.min(10,  $("select[name=option] option:selected").data('quantity')|| res.sales.quantity);
+				resetAvailableQuantity(quantity);
+				$('select[name="option"]').change();
+
+				$("#things.popup").trigger('center');
+			}
+		}).fail(function(){
+			alert("error");
+			$("#things .popup_close").click();
+		}).always(function(){
+			$("#things.popup").removeClass("loading");
+		})
+	});
+
+	// add to cart
+	$("#things button.btn-cart").click(function(){
+		var saleId = $(this).closest(".popup").attr("data-saleid");
+		var qty = $(this).closest(".popup").find("[name=qty]").val()||1;
+		var option = $(this).closest(".popup").find("[name=option] > :selected").val();
+		Cart.add(saleId, qty, option)
+			.then(function(data){
+				Cart.get().then(function(data){
+					var count = 0;
+					if (data && data.items) {
+						for (var i=0; i < data.items.length; i++) {
+							count += data.items[i].quantity;
+						}
+					}
+					$('a.btn-cart .count').text(count);
+				});
+				$("a.btn-cart:eq(0) i").trigger("click");
+			})
+			.fail(function(res){
+				if(res.responseText){
+					var json = JSON.parse(res.responseText);
+					if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+						alert("You can only order a maximum quantity of "+json.quantity+" for this item");
+					}else{
+						alert('Unable to add to cart. Please try again later.');
+					}
+				}else{
+					alert('Unable to add to cart. Please try again later.');
+				}
+			});
+	});
+
+
+	Cart.get().then(function(data){
+		var count = 0;
+		if (data && data.items) {
+			for (var i=0; i < data.items.length; i++) {
+				count += data.items[i].quantity;
+			}
+		}
+		$('a.btn-cart .count').text(count);
+	});
+});

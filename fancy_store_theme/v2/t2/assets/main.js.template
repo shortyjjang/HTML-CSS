@@ -1,0 +1,182 @@
+jQuery(function($){
+
+	$('script[type="template"]').each(function(){
+		var $tpl = $(this);
+		$tpl.parent().data('template', _.template($tpl.remove().html()));
+	});
+
+
+	// search field
+	$("input[type=text][name=q]")
+		.focus(function(event){
+			$(event.currentTarget).show().closest(".search").find("fieldset").addClass("focus").find("b.result").hide().end().find(".btn-remove").hide();
+		}).blur(function(event){
+			$(event.currentTarget).closest(".search").find("fieldset").removeClass("focus");
+			if( $(".search").find("b.result").text() ){
+				$(".search")
+					.find("input[name=q]").hide().end()
+					.find("b.result").show().end()
+					.find(".btn-remove").css('display','inline-block').end();
+			}
+
+		}).keydown(function(event){
+			if (event.which != 13) return;
+			event.preventDefault();
+
+			var keyword = $.trim(event.currentTarget.value);
+			if (!keyword.length){
+				return;
+			}
+
+			var url = location.pathname, args = location.search.slice(1);
+			url = path_prefix+"things";
+			args = args.replace(/&?(q|p|c|sort_by_price|categories)=[^&]*/g,'');
+			args += '&q='+keyword;
+
+			document.location.href = url + "?" + args;
+		})
+	$(".search .btn-search").click(function(event){
+		if( $(event.currentTarget).closest('.search').find("fieldset").hasClass('focus') )
+			$("input[type=text][name=q]").trigger({type:'keydown',which:13});
+		else
+			$("input[type=text][name=q]").val('').show().trigger('focus');
+	})
+	$(".search b.result").click(function(event){
+		$("input[type=text][name=q]").val( $(event.target).text() ).show().trigger('focus');
+	})
+	$(".search .btn-remove").click(function(event){
+		$(".search")
+				.find("input[name=q]").val('').show().end()
+				.find("b.result").text('').hide().end()
+				.find(".btn-remove").hide().end();
+		
+		var url = location.pathname, args = location.search.slice(1);
+		url = path_prefix+"things";
+		args = args.replace(/&?(q|p|c|sort_by_price|categories)=[^&]*/g,'');
+
+		document.location.href = url + "?" + args;
+	})
+
+	
+	function refreshCart(data){
+		$("#cart.popup").addClass("loading");
+		Cart.get()
+			.then(function(data){
+				var $cart = $("#cart.popup");
+				var $tbody = $cart.find('tbody');
+				if (!$tbody || !$tbody.length) return this;
+
+				var count = 0, isAvailable = true;
+				_.each(data.items, function(item){ 
+					count += +item.quantity || 0; 
+					if(!item.available_before_shipping) isAvailable = false;
+				});
+
+				$tbody.empty().html( $tbody.data('template')({items:data.items}) );
+				$cart.find('.subtotal_').text('$'+data.subtotal_price);
+				$('.btn-cart').find('.count').text(count);
+				if(data.checkout_url && isAvailable){
+					$cart.find('.btn-checkout').attr('href', data.checkout_url).removeAttr('disabled');
+				}else{
+					$cart.find('.btn-checkout').attr('href', '#').attr('disabled', 'disabled');
+				}
+				$cart.find(".not-empty, .empty").hide().filter(count ? '.not-empty' : '.empty').show();
+
+				$cart.trigger('center');
+				$("#cart.popup").removeClass("loading");
+			})
+	}
+
+	function updateCartItem(itemId, qty, optionId, $target){
+		try {
+			if($target) $target.addClass('disabled_');
+			Cart.update(itemId, qty, optionId)
+				.then(function(res){ 
+					refreshCart();
+				})
+				.fail(function(res){
+					if(res.responseText){
+						var json = JSON.parse(res.responseText);
+						if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+							alert("You can only order a maximum quantity of "+json.quantity+" for this item");
+
+							if($target) $target.val(  json.quantity  ).trigger("blur");
+						}else{
+							alert('Unable to update quantity. Please try again later.');
+							if($target) $target.val( $target.attr('data-prev-value') );
+						}
+					}else{
+						alert('Unable to update option. Please try again later.');
+						if($target) $target.val( $target.attr('data-prev-value') );
+					}	
+					
+					
+                })
+                .always(function(){ if($target) $target.removeClass('disabled_') });			
+		} catch(e){}
+	}
+
+	// add to cart
+	$("#things button.btn-cart").click(function(){
+		var saleId = $(this).closest(".popup").attr("data-saleid");
+		var qty = $(this).closest(".popup").find("[name=qty]").val()||1;
+		var option = $(this).closest(".popup").find("[name=option] > :selected").val();
+		Cart.add(saleId, qty, option)
+			.then(function(data){
+				refreshCart(data);
+				$(".btn-cart:eq(0)").click();
+			})
+	});
+
+	
+	$("#cart")
+		.delegate(".option select", "change", function(event){ // option change in cart
+			var $target = $(event.target), $item = $target.closest('[data-id]'), itemId, qty, optionId;
+			if ($target.hasClass('disabled_')) return;
+			$target.attr("data-prev-value", $target.val());
+
+			itemId = $item.attr('data-id');
+			qty = parseInt($item.find(".quantity").val());
+			optionId = $target.val();
+
+			updateCartItem(itemId, qty, optionId);		
+		})
+		.delegate(".quantity", "keyup blur", function(event){ // quantity change in cart
+			if (event.type == 'keyup') {
+				if (event.which != 13) return;
+				event.preventDefault();
+			}
+			var $target = $(event.target), $item = $target.closest('[data-id]'), itemId, qty, optionId;
+			if ($target.hasClass('disabled_')) return;
+
+			itemId = $item.attr('data-id');
+			optionId = $item.find(".option select").val();
+			qty = $target.val();
+			
+			prev = parseInt($target.attr('data-prev-value'));
+			if (isNaN(qty) || qty == prev) {
+				return $target.val($target.attr('data-prev-value'));
+			}
+
+			$target.attr("data-prev-value", $target.val());
+			updateCartItem(itemId, qty, optionId, $target);		
+		})
+		.delegate("a.remove", "click", function(event){ // delete item in cart
+			var $target = $(event.target), $item = $target.closest('[data-id]'), itemId;
+			itemId = $item.attr('data-id');
+
+			Cart.remove(itemId)
+				.then(function(){
+					refreshCart();
+				})
+
+		})
+		.bind("refresh", function(){
+			refreshCart();	
+		})
+
+	// fetch cart items
+	refreshCart();	
+
+
+});

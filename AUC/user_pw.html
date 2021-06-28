@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">비밀번호변경</a>
+	</div>
+	<div id="content" class="fix_btns">
+		<!-- content area -->
+		<div class="current">
+			<p class="ptit">현재 비밀번호를 입력해주세요</p>
+			<fieldset class="frm">
+				<input type="password" class="text" placeholder="비밀번호" />
+				<small class="checklist">
+					<em>엉문포함</em>
+					<em>숫자포함</em>
+					<em>특수문자포함</em>
+					<em>8자리이상</em>
+				</small>
+			</fieldset>
+			<button class="button" disabled>다음</button>
+		</div>
+		<div class="new" style="display:none;">
+			<p class="ptit">새로운 비밀번호를 입력해주세요</p>
+			<fieldset class="frm">
+				<input type="password" class="text" placeholder="비밀번호" />
+				<small class="checklist">
+					<em>엉문포함</em>
+					<em>숫자포함</em>
+					<em>특수문자포함</em>
+					<em>8자리이상</em>
+				</small>
+				<input type="password" class="text" placeholder="비밀번호 확인"/></p>
+			</fieldset>
+			<button class="button" disabled>다음</button>
+		</div>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('input.text[type="password"]').on('keyup',function(){
+		$(this).next().find('em').addClass('on');
+		$('.button').removeAttr('disabled');
+	});
+	$('.current .button').click(function(){
+		$(this).closest('#content').find('.current').hide().end().find('.new').show();
+	});
+	$('.new .button').click(function(){
+		location.href='user_pw_step2.html'
+	});
+});
+
+</script>
+</body>
+
+</html>

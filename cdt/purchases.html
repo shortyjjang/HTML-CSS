@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<ul id="naviation">
+	<li><a href="index.html" class="home">홈</a></li>
+	<li><a href="inout.html" class="inout">입출금</a></li>
+	<li><a href="exchange.html" class="exchange">교환</a></li>
+	<li><a href="staking.html" class="staking">스테이킹</a></li>
+	<li><a href="purchases.html" class="purchases">거래내역</a></li>
+</ul>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">거래내역</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container purchases">
+		<!-- content area -->
+		<ul class="tab">
+			<li><a href="#" class="current">전체</a></li>
+			<li><a href="#">입금</a></li>
+			<li><a href="#">출금</a></li>
+		</ul>
+		<ul class="purchases-list">
+			<li>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">입금완료</span>
+				<b class="type">입금</b>
+				<b class="amount blue">200 CDT</b>
+				<small class="receiver">받는사람 <a href="#">0x2dad73fb871f03b5a29e45800081cc6541537ef1</a></small>
+			</li>
+			<li>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">입금대기</span>
+				<b class="type">입금</b>
+				<b class="amount">200 CDT</b>
+				<small class="receiver">받는사람 <a href="#">0x2dad73fb871f03b5a29e45800081cc6541537ef1</a></small>
+			</li>
+			<li>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">출금완료</span>
+				<b class="type">출금</b>
+				<b class="amount blue">200 CDT</b>
+				<small class="receiver">받는사람 <a href="#">0x2dad73fb871f03b5a29e45800081cc6541537ef1</a></small>
+			</li>
+			<li>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">입금완료</span>
+				<b class="type">입금</b>
+				<b class="amount blue">200 CDT</b>
+				<small class="receiver">받는사람 <a href="#">0x2dad73fb871f03b5a29e45800081cc6541537ef1</a></small>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="popup_container">
+	<div class="popup add_staking">
+		<h3 class="title">스테이킹 신청 </h3>
+		<div class="staking-list">
+			<h3>GOLD(24개월)</h3>
+			<p>최소수량 <b>200 PAN</b></p>
+			<p>스테이킹기간 <b>730일</b></p>
+			<p class="rate">만기 이자율 <b>54%</b></p>
+			<p class="fee">해지 수수료 <b>-54%</b></p>
+		</div>
+		<div class="frm">
+			<input type="text" class="text" placeholder="스테이킹 수량(CDT)" />
+			<small class="comment">신청가능 수량: 487,2347.000 CDT</small>
+		</div>
+		<div class="btn-area">
+			<button class="btn-cancel">취소</button>
+			<a href="find_id.html" class="btn-submit">신청하기</a>
+		</div>
+	</div>
+</div>
+<script>
+	$('.popup .btn-close, .popup .btn-cancel').on('click',function(){
+		$('#popup_container').removeAttr('class').removeAttr('style');
+	});
+</script>
+</body>
+</html>

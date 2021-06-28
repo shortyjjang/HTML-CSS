@@ -1,0 +1,24 @@
+<div id="collection" class="page">
+	<div class="search">
+		<a href="{{path_prefix}}/shop" class="back">Back</a>
+		<fieldset>
+			<input type="text" name="q" placeholder="SEARCH">
+			<button class="btn-search" style="display: inline-block;;">Search</button>
+		</fieldset>
+	</div>
+	<div class="collection-list minimum-list inner">
+		<h2>Collections</h2>
+		<ul class="after">
+			{% for c in collections%}
+			<li><a href="{{path_prefix}}/collections/{{c.id}}">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{c.image_url}})" alt="">
+				<b class="title">{{c.name}}</b>
+				<span class="count">{{c.get_items_count}} Items</span>
+			</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'sub list');
+</script>

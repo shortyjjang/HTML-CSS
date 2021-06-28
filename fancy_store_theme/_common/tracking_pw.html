@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" href="./css/checkout.css">
+</head>
+<body>
+<div id="checkout">
+	<div class="sign forgot_pw">
+		<h1 class="logo"><a href="#"><img src="./img/dummy/cake-200_360.png" alt="" /></a></h1>
+		<h2>Forgot Password <small>Forgot your password? Enter your email address to reset it.</small></h2>
+		<fieldset>
+			<p><input type="text" class="text" placeholder="Email" /></p>
+			<div class="btn-area">
+				<a href="#" class="go-back" onclick="$('.sign').hide();$('.signin').show();return false;">Back</a>
+				<button class="btn-reset">Reset Password</button>
+			</div>
+		</fieldset>
+	</div>
+</div>
+<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+<script>
+$('#checkout .signin h2 small a').hover(function(){
+	$('#checkout .signin .sns-other').css('left',$('#checkout .signin h2 small').width() - ($(this).width()/2) + 30 +'px');
+});
+</script>
+</body>
+</html>

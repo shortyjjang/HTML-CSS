@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">보내기</a>
+	</div>
+	<div id="content">
+		<!-- content area -->
+		<p class="ptit">간편인증번호를 입력해주세요</p>
+		<div class="keypad_number">
+			<input type="text" />
+			<i class="dot"></i>
+			<i class="dot"></i>
+			<i class="dot"></i>
+			<i class="dot"></i>
+			<i class="dot"></i>
+			<i class="dot"></i>
+		</div>
+		<div class="keypad">
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>4</button>
+			<button>5</button>
+			<button>6</button>
+			<button>7</button>
+			<button>8</button>
+			<button>9</button>
+			<button class="cancel">취소</button>
+			<button>0</button>
+			<button class="remove">지우기</button>
+		</div>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.keypad button').click(function(){
+		if (!$(this).hasClass('remove') || !$(this).hasClass('cancel')) {
+			if($('.keypad_number i').length == $('.keypad_number .on').length) location.href='send_sms.html';
+		}
+	});
+});
+
+</script>
+</body>
+
+</html>

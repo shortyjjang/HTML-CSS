@@ -1,0 +1,302 @@
+{% load pipeline_assets %}{% load i18n %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html class="secure-checkout">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta charset="utf-8">
+	<title>{{seller_profile.brand_name}} - Checkout</title>
+	<link rel="stylesheet" href="/shop/themes/_common/css/checkout.v2.css" type="text/css"></link>
+	{% pipeline_compressed_js 'shop_common.min.js' %}
+    {% if storefront %}
+    <style type="text/css">
+        {%comment%} PLEASE NOTE CSS SHOULD BE SANITIZED IF WE ARE GOING TO LET MERCHANTS EDIT THIS {%endcomment %}
+        {%if storefront.custom_theme and storefront.custom_theme.settings.custom_css%}
+        	{{storefront.custom_theme.settings.custom_css|safe}}
+        {%else%}
+        	{{storefront.custom_css|safe}}
+        {%endif%}
+    </style>
+    {% endif %}
+</head>
+<body>
+<div id="checkout">
+	<div class="after">
+		<div class="left">
+			<div class="summary">
+                <h1 class="logo">{% if logo_url %}<a href="{{ store_url }}" class="logo-img"><img src="{{ logo_url }}" alt=""></a>{% endif %}
+                    <b class="brand"><a href="{{store_url}}">{{seller_profile.brand_name}}</a></b>
+                <span class="tagline">{{seller_profile.tagline}}</span><br/>
+                <a href="{{store_url}}">{{store_url|simplify_url}}</a></h1>				
+			</div>
+			<div id="signup" class="sign start" {%if logged_in%}style="display:none"{%endif%}>
+                {% if storefront and storefront.has_own_users %}
+				<h2>Buy with {{seller_profile.brand_name}}</h2>
+				<p>Have a {{seller_profile.brand_name}} account? Sign in for easy checkout.</p>
+				<div class="btn-area"><a href="{% url 'store_front_login' seller_name=owner.username %}?next={{request.get_full_path|urlencode}}" class="btn-sign">Sign In</a></div>
+                {% else %}
+				<h2>Buy with Fancy</h2>
+				<p>Have a Fancy account? Sign in for easy checkout.</p>
+				<div class="btn-area"><a href="https://{{FANCY_DOMAIN}}/login?next=https://{{SECURE_FANCY_COM_DOMAIN}}{{request.get_full_path|urlencode}}" class="btn-sign">Sign In</a></div>
+                {% endif %}
+				<fieldset>
+					<h2>Guest checkout <span class="tooltip">Why is my email required? <small>Your email address is used for your order confirmation and shipment notification. We never share your information with third parties.</small></span></h2>
+					<p><input type="text" name="email" class="text" placeholder="Email Address" />
+					<span class="error-msg" style="display:none;" data-msg="Email Address">Email Address</span></p>
+				</fieldset>
+			</div>
+			<div id="user_info" class="user-info" {%if not logged_in%}style="display:none"{%endif%}>
+                {% if storefront and storefront.has_own_users %}
+				<h2>Buy with {{seller_profile.brand_name}}</h2>
+                {% else %}
+				<h2>Buy with Fancy</h2>
+                {% endif %}                
+				<p>Signed in as <b>{{viewer.full_name}}</b></p>
+			</div>
+			<div class="frm">
+				<div class="shipping">
+					<h2>Shipping</h2>
+					<a href="#" class="go-new" style="display: none;">Add new Shipping Address</a>
+					<a href="#" class="go-back" style="display: none;">Back</a>
+					<fieldset class="save">
+						<div class="save-adds">
+							<div class="save-adds">
+								<span class="selectBox"><select name="addr.id"><script type="template"><% _.each(addresses, function(addr){ %><option value="<%= addr.get('id') %>"><%= addr.get('alias') %></option><% }) %></script></select></span>
+							</div>
+						</div>
+						<address data-bind="current_addr">
+							<script type="template">
+								<% if(current_addr) { var addr = current_addr.attributes; %>
+									<%= addr.address1 %><br>
+									<% if(addr.address2){ %><%= addr.address2 %><br><% } %>
+									<%= addr.city %> <%= addr.state %> <%= addr.zip %><br>
+									<%= addr.country_name %>
+								<% } %>
+							</script>
+						</address>
+					</fieldset>
+					<fieldset class="frm">
+                        <p class="error-box" style="display:none"><i class="icon"></i>Please enter a valid shipping address{% if logged_in %} and click Apply{% endif %}</p>
+						<p class="nick" {%if not logged_in%}style="display:none"{%endif%}>
+							<input type="text" name="addr.alias" class="text" placeholder="Shipping Nickname">
+							<span class="error-msg" style="display:none;">Shipping Nickname</span>
+						</p>
+						<p{%if logged_in%} class="name"{%endif%}>
+							<input type="text" name="addr.full_name" class="text" placeholder="Full name">
+							<span class="error-msg" style="display:none;">Full name</span>
+						</p>
+						<p class="addr1">
+							<input type="text" name="addr.address1" class="text" placeholder="Address Line 1">
+							<span class="error-msg" style="display:none;">Address Line 1</span>
+						</p>
+						<p class="addr2">
+							<input type="text" name="addr.address2" class="text" placeholder="Address Line 2">
+						</p>
+						<p class="country"><span class="selectBox"><select name="addr.country" data-default="{{DEFAULT_COUNTRY}}">{% for c2,c3,s in COUNTRY_CODES %}<option value="{{c2}}" {%if c2 == DEFAULT_COUNTRY%}selected{%endif%}>{{s}}</option>{% endfor %}</select></span></p>
+						<p class="city">
+							<input type="text" class="text" name="addr.city" placeholder="City">
+							<span class="error-msg" style="display:none;">City</span>
+						</p>
+						<p class="state"><span class="selectBox"><select name="addr.state">{% for v,s in STATE_CHOICES %}<option value="{{v}}">{{s}}</option>{% endfor %}</select></span><input type="text" class="text" name="addr.state" placeholder="State" style="display:none"></p>
+						<p class="zip">
+							<input type="text" name="addr.zip" class="text" placeholder="Zip">
+							<span class="error-msg" style="display:none;">Zip</span>
+						</p>
+						<p class="phone">
+							<input type="tel" name="addr.phone" class="text" placeholder="Phone">
+							<span class="error-msg" style="display:none;">Phone</span>
+						</p>
+						<div class="btn-area" {%if not logged_in%}style="display:none"{%endif%}><button class="btn-next">Apply</button></div>
+					</fieldset>
+				</div>
+				<div class="shipping-type" style="display:none;">
+					<h2>Shipping Type</h2>
+                    <fieldset>
+						<ul>
+							<script type="template"><% _.each(shipping_options, function(option){ %>
+<li><input type="radio" name="shipping-type" id="shipping-type-<%= option.id %>" value="<%=option.id%>" <% if (option.selected) { %>checked<% } %>><label for="shipping-type-<%= option.id %>"> <span><%= option.label %></span> - <b>$<%=option.amount%></b></label></li><% }) %></script>
+						</ul>
+					</fieldset>
+				</div>
+				<div class="gift-option">
+					<h2>Gift Options</h2>
+					<input type="checkbox" data-bind="is_gift" onclick="$(this).closest('.gift-option').find('fieldset').toggle();" id="mark_gift"> <label for="mark_gift">Make this order a gift</label>
+					<fieldset style="display:none;">
+                        {% if limit_gift_message %}
+                        <textarea placeholder="Include a gift message (Maximum {{limit_gift_message}} characters.)" class="text" data-bind="gift_message" maxlength={{limit_gift_message}}></textarea>
+                        {% else %}
+                        <textarea placeholder="Include a gift message" class="text" data-bind="gift_message"></textarea>
+                        {% endif %}
+                    </fieldset>
+				</div>
+				<div class="order-note">
+					<h2>Note to Merchant</h2>
+					<fieldset><textarea class="text" placeholder="Add a note for the seller" data-bind="note"></textarea></fieldset>
+				</div>
+				<div class="order-coupon coupon_">
+					<h2>Coupons</h2>
+					<fieldset>
+						<p class="add input_">
+							<input type="text" name="code" class="text" placeholder="Coupon Code">
+							<button class="btn-apply">Apply</button>
+							<span class="error-msg">The coupon is invalid.</span>
+						</p>
+						<p class="coupon-list list_" style="display:none;" data-bind="coupons">
+							<script type="template">
+							<% _.each(coupons, function(coupon){ %>
+								<b class="name"><%= coupon.code %></b>
+								<span class="detail"><%= coupon.description %></span>
+								<a href="#<%= coupon.code %>" class="remove">Remove</a></li>
+							<% }); %>
+							</script>
+						</p>
+					</fieldset>
+				</div>			
+				<div class="payment">
+					<h2>Payment</h2>
+					<fieldset>
+						<a href="#" class="go-back" style="display:none">Back</a>
+						<a href="#" class="go-new" style="display:none">Use a different card</a>
+						<div class="save-card" style="display:none">
+							<span class="card visa"></span>
+							<span class="selectBox"><select name="card.id"><script type="template"><% _.each(credit_cards, function(card){ %><option value="<%= card.id %>"><%= card.get('card_holder_name') %> - <%= card.get('card_last_digits') %></option><% }) %></script></select></span>
+							<button class="btn-delete"><i class="icon"></i></button>
+						</div>
+						<div class="frm">
+							<p class="error-box" style="display:none"><i class="icon"></i>Please enter valid payment information.</p>
+							<p class="name">
+								<input type="text" name="card.name" class="text" placeholder="Name on card">
+								<span class="error-msg" style="display:none;" data-msg="Name on card">Name on card</span>
+							</p>
+							<p class="number">
+								<span class="card"></span>
+								<input type="tel" name="card.card_number" class="text" placeholder="Credit Card Number" maxlength="19">
+								<span class="error-msg" style="display:none;" data-msg="Credit Card Number">Credit Card Number</span>
+							</p>
+							<p class="date">
+								<span class="selectBox month"><select name="card.expiration_month">{%for v,m in MONTHS%}<option value="{{v}}">{{m}}</option>{%endfor%}</select></span>
+								<span class="selectBox year"><select name="card.expiration_year">{%for v,y in YEARS%}<option value="{{v}}">{{y}}</option>{%endfor%}</select></span>
+							</p>
+							<p class="cvc">
+								<input type="tel" name="card.security_code" class="text" placeholder="CVC">
+								<span class="error-msg" style="display:none;" data-msg="CVC">CVC</span>
+							</p>
+							<p class="billing"><input type="checkbox" id="use_same_addr" checked> <label for="use_same_addr">Billing address same as Shipping</label></p>
+							<div class="billing-frm after" style="display:none">								
+								<p class="addr1">
+									<input type="text" name="billing.address1" class="text" placeholder="Address Line 1">
+									<span class="error-msg" style="display:none;">Address Line 1</span>
+								</p>
+								<p class="addr2"><input type="text" name="billing.address2" class="text" placeholder="Address Line 2"></p>
+								<p class="country"><span class="selectBox"><select name="billing.country" data-default="{{DEFAULT_COUNTRY}}">{% for c2,c3,s in COUNTRY_CODES %}<option value="{{c3}}" data-c2="{{c2}}" {%if c2 == DEFAULT_COUNTRY%}selected{%endif%}>{{s}}</option>{% endfor %}</select></span></p>
+								<p class="city">
+									<input type="text" name="billing.city" class="text" placeholder="City">
+									<span class="error-msg" style="display:none;">City</span>
+								</p>
+								<p class="state"><span class="selectBox"><select name="billing.state">{% for v,s in STATE_CHOICES %}<option value="{{v}}">{{s}}</option>{% endfor %}</select></span><input type="text" class="text" name="billing.state" placeholder="State" style="display:none"></p>
+								<p class="zip">
+									<input type="text" name="billing.postal_code" class="text" placeholder="Zip">
+									<span class="error-msg" style="display:none;">Zip</span>
+								</p>
+								<p class="phone">
+									<input type="text" name="billing.phone" class="text" placeholder="Phone">
+									<span class="error-msg" style="display:none;">Phone</span>
+								</p>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="quick-button">
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+		<div class="right">
+			<div class="summary">
+				<h2>Order Summary</h2>
+				<ul class="order-list items_" data-bind="items">
+					<script type="template">
+					<% _.each(items, function(item){ %>
+						<li class="after">
+							<div class="item">
+                                <a target="_blank" href="{{store_url}}/shop/<%= item.get('thing_id') %>"><img src="<%= item.getImageURL() %>" alt=""></a>
+								<b class="title"><%= item.get('title') %></b>
+								<span class="option"><%= item.get('option') %></span>
+								<span class="qty">Qty: <%= item.get('quantity') %></span>
+                                <% if (!item.get('available')) { %><span style="color: #D8502E">This item is not available.</span><% } %>
+							</div>
+							<span class="price">$<%= item.get('item_price') %></span>
+                            <% if (item.get('preorder')) { %><span class="preorder-deposit">Deposit<br/>$<%=item.get('preorder').deposit%></span><% } %>
+						</li>
+					<% }); %>
+					</script>
+				</ul>
+				<ul class="receipt">
+					<li><label class="label">Subtotal</label> <span class="price">$<em data-bind="summary.subtotal_price">0</em></span></li>
+                    <li class="discount_amount_" style="display:none"><label class="label">Discount</label><span class="price">-$<em data-bind="summary.discount_amount">0</em></span></li>
+					<li class="shipping_v"><label class="label">Shipping</label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.shipping">0</em></span></li>
+					<li class="tax_v"><label class="label">Estimated Tax <span class="tooltip"><i class="icon"></i><small>Actual tax will be calculated when your order is processed. Tax may vary slightly from what is displayed here</small></span></label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.tax">0</em></span></li>
+					<li class="coupon_amount_" style="display:none"><label class="label">Coupon</label> <span class="price">-$<em data-bind="summary.coupon_amount"></em></span></li>
+					<li class="fancy_rebate_" style="display:none"><label class="label">Fancy Rebate</label> <span class="price">-$<em data-bind="summary.fancy_rebate"></em></span></li>
+					<li class="fancy_gift_card_" style="display:none"><label class="label">Gift card</label> <span class="price">-$<em data-bind="summary.fancy_gift_card"></em></span></li>
+					<li class="total total_price_v"><label class="label">Order Total</label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.total_price">0</em></span></li>
+					<li class="preorder_remainder_" style="display:none"><label class="label">Remainder</label> <span class="price">$<em data-bind="summary.preorder_remainder">0</em></span></li>
+					<li class="preorder_remainder_discount_" style="display:none"><label class="label">Remainder Coupon</label> <span class="price">-$<em data-bind="summary.preorder_remainder_discount">0</em></span></li>
+					<li class="preorder_shipping_v" style="display:none"><label class="label">Shipping</label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.preorder_shipping">0</em></span></li>
+					<li class="preorder_tax_v" style="display:none"><label class="label">Estimated Tax <span class="tooltip"><i class="icon"></i><small>Actual tax will be calculated when your order is processed. Tax may vary slightly from what is displayed here</small></span></label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.preorder_tax">0</em></span></li>
+					<li class="preorder_remainder_total_v total" style="display:none;"><label class="label">Pay Later</label> <span class="price yet">Address not set</span><span class="price set hide">$<em data-bind="summary.preorder_remainder_total">0</em></span></li>
+				</ul>
+				<button class="btn-submit">Submit Order</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% pipeline_js "common/js/model/cartitem.js" %}
+{% pipeline_js "common/js/model/cart_coupon.js" %}
+{% pipeline_js "common/js/model/address.js" %}
+{% pipeline_js "common/js/model/credit_card.js" %}
+{% pipeline_js "common/js/model/order.js" %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<div id="fb-root"></div>
+<script>
+	namespace('Fancy.globals').sellerInfo = { id : "{{owner.id}}", username : "{{owner.username}}", 
+        url : "{{owner.absolute_html_url}}", store_url : "{{store_url}}" };
+
+    {%if logged_in%}
+	namespace('Fancy.globals').userInfo  = { id : "{{viewer.id}}", username : "{{viewer.username}}"};
+	{%endif%}
+    {% if 'staging' in request.GET %}
+    namespace('Fancy.globals').staging = true
+    {% endif %}
+    (function() {
+		var txts = document.getElementsByTagName('TEXTAREA') 
+		for(var i = 0, l = txts.length; i < l; i++) {
+			if(/^[0-9]+$/.test(txts[i].getAttribute("maxlength"))) { 
+				var func = function() { 
+					var len = parseInt(this.getAttribute("maxlength"), 10); 
+					
+					if(this.value.length > len) { 
+						this.value = this.value.substr(0, len); 
+						return false; 
+					} 
+				}
+				txts[i].onkeyup = func;
+				txts[i].onblur = func;
+			} 
+		}
+	})();
+</script>
+<script src="/shop/themes/_common/js/checkout.stripe.js"></script>
+<script type="text/javascript">
+  window.___gcfg = {
+    parsetags: 'explicit',
+    {% if request.session.user_signed_out %}isSignedOut: true,{% endif %}
+  };
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js?onload=initialize_google';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% include "seller_themes/_common/_tracking.html" %}
+</body>
+</html>

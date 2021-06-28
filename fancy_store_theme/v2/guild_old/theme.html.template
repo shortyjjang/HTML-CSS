@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+	{% if thing %}
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+	{% endif %}
+	{{ 'theme.css' | asset_css }}
+	{{ header_content }}
+	{{ 'js/jquery.js' | common_asset_script }}
+	{{ 'js/jquery-ui.js' | common_asset_script }}
+	{{ 'js/underscore.js' | common_asset_script }}
+	{{ 'js/contact.js' | common_asset_script }}
+	{{ 'js/popup.js' | common_asset_script }}
+	{{ 'main.js' | asset_script }}
+</head>
+<body>
+<div id="common-widget">
+	<div class="after">
+		{%if viewer.id == seller.id and not is_preview %}
+		<div class="dropdown">
+			<a class="btn-dashboard"><i class="icon"></i>Dashboard</a>
+			<div class="dropdown_list">
+				<ul>
+					<li><a href="http://fancy.com/merchant/dashboard">Dashboard</a></li>
+					<li><a href="http://fancy.com/merchant/orders/open">Orders</a></li>
+					<li><a href="http://fancy.com/merchant/products">Products</a></li>
+					<li><a href="http://fancy.com/merchant/storefront">Storefront</a></li>
+					<li><a href="http://fancy.com/merchant/campaigns">Campaigns</a></li>
+				</ul>
+				<ul>
+					<li><a href="http://fancy.com/about/merchants/mobile">Download Seller App</a></li>
+					<li><a href="http://fancy.com/about/merchants">Help Center</a></li>
+				</ul>
+			</div>
+		</div>
+			<div class="dropdown" >
+				<a href="http://fancy.com/merchant/storefront#set_password" class="btn-pw {%if storefront.prop.is_locked%}on{%endif%}">Password</a>
+				<div class="dropdown_list">
+					<dl class="pw_off" {%if storefront.prop.is_locked%}style="display: none;"{%endif%}>
+						<dt>Password Off</dt>
+						<dd>
+							<p>Anyone can view your Storefront by visiting <b>{{request.hostname}}</b></p>
+							<a href="http://fancy.com/merchant/storefront#set_password" class="change" >Set a new password</a>
+						</dd>
+					</dl>
+					<dl class="pw_on" {%if not storefront.prop.is_locked%}style="display: none;"{%endif%}>
+						<dt>Password On</dt>
+						<dd>
+							<p>Your Storefront is currently protected by a password.</p>
+							<p>Only customers who know the password will be able to access your Storefront.</p>
+							<a href="http://fancy.com/merchant/storefront#set_password" class="change" >Change your password</a>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		<a class="btn-customize"><i class="icon"></i>Customize</a>
+		{%else%}
+		<a href="#cart" class="btn-cart" onclick="$('.cart_popup').toggleClass('show');return false;"><i class="icon"></i>Cart <small class="count">3</small></a>
+		<div id="cart" class="cart_popup">
+			<div class="not-empty" style='display:none'>
+				<table>
+					<thead><tr><th>ITEM</th><th class="qty">QTY</th><th class="price">PRICE</th></thead>
+					<tbody>
+						<script type="template">
+						<% _.each(items, function(item){ %>
+							<tr data-id="<%= item.id %>" data-option-id="<%= item.option_id %>" class="<% if (! item.available_before_shipping ) { %>error<% } %>">
+								<td class="info">
+									<a href="{{path_prefix}}/shop/<%= item.thing_id %>">
+										<img src="/_static/_ui/images/common/blank.gif" style="background-image:url(<%= item.image_url %>);background-size:cover">
+										<strong><%= item.title %></strong><br><%= item.option %>
+									</a>
+								</td>
+								<td class="qty">
+									<input type="text" class="text quantity" value="<%= item.quantity %>" data-value="<%= item.quantity %>">
+									<a href="#" class="remove"></a>
+								</td>
+                                <% if (item.item_retail_price > 0) { %>
+                                <td class="price sales">$<%= item.item_price %> <small class="before">$<%= item.item_retail_price %></small></td>
+                                <% } else { %>
+								<td class="price">$<%= item.item_price %></td>
+                                <% } %>
+							</tr>
+						<% }); %>
+						</script>
+					</tbody>
+				</table>
+				<div class="summary">
+					<span class="subtotal_">$0</span>
+				</div>
+				<div class="after">
+					<span>Continue shopping</span>
+					{%if viewer.id != seller.id%}
+					<a href="#" class="btns-blue-embo btn-checkout" onclick="if($(this).attr('disabled')) return false;">Proceed to Checkout</a>
+					{%else%}
+					<button class="buttons btn-checkout" disabled>You can't purchase from your own store</button>
+					{%endif%}
+				</div>
+			</div>
+			<div class="empty">
+				<i class="icon"></i>There are no items in your cart.
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<nav id="accessibility-nav">
+	<ol>
+		<li><a href="#navigation">Skip to navigation</a></li>
+		<li><a href="#content">Skip to content</a></li>
+		<li><a href="#sidebar">Skip to sidebar</a></li>
+	</ol>
+</nav>
+<!-- / accessibility-nav -->
+<!-- store -->
+<div id="wrap" class="home">
+	<header id="header">
+		<div class="inner after bg">
+			<h1 class="logo"><a href="{{path_prefix}}/">{%if settings.logo_image %}<img src="{{settings.logo_image|asset_url}}" alt="{{settings.page_title}}">{%else%}{{settings.page_title}}{%endif%}</a></h1>
+			<ul class="navigation">
+				<li><a href="{{path_prefix}}/" {% if path_prefix|add:'/'|startswith:current_path %}class="current"{% endif %}><b>HOME</b><span>HOME</span></a></li>
+				<li><a href="{{path_prefix}}/shop" {% if path_prefix|add:'/shop'|is_prefix_of:current_path %}class="current"{% endif %}><b>SHOP</b><span>SHOP</span></a></li>
+				<li><a href="#merchant-about" data-component="popup"><b>ABOUT</b><span>ABOUT</span></a></li>
+				<li><a href="#merchant-contact" data-component="popup"><b>CONTACT</b><span>CONTACT</span></a></li>				
+			</ul>
+		</div>
+	</header>
+	<!-- / header -->
+	<div id="container">
+		<div id="content">
+			{{ main_content }}
+		</div>
+		<div id="footer">
+			<div class="inner after">
+				<ul class="sns">
+					{% if seller.external_links|length > 0 %}
+					{% for social in seller.external_links %}
+						<li><a href="{{social.link}}">{{social.name}}</a></li>
+					{% endfor %}
+					{% endif %}
+						<li><a href="#merchant-policy" data-component="popup">POLICIES</a></li>
+					{%if settings.newsletter and settings.newsletter.display_in_footer%}
+						<li><a href="#newsletter" data-component="popup">NEWSLETTER</a></li>
+					{%endif%}
+				</ul>
+                <p class="copyright"><a href="http://fancy.com">POWERED BY <b>FANCY</b></a></p>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+	{%if settings.newsletter and settings.newsletter.display_in_footer%}
+	{{ 'js/subscribe_email.js' | common_asset_script }}
+	<div data-component="subscribe-email" id="newsletter" class="popup newsletter">
+	    <div class="frm">
+		    <h3 class="title">{{settings.newsletter.title}}</h3>
+		    <fieldset>
+			    <form>
+				<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+				<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+				<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+				<button class="buttons btn-send">Sign Up</button>
+			    </form>
+		    </fieldset>
+	    </div>
+		<button class="popup_close"></button>
+	</div>
+	{%endif%}
+	<div id="merchant-about" class="popup merchant-about">
+		<h3 class="title">ABOUT US</h3>
+		<div class="introduce">
+			{{settings.about|linebreaks}}
+		</div>
+		<button class="popup_close"></button>
+	</div>
+	<div id="merchant-contact" class="popup merchant-contact" data-component="shop-contact">
+		<form class="frm">
+			<h3 class="title">CONTACT</h3>
+			<fieldset>
+				<input type="hidden" name="seller_username" value="{{seller.username}}">
+				<input type="hidden" name="subject" value="E-mail from a customer">
+				<p class="container_">
+					<input type="text" name="from_name" id="contact-from_name" class="text name" placeholder="Name" value="{{viewer.full_name}}">
+					<label class="error-msg" for="contact-from_name" data-text="NAME REQUIRED"></label>
+				</p>
+				<p class="container_">
+					<input type="text" name="from_email" id="contact-from_email" class="text email" placeholder="Email" value="{% if viewer.email %}{{viewer.email}}{% endif %}">
+					<label class="error-msg" for="contact-from_email" data-text="EMAIL REQUIRED"></label>
+				</p>
+				<p class="container_">
+					<textarea name="message" class="text msg" id="contact-message" placeholder="Message"></textarea>
+					<label class="error-msg" for="contact-message" data-text="MESSAGE REQUIRED"></label>
+				</p>
+				<button type="submit" class="buttons btn-send" disabled>SEND MESSAGE</button>
+			</fieldset>
+			<address>
+				<b>{{settings.company_name}}</b>
+				<span class="adds">{{settings.company_address}}</span>
+				<span class="tel">{{settings.company_tel}}</span>
+			</address>
+		</form>
+		<p class="complete" style="display:none;">
+			{{settings.msg_message_sent}}
+		</p>
+		<button class="popup_close"></button>
+	</div>
+	<div id="merchant-policy" class="popup merchant-policy">
+		<h3 class="title">Policies</h3>
+		<div class="agreement">
+			{%if seller.terms_of_services%}
+			<h4>Terms of Services</h4>
+			<p>{{seller.terms_of_services}}</p>
+			{%endif%}
+			{%if seller.shipping_policy%}
+			<h4>Shipping Policy</h4>
+			<p>{{seller.shipping_policy}}</p>
+			{%endif%}
+			{%if seller.custom_policy%}
+			<h4>Return Policy</h4>
+			<p>{{seller.custom_policy}}</p>
+			{%endif%}
+		</div>
+		<button class="popup_close"></button>
+	</div>
+</div>
+<script>
+      $('.popup_close, .ly-close').click(function(){
+          $('#popup_container').removeAttr('class').hide().removeAttr('style');
+        return false;
+      });
+    $('a[href="/pages/return-policy"]').attr('href','#merchant-policy').attr('data-component','popup');
+</script>
+</body>
+</html>

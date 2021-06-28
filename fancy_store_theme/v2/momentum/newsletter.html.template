@@ -1,0 +1,18 @@
+
+{{ 'js/subscribe_email.js' | common_asset_script }}
+<div data-component="subscribe-email" id="newsletter" class="page">
+    <div class="frm">
+	    <h3 class="title">{{settings.newsletter.title}}</h3>
+	    <fieldset>
+		    <form>
+			<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+			<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+			<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+			<button class="buttons btn-send">Sign Up</button>
+		    </form>
+	    </fieldset>
+    </div>
+</div>
+<script>
+$('#wrap').attr('class', 'newsletter sub');
+</script>

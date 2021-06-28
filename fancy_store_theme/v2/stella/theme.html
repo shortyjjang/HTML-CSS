@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=1300, user-scalable=yes" />
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<link href="./assets/theme.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div id="widget" style="">
+	<div class="after">
+			<a href="#cart" class="btn-cart dark" data-component='popup'><i class="icon"></i>Cart <small class="count">0</small></a>
+			<a href="#newsletter" data-component="popup" class="show_newsletter">NEWSLETTER</a>
+	</div>
+</div>
+<div id="wrap">
+	<header id="header">
+		<div class="inner after bg">
+			<h1 class="logo"><a href="{{path_prefix}}/"><img src="//thefancy-media-ec3.thefancy.com/themes/custom/26490/assets/img/logotype-b_4eec742c5ddb.svg" alt="{{settings.page_title}}"></a></h1>
+			<ul class="navigation">
+				<li><a href="{{path_prefix}}/" {% if path_prefix|add:'/'|startswith:current_path %}class="current"{% endif %}><b>HOME</b><span>HOME</span></a></li>
+				<li><a href="{{path_prefix}}/shop" {% if path_prefix|add:'/shop'|is_prefix_of:current_path %}class="current"{% endif %}><b>SHOP</b><span>SHOP</span></a></li>
+				<li><a href="#merchant-about" data-component="popup"><b>ABOUT</b><span>ABOUT</span></a></li>
+				<li><a href="#merchant-contact" data-component="popup"><b>CONTACT</b><span>CONTACT</span></a></li>				
+			</ul>
+			<div class="search">
+				<fieldset>
+					<input type="text" name="q" {%if params.q %}style="display:none"{%endif%}>
+					<b class="result" {%if params.q %}style="display:inline"{%endif%}>{{params.q}}</b>
+					<button class="btn-search">Search</button>
+					<button class="btn-remove" {%if params.q %}style="display:inline-block"{%endif%}>Remove</button>
+				</fieldset>
+			</div>
+		</div>
+	</header>
+	<div id="container">
+		<div id="content">
+{{ main_content }}
+		</div>
+	</div>
+	<div id="footer">
+		<div class="inner after">
+			<ul class="sns">
+				<li><a href="{{social.link}}">{{social.name}}</a></li>
+			</ul>
+			<p class="copyright"><a href="http://fancy.com">POWERED BY <b>FANCY</b></a></p>
+		</div>
+	</div>
+</div>
+<div id="popup_container" style="display: block; opacity: 1;" class="things">
+	<div id="blog-post" class="blog-post popup">
+		<div class="cover">
+			<img class="cover_image" src="">
+		</div>
+		<div class="title">
+			<div class="inner">
+				<h2 class="title_"></h2>
+				<p class="tagline_"></p>
+			</div>
+		</div>
+		<div class="date"></div>
+		<div class="post content_">
+		</div>
+		<button class="popup_close"></button>
+	</div>
+	<div id="merchant-about" class="popup merchant-about">
+		<h3 class="title">ABOUT</h3>
+		<div class="introduce">
+		{{seller_profile.bio|safe}}
+		</div>
+		<ul class="sns">
+			<li><a href="{{social.link}}">{{social.name}}</a></li>
+			<li><a href="#merchant-policy" data-component="popup">POLICIES</a></li>
+		</ul>
+		<button class="popup_close"></button>
+	</div>
+	<div data-component="subscribe-email" id="newsletter" class="popup newsletter">
+		<div class="frm">
+			<h3 class="title">{{settings.newsletter.title}}</h3>
+			<fieldset>
+				<form>
+					<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+					<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+					<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+					<button class="buttons btn-send">Sign Up</button>
+				</form>
+			</fieldset>
+		</div>
+		<button class="popup_close"></button>
+	</div>
+	<div id="merchant-contact" class="popup merchant-contact" data-component="shop-contact">
+		<form class="frm">
+			<h3 class="title">CONTACT US</h3>
+			<fieldset>
+				<input type="hidden" name="seller_username" value="{{seller.username}}">
+				<input type="hidden" name="subject" value="E-mail from a customer">
+				<p class="container_">
+					<input type="text" name="from_name" id="contact-from_name" class="text name" placeholder="Your name" value="{{viewer.full_name}}">
+					<label class="error-msg" for="contact-from_name" data-text="NAME REQUIRED"></label>
+				</p>
+				<p class="container_">
+					<input type="text" name="from_email" id="contact-from_email" class="text email" placeholder="Your email" value="{{viewer.email}}">
+					<label class="error-msg" for="contact-from_email" data-text="EMAIL REQUIRED"></label>
+				</p>
+				<p class="container_">
+					<textarea name="message" class="text msg" id="contact-message" placeholder="Your message"></textarea>
+					<label class="error-msg" for="contact-message" data-text="MESSAGE REQUIRED"></label>
+				</p>
+				<button type="submit" class="buttons btn-send" disabled>SEND MESSAGE</button>
+			</fieldset>
+		</form>
+		<p class="complete" style="display:none">
+		{{settings.msg_message_sent}}
+		</p>
+		<button class="popup_close"></button>
+	</div>
+	<div id="things" class="popup things">
+		<div class="figure-item after">
+			<div class="info">
+				<h2 class="title">Classic HG Laptop Folio / Heritage</h2>
+				<p class="price"><b>$250</b> <small>USD</small></p>
+				<fieldset class="frm">
+					<p class="option">
+						<label class="label">SELECT OPTION</label>
+						<span class="selectBox"><select>
+							<option>Black</option>
+						</select></span>
+					</p>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="text">
+							<li><a href="#" class="disabled">Small</a></li>
+							<li><a href="#">Medium</a></li>
+							<li><a href="#" class="selected">Large</a></li>
+						</ul>
+					</div>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="color">
+							<li><a href="#" style="background: #9FA2A7" class="disabled">#9FA2A7</a></li>
+							<li><a href="#" style="background: #B6D4A8">#B6D4A8</a></li>
+							<li><a href="#" style="background: #64739A" class="selected">#64739A</a></li>
+						</ul>
+					</div>
+					<div class="multi-option">
+						<label class="label">Option</label>
+						<ul class="thumbnail">
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="disabled">Small</a></li>
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)">Medium</a></li>
+							<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="selected">Large</a></li>
+						</ul>
+					</div>
+					<p class="qty">
+						<label class="label">QUANTITY</label>
+						<input type="text" class="text" value="1">
+					</p>
+					<button class="buttons btn-cart">ADD TO CART</button>
+				</fieldset>
+				<div class="detail">
+					<ul class="detail-menu">
+						<li><a href="#" onclick="$('.things .detail').find('a').removeClass('current').end().find('dl').hide();$('.things .detail .description').show();$(this).addClass('current');return false;" class="current">DESCRIPTION</a></li>
+						<li><a href="#" onclick="$('.things .detail').find('a').removeClass('current').end().find('dl').hide();$('.things .detail .shipping').show();$(this).addClass('current');return false;">SHIPPING INFO</a></li>
+					</ul>
+					<dl class="description" style="display:block">
+						<dt><a href="#">DESCRIPTION</a></dt>
+						<dd>Let’s fill it up. Put your MacBook and large notepad in the main compartment add all the small bits like iPad, iPhone, charger, cables, moleskine and pens in the wool felt pocket. <br>A slim but protective folio that epitomises everything you love about hard graft.<br>Let’s fill it up. Put your MacBook and large notepad in the main compartment add all the small bits like iPad, iPhone, charger, cables, moleskine and pens in the wool felt pocket. <br>A slim but protective folio that epitomises everything you love about hard graft.</dd>
+					</dl>
+					<dl class="shipping" style="display: none;">
+						<dt><a href="#">SHIPPING INFO</a></dt>
+						<dd>Let’s fill it up. Put your MacBook and large notepad in the main compartment add all the small bits like iPad, iPhone, charger, cables, moleskine and pens in the wool felt pocket. <br>A slim but protective folio that epitomises everything you love about hard graft.<br>Let’s fill it up. Put your MacBook and large notepad in the main compartment add all the small bits like iPad, iPhone, charger, cables, moleskine and pens in the wool felt pocket. <br>A slim but protective folio that epitomises everything you love about hard graft.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<button class="popup_close"></button>
+	</div>
+	<div id="cart" class="popup cart">
+		<h2 class="title inner">Shopping Cart</h2>
+		<div class="inner">
+			<div class="not-empty" style='display:none'>
+				<table class="order-list">
+					<colgroup>
+						<col width="*">
+						<col width="120">
+						<col width="90">
+						<col width="120">
+					</colgroup>
+					<thead>
+						<tr>
+							<th class="item">Item</th>
+							<th class="price">Price</th>
+							<th class="qty">Quantity</th>
+							<th class="total">Total</th>
+							<th class="btn"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<script type="template">
+							<% _.each(items, function(item){ %>
+							<tr data-id="<%= item.id %>">
+								<td class="item"><div class="product">
+									<a href="{{path_prefix}}/shop/<%=item.thing_id%>">
+										<img src="{{ 'img/blank.gif' | common_asset_url }}" style="background-image:url('<%= item.image_url %>');background-size:cover">
+									<b class="title"><%= item.title %></b></a>
+									<% if(item.option){ %>
+									<span class="option">
+										<span class="selectBox"><select data-option-id="<%= item.option_id%>">
+											<% _.each(item.available_options, function(option){ %>
+											<option value="<%=option.id%>" <% if(item.option_id == option.id){ %>selected <%}%> ><%= option.name %></option>
+											<% }); %>
+											<% if ( item.is_sold_out ) { %>
+											<option value="<%=item.option_id%>" selected disabled><%= item.option %></option>
+											<% } %>
+										</select></span>
+									</span>
+									<% };%>
+									<% if ( !item.available_before_shipping ) { %>
+									<span class="error"><%= item.error_message_before_shipping %></span>
+									<% } %>
+								</div></td>
+								<% if (item.item_retail_price > 0) { %>
+									<td class="price sales">$<%= item.item_price %> <small class="before">$<%= item.item_retail_price %></small></td>
+								<% } else { %>
+									<td class="price">$<%= item.item_price %></td>
+								<% } %>
+								<td class="qty"><input type="text" class="text quantity" value="<%= item.quantity %>" data-value="<%= item.quantity %>"></td>
+								<td class="total">$<%= item.subtotal_price %></td>
+								<td class="btn"><a href="#" class="remove"><i class="icon"></i></a></td>
+							</tr>
+							<% }); %>
+						</script>
+					</tbody>
+				</table>
+				<div class="sub-total">
+					<span class="label">Sub Total</span>
+					<b class="price subtotal_">$0</b>
+				</div>
+				<div class="btn-area">
+					{%if viewer.id != seller.id%}
+					<a href="#" class="buttons btn-checkout" onclick="if($(this).attr('disabled')) return false;">Proceed to checkout</a>
+					{%else%}
+					<button class="buttons btn-checkout" disabled>You can't purchase from your own store</button>
+					{%endif%}		
+				</div>
+			</div>
+			<div class="empty">
+				<i class="icon"></i>There are no items in your cart.
+			</div>
+		</div>
+		<button class="popup_close"></button>
+	</div>
+	<div id="merchant-policy" class="popup merchant-policy">
+		<h3 class="title">Policies</h3>
+		<div class="agreement">
+				<h4>Terms of Services</h4>
+				<p>{{seller.terms_of_services}}</p>
+				<h4>Shipping Policy</h4>
+				<p>{{seller.shipping_policy}}</p>
+				<h4>Return Policy</h4>
+				<p>{{seller.custom_policy}}</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

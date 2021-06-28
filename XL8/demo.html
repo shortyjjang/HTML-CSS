@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="author" content="xl8" />
+    <meta
+      name="keywords"
+      content="xl8, ai, nmt, neural network, translation, deep learning"
+    />
+    <meta
+      name="description"
+      content="XL8 Machine Translation Services through Deep Neural Network Technologies"
+    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <title>XL8</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="style" href="./_static/css/layout.css" />
+    <link
+      href="./_static/css/layout.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-151819006-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-151819006-1", { page_path: "/demo.html" });
+      gtag("event", "sign_up", { method: "btns signup" });
+      gtag("event", "generate_lead", { method: "submit" });
+      gtag("event", "select_content", { content_type: "btn-find" });
+      gtag("event", "select_content", { content_type: "dropdown" });
+      gtag("event", "view_item", { item_type: "txt" });
+      gtag("event", "view_item", { item_type: "file" });
+      gtag("event", "view_item_list", { list_type: "btn-upload" });
+      gtag("event", "select_content", { content_type: "in" });
+      gtag("event", "select_content", { content_type: "fb" });
+      gtag("event", "select_content", { content_type: "linkin" });
+      gtag("event", "select_content", { content_type: "tw" });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PNMDT2J");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="_static/scripts/base64.min.js"></script>
+    <script src="_static/scripts/iso-639-1.js"></script>
+    <script src="_static/scripts/xl8-demo-apis.js"></script>
+  </head>
+
+  <body class="demo">
+    <div id="header">
+      <div class="inner">
+        <div class="logo">
+          <a href="index.html"
+            ><img src="./_static/images/logo.png" alt="XL8"
+          /></a>
+        </div>
+        <a href="#" class="m_menu"></a>
+        <div class="navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="demo.html">Demo</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li id="terms"><a href="tos.html">Terms</a></li>
+            <li id="privacy"><a href="policy.html">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="container-wrapper2">
+      <div class="cover">
+        <div class="inner-wrapper">
+          <span
+            class="mask"
+            style="height: 160px"
+            data-height="160"
+            data-pad-height="110"
+          ></span>
+          <div class="inner">
+            <h1>Try our <em>Skroll</em> Demo!</h1>
+            <p>
+              Machine Translation Services through Deep Neural Network
+              Technologies
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="translator-tab" id="translator-tab">
+          <div class="inner">
+            <ul>
+              <li><a href="#" class="current" data-type="txt">Text</a></li>
+              <li><a href="#" data-type="file">Subtitle File</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="translate-language">
+          <div class="inner">
+            <div class="from">
+              <div class="dropdown">
+                <a href="#">Language From</a>
+                <ul class="language_from"></ul>
+              </div>
+            </div>
+            <div class="to">
+              <div class="dropdown">
+                <a href="#">Language To</a>
+                <ul class="language_to"></ul>
+              </div>
+            </div>
+            <!-- <a href="#" class="change">Change</a> -->
+          </div>
+        </div>
+        <div class="translator-editor txt">
+          <div class="translator-frm">
+            <div class="inner">
+              <form>
+                <p>
+                  <textarea
+                    placeholder="Manually Type..."
+                    class="text"
+                    id="text_editor"
+                    maxlength="4000"
+                  ></textarea>
+                  <small class="byte"><i>0</i>/4000</small>
+                </p>
+                <div class="btn-area">
+                  <!-- <button class="btns btn-random random">Random</button> -->
+                  <img
+                    class="text_spinner"
+                    src="./_static/images/spinner.gif"
+                    width="30"
+                    height="30"
+                    style="display: none"
+                  />
+                  <button class="btns btn-submit submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="translate-view">
+            <div class="inner">
+              <dl>
+                <dt>Translate</dt>
+                <dd class="google">
+                  <h3>G Translate</h3>
+                  <pre></pre>
+                </dd>
+                <dd class="xl8">
+                  <h3>XL8 Skroll</h3>
+                  <pre></pre>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="translator-editor file" style="display: none">
+          <div class="translator-frm">
+            <div class="inner">
+              <form>
+                <h2>Choose a Document</h2>
+                <p class="type" id="file_text">Upload a SRT, PAC, or XIF.</p>
+                <fieldset>
+                  <input
+                    type="file"
+                    class="file"
+                    id="file"
+                    style="display: none"
+                  />
+                  <input type="text" class="text" id="filename" />
+                  <img
+                    class="file_spinner"
+                    src="./_static/images/spinner.gif"
+                    width="30"
+                    height="30"
+                    style="margin-right: 40px; float: right; display: none"
+                  />
+                  <button class="btns btn-find">Find File</button>
+                  <button class="btns btn-upload">Upload</button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="translationstarted" class="support">
+          <span
+            class="mask"
+            style="height: 105px"
+            data-height="105"
+            data-pad-height="85"
+          ></span>
+          <div class="inner">
+            <h2>
+              Let's Get Your Translation Started
+              <small
+                >Sign up to get the full service. Fill out the form below to
+                create an account</small
+              >
+            </h2>
+            <form>
+              <fieldset>
+                <p class="fst">
+                  <label>Full Name</label>
+                  <input type="text" class="text" id="fname" />
+                </p>
+                <p class="last">
+                  <label>Company Name</label>
+                  <input type="text" class="text" id="cname" />
+                </p>
+                <p class="email">
+                  <label>Company Email</label>
+                  <input type="email" class="text" id="email" />
+                </p>
+                <p class="msg">
+                  <label
+                    >Tell us about our demo or your translation interest.</label
+                  >
+                  <textarea
+                    id="msg"
+                    class="text"
+                    onkeydown="$(this).closest('.msg').find('.byte i').text($(this).val().length);if($(this).val().length > 350){$(this).height(140);}"
+                    maxlength="500"
+                  ></textarea>
+                </p>
+                <button class="btns signup">Sign Up</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <span
+          class="mask"
+          style="height: 90px"
+          data-height="90"
+          data-pad-height="75"
+        ></span>
+        <div class="inner">
+          <div class="sns">
+            <a href="https://www.instagram.com/xl8.ai/" class="in"
+              >Instagram XL8</a
+            >
+            <a href="https://www.facebook.com/xl8.inc/" class="fb"
+              >Facebook XL8</a
+            >
+            <a href="https://www.linkedin.com/company/xl8-ai" class="linkin"
+              >LinkedIn XL8</a
+            >
+            <a href="https://twitter.com/XL8_inc" class="tw">Twitter XL8</a>
+            <!--a href="#" class="gg">Google Plus XL8 TMS</a-->
+          </div>
+          <ul class="footer-menu">
+            <a href="index.html">Home</a>
+            <a href="demo.html">Demo</a>
+            <a href="about.html">About</a>
+            <a href="blog.html">Blog</a>
+            <a href="tos.html">Terms</a>
+            <a href="policy.html">Privacy</a>
+          </ul>
+          <p class="copyright">Copyright © 2019-2021 XL8 Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="_static/scripts/demo.js"></script>
+  </body>
+</html>

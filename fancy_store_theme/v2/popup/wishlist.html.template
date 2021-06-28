@@ -1,0 +1,43 @@
+{% if viewer.is_anonymous %}
+<script type="text/javascript">location.href="https://{{secure_url}}/{{seller.username}}/login?next=http://{{current_host}}{{current_path}}";</script>
+{% endif %}
+
+<div class="shoptitle general">
+  <h3>Wishlist</h3>
+  <div class="intro">
+    Save your favorite items.
+  </div>
+</div>   
+<div class="wishlist-container figure-list" data-component='infiniteshow' data-nextpage="">
+    <ol class="stream list">
+      {% for t in viewer.wants %}
+      <li class="itemElement">
+        <a href="{{path_prefix}}/shop/{{t.id}}">
+          <span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{t.image.url}})"/></span>
+          <span class="figcaption">
+            <span class="caption">
+              <b class="title">{{t.name}}</b>
+              {% if t.sale %}
+              <span class="price{% if t.sale.retail_price > t.sale.price %} sales{% endif %}">
+                {% if t.sale.price_varies %}
+                <i>From</i> ${{t.sale.price_min|amount_nodecimals|intcomma}}
+                {% else %}
+                ${{t.sale.price|amount_nodecimals|intcomma}}
+                {% endif %}
+                {% if t.sale.retail_price > t.sale.price %}
+                <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                {% endif %}
+              </span> {% if not t.sale.available and seller.id == viewer.id %}
+              <span class="status">{{t.sale.status}}</span> {% endif %} {% endif %}
+            </span>
+          </span>
+        </a>
+      </li>
+      {% empty %}
+      <li class="wl-empty">No Items Found</li>
+      {% endfor %}
+  </ol>
+</div>
+
+{{ 'js/infiniteshow.js' | common_asset_script }}
+    

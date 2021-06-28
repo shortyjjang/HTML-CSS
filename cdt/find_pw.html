@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">비밀번호 찾기</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container signup find-pw">
+		<!-- content area -->
+		<div class="step step1" style="display:block">
+			<div class="frm">
+				<p><input type="text" class="text" value="아이디" /></p>
+				<p><input type="text" class="text" value="이메일" /></p>
+			</div>
+			<div class="btn-area">
+				<button class="btn-submit">다음</button>
+			</div>
+		</div>
+		<div class="step step2">
+			<h2 class="stit">전송완료</h2>
+			<p class="success">회원님의 비밀번호가 이메일로 전송되었습니다</p>
+			<div class="btn-area">
+				<a href="/login.html" class="btn-submit">로그인</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+</div>
+<script>
+	$('.step .btn-area .btn-submit').on('click',function(){
+		$(this).closest('.step').hide().next().show();
+	});
+	$('#header .back').on('click',function(){
+		if (!$('.step:visible').hasClass('step1')) {
+			$('.step:visible').hide().prev().show();
+			return false;
+		}
+	});
+</script>
+</body>
+</html>

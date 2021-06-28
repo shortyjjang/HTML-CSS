@@ -1,0 +1,153 @@
+{% if params.collection %}{% for c in seller.collections %}{% if c.id|slugify == params.collection %}
+<div class="shoptitle">
+    <h3>{{c.name}}</h3>
+    <span class="items">{{c.get_items_count}} items</span>
+    <p>{{c.description}}</p>
+</div>
+{% endif %}{% endfor %}
+{% elif params.q%}
+    <div class="shoptitle"> <span>{{settings.page_title}}</span> <h3>Search Results</h3><small>“{{params.q}}”</small></div>
+{% else %}
+<div class="shoptitle">
+    <h3>Shop</h3>
+  {% if num_items %}
+    <span class="items">{{num_items}} items</span>
+  {% endif %}
+</div>
+{% endif %}
+<div class="lists">
+    <div class="figure-list"  data-component='infiniteshow' data-nextpage="{{next_page}}" {%if params.q%}search{%endif%}">
+        {% if things %}
+        <ol class="stream list">
+            {% for t in things %}
+            <li class="itemElement">
+                <a href="{{path_prefix}}/shop/{{t.id}}">
+                    <span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{t.image.url}})"/></span>
+                    <span class="figcaption">
+                <span class="caption">
+                  <small class="category">{{settings.page_title}}</small>
+                <b class="title">{{t.name}}</b>
+                {% if t.sale %}
+                <span class="price{% if t.sale.retail_price > t.sale.price %} sales{% endif %}">
+                {% if t.sale.price_varies %}
+                    <i>From</i> ${{t.sale.price_min|amount_nodecimals|intcomma}}
+                {% else %}
+                    ${{t.sale.price|amount_nodecimals|intcomma}}
+                {% endif %}
+                  {% if t.sale.retail_price > t.sale.price %}
+                  <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                  {% endif %}<small class="unit">USD</small>
+                </span> {% if not t.sale.available and seller.id == viewer.id %}
+                    <span class="status">{{t.sale.status}}</span> {% endif %} {% endif %}
+                    </span>
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ol>
+        {%else%}
+        <div class="empty">
+          <p>We are sorry, there are no results matching your request.<br>
+            Please try again or <a href="{{path_prefix}}/contact">contact us</a>.</p>
+        </div>
+        {%endif%}
+    </div>
+</div>
+
+{{ 'js/infiniteshow.js' | common_asset_script }}
+<script>
+jQuery(function($){ 
+
+    // set selected filter
+    var params = {
+        'categories' : '{{params.categories}}',
+        'c' : '{{params.c}}',
+        'p' : '{{params.p}}',
+        'sort_by_price' : '{{params.sort_by_price}}'
+    };
+
+    $("select[name='sort_by_price']").change(function(e){
+        var param = ["sort_by_price",$(e.target).val()];
+        var url = location.pathname, args = location.search.slice(1);
+        url = location.pathname.replace(/v2.*/,"v2/shop");
+        var regex = new RegExp("&?"+param[0]+"=[^&]*");
+        args = args.replace(regex,'');  
+        if(param[1])        
+            args += '&'+param[0]+'='+param[1];
+
+        document.location.href = url + "?" + args;
+    })
+    
+    $(".refine .color a").click(function(event){
+        event.preventDefault();
+    
+        var param = $(event.target).attr("href").slice(1).split("=");
+        
+        var url = location.pathname, args = location.search.slice(1);
+        url = location.pathname.replace(/v2.*/,"v2/shop");
+        var regex = new RegExp("&?"+param[0]+"=[^&]*");
+        args = args.replace(regex,'');  
+        if(param[1])        
+            args += '&'+param[0]+'='+param[1];
+
+        document.location.href = url + "?" + args;
+    })
+    
+    var price_min = params.p.split("-")[0]||1;
+    var price_max = params.p.split("-")[1]||2500;
+    $( ".price .amount .min" ).text(price_min);
+    $( ".price .amount .max" ).text(price_max);
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 2500,
+        step: 10,
+        values: [ parseInt(price_min), parseInt(price_max) ],
+        slide: function( event, ui ) {
+            if(ui.values[1]-ui.values[0] < 10) return false;;
+            $( ".price .amount .min" ).text( ui.values[ 0 ] || 1);
+            $( ".price .amount .max" ).text( ui.values[ 1 ] + (ui.values[1]==1000?"+":""));         
+        },
+        change: function( event, ui ) {
+            var min_price = ui.values[ 0 ], max_price = ui.values[ 1 ], url = location.pathname, args = location.search.slice(1), query;
+            url = location.pathname.replace(/v2.*/,"v2/shop");
+          
+            if(max_price==1000) max_price="";
+            if(max_price && !min_price) min_price = "1"
+            
+            var param = ['p',''];
+            if(min_price || max_price){
+                var price = min_price+"-"+max_price;
+                param[1] = price;
+            }
+
+            var regex = new RegExp("&?"+param[0]+"=[^&]*");
+            args = args.replace(regex,'');  
+            if(param[1])        
+                args += '&'+param[0]+'='+param[1];
+
+            document.location.href = url + "?" + args;
+        }
+    });
+  
+    // search field
+    $("#content .refine input[type=text][name=q]")
+      .keydown(function(event){
+        if (event.which != 13) return;
+        event.preventDefault();
+
+        var keyword = $.trim(event.currentTarget.value);
+        var param = ['q', keyword];
+        
+        var url = location.pathname, args = location.search.slice(1);
+        url = location.pathname.replace(/v2.*/,"v2/shop");
+        var regex = new RegExp("&?"+param[0]+"=[^&]*");
+        args = args.replace(regex,'');  
+        if(param[1])        
+            args += '&'+param[0]+'='+param[1];
+
+        document.location.href = url + "?" + args;
+      })
+
+});
+</script>

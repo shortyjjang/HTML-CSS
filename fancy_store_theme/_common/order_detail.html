@@ -1,0 +1,1007 @@
+{% load pipeline_assets %}{% load i18n %}{% load humanize %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+    <title>{{seller_profile.brand_name}}- Order Details</title>
+	<link rel="apple-touch-icon" sizes="114x114" href="{% pipeline_url '_ui/images/ios-114.png' %}">
+	<link rel="apple-touch-icon" sizes="57x57" href="{% pipeline_url '_ui/images/ios-57.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% pipeline_url '_ui/images/ios-72.png' %}">
+	<link rel="shortcut icon" href="{% pipeline_url '_ui/images/favicon.ico' %}" type="image/x-icon" />
+	{%if 'new' in request.GET %}
+    {% pipeline_css 'whitelabel/common/css/font/interUI/inter-ui.css' %}
+    {% pipeline_css 'themes/_common/css/orders.css' %}
+	{%else%}
+    {% pipeline_css 'themes/_common/css/checkout.css' %}
+	{%endif%}
+	{% pipeline_compressed_js 'shop_common.min.js' %}
+    {% pipeline_compressed_js '_ui/js/main.new.min.js' %}
+    {% pipeline_i18n_js CURRENT_LANGCODE %}
+</head>
+<body>
+{%if 'new' in request.GET %}
+	<div id="checkout">
+		<h1 class="logo">{% if logo_url %}<a href="{{ store_url }}"><img src="{{ logo_url }}" alt=""></a>{% endif %}
+		<b>{{ seller_profile.brand_name }}</b>
+		{% if seller_profile.wesite %}
+			<a href="{{ seller_profile.website }}">{{ seller_profile.website|simplify_url }}</a>, 
+		{% endif %}
+		{% if seller_profile.email %}
+		<a href="mailto:{{ seller_profile.email }}">{{ seller_profile.email }}</a>
+		{%endif%}
+		</h1>
+        <div class="left">
+            <div class="tracking-info">
+				<h2>{% trans 'Order' %}:</label> <span class="value">#{{ sale_order.id|stringformat:"08d" }} <span class="status {{ sale_order.get_status }}">{{ sale_order.get_status }}</span></h2>
+				<div class="date">{{ sale_order.date_created|localize }}</div>
+                <ul class="receipt">
+                    <li class="subtotal">
+                        <label class="label">{% trans 'Subtotal' %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.subtotal_price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% if sale_order.coupon_amount %}
+                    <li class="discount">
+                        <label class="label">{% trans "Coupon" %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.coupon_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% if sale_order.credit_spent %}
+                    <li class="discount">
+                        <label class="label">{% if storefront.has_own_users %}{% trans "Store Credit" %}{% else %}{% trans "Fancy Rebate" %}{% endif %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.credit_spent|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% if sale_order.fancy_money_spent %}
+                    <li class="discount">
+                        <label class="label">{% trans "Gift Card" %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.fancy_money_spent|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {%endif%}
+                    <li>
+                        <label class="label">{% trans "Shipping" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.shipping_cost|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li>
+                        <label class="label">{% trans "Tax" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.sales_tax|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+
+                    {% if sale_order.refunded_amount %}
+                    <li class="refund">
+                        <label class="label">{% trans "Refund" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% if is_admin %}
+                    <li class="items">
+                        <label class="label">{% trans "Credit Card" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.credit_card_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li class="items">
+                        <label class="label">{% trans "Gift Card" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.fancy_money_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li class="items">
+                        <label class="label">{% trans "Fancy Rebate" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.fancy_credit_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+
+                    <li class="total">
+                        <label class="label">{% trans "Total" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.total_price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                </ul>
+				{% if returnable_exchangeable_order_items %}
+				<a href="#" class="btn-gray exchange" onclick="$.dialog('exchange-popup').open();return false;">{% trans "Exchange / Return Items" %}</a>
+				{% endif %}
+				{% for return_request in sale_order.get_return_requests %}
+					{%if return_request.is_cancel_available%}
+						<a href="#" class="btn-gray btn-cancel-request" data-request-id="{{ return_request.id }}">{%trans "Cancel Return/Exchange Request"%}&nbsp;#{{ return_request.id }}</a>
+					{%endif%}
+				{% endfor %}
+			</div>
+		</div>
+        <div class="right">
+        <!-- 'Return Items' section -->
+        {% for exchange_request in exchange_requests %}
+			<div class="return return-info" request-id="{{ exchange_request.id }}">
+				<h2>{% trans 'Return Items' %}</h2>
+				<ul class="order-list">
+					{% for exchange_return_item in exchange_request.exchange_return_items %}
+					{% with sale_order_item=exchange_return_item.get_sale_order_item sale_item=exchange_return_item.get_sale_item sale_item_option=exchange_return_item.get_sale_item_option %}
+					{% with option_height=sale_item_option.prod_height option_width=sale_item_option.prod_width %}
+					<li class="after">
+						<div class="item">
+							<img src="/shop/themes/_common/img/blank.gif" style="background-image:url({{ sale_item.secure_90sq_image_url }})" alt="">
+							<b class="title">{{ sale_item.title }} <small>({{currency.symbol}}{{ sale_order_item.price|convert_currency:currency.rate }} x {{ exchange_return_item.quantity }})</small></b>
+							<span class="option">{{ sale_item_option.option }}</span>
+						</div>
+					</li>
+					{% endwith %}
+					{% endwith %}
+					{% endfor %}
+				</ul>
+				{% if exchange_request.get_exchange_items %}
+				<dl class="exchange">
+					<dt>{% trans 'Exchange for' %}</dt>
+					<dd>
+						{% for exchange_item in exchange_request.get_exchange_items %}
+						{% with new_item_profile=exchange_item.get_new_item_profile new_item=exchange_item.get_new_item new_item_option=exchange_item.get_new_item_option %}
+						{% with option_height=new_item_option.prod_height option_width=new_item_option.prod_width %}
+						<div class="item">
+							<a href="{{ new_item.html_url }}" class="tit"><img src="/shop/themes/_common/img/blank.gif" alt="" style="background-image:url({{ new_item.secure_90sq_image_url }})">
+							<b>{{ new_item.title }} <small>({{currency.symbol}}{{ new_item_profile.get_price|convert_currency:currency.rate }} x {{ exchange_item.new_quantity }})</small></b>
+							{{ new_item_option.option }}
+							{% if option_height and option_width %}| {{ option_height|inch_to_cm }}cm H x {{ option_width|inch_to_cm }}cm W ({{ option_height }}"H x {{ option_width }}"W){% endif %}
+							</a>
+						</div>
+						{% endwith %}
+						{% endwith %}
+						{% endfor %}
+					</dd>
+				</dl>
+				{% endif %}
+				<ul class="comments">
+					<li><b class="tit">{% trans 'Return Status' %}</b>
+					<span class="value status {% if exchange_request.status == exchange_request.STATUS_INITIATED %}initiated
+					{% elif exchange_request.status == exchange_request.STATUS_IN_PROGRESS %}exchange
+					{% elif exchange_request.status == exchange_request.STATUS_ARRIVED_AT_WAREHOUSE %}arrived
+					{% elif exchange_request.status == exchange_request.STATUS_COMPLETED %}completed{% endif %}">{{ exchange_request.get_status_display }}</span></li>
+					<li><b class="tit">{% trans 'Reason' %}</b>
+					<span class="value">{{ exchange_request.get_reason_display }}{% if exchange_request.reason_text %} - {{ exchange_request.reason_text }}{% endif %}</span></li>
+				</ul>
+				<div class="order-return">
+					<button class="btns-gray-embo">{% trans 'Print Return Label' %}</button>
+					<button class="btns-gray-embo btn-cancel-request" {% if not exchange_request.is_cancelable %}disabled="disabled"{% endif %}>{% trans 'Cancel Request' %}</button>
+				</div>
+			</div>
+        {% endfor %}
+        <!-- // 'Return Items' section -->
+        {% for tracking_num, soi_list in tracking_num_to_soi_dict.items %}
+            <div class="shipment">
+                <h2>Shipment #{{forloop.counter}} </h2>
+                <ul class="order-list">
+                {% for soi in soi_list %}
+                    <li class="after">
+                        <div class="item">
+                            <img src="/shop/themes/_common/img/blank.gif" style="background-image:url('{{ soi.sale_item.cf_310_image_url|schemeless }}')" alt="" />
+                            <b class="title">{{ soi.sale_item.translate_title }}</b>
+                            {% if soi.sale_item_option.option %}
+                            <span class="option">{{ soi.sale_item_option.option }}</span>
+                            {% endif %}
+                            <span class="qty">Qty: {{ soi.quantity }}</span>
+                            {% if soi.is_preorder %}
+                            <span class="option">{% trans 'Pre-order' %} : {{ soi.preorder.get_status_display }} {% if soi.preorder.is_refunded %}- ${{ soi.preorder.remainder_total }}{% endif %}</span>
+                            {% if soi.preorder.is_chargeable %}
+                            <span class="option">{% trans 'Remainder' %} : ${{ soi.preorder.remainder_total }}</span>
+                            {% endif %}
+                            {% if soi.preorder.is_failed %}
+                            <span class="option">Change card:</span>
+                            <span class="option">
+                                <div class="newcard">
+                                    <input class="long" type="text" name="card.name" placeholder="Name on card">
+                                    <input class="long"  type="text" name="card.card_number" maxlength="19" placeholder="Credit Card Number">
+                                    <span class="selectBox short">
+                                    <select class="short" name="card.expiration_month">
+	                                    {% for v,m in MONTHS %}
+	                                    <option value="{{v}}">{{m}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <span class="selectBox short">
+                                    <select class="short" name="card.expiration_year">
+	                                    {% for v,y in YEARS %}
+	                                    <option value="{{v}}">{{y}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <input class="long"  type="text" name="card.security_code" placeholder="CVC">
+                                </div>
+                                {% with sale_order.card as ba %}
+                                <div class="newcard address">
+                                    <input class="long" type="text" name="billing.address1" value="{{ba.address1|default:""}}"placeholder="Address line 1">
+                                    <input class="long"  type="text" name="billing.address2" value="{{ba.address2|default:""}}"placeholder="Address line 2">
+                                    <span class="selectBox long">
+                                    <select class="long" name="billing.country">
+	                                    {% for c2,c3,s in COUNTRY_CODES %}
+	                                    <option value="{{c2}}" {%if c2 == ba.get_country_code %}selected{%endif%}>{{s}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <input class="shorter"  type="text" name="billing.city" value="{{ba.city|default:""}}" placeholder="City">
+                                    <input class="shorter"  type="text" name="billing.state" value="{{ba.state|default:""}}" placeholder="State">
+                                    <input class="shorter"  type="text" name="billing.postal_code" value="{{ba.postal_code|default:""}}"placeholder="Zip">
+                                </div>
+                                {% endwith %}
+                                <a href="#" class="submit-new-card" data-itemid="{{soi.id}}">Submit</a>
+                            </span>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <span class="price">{{currency.symbol}}{{ soi.price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+                <ul class="recipients after">
+                    <li class="to"><b class="tit">{% trans 'Ship to' %}</b>
+                        <span class="value">
+                            {% if sale_order.is_group_gift_order %}
+                                {{ shipping_address.recipient_name }}
+                            {% else %}
+                                {{ shipping_address.full_name }}
+                            {% endif %}
+                            {% if sale_order.is_gift %}({% trans "Gift" %}){% endif %}
+                        </span>
+                    <address>
+                        {{ shipping_address.address1 }} {% if shipping_address.address2 %}{{ shipping_address.address2 }}{% endif %}<br/>
+                        {{ shipping_address.city }} {{ shipping_address.state }} {{ shipping_address.zip }} <br/>
+                        {{ shipping_address.country }}
+                    </address></li>
+                    {% if sale_order.shipping_option_string %}
+                    <li class="type"><b class="tit">{% trans 'Shipping Type' %}</b>
+                        <span class="value">{{ sale_order.shipping_option_string }}</span>
+                    </li>
+                    {% endif %}
+                    {% if tracking_num in order_shipping_tracking_dict %}
+                    {% with order_shipping_tracking_dict|get_value:tracking_num as order_shipping_tracking %}
+                        <li class="number"><b class="tit">{% trans 'Tracking number' %}</b>
+                        <span class="value">
+                            {% if order_shipping_tracking.get_tracking_url %}
+                                <a href="{{ order_shipping_tracking.get_tracking_url }}"
+                                   target="_blank">{{ order_shipping_tracking.tracking_num }}</a><br/>
+                            {% else %}
+                                {{ order_shipping_tracking.tracking_num }}
+                            {% endif %}
+                            {{ order_shipping_tracking.date_created|localize|date:"M j, Y" }} via {{ order_shipping_tracking.get_shipping_courier_str }}
+                        </span></li>
+                    {% endwith %}
+                    {% endif %}
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="left">
+            <div class="tracking-info">
+                {%if sale_order.total_price > 0%}
+				<div class="payment-info">
+					<h2>Payment</h2>
+                    {% if sale_order.sale_order_method.method == 'wallet' %}
+                    <div>Google Wallet : {{sale_order.sale_order_method.note.card}}</div>
+                    </li>
+                    {% elif sale_order.sale_order_method.method == 'androidpay' %}
+                    <div>Android Pay: {{sale_order.sale_order_method.note.card}}</div>
+                    {% elif sale_order.sale_order_method.method == 'paywithgoogle' %}
+                    <div>Google Pay: {{sale_order.sale_order_method.note.card}}</div>
+                    {% elif sale_order.sale_order_method.method == 'amex_express' %}
+                    <div class="payment" data-bind="payment=:html">
+                        <span class="card amex"></span>
+                        <b>Amex Express</b> xxxx-{{debit_source.last_four}}
+                        <span class="name">{{debit_source.name}}</span>
+                    </div>
+                    {% elif sale_order.sale_order_method.method == 'samsungpay' %}
+                    <div>Samsung Pay: {{debit_source.brand}} *** {{debit_source.dynamic_last4}}</div>
+                    {% elif sale_order.sale_order_method.method == 'paypal' %}
+                    <div>Paypal{% if sale_order.is_sandbox %} (SANDBOX){% endif %}: {{sale_order.sale_order_method.note.paypal_email}}</div>
+                    {% elif sale_order.sale_order_method.method == 'alipay' %}
+                    <div>Alipay</div>
+                    {% elif sale_order.payment_gateway == sale_order.payment_gateway_coinbase or sale_order.payment_gateway == sale_order.payment_gateway_coinbase_unified_cart or sale_order.payment_gateway == sale_order.payment_gateway_bitpay %}
+                    <div>Bitcoin</div>
+                    {% elif sale_order.payment_gateway == sale_order.payment_gateway_globee%}
+                    <div>Cryptocurrency</div>
+                    {% elif debit_source %}
+                        {% if sale_order.is_applepay_order %}
+                        <div>Apple Pay: {{debit_source.name}}</div>
+                        {% else %}
+                        <div class="payment">
+                            <span class="card {{debit_source.brand.slugify|lower}}"></span>
+                            <b>{{ debit_source.brand }}</b> xxxx-{{debit_source.last_four}}
+                            <span class="name">{{debit_source.name}}</span>
+                        </div>
+                        {% endif %}
+                    {%endif%}
+				</div>
+                {%endif%}
+				{% if sale_order.note %}
+					<div class="note-info">
+						<h2>{% trans 'Note to Merchant' %}</h2>
+						<p>{{ sale_order.note }}</p>
+					</div>
+				{% endif %}
+            </div>
+            <div class="tracking-history">
+                <h2>{% trans 'Order History' %}</h2>
+                {% regroup sale_order_histories by date_created|localize|date:"M j Y" as history_by_day %}
+                <ul class="tracking-history-list">
+                    {% for history_day in history_by_day %}
+                    <li><b class="tit">{{history_day.list.0.date_created|localize|date:"F j, Y - l"}}</b>
+                    <small class="history">
+                        {% for obj in history_day.list %}
+                            {% ifchanged obj.date_created|localize|date:"fA" obj.get_status %}
+                            <span><em class="time">{{ obj.date_created|localize|date:"g:i A"|lower }},</em>
+                                  <em class="detail">{{ obj.get_status }}</em></span>
+                            {% endifchanged %}
+                        {% endfor %}
+                    </small></li>
+                    {% endfor %}
+                </ul>
+
+                {% regroup sale_return_histories by date_created|localize|date:"M j Y" as return_history_by_day %}
+                {%for history_day in return_history_by_day%}
+                <ul class="tracking-history-list">
+                    <li><b class="tit">{{history_day.list.0.date_created|localize|date:"F j, Y - l"}}</b>
+                    <small class="history">
+                        {%for obj in history_day.list%}
+                            {% ifchanged obj.date_created|localize|date:"fA" obj.get_status %}
+                            <span>
+                                <em class="time">{{ obj.date_created|localize|date:"g:i A"|lower }}</em>
+                                <em class="detail">{{ obj.get_status }}</em>
+                            </span>
+                            {% endifchanged %}
+                        {%endfor%}
+                    </small></li>
+                </ul>
+                {%endfor%}
+            </div>
+		</div>
+    </div>
+</div>
+{%else%}
+<div id="checkout">
+    <div class="after">
+        <div class="left">
+            <div class="tracking-info">
+                <h1 class="logo">{% if logo_url %}<a href="{{ store_url }}"><img src="{{ logo_url }}" alt=""></a>{% endif %}
+				<b>{{ seller_profile.brand_name }}</b>
+                {{ seller_profile.tagline }}<br>
+                {% if seller_profile.wesite %}
+                    <a href="{{ seller_profile.website }}">{{ seller_profile.website|simplify_url }}</a>, 
+                {% endif %}
+                {% if seller_profile.email %}
+                <a href="mailto:{{ seller_profile.email }}">{{ seller_profile.email }}</a>
+                {%endif%}
+                </h1>
+                <ul class="ordered-list">
+                    <li><label class="label">{% trans 'Order placed' %}:</label> <span class="value">{{ sale_order.date_created|localize }}</span></li>
+                    <li><label class="label">{% trans 'Order ID' %}:</label> <span class="value">#{{ sale_order.id|stringformat:"08d" }}</span></li>
+                    <li><label class="label">{% trans 'Order status' %}:</label> <span class="value">{{ sale_order.get_status }}</span></li>
+                    {% for shipping_tracking in order_shipping_trackings %}
+                    <li><label class="label">{% trans 'Tracking Number' %}:</label> <span class="value"><a href="{{ shipping_tracking.get_tracking_url }}">{{ shipping_tracking.tracking_num }}</a> via {{ shipping_tracking.get_shipping_courier_str }}</span></li>
+                    {% endfor %}
+                    {% if returnable_exchangeable_order_items %}
+                    <li><label class="label"><a href="#" class="exchange" onclick="$.dialog('exchange-popup').open();return false;">{% trans "Exchange / Return" %}</a></label></li>
+                    {% endif %}
+                    {% for return_request in sale_order.get_return_requests %}
+                        {%if return_request.is_cancel_available%}
+                            <a href="#" class="btn-cancel-request" data-request-id="{{ return_request.id }}">{%trans "Cancel Return/Exchange Request"%}&nbsp;#{{ return_request.id }}</a>
+                        {%endif%}
+                    {% endfor %}
+                </ul>
+                <ul class="receipt">
+                    <li>
+                        <label class="label">{% trans 'Subtotal' %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.subtotal_price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% if sale_order.coupon_amount %}
+                    <li>
+                        <label class="label">{% trans "Coupon" %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.coupon_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% if sale_order.credit_spent %}
+                    <li>
+                        <label class="label">{% if storefront.has_own_users %}{% trans "Store Credit" %}{% else %}{% trans "Fancy Rebate" %}{% endif %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.credit_spent|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% if sale_order.fancy_money_spent %}
+                    <li>
+                        <label class="label">{% trans "Gift Card" %}</label>
+                        <span class="price">-{{currency.symbol}}{{ sale_order.fancy_money_spent|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {%endif%}
+                    <li>
+                        <label class="label">{% trans "Shipping" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.shipping_cost|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li>
+                        <label class="label">{% trans "Tax" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.sales_tax|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+
+                    <li class="total">
+                        <label class="label">{% trans "Total" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.total_price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+
+                    {% if sale_order.refunded_amount %}
+                    <li class="total">
+                        <label class="label">{% trans "Refund" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% if is_admin %}
+                    <li class="items">
+                        <label class="label">{% trans "Credit Card" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.credit_card_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li class="items">
+                        <label class="label">{% trans "Gift Card" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.fancy_money_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    <li class="items">
+                        <label class="label">{% trans "Fancy Rebate" %}</label>
+                        <span class="price">{{currency.symbol}}{{ sale_order.fancy_credit_refunded_amount|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="tracking-history">
+                <h2>{% trans 'Order History' %}</h2>
+                {% regroup sale_order_histories by date_created|localize|date:"M j Y" as history_by_day %}
+                <ul class="tracking-history-list">
+                    {% for history_day in history_by_day %}
+                    <li><b class="tit">{{history_day.list.0.date_created|localize|date:"F j, Y - l"}}</b>
+                    <small class="history">
+                        {% for obj in history_day.list %}
+                            {% ifchanged obj.date_created|localize|date:"fA" obj.get_status %}
+                            <span><em class="time">{{ obj.date_created|localize|date:"g:i A"|lower }},</em>
+                                  <em class="detail">{{ obj.get_status }}</em></span>
+                            {% endifchanged %}
+                        {% endfor %}
+                    </small></li>
+                    {% endfor %}
+                </ul>
+
+                {% regroup sale_return_histories by date_created|localize|date:"M j Y" as return_history_by_day %}
+                {%for history_day in return_history_by_day%}
+                <ul class="tracking-history-list">
+                    <li><b class="tit">{{history_day.list.0.date_created|localize|date:"F j, Y - l"}}</b>
+                    <small class="history">
+                        {%for obj in history_day.list%}
+                            {% ifchanged obj.date_created|localize|date:"fA" obj.get_status %}
+                            <span>
+                                <em class="time">{{ obj.date_created|localize|date:"g:i A"|lower }},</em>
+                                <em class="detail">{{ obj.get_status }}</em>
+                            </span>
+                            {% endifchanged %}
+                        {%endfor%}
+                    </small></li>
+                </ul>
+                {%endfor%}
+            </div>
+            {% if sale_order.note %}
+                <div class="note-info">
+                    <h2>{% trans 'Note to Merchant' %}</h2>
+                    <p>{{ sale_order.note }}</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="right">
+        <!-- 'Return Items' section -->
+        {% for exchange_request in exchange_requests %}
+        <div class="return return-info" request-id="{{ exchange_request.id }}">
+            <h2>{% trans 'Return Items' %}</h2>
+            <ul class="order-list">
+                {% for exchange_return_item in exchange_request.exchange_return_items %}
+                {% with sale_order_item=exchange_return_item.get_sale_order_item sale_item=exchange_return_item.get_sale_item sale_item_option=exchange_return_item.get_sale_item_option %}
+                {% with option_height=sale_item_option.prod_height option_width=sale_item_option.prod_width %}
+                <li class="after">
+                    <div class="item">
+                        <img src="/shop/themes/_common/img/blank.gif" style="background-image:url({{ sale_item.secure_90sq_image_url }})" alt="">
+                        <b class="title">{{ sale_item.title }} <small>({{currency.symbol}}{{ sale_order_item.price|convert_currency:currency.rate }} x {{ exchange_return_item.quantity }})</small></b>
+                        <span class="option">{{ sale_item_option.option }}</span>
+                    </div>
+                </li>
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+            </ul>
+            {% if exchange_request.get_exchange_items %}
+            <dl class="exchange">
+                <dt>{% trans 'Exchange for' %}</dt>
+                <dd>
+                    {% for exchange_item in exchange_request.get_exchange_items %}
+                    {% with new_item_profile=exchange_item.get_new_item_profile new_item=exchange_item.get_new_item new_item_option=exchange_item.get_new_item_option %}
+                    {% with option_height=new_item_option.prod_height option_width=new_item_option.prod_width %}
+                    <div class="item">
+                        <a href="{{ new_item.html_url }}" class="tit"><img src="/shop/themes/_common/img/blank.gif" alt="" style="background-image:url({{ new_item.secure_90sq_image_url }})">
+                        <b>{{ new_item.title }} <small>({{currency.symbol}}{{ new_item_profile.get_price|convert_currency:currency.rate }} x {{ exchange_item.new_quantity }})</small></b>
+                        {{ new_item_option.option }}
+                        {% if option_height and option_width %}| {{ option_height|inch_to_cm }}cm H x {{ option_width|inch_to_cm }}cm W ({{ option_height }}"H x {{ option_width }}"W){% endif %}
+                        </a>
+                    </div>
+                    {% endwith %}
+                    {% endwith %}
+                    {% endfor %}
+                </dd>
+            </dl>
+            {% endif %}
+            <ul class="comments">
+                <li><b class="tit">{% trans 'Return Status' %}</b>
+                <span class="value status {% if exchange_request.status == exchange_request.STATUS_INITIATED %}initiated
+                {% elif exchange_request.status == exchange_request.STATUS_IN_PROGRESS %}exchange
+                {% elif exchange_request.status == exchange_request.STATUS_ARRIVED_AT_WAREHOUSE %}arrived
+                {% elif exchange_request.status == exchange_request.STATUS_COMPLETED %}completed{% endif %}">{{ exchange_request.get_status_display }}</span></li>
+                <li><b class="tit">{% trans 'Reason' %}</b>
+                <span class="value">{{ exchange_request.get_reason_display }}{% if exchange_request.reason_text %} - {{ exchange_request.reason_text }}{% endif %}</span></li>
+            </ul>
+            <div class="order-return">
+                <button class="btns-gray-embo">{% trans 'Print Return Label' %}</button>
+                <button class="btns-gray-embo btn-cancel-request" {% if not exchange_request.is_cancelable %}disabled="disabled"{% endif %}>{% trans 'Cancel Request' %}</button>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- // 'Return Items' section -->
+        {% for tracking_num, soi_list in tracking_num_to_soi_dict.items %}
+            <div class="shipment">
+                <h2>Shipment #{{forloop.counter}} </h2>
+                <ul class="order-list">
+                {% for soi in soi_list %}
+                    <li class="after">
+                        <div class="item">
+                            <img src="/shop/themes/_common/img/blank.gif" style="background-image:url('{{ soi.sale_item.cf_310_image_url|schemeless }}')" alt="" />
+                            <b class="title">{{ soi.sale_item.translate_title }}</b>
+                            {% if soi.sale_item_option.option %}
+                            <span class="option">{{ soi.sale_item_option.option }}</span>
+                            {% endif %}
+                            <span class="qty">Qty: {{ soi.quantity }}</span>
+                            {% if soi.is_preorder %}
+                            <span class="option">{% trans 'Pre-order' %} : {{ soi.preorder.get_status_display }} {% if soi.preorder.is_refunded %}- ${{ soi.preorder.remainder_total }}{% endif %}</span>
+                            {% if soi.preorder.is_chargeable %}
+                            <span class="option">{% trans 'Remainder' %} : ${{ soi.preorder.remainder_total }}</span>
+                            {% endif %}
+                            {% if soi.preorder.is_failed %}
+                            <span class="option">Change card:</span>
+                            <span class="option">
+                                <div class="newcard">
+                                    <input class="long" type="text" name="card.name" placeholder="Name on card">
+                                    <input class="long"  type="text" name="card.card_number" maxlength="19" placeholder="Credit Card Number">
+                                    <span class="selectBox short">
+                                    <select class="short" name="card.expiration_month">
+	                                    {% for v,m in MONTHS %}
+	                                    <option value="{{v}}">{{m}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <span class="selectBox short">
+                                    <select class="short" name="card.expiration_year">
+	                                    {% for v,y in YEARS %}
+	                                    <option value="{{v}}">{{y}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <input class="long"  type="text" name="card.security_code" placeholder="CVC">
+                                </div>
+                                {% with sale_order.card as ba %}
+                                <div class="newcard address">
+                                    <input class="long" type="text" name="billing.address1" value="{{ba.address1|default:""}}"placeholder="Address line 1">
+                                    <input class="long"  type="text" name="billing.address2" value="{{ba.address2|default:""}}"placeholder="Address line 2">
+                                    <span class="selectBox long">
+                                    <select class="long" name="billing.country">
+	                                    {% for c2,c3,s in COUNTRY_CODES %}
+	                                    <option value="{{c2}}" {%if c2 == ba.get_country_code %}selected{%endif%}>{{s}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </span>
+                                    <input class="shorter"  type="text" name="billing.city" value="{{ba.city|default:""}}" placeholder="City">
+                                    <input class="shorter"  type="text" name="billing.state" value="{{ba.state|default:""}}" placeholder="State">
+                                    <input class="shorter"  type="text" name="billing.postal_code" value="{{ba.postal_code|default:""}}"placeholder="Zip">
+                                </div>
+                                {% endwith %}
+                                <a href="#" class="submit-new-card" data-itemid="{{soi.id}}">Submit</a>
+                            </span>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <span class="price">{{currency.symbol}}{{ soi.price|convert_currency:currency.rate|floatformat:-2|intcomma }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+                <ul class="recipients after">
+                    <li class="to"><b class="tit">{% trans 'Ship to' %}</b>
+                        <span class="value">
+                            {% if sale_order.is_group_gift_order %}
+                                {{ shipping_address.recipient_name }}
+                            {% else %}
+                                {{ shipping_address.full_name }}
+                            {% endif %}
+                            {% if sale_order.is_gift %}({% trans "Gift" %}){% endif %}
+                        </span>
+                    <address>
+                        {{ shipping_address.address1 }} {% if shipping_address.address2 %}{{ shipping_address.address2 }}{% endif %}<br/>
+                        {{ shipping_address.city }} {{ shipping_address.state }} {{ shipping_address.zip }} <br/>
+                        {{ shipping_address.country }}
+                    </address></li>
+                    {% if sale_order.shipping_option_string %}
+                    <li class="type"><b class="tit">{% trans 'Shipping Type' %}</b>
+                        <span class="value">{{ sale_order.shipping_option_string }}</span>
+                    </li>
+                    {% endif %}
+                    {% if tracking_num in order_shipping_tracking_dict %}
+                    {% with order_shipping_tracking_dict|get_value:tracking_num as order_shipping_tracking %}
+                        <li class="number"><b class="tit">{% trans 'Tracking number' %}</b>
+                        <span class="value">
+                            {% if order_shipping_tracking.get_tracking_url %}
+                                <a href="{{ order_shipping_tracking.get_tracking_url }}"
+                                   target="_blank">{{ order_shipping_tracking.tracking_num }}</a><br/>
+                            {% else %}
+                                {{ order_shipping_tracking.tracking_num }}
+                            {% endif %}
+                            {{ order_shipping_tracking.date_created|localize|date:"M j, Y" }} via {{ order_shipping_tracking.get_shipping_courier_str }}
+                        </span></li>
+                    {% endwith %}
+                    {% endif %}
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if returnable_exchangeable_order_items %}
+<div id="popup_container" class="exchange-popup" style="opacity:1;">
+    <div class="popup exchange-popup" id="exchange" order-id="{{ sale_order.id }}"
+    {%if sale_order.is_guest_order%}data-order-code="{{sale_order.get_guest_order.order_code}}"{%endif%}>
+		<p class="ltit">{% trans 'Exchange or Return an Item' %}</p>
+		<div class="step1">
+			<div class="ltxt">
+				<ol class="step">
+					<li class="current">{% trans 'Select Item' %}</li>
+					<li>{% trans 'Tell Us Why' %}</li>
+					<li>{% trans 'Ship Item Back' %}</li>
+				</ol>
+				<h3>{% trans 'Exchange or Replace an Item' %} <small>{% trans 'Select the item you would like to return or exchange and click the Continue button.' %}</small></h3>
+				<ul class="order-list">
+                    {% for soi in returnable_exchangeable_order_items %}
+                    <li class="sitem" soi-id="{{ soi.id }}">
+                        <span class="info">
+                            <img src="/shop/themes/_common/img/blank.gif" style="background-image:url('{{soi.sale_item.cf_310_image_url|schemeless}}')" />
+                            <b class="title">{{ soi.sale_item.translate_title }}</b>
+                            <small class="option">{{ soi.sale_item_option.translate_option }}</small>
+                            <span class="return">
+                                <em>{{ soi.sale_item.get_return_policy_title }} <span class="tooltip"><i class="icon"></i><small>{{ soi.sale_item.get_return_policy_description }}<b></b></small></span></em>
+                                <em>{{ soi.sale_item.get_exchange_policy_title }} <span class="tooltip"><i class="icon"></i><small>{{ soi.sale_item.get_exchange_policy_description }}<b></b></small></span></em>
+                            </span>
+					    </span>
+                        <select class="select-boxes2 select-qty">
+                            {% for q in soi.quantity|add_by:1|get_range %}
+                            <option value="{{ q }}">{{ q }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="btn-area">
+				<p class="comment">{% blocktrans %}More information in <a href="{{ store_url }}/policy">Terms of Sale</a>.{% endblocktrans %}</p>
+				<button class="btns-white btn-cancel">{% trans 'Cancel' %}</button>
+				<button class="buttons btn-continue" style="display:none;">{% trans 'Continue' %}</button>
+			</div>
+		</div>
+		<div class="step2" style="display:none;">
+			<div class="ltxt">
+				<ol class="step">
+					<li>{% trans 'Select Item' %}</li>
+					<li class="current">{% trans 'Tell Us Why' %}</li>
+					<li>{% trans 'Ship Item Back' %}</li>
+				</ol>
+				<h3>{% trans 'Verify the return item.' %} <small>{% trans 'You can choose between a refund for credits or an exchange for another Item.' %}<br>{% trans 'Please let us know why you would like to return it.' %}</small></h3>
+                <fieldset class="frm">
+                    {% for soi in returnable_exchangeable_order_items %}
+                    <fieldset class="sitem" soi-id="{{soi.id}}" qty="0">
+                        <p class="title"><img src="/shop/themes/_common/img/blank.gif" style="background-image:url('{{ soi.sale_item.cf_310_image_url|schemeless }}')">
+                        <b>{{ soi.sale_item.translate_title }}</b> <span>{{ soi.sale_item_option.translate_option }}</span></p>
+                        <p class="option">
+                            <span class="opt">
+                                <label>{% trans 'Select' %}</label>
+                                <select class="select-boxes2 select-req">
+                                    {% if soi in returnable_order_items %}
+                                        <option value="return" request-type="return" option-txt-singular="{% trans "Return {{qty}} item" %}" option-txt-plural="{% trans "Return {{qty}} items" %}"></option>
+                                    {% endif %}
+                                    {% if soi in exchangeable_order_items %}
+                                        <option value="exchange" request-type="exchange" option-txt-singular="{% trans "Exchange {{qty}} item to" %}" option-txt-plural="{% trans "Exchange {{qty}} items to" %}"></option>
+                                    {% endif %}
+                                </select>
+                            </span>
+                            <span class="option opt_new">
+                                {% if soi.sale_item.available_options %}
+                                <label>{% trans 'New Option' %}</label>
+                                <select class="select-boxes2 select-new-option">
+                                    <option value="">{%trans "Select exchange item" %}</option>
+                                    {% if soi.sale_item.available_options %}
+                                        {% for option in soi.sale_item.available_options %}
+                                            {% if soi.sale_item_option.quantity > 0 %}
+                                            {% if soi.sale_item_option.id == option.id %}
+                                            <option value="{{option.id}}">{%trans "Replacement" %} - {{option.translate_option}}</option>
+                                            {% else %}
+                                            <option value="{{option.id}}">{{option.translate_option}}</option>
+                                            {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="no_opt">{%trans "Replacement" %} - {{ soi.sale_item.translate_title }}</option>
+                                    {% endif %}
+                                </select>
+                                {% endif %}
+                            </span>
+                            <div class="notify charge-notice" style="display: none;">
+                                <i class="icon"></i>
+                                <p>{% trans "You will be charged for your replacement item once the request is approved." %}</p>
+                            </div>
+                            {% comment %} <span class="qty">
+                                <label>{% trans "Quantity" %}</label>
+                                <select class="select-boxes2 select-new-quantity">
+                                    {% for q in soi.quantity|get_range:1 %}
+                                        <option>{{ q }}</option>
+                                    {% endfor %}
+                                </select>
+                            </span> {% endcomment %}
+                        </p>
+                    </fieldset>
+                    {% endfor %}
+                    <p class="reason">
+                        <label>{% trans 'Please select a reason' %}</label>
+                        <select class="select-boxes2 select-reason" other-val="{{ EXCHANGE_REASON_OTHER }}">
+                            {% for reason, description in EXCHANGE_REASON_CHOICES %}
+                                <option value="{{ reason }}">{{ description }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="text reason-text" placeholder="{% trans 'Please specify a reason' %}"/>
+                    </p>
+                    <p class="option address"><label>{%trans "Select return from address"%}</label>
+                        <select class="select-boxes2 select-addr">
+                            {%for shipping_addr in customer_shipping_addrs%}
+                            <option value="{{shipping_addr.id}}" {%if shipping_addr.id == sale_order.user_addr_id%}selected{%endif%}>{{shipping_addr.address_nickname}}</option>
+                            {%endfor%}
+                        </select><br />
+                        <!--<a href="#" class="add new-addr" target="_new">{%trans "Add New Address"%}</a>-->
+                    </p>
+                    <p class="option shipping-option exchange-only"><label>{%trans "Shipping Option"%}</label>
+                        <select class="select-boxes2 select-soption">
+                        </select>
+                    </p>
+                    <p class="option payment exchange-only"><label>{%trans "Payment method"%}</label>
+                        <select class="select-boxes2 select-card">
+                            {% for c in card_list %}
+                            <option value="{{c.id}}">{{c.get_card_name}} - *** {{c.last_digits}}</option>
+                            {%endfor%}
+                        </select><br />
+                        <!--<a href="/settings/cards" class="add" target="_new">{%trans "Add New Credit Card"%}</a>-->
+                    </p>
+                </fieldset>
+            </div>
+            <!-- Summary for exchange price -->
+            <div class="price exchange-only">
+                    {%trans "Total Price"%} <div class="tooltip"><i class="icon"></i>
+                    <ul>
+                        <li><label>{%trans "Item total"%}</label> <span class="subtotal"><small>USD</small></span></li>
+                        <li><label>{%trans "Shipping"%}</label> <span class="shipping"><small>USD</small></span></li>
+                        <li><label>{%trans "Tax"%}</label> <span class="tax"><small>USD</small></span></li>
+                        <li style="display:none;"><label>{%trans "Credit"%}</label> <span class="credit"><small>USD</small></span></li>
+                        <li style="display:none;"><label>{%trans "Gift Card"%}</label> <span class="gift-card"><small>USD</small></span></li>
+                        <li style="display:none;"><label>{%trans "Additional Credit by Return"%}</label> <span class="expected-credit"><small>USD</small></span></li>
+                        <li class="total"><label>{%trans "Total"%}</label> <span class="total"><small>USD</small></span></li>
+                    </ul></div>
+                    <b><span class="total"></span><small>USD</small></b>
+            </div>
+            <div class="price-calc" style="display:none;">{%trans "Calculating..."%}</div>
+            {% comment %}<!-- remove css after done -->{% endcomment %}
+            <style>
+                    .step2 .option.address, .step2 .shipping-option, .step2 .exchange-only, .price-calc, .price.exchange-only{
+                        display: none;
+                        padding-left: 14px !important;
+                        border-bottom: 0 !important;
+                    }
+                    #exchange .step2 div.price, #exchange .price-calc {
+                        border: 1px solid #e5e6e8;
+                        border-radius: 3px;
+                        margin: 0 15px 15px;
+                        padding: 15px;
+                        line-height: 28px;
+                        font-size: 15px;
+                        text-align: right;
+                    }
+                    #exchange .step2 div.price .tooltip {
+                        position: relative;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    #exchange .tooltip {
+                        position: relative;
+                        display: inline-block;
+                        z-index: 1;
+                    }
+                    #exchange .step2 div.price .tooltip .icon {
+                        width: 14px;
+                        height: 14px;
+                        background-position: -95px -150px;
+                        opacity: 0.6;
+                        margin-top: -5px;
+                        display: inline-block;
+                    }
+                    #exchange .step2 div.price .tooltip ul {
+                        display: none;
+                        position: absolute;
+                        width: 190px;
+                        padding: 10px 14px;
+                        background: #2c3239;
+                        bottom: 33px;
+                        left: 50%;
+                        margin-left: -116px;
+                        color: #fff;
+                        border-radius: 3px;
+                        font-size: 13px;
+                        line-height: 22px;
+                        visibility: hidden;
+                    }
+            </style>
+			<div class="btn-area">
+				<button class="btns-white btn-back">{% trans 'Go Back' %}</button>
+				<button class="buttons btn-send">{% trans 'Send Request' %}</button>
+			</div>
+		</div>
+		<div class="step3" style="display:none;">
+			<div class="ltxt">
+				<ol class="step">
+					<li>{% trans 'Select Item' %}</li>
+					<li>{% trans 'Tell Us Why' %}</li>
+					<li class="current">{% trans 'Ship Item Back' %}</li>
+				</ol>
+				<h3>{% trans 'Request sent.' %} <small>{% trans 'We will review your request and issue you a prepaid return shipping label via email upon approval. All items must arrive unused and in the original packaging.' %}</small></h3>
+				<p class="txt">{% blocktrans %}Have a question or need help? Contact <a href="/about/contact">Customer Support</a>.{% endblocktrans %}</p>
+				<div class="return">
+					<h4>{% trans 'Returns' %}</h4>
+					<div class="tb-orders"><table>
+						<colgroup>
+							<col width="*">
+							<col width="60">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>{% trans 'Item' %}</th>
+								<th>{% trans 'Quantity' %}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table></div>
+				</div>
+				<div class="exchange">
+					<h4>{% trans 'Exchanges' %}</h4>
+					<div class="tb-orders"><table>
+						<colgroup>
+							<col width="50%">
+							<col width="50%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>{% trans 'Original Item' %}</th>
+								<th>{% trans 'New Item' %}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table></div>
+				</div>
+				<div class="reason">
+					<h4>{% trans 'Reason' %}</h4>
+					<p></p>
+				</div>
+			</div>
+			<div class="btn-area">
+				<button class="buttons btn-done">{% trans 'Done' %}</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% pipeline_js '_ui/js/exchange.js' %}
+{% pipeline_js "common/js/model/credit_card.js" %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+jQuery(function ($) {
+	var Model = namespace('Fancy.Model')
+	Stripe.setPublishableKey("{{STRIPE_PUBLISHABLE_KEY}}")
+	
+	$('.submit-new-card').on('click', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var cardAttrs = {}, billing = {};
+		var order_item_id = $this.data('itemid');
+
+		$('.newcard [name^="card."]').each(function(){
+			var name = this.getAttribute('name').replace(/^card\./,''), val = $.trim(this.value);
+			if (name != 'id') cardAttrs[name] = val;
+		});		
+
+		$('.newcard [name^="billing."]').each(function(){
+			var name = this.getAttribute('name').replace(/^billing\./,''), val = $.trim(this.value);
+			if (name != 'id') billing[name] = val;
+		});		
+
+		var card_required = 'name card_number security_code'.split(' ');
+		var address_required = 'address1 city postal_code'.split(' '), k, i, c;
+
+        for (i=0,c=card_required.length; i < c; i++) {
+            k = card_required[i];
+			if (!cardAttrs[k].length){						
+				var $el = $('.newcard [name="card.'+k+'"]')
+				alert($el.attr('placeholder') + ' is required.');
+				return false;
+			}
+		}
+
+		for (i=0,c=address_required.length; i < c; i++) {
+			k = address_required[i];
+			if (!billing[k].length){
+				var $el = $('.newcard [name="billing.'+k+'"]')
+				alert($el.attr('placeholder') + ' is required.');
+				return false;
+			}
+		}	
+
+		var stripeCard = new Model.StripeCreditCard(cardAttrs);
+        $this.hide();
+        var is_guest_order = false;
+        {% if is_guest_order %}
+        is_guest_order = true;
+        window.is_guest_order = is_guest_order;
+		stripeCard.getGuestCreditCard(function(card_, error){						
+			if (!card_ || error) {
+				alert(error);
+				$this.show();
+				return;
+			}
+			var param = {"action" : "charge_preorder", 
+						 "card_token" : card_.id, 
+						 "order_item_id" : order_item_id, 
+						 "billing_address" : JSON.stringify(billing)}
+			$.post("{{action_url}}",param, function(response){
+				if (response.status_code != undefined && response.status_code == 1) {
+					alert('Successful!');
+					location.reload(false);
+				}
+				else if (response.status_code == 0) {
+					if(response.message != undefined) alert(response.message);
+					else alert('Failed.');
+					$this.show();
+				} 
+			}, "json");
+
+		});
+		{% else %}
+		stripeCard.getCreditCard(function(card_, error){
+			if (!card_ || error) {
+				alert(error);
+				$this.show();
+				return;
+			}
+			// update billing address
+			card_.set(billing).save()							
+				.fail(function(){
+				})
+				.done(function(json){
+					card = card_.set('id', json.id);
+					var param = {"action" : "charge_preorder", "card_id" : card.id, "order_item_id" : order_item_id}
+					$.post("{{action_url}}",param, function(response){
+						if (response.status_code != undefined && response.status_code == 1) {
+							alert('successful!');
+							location.reload(false);
+						}
+						else if (response.status_code == 0) {
+							if(response.message != undefined) alert(response.message);
+							else alert('Failedl');
+							$this.show();
+						}    
+					}, "json");
+					
+				});
+		});
+		{% endif %}
+    });
+});
+</script>
+</body>
+</html>

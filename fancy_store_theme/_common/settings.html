@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Amaranth:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Chivo:400,400italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Copse' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Cutive' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Delius' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Enriqueta:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Glegoo' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lekton:400,700,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Overlock:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,200,100,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200italic,200,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Vampiro+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="./css/setting.css">
+</head>
+<body>
+<!-- customize -->
+<button class="btn-editable on" onclick="$(this).toggleClass('on')">Editable</button>
+<div id="customize_bar">
+	<div class="topbar after">
+		<button class="btn-black btn-exit">Exit</button>
+		<button class="btn-back">Back</button>
+		<h2 class="default">Customize</h2>
+		<h2 class="css">Custom CSS</h2>
+		<h2 class="theme">Themes</h2>
+		<button class="btn-blue btn-save">Save</button>
+	</div>
+	<div class="edit-contents">
+		<div class="scroll edit-basic">
+			<div class="theme-info">
+				<span>Current theme</span>
+				<b>Stack</b>
+			</div>
+			<button class="btn-gray btn-change" onclick="$(this).closest('#customize_bar').addClass('view-theme');">Browse themes</button>
+			<div class="section appearance">
+				<h3 class="theme-tit">Appearance </h3>
+				<dl class="controller general">
+					<dt class="control-tit">General</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">Background</label> <span class="value"><em class="color-box" style="background:#464d70;"></em></span></li>
+							<li><label class="label">Background Image</label> <span class="value"><em class="thumb-box"></em></span></li>
+							<li><label class="label">Text</label> <span class="value"><em class="color-box" style="background:#8895ac;"></em></span></li>
+							<li><label class="label">Links</label> <span class="value"><em class="color-box"  style="background:#d9dbde;"></em></span></li>
+							<li><label class="label">Navigation</label> <span class="value"><em class="color-box" style="background:#47605d;"></em></span></li>
+							<li><label class="label">Link Rollovers</label> <span class="value"><em class="color-box" style="background:#f8f8f8;"></em></span></li>
+							<li><label class="label">Font</label> <span class="value"><em class="trick-select"><a href="#" class="select-font selector">Helvetica</a></em></span></li>
+							<li><label class="label">Categories</label> <span class="value"><em class="trick-select"><a href="#" class="select-cate selector">5</a></em></span></li>
+							<li><label class="label">Collections</label> <span class="value"><em class="trick-select"><a href="#" class="select-collection selector">5</a></em></span></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl class="controller general">
+					<dt class="control-tit">Header</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">Header Image</label> <span class="value"><em class="thumb-box"></em></span></li>
+							<li><label class="label">Header Background</label> <span class="value"><em class="color-box" style="background:#8895ac;"></em></span></li>
+							<li><label class="label">Header Text</label> <span class="value"><em class="color-box" style="background:#f8f8f8;"></em></span></li>
+							<li><label class="label">Header Font</label> <span class="value"><em class="trick-select"><a href="#" class="select-font selector">Open Sans</a></em></span></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl class="controller general">
+					<dt class="control-tit">Products</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">Product Background Color</label> <span class="value"><em class="color-box" style="background:#47605d;"></em></span></li>
+							<li><label class="label">Product Overlay Color</label> <span class="value"><em class="color-box"  style="background:#d9dbde;"></em></span></li>
+							<li><label class="label">Products Per Row</label> <span class="value"><span class="trick-select"><a href="#" class="selector">3</a><select><option>3</option></select></span></span></li>
+							<li><label class="label">Show Product Price</label> <span class="value"><button class="btn-switch">ON</button></span></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl class="controller general">
+					<dt class="control-tit">Options</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">Show Fancy Count</label> <span class="value"><button class="btn-switch">ON</button></span></li>
+							<li><label class="label">Show Product Price</label> <span class="value"><button class="btn-switch on">ON</button></span></li>
+							<li><label class="label">Floating Header</label> <span class="value"><button class="btn-switch">ON</button></span></li>
+							<li><label class="label">Show Submenus</label> <span class="value"><button class="btn-switch on">ON</button></span></li>
+							<li><label class="label">Show Comments</label> <span class="value"><button class="btn-switch on">ON</button></span></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div class="section feature">
+				<h3 class="theme-tit">Feature </h3>
+				<dl class="controller slideshow">
+					<dt class="control-tit">Slideshow</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_1.png')" alt="" /></span><a href="#" class="btn-white btn-edit"><i class="icon"></i> <small>Edit</small></a></li>
+							<li><span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_2.png')" alt="" /></span><a href="#" class="btn-white btn-edit"><i class="icon"></i> <small>Edit</small></a></li>
+							<li><span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_3.png')" alt="" /></span><a href="#" class="btn-white btn-edit"><i class="icon"></i> <small>Edit</small></a></li>
+							<li><span class="figure"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/dummy/list_4.png')" alt="" /></span><a href="#" class="btn-white btn-edit"><i class="icon"></i> <small>Edit</small></a></li>
+							<li><a href="#" class="btn-add"><i class="icon"></i> Add Product</a></li>
+						</ul>
+					</dd>
+					<dd class="drop-txt"><b>Drag Image Here</b></dd>
+				</dl>
+				<dl class="controller products">
+					<dt class="control-tit">Featured Products</dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">Selected Products</label> <span class="value"><a href="#">35</a></span></li>
+							<li><label class="label">Products Per Row</label> <span class="value"><span class="trick-select"><a href="#" class="selector">3</a><select><option>3</option></select></span></span></li>
+							<li><label class="label">Product Background Color</label> <span class="value"><em class="color-box" style="background:#f0f0f0;"></em></span></li>
+							<li><label class="label">Product Overlay Color</label> <span class="value"><em class="color-box" style="background:#d9dbde;"></em></span></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div class="section advance">
+				<h3 class="theme-tit">Advanced </h3>
+				<dl class="controller analytics">
+					<dt class="control-tit">Google Analytics </dt>
+					<dd class="control-item">
+						<ul class="after">
+							<li><label class="label">UA Code <span class="tooltip"><i class="icon"></i><em>test tooltip</em></label> <span class="value"><input type="text" value="UA-000000-01" /></span></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<button class="btn-gray btn-css" onclick="$(this).closest('#customize_bar').addClass('view-css');">Custom CSS</button>
+			<div class="select-popup upload-image">
+				<div class="img-editor">
+					<button class="btn-white btn-del"><i class="icon"></i> <span>Delete</span></button>
+				</div>
+				<ul>
+					<li><span class="label">Position</span>
+					<span class="value"><span class="trick-select"><a href="#" class="selector">top left</a><select>
+						<option>top left</option>
+						<option>top right</option>
+						<option>bottom left</option>
+						<option>bottom right</option>
+					</select></span></span></li>
+					<li><span class="label">Size</span>
+					<span class="value"><span class="trick-select"><a href="#" class="selector">auto</a><select>
+						<option>auto</option>
+					</select></span></span></li>
+					<li><span class="label">Repeat</span>
+					<span class="value"><span class="trick-select"><a href="#" class="selector">repeat</a><select>
+						<option>repeat</option>
+						<option>repeat-x</option>
+						<option>repeat-y</option>
+						<option>no-repeat</option>
+					</select></span></span></li>
+					<li><span class="label">Fix position</span>
+					<span class="value"><button class="btn-switch on">ON</button></span></li>
+				</ul>
+			</div>
+			<div class="select-popup color-picker">
+				<div id="colpick"></div>
+				<span class="alpha"></span>
+			</div>
+			<div class="select-popup edit-slideshow">
+				<dl>
+					<dt>Slide #1</dt>
+					<dd>
+						<button class="btn-del"><i class="icon"></i><span>Delete</span></button>
+						<p><label class="label">Link</label>
+						<input type="text" value="/collections/all" /></p>
+						<p><input type="checkbox" checked />
+						<label>Open link in new window</label></p>
+					</dd>
+				</dl>
+			</div>
+			<div class="select-popup add-product">
+				<dl>
+					<dt>Add Products</dt>
+					<dd class="after">
+						<fieldset class="search-product">
+							<input type="text" onkeypress="$(this).closest('dd').find('.product-list').show().end().find('.no-result').hide().end().find('.btn-remove').show()"/>
+							<a href="#" class="btn-remove" style="display:none;">Remove</a>
+						</fieldset>
+						<div class="no-result">
+							Search for product names or sales ID
+						</div>
+						<div class="product-list" style="display:none;">
+							<ul>
+								<li><label for="product_537355">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_1.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537355"/></li>
+								<li><label for="product_537356">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_2.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537356"/></li>
+								<li><label for="product_537357">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_3.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537357"/></li>
+								<li><label for="product_537358">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_4.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537358"/></li>
+								<li><label for="product_537359">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_1.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537359"/></li>
+								<li><label for="product_537360">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_2.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537361"/></li>
+								<li><label for="product_537362">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_3.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537362"/></li>
+								<li><label for="product_537363">
+									<img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_4.png)" alt="">
+									<b class="product-name">5 O'Clock Wall Clock</b>
+									<span class="product-num">#537355</span>
+								</label><input type="checkbox" id="product_537363"/></li>
+							</ul>
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<div class="select-popup cate-list">
+				<dl>
+					<dt>Categories</dt>
+					<dd>
+						<div class="add-collection">
+							You do not have any collections
+							<a href="#">Edit Collections</a>
+						</div>
+						<ul class="selected">
+							<li class="empty">Select categories</li>
+						</ul>
+						<ul class="unselect">
+							<li><input type="checkbox" /><label>Art</label></li>
+							<li><input type="checkbox" /><label>Food</label></li>
+							<li><input type="checkbox" /><label>Media</label></li>
+							<li><input type="checkbox" /><label>Architecture</label></li>
+							<li><input type="checkbox" /><label>Sports & Destinations</label></li>
+							<li><input type="checkbox" /><label>DIY & Crafts</label></li>
+							<li><input type="checkbox" /><label>Workspace</label></li>
+							<li><input type="checkbox" /><label>Cars & Vehicles</label></li>
+							<li><input type="checkbox" /><label>Others</label></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+			<div class="select-popup font-picker">
+				<dl>
+					<dt>Font</dt>
+					<dd><ul>
+						<li><a href="#" style="font-family:'Abril Fatface';">Abril Fatface</a></li>
+						<li><a href="#" style="font-family:'Amaranth';">Amaranth</a></li>
+						<li><a href="#" style="font-family:'Arial';">Arial</a></li>
+						<li><a href="#" style="font-family:'Arial Black';">Arial Black</a></li>
+						<li><a href="#" style="font-family:'Arvo';">Arvo</a></li>
+						<li><a href="#" style="font-family:'Asap';">Asap</a></li>
+						<li><a href="#" style="font-family:'Bevan';">Bevan</a></li>
+						<li><a href="#" style="font-family:'Chewy';">Chewy</a></li>
+						<li><a href="#" style="font-family:'Chivo';">Chivo</a></li>
+						<li><a href="#" style="font-family:'Copse';">Copse</a></li>
+						<li><a href="#" style="font-family:'Courier New';">Courier New</a></li>
+						<li><a href="#" style="font-family:'Cutive';">Cutive</a></li>
+						<li><a href="#" style="font-family:'Cutive Mono';">Cutive Mono</a></li>
+						<li><a href="#" style="font-family:'Delius';">Delius</a></li>
+						<li><a href="#" style="font-family:'Dosis';">Dosis</a></li>
+						<li><a href="#" style="font-family:'Enriqueta';">Enriqueta</a></li>
+						<li><a href="#" style="font-family:'Fauna One';">Fauna One</a></li>
+						<li><a href="#" style="font-family:'Fjord One';">Fjord One</a></li>
+						<li><a href="#" style="font-family:'Gentium Book Basic';">Gentium Book Basic</a></li>
+						<li><a href="#" style="font-family:'Georgia';">Georgia</a></li>
+						<li><a href="#" style="font-family:'Glegoo';">Glegoo</a></li>
+						<li><a href="#" style="font-family:'Goudy Bookletter 1911';">Goudy Bookletter 1911</a></li>
+						<li><a href="#" style="font-family:'Helvetica';">Helvetica</a></li>
+						<li><a href="#" style="font-family:'Impact';">Impact</a></li>
+						<li><a href="#" style="font-family:'Inconsolata';">Inconsolata</a></li>
+						<li><a href="#" style="font-family:'Lato';">Lato</a></li>
+						<li><a href="#" style="font-family:'Lekton';">Lekton</a></li>
+						<li><a href="#" style="font-family:'Lobster Two';">Lobster Two</a></li>
+						<li><a href="#" style="font-family:'Lucida Grande';">Lucida Grande</a></li>
+						<li><a href="#" style="font-family:'Merriweather';">Merriweather</a></li>
+						<li><a href="#" style="font-family:'Montserrat';">Montserrat</a></li>
+						<li><a href="#" style="font-family:'Nixie One';">Nixie One</a></li>
+						<li><a href="#" style="font-family:'Noticia Text';">Noticia Text</a></li>
+						<li><a href="#" style="font-family:'Open Sans';">Open Sans</a></li>
+						<li><a href="#" style="font-family:'Overlock';">Overlock</a></li>
+						<li><a href="#" style="font-family:'Palatino Linotype';">Palatino Linotype</a></li>
+						<li><a href="#" style="font-family:'Playfair Display';">Playfair Display</a></li>
+						<li><a href="#" style="font-family:'Raleway';">Raleway</a></li>
+						<li><a href="#" style="font-family:'Roboto';">Roboto</a></li>
+						<li><a href="#" style="font-family:'Rokkitt';">Rokkitt</a></li>
+						<li><a href="#" style="font-family:'Signika';">Signika</a></li>
+						<li><a href="#" style="font-family:'Source Sans Pro';">Source Sans Pro</a></li>
+						<li><a href="#" style="font-family:'Tahoma';">Tahoma</a></li>
+						<li><a href="#" style="font-family:'Times New Roman';">Times New Roman</a></li>
+						<li><a href="#" style="font-family:'Titillium Web';">Titillium Web</a></li>
+						<li><a href="#" style="font-family:'Trebuchet MS';">Trebuchet MS</a></li>
+						<li><a href="#" style="font-family:'Vampiro One';">Vampiro One</a></li>
+						<li><a href="#" style="font-family:'Varela Round';">Varela Round</a></li>
+						<li><a href="#" style="font-family:'Verdana';">Verdana</a></li>
+					</ul>
+				</dl>
+			</div>
+			<div class="select-popup selected-product">
+				<dl>
+					<dt>Selected Products</dt>
+					<dd class="after">
+						<fieldset class="search-product">
+							<input type="text" onkeypress="$(this).closest('dd').find('.product-list').show().end().find('.no-result').hide().end().find('.btn-remove').show()"/>
+							<a href="#" class="btn-remove" style="display:none;">Remove</a>
+						</fieldset>
+						<div class="no-result" style="display:none;">
+							Search for product names or sales ID
+						</div>
+						<div class="product-list after">
+							<ul>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_1.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_2.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_3.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/fea_4.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/list_1.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/list_2.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+								<li><img src="/_ui/images/common/blank.gif" style="background-image:url(./img/dummy/list_3.png)" alt="">
+								<button class="btn-white btn-del"><i class="icon"></i></button></li>
+							</ul>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="scroll edit-css">
+			<h3 class="theme-tit">CSS Editor</h3>
+			<button class="btn-expand" onclick="$('#customize_bar').toggleClass('full');"><i class="icon"></i><span>Expand</span></button>
+			<div class="css-note">
+				<ol class="code-row">
+					<li><span class="row-number">1</span></li>
+					<li><span class="row-number">2</span></li>
+					<li><span class="row-number">3</span></li>
+					<li><span class="row-number">4</span></li>
+					<li><span class="row-number">5</span></li>
+					<li><span class="row-number">6</span></li>
+					<li><span class="row-number">7</span></li>
+					<li><span class="row-number">8</span></li>
+					<li><span class="row-number">9</span></li>
+					<li><span class="row-number">10</span></li>
+					<li><span class="row-number">11</span></li>
+					<li><span class="row-number">12</span></li>
+					<li><span class="row-number">13</span></li>
+					<li><span class="row-number">14</span></li>
+					<li><span class="row-number">15</span></li>
+					<li><span class="row-number">16</span></li>
+					<li><span class="row-number">17</span></li>
+					<li><span class="row-number">18</span></li>
+					<li><span class="row-number">19</span></li>
+					<li><span class="row-number">20</span></li>
+					<li><span class="row-number">21</span></li>
+					<li><span class="row-number">22</span></li>
+					<li><span class="row-number">23</span></li>
+					<li><span class="row-number">24</span></li>
+					<li><span class="row-number">25</span></li>
+					<li><span class="row-number">26</span></li>
+					<li><span class="row-number">27</span></li>
+					<li><span class="row-number">28</span></li>
+					<li><span class="row-number">29</span></li>
+					<li><span class="row-number">30</span></li>
+					<li><span class="row-number">31</span></li>
+					<li><span class="row-number">32</span></li>
+					<li><span class="row-number">33</span></li>
+					<li><span class="row-number">34</span></li>
+					<li><span class="row-number">35</span></li>
+					<li><span class="row-number">36</span></li>
+					<li><span class="row-number">37</span></li>
+					<li><span class="row-number">38</span></li>
+					<li><span class="row-number">39</span></li>
+					<li><span class="row-number">40</span></li>
+					<li><span class="row-number">41</span></li>
+					<li><span class="row-number">42</span></li>
+					<li><span class="row-number">43</span></li>
+					<li><span class="row-number">44</span></li>
+					<li><span class="row-number">45</span></li>
+					<li><span class="row-number">46</span></li>
+					<li><span class="row-number">47</span></li>
+					<li><span class="row-number">48</span></li>
+					<li><span class="row-number">49</span></li>
+					<li><span class="row-number">50</span></li>
+					<li><span class="row-number">51</span></li>
+					<li><span class="row-number">52</span></li>
+					<li><span class="row-number">53</span></li>
+					<li><span class="row-number">54</span></li>
+					<li><span class="row-number">55</span></li>
+					<li><span class="row-number">56</span></li>
+					<li><span class="row-number">57</span></li>
+					<li><span class="row-number">58</span></li>
+					<li><span class="row-number">59</span></li>
+					<li><span class="row-number">60</span></li>
+					<li><span class="row-number">61</span></li>
+					<li><span class="row-number">62</span></li>
+					<li><span class="row-number">63</span></li>
+					<li><span class="row-number">64</span></li>
+					<li><span class="row-number">65</span></li>
+					<li><span class="row-number">66</span></li>
+					<li><span class="row-number">67</span></li>
+					<li><span class="row-number">68</span></li>
+					<li><span class="row-number">69</span></li>
+					<li><span class="row-number">70</span></li>
+					<li><span class="row-number">71</span></li>
+					<li><span class="row-number">72</span></li>
+					<li><span class="row-number">73</span></li>
+					<li><span class="row-number">74</span></li>
+					<li><span class="row-number">75</span></li>
+				</ol>
+				<pre class="code-css">.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">margin</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">border</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">left</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">z-index</code><code class="code-value">: 8020;</code>
+}
+
+.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+}.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">margin</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">border</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">left</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">z-index</code><code class="code-value">: 8020;</code>
+}
+
+.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+}.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">margin</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">border</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">left</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">z-index</code><code class="code-value">: 8020;</code>
+}
+
+.<code class="code-class">fancybox-tmp</code>
+{
+  <code class="code-attribute">padding</code><code class="code-value">: 0;</code>
+  <code class="code-attribute">outline</code><code class="code-value">: none;</code>
+  <code class="code-attribute">vertical-align</code><code class="code-value">: top;</code>
+}
+
+.<code class="code-class">fancybox-wrap</code> {
+  <code class="code-attribute">position</code><code class="code-value">: absolute;</code>
+  <code class="code-attribute">top</code><code class="code-value">: 0;</code>
+}</pre>
+			</div>
+		</div>
+		<div class="scroll edit-template">
+			<ul class="theme-list">
+				<li>
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme2.png');" /></span>
+						<button class="btn-white btn-use">View Boutique</button>
+					</figure>
+					<figcaption>
+						<b class="theme-name">Stack <span class="current">Current</span></b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+				<li>
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme1.png');" /></span>
+						<button class="btn-white btn-use">View Avenue</button>
+					</figure>
+					<figcaption>
+						<b class="theme-name">Guild</b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+				<li class="comming">
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme3.png');" /></span>
+						<span class="txt">COMMING SOON</span>
+					</figure>
+					<figcaption>
+						<b class="theme-name">Momentum</b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+				<li class="comming">
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme4.png');" /></span>
+						<span class="txt">COMMING SOON</span>
+					</figure>
+					<figcaption>
+						<b class="theme-name">T2</b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+				<li class="comming">
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme5.png');" /></span>
+						<span class="txt">COMMING SOON</span>
+					</figure>
+					<figcaption>
+						<b class="theme-name">Stella</b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+				<li class="comming">
+					<figure>
+						<span class="theme-img"><img src="/_ui/images/common/blank.gif" style="background-image:url('./img/preview_theme6.png');" /></span>
+						<span class="txt">COMMING SOON</span>
+					</figure>
+					<figcaption>
+						<b class="theme-name">Charcoal</b>
+						<span class="creator">by Fancy</span>
+					</figcaption>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="save-alert">
+		<p>
+			<span class="icon"></span>
+			<b>Success</b><br />Your settings have been saved.<br />
+			<button class="btn-undo">Undo</button> <button class="btn-dismiss">Dismiss</button>
+		</p>
+	</div>
+</div>
+<div id="edit-contents">
+	<div id="text-editor" style="top: 297px;left: 420px;">
+		<div class="controller">
+			<a href="#" class="undo"><i></i></a>
+			<a href="#" class="predo disabled"><i></i></a>
+			<a href="#"class="bold active"><i></i></a>
+			<a href="#"class="italic"><i></i></a>
+			<a href="#"class="underline"><i></i></a>
+			<a href="#"class="left active"><i></i></a>
+			<a href="#"class="center"><i></i></a>
+			<a href="#"class="right"><i></i></a>
+			<a href="#"class="justify"><i></i></a>
+		</div>
+		<input type="text" placeholder="This is a title text" style="font-size:30px;width:500px;" onfocus="$(this).attr('placeholder','Editing text...').closest('#text-editor').addClass('focus');" onblur="if($(this).val()==''){$(this).attr('placeholder','This is a title text').closest('#text-editor').removeClass('focus');}" />
+	</div>
+</div>
+<script src="/_ui/js/jquery-1.7.1.min.js"></script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-git.js'></script>
+<script type='text/javascript' src="./js/spectrum.js"></script>
+
+<script>
+
+	$('.btn-switch').on('click',function(event){
+		$(this).toggleClass('on');
+	});
+	$('.tooltip').on('mouseover',function(){
+		$(this).find('em').css('margin-left',-($(this).find('em').width()/2)+'px');
+	});
+	$(document).mousemove(function(event){
+		$('.color-box').on('click',function(event){
+			var color = $(this);
+			var top = event.pageY - 65;
+			$('.select-popup').hide();
+			$('.select-popup.color-picker').css('top',top+'px').show();
+			$('#colpick').colpick({
+				flat:true,
+				submit:0,
+				layout: 'hex',
+				width:'100%',
+				colorScheme: 'dark'
+			});
+		});
+		$('.thumb-box').on('click',function(event){
+			var top = event.pageY - 65;
+			$('.select-popup').hide();
+			$('.select-popup.upload-image').css('top',top+'px').show();
+		});
+		$('.btn-edit').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.edit-slideshow').css('right',right+'px').css('top',top+'px').show();
+		});
+		$('.slideshow .btn-add').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.add-product').css('right',right+'px').css('top',top+'px').show();
+		});
+		$('.controller.products .control-item a').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.selected-product').css('right',right+'px').css('top',top+'px').show();
+		});
+		$('.controller a.select-font').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.font-picker').css('right',right+'px').css('top',top+'px').show().find('dt').text($(this).closest('li').find('.label').text());
+		});
+		$('.controller a.select-cate').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.cate-list').css('right',right+'px').css('top',top+'px').show().find('dt').text($(this).closest('li').find('.label').text());
+			$('.select-popup.cate-list .add-collection').hide();
+			$('.select-popup.cate-list ul').show();
+		});
+		$('.controller a.select-collection').on('click',function(event){
+			var top = event.pageY - 65;
+			var right = $(document).width() - event.pageX + 20;
+			$('.select-popup').hide();
+			$('.select-popup.cate-list').css('right',right+'px').css('top',top+'px').show().find('dt').text($(this).closest('li').find('.label').text());
+			$('.select-popup.cate-list .add-collection').show();
+			$('.select-popup.cate-list ul').hide();
+		});
+	});
+	$('#customize_bar .scroll').scroll(function(){
+		$('.select-popup').hide();
+	});
+	$('#customize_bar .btn-back').on('click',function(){
+		$('#customize_bar').removeClass('view-theme').removeClass('view-css');
+	});
+	$('.btn-save').on('click',function(event){
+		$('.save-alert').show();
+	});
+	$('.save-alert button').on('click',function(event){
+		$('.save-alert').hide();
+	});
+</script>
+</body>
+</html>

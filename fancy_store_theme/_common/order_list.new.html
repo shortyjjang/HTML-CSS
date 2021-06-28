@@ -1,0 +1,60 @@
+{% load pipeline_assets %}{% load i18n %}{% load humanize %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>{{seller_profile.brand_name}} - Orders </title>
+    <link rel="apple-touch-icon" sizes="114x114" href="{% pipeline_url '_ui/images/ios-114.png' %}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% pipeline_url '_ui/images/ios-57.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% pipeline_url '_ui/images/ios-72.png' %}">
+    <link rel="shortcut icon" href="{% pipeline_url '_ui/images/favicon.ico' %}" type="image/x-icon" />
+    {% pipeline_css 'themes/_common/css/checkout.v5.css' %}
+    {% pipeline_compressed_js 'shop_common.min.js' %}
+    {% pipeline_compressed_js '_ui/js/main.new.min.js' %}
+    {% pipeline_i18n_js CURRENT_LANGCODE %}
+</head>
+<body>
+<div id="about">
+    <div class="cover" {% if cover_url %}style="background-image:url({{ cover_url }})"{% endif %}></div>
+    <div class="inner">
+        <span class="logo" {% if logo_url %}style="background-image: url({{ logo_url }});"{% endif %}></span>
+        <h1>{{seller_profile.brand_name}}</h1>
+    </div>
+</div>
+<div class="order-list">
+    <h2>{{orders|length}} orders</h2>
+    <ul class="orders">
+        {% for sale_order in orders %}
+        {%with sale_order_item=sale_order.get_items.0 sale_item=sale_order.get_items.0.get_sale_item item_count=sale_order.get_items|length%}
+        <li>
+            <div class="order-item">
+                <a href="/purchases/{{sale_order.id}}" class="items">
+                    <span class="thumbnail" style="background-image:url('{{sale_order_item.secure_image_url}}')">{%if item_count > 1%}<em class="count">+{{item_count|minus_by:1}}</em>{%endif%}</span>
+                    <b class="title">{{sale_item.title}}{%if item_count > 1%} + {{item_count|minus_by:1}} other items{%endif%}</b>
+                    {%if sale_order_item.get_sale_item_option%}<small class="option">{{sale_order_item.get_sale_item_option.option}}</small>{%endif%}
+                </a>
+                <span class="status"><em>{{ sale_order.get_status|upper }}</em></span>
+            </div>
+            <div class="purchase-info">
+                <span class="num"><label>Order number</label> <em class="value">#{{sale_order.order_num}}</em></span>
+                <span class="placed"><label>Order placed:</label> <em class="value">{{ sale_order.date_created|localize }}</em></span>
+                <span class="total {% if sale_order.refunded_amount %}refunded{%endif%}"><label>Order total:</label> <em class="value">{% with currency=sale_order.used_currency %}
+                    {{currency.symbol}}{{ sale_order.total_price|convert_currency:currency.rate|floatformat:-2|intcomma }}
+                    {% endwith %}</em></span>
+            </div>
+            <div class="buttons">
+                <a href="/purchases/{{sale_order.id}}" class="view">View Order Details</a>
+            </div>
+        </li>
+        {%endwith%}
+        {% endfor %}
+    </ul>
+    <div class="storefront_host">
+        <a href="#">harberlondon.com</a>
+    <div>
+</div>
+<div id="fb-root"></div>
+{% include "seller_themes/_common/_tracking.html" %}
+</body>
+</html>

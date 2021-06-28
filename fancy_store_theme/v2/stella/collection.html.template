@@ -1,0 +1,34 @@
+<div id="collection" class="page">
+	<h2 class="_title"></h2>
+	<div class="inner figure-list">
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="#things" data-thingid="{{t.id}}" data-component="popup">
+					<span class="figure"><img src="{{t.image.url}}"/></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						{% if t.sale %}
+						<span class="price{% if t.sale.retail_price %} sales{% endif %}">
+						{% if t.sale.price_varies %}
+							From ${{t.sale.price_min|amount_nodecimals|intcomma}}
+						{% else %}
+                            {% if t.sale.retail_price and t.sale.retail_price > t.sale.price %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                            {% else %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            {% endif %}
+						{% endif %}
+						</span>
+						{% endif %}
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator">
+			<span class="loading">Loading more products...</span>
+		</div>
+	</div>
+</div>

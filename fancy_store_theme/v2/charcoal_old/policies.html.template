@@ -1,0 +1,20 @@
+<div id="about" class="page">
+	<h3 class="title">Policies</h3>
+	<div class="agreement">
+		{%if seller.terms_of_services%}
+		<h4>Terms of Services</h4>
+		<p>{{seller.terms_of_services}}</p>
+		{%endif%}
+		{%if seller.shipping_policy%}
+		<h4>Shipping Policy</h4>
+		<p>{{seller.shipping_policy}}</p>
+		{%endif%}
+		{%if seller.custom_policy%}
+		<h4>Return Policy</h4>
+		<p>{{seller.custom_policy}}</p>
+		{%endif%}
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'merchant-policy');
+</script>

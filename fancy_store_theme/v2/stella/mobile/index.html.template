@@ -1,0 +1,13 @@
+<div class="collection-list">
+	<ul class="after inner">
+		{% for c in settings.collections|to_collections %}			
+		<li class="collection{{forloop.counter}}" data-id="{{c.id}}">
+			<a href="{{path_prefix}}/collections/{{c.id}}"><img src="{%if c.image_url%}{{c.image_url}}{%else%}{{'img/blank.gif'|common_asset_url}}{%endif%}" alt="">
+			<span class="collection-item">
+				<small class="cate">Collection #{{forloop.counter}}</small>
+				<b class="title">{{c.name}}</b>
+			</span></a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

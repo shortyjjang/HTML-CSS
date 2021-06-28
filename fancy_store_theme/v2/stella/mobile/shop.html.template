@@ -1,0 +1,34 @@
+<div id="shop" class="page">
+	<div class="inner figure-list" data-component='infiniteshow' data-nextpage="{{next_page}}">
+		<ol class="stream after">
+			{% for thing in things %}
+			<li>
+				<a {% if thing.sale.available or seller.id == viewer.id %} href="#things" data-thingid="{{thing.id}}" data-component="popup"{% endif %}>
+					<span class="figure"><img src="{{ thing.image.url}}"></span>
+					<span class="figcaption">
+						<b class="title">{{thing.name}}</b>
+						<span class="price{% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price %} sales{% endif %}">
+						{% if thing.sale.price_varies %}
+							From ${{thing.sale.price_min|amount_nodecimals|intcomma}}
+						{% else %}
+                            {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price %}
+							${{thing.sale.price|amount_nodecimals|intcomma}}
+                            <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                            {% else %}
+							${{thing.sale.price|amount_nodecimals|intcomma}}
+                            {% endif %}
+						{% endif %}
+						</span>
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator"><span class="loading">Loading...</span></div>		
+	</div>
+</div>
+{{ 'js/infiniteshow.js' | common_asset_script }}
+<script>
+jQuery(function($){ $('#wrap').attr('class', 'list sub'); });
+
+</script>

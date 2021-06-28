@@ -1,0 +1,16 @@
+<div id="collection" class="page">
+	<div class="collection-list minimum-list inner">
+		<h2>Collections</h2>
+		<ul class="after">
+			{% for c in collections%}
+			<li><a href="{{path_prefix}}/collections/{{c.id}}">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{c.image_url}})" alt="">
+				<b class="title">{{c.name}}</b>
+			</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'sub list');
+</script>

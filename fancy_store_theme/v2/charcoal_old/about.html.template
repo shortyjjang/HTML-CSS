@@ -1,0 +1,25 @@
+<div id="about" class="page ">
+	<h2 class="title">About</h2>
+	<div class="introduce editable multiline">						
+		{{settings.about|linebreaks}}
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'merchant-about sub');
+</script>
+
+<div class="featured inner">
+	<ul class="after">
+		{% for thing in settings.featured_items|to_things %}
+		{% if thing.sale %}
+		<li>
+			<a href="{{path_prefix}}/shop/{{thing.id}}">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ thing.image.url | resize_url:'462x462' }})" alt="">
+				<b class="title">{{thing.name}}</b>
+				<span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+			</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>

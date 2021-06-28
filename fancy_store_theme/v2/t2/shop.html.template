@@ -1,0 +1,118 @@
+<div id="shop" class="page">
+	<div class="search">
+		<h2>Shop All</h2>
+		<ul class="sort">
+			<li class="price"><a href="#" class="mn-sort" onclick="return false;">Price</a>
+				<small id="ov-price">
+					<a href="#p=">All</a>
+					<a href="#p=1-50">$1 - $50</a>
+					<a href="#p=51-100">$51 - $100</a>
+					<a href="#p=101-200">$101 - $200</a>
+					<a href="#p=201-500">$201 - $500</a>
+					<a href="#p=500-">$500+</a>
+				</small>
+			</li>
+			<li class="color"><a href="#" class="mn-sort" onclick="return false;">Color</a>
+				<small id="ov-color">
+					<a href="#c=" class="all"><i></i>All</a>
+					<a href="#c=red" class="red">Red</a>
+					<a href="#c=pink" class="pink">Pink</a>
+					<a href="#c=purple" class="purple">Purple</a>
+					<a href="#c=blue" class="blue">Blue</a>
+					<a href="#c=skyblue" class="skyblue">Skyblue</a>
+					<a href="#c=green" class="green">Green</a>
+					<a href="#c=yellow" class="yellow">Yellow</a>
+					<a href="#c=orange" class="orange">Orange</a>
+					<a href="#c=brown" class="brown">Brown</a>
+					<a href="#c=gray" class="gray">Gray</a>
+					<a href="#c=silver" class="silver">Silver</a>
+					<a href="#c=gold" class="gold">Gold</a>
+					<a href="#c=black" class="black">Black</a>
+					<a href="#c=white" class="white">White</a>
+				</small>
+			</li>
+			<li class="option">
+				<a href="#ov-sort" class="mn-sort" data-component="overlay">Sort</a>
+				<small id="ov-sort">
+					<a href="#sort_by_price=">Newest</a>
+					<a href="#sort_by_price=desc">Highest Price</a>
+					<a href="#sort_by_price=asc">Lowest Price</a>
+				</small>
+			</li>
+		</ul>
+		<fieldset>
+			<input type="text" name="q" placeholder="Search" value="{{params.q}}">
+			<button class="btn-search">Search</button>
+		</fieldset>
+		<div class="search-result" style="display:none;"></div>
+	</div>
+	<div class="inner figure-list"  data-component='infiniteshow' data-nextpage="{{next_page}}" data-direction='horizontal'>
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{t.id}}">
+					<span class="figure"><img src="{{t.image.url}}"/></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						{% if t.sale %}
+						<span class="price{% if t.sale.retail_price %} sales{% endif %}">
+						{% if t.sale.price_varies %}
+							From ${{t.sale.price_min|amount_nodecimals|intcomma}}
+						{% else %}
+                            {% if t.sale.retail_price %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                            {% else %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            {% endif %}
+						{% endif %}
+						</span>
+						{% if not t.sale.available and seller.id == viewer.id %}
+						<span class="status">{{t.sale.status}}</span>
+						{% endif %}
+						{% endif %} 
+					</span>
+				</a>
+			</li>
+			{% endfor %}			
+		</ol>
+		<div id="loading-indicator" style='display:none'><span class="loading">Loading...</span></div>						
+	</div>
+</div>
+{{ 'js/infiniteshow.js' | common_asset_script }}
+<script>
+jQuery(function($){ 
+	$('#wrap').attr('class', 'list sub'); 
+
+	// set selected filter
+	var params = {
+		'categories' : '{{params.categories}}',
+		'c' : '{{params.c}}',
+		'p' : '{{params.p}}',
+		'sort_by_price' : '{{params.sort_by_price}}'
+	};
+	for( k in params){
+		if(!params[k]) continue;
+		var href = "#"+k+"="+params[k];
+		var $el = $(".sort a[href='"+href+"']");
+		$el.closest("li").find("> a").html($el.html());
+	}
+	
+
+	$(".sort small a").click(function(event){
+		event.preventDefault();
+	
+		var param = $(event.target).attr("href").slice(1).split("=");
+		
+		var url = location.pathname, args = location.search.slice(1);
+		url = location.pathname.replace(/v2.*/,"v2/shop");
+		var regex = new RegExp("&?"+param[0]+"=[^&]*");
+		args = args.replace(regex,'');	
+		if(param[1])		
+			args += '&'+param[0]+'='+param[1];
+
+		document.location.href = url + "?" + args;
+	})
+
+});
+</script>

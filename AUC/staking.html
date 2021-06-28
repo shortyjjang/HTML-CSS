@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">스테이킹</a>
+	</div>
+	<div id="content">
+		<!-- content area -->
+		<div class="tab">
+			<a href="#" tab-cont="list" class="current">상품목록</a>
+			<a href="#" tab-cont="user">내 상품목록</a>
+		</div>
+		<div class="tab-cont list">
+			<div class="staking-item">
+				<h3>AUC Staking Gold</h3>
+				<ul>
+					<li><label>만기 이자율</label> <b>54%</b></li>
+					<li><label>최소수량</label> 1,000 AUC</li>
+					<li><label>기간</label> 120일</li>
+				</ul>
+				<button class="button" onclick="showPopup('request-staking');">신청</button>
+			</div>
+			<div class="staking-item">
+				<h3>AUC Staking Silver</h3>
+				<ul>
+					<li><label>만기 이자율</label> <b>25%</b></li>
+					<li><label>최소수량</label> 500 AUC</li>
+					<li><label>기간</label> 90일</li>
+				</ul>
+				<button class="button" onclick="showPopup('request-staking');">신청</button>
+			</div>
+			<div class="staking-item">
+				<h3>AUC Staking Bronze</h3>
+				<ul>
+					<li><label>만기 이자율</label> <b>12%</b></li>
+					<li><label>최소수량</label> 300 AUC</li>
+					<li><label>기간</label> 60일</li>
+				</ul>
+				<button class="button" onclick="showPopup('request-staking');">신청</button>
+			</div>
+		</div>
+		<div class="tab-cont user" style="display:none;">
+			<div class="staking-item">
+				<h3>AUC Staking Gold</h3>
+				<ul>
+					<li><label>신청수량</label> <b class="qty">1,000 AUC</b></li>
+					<li><label>신청일</label> 2021-06-04</li>
+					<li><label>만기일</label> 2021-10-02</li>
+					<li><label>만기 이자율</label> <b>54%</b></li>
+					<li><label>총 수령액</label> 1,540 AUC</li>
+					<li><label>오늘까지 이자</label> 0.1254 AUC</li>
+					<li><label>해지 수수료</label> <b class="rate">-54%</b></li>
+					<li><label>해지시 입금수량</label> <b class="rate">560 AUC</b></li>
+				</ul>
+				<button class="button btn-close">해지</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="popup_container">
+	<div class="popup request-staking">
+		<h3 class="title">스테이킹 신청</h3>
+		<div class="popup_content staking-item">
+			<h3>AUC Staking Gold</h3>
+			<ul>
+				<li><label>최소수량</label> 1,000 AUC</li>
+				<li><label>스테이킹기간</label> 120일</li>
+				<li><label>만기 이자율</label> <b>54%</b></li>
+				<li><label>해지 수수료</label> <b class="rate">-54%</b></li>
+			</ul>
+			<fieldset class="frm">
+				<input type="text" class="text" placeholder="스테이킹 수량(AUC)" />
+				신청가능 수량: 487,234.0000 AUC
+			</fieldset>
+		</div>
+		<div class="btn-area">
+			<button class="button cancel">취소</button>
+			<a href="staking_step2.html" class="button">신청하기</a>
+		</div>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.tab a').click(function(){
+		var tabCont = $(this).attr('tab-cont');
+		$('.tab-cont').hide();
+		$('.tab-cont.'+tabCont).show();
+	});
+});
+
+</script>
+</body>
+
+</html>

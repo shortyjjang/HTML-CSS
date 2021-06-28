@@ -1,0 +1,18 @@
+jQuery(function($){
+	
+	$('script[type="template"]').each(function(){
+		var $tpl = $(this);
+		$tpl.parent().data('template', _.template($tpl.remove().html()));
+	});
+
+	Cart.get().then(function(data){
+		var count = 0;
+		if (data && data.items) {
+			for (var i=0; i < data.items.length; i++) {
+				count += data.items[i].quantity;
+			}
+		}
+		$('#widget .count').text(count);
+		$('#header .navigation b.count').text(count);
+	});
+});

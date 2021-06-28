@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<ul id="naviation">
+	<li><a href="index.html" class="home">홈</a></li>
+	<li><a href="inout.html" class="inout">입출금</a></li>
+	<li><a href="exchange.html" class="exchange">교환</a></li>
+	<li><a href="staking.html" class="staking">스테이킹</a></li>
+	<li><a href="purchases.html" class="purchases">거래내역</a></li>
+</ul>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">스테이킹</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container staking">
+		<!-- content area -->
+		<ul class="tab">
+			<li><a href="#" class="current">상품목록</a></li>
+			<li><a href="#">가입정보</a></li>
+		</ul>
+		<ul class="staking-list">
+			<li class="staking-item">
+				<h3>Platinum</h3>
+				<p>최소수량 <b class="value">200 PAN</b></p>
+				<p>스테이킹기간 <b class="value">730일</b></p>
+				<p class="rate">만기 이자율 <b class="value">54%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-54%</b></p>
+				<button class="btn-submit" data-type="platinum">신청</button>
+			</li>
+			<li class="staking-item">
+				<h3>GOLD(24개월)</h3>
+				<p>최소수량 <b class="value">200 PAN</b></p>
+				<p>스테이킹기간 <b class="value">730일</b></p>
+				<p class="rate">만기 이자율 <b class="value">54%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-54%</b></p>
+				<button class="btn-submit" data-type="gold">신청</button>
+			</li>
+			<li class="staking-item">
+				<h3>BRONZE(12개월)</h3>
+				<p>최소수량 <b class="value">100 PAN</b></p>
+				<p>스테이킹기간 <b class="value">360일</b></p>
+				<p class="rate">만기 이자율 <b class="value">20%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-20%</b></p>
+				<button class="btn-submit" data-type="bronze">신청</button>
+			</li>
+			<li class="staking-item">
+				<h3>SILVER(6개월)</h3>
+				<p>최소수량 <b class="value">50 PAN</b></p>
+				<p>스테이킹기간 <b class="value">180일</b></p>
+				<p class="rate">만기 이자율 <b class="value">10%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-10%</b></p>
+				<button class="btn-submit" data-type="silver">신청</button>
+			</li>
+		</ul>
+		<ul class="staking-detail" style="display:none;">
+			<li class="staking-item">
+				<h3>GOLD(24개월)</h3>
+				<p>신청수량 <b class="value">200 CDT</b></p>
+				<p>신청일 <span class="value">2020-06-04</span></p>
+				<p>만기일 <span class="value">2020-09-02</span></p>
+				<p class="rate">만기 이자율 <b class="value">5%</b></p>
+				<p>총 수령액 <b class="value">200 CDT</b></p>
+				<p class="rate">오늘까지 이자 <b class="value">12.0000 CDT</b></p>
+				<p class="fee">해지 수수료 <b class="value">-5%</b></p>
+				<p>해지시 입금수량 <b class="value">95.0000 CDT</b></p>
+				<button class="btn-submit">해지</button>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="popup_container">
+	<div class="popup add_staking ">
+		<h3 class="title">스테이킹 신청 </h3>
+		<div class="type platinum">
+			<div class="staking-list">
+				<h3>Platinum <small>(Basic Interest 18.88%+Double preminum 5%)</small></h3>
+				<p>최소수량 <b class="value">200 PAN</b></p>
+				<p>스테이킹기간 <b class="value">730일</b></p>
+				<p class="rate">만기 이자율 <b class="value">54%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-54%</b></p>
+			</div>
+			<div class="frm">
+				<input type="text" class="text" placeholder="스테이킹 수량(CDT)" />
+				<small class="comment">신청가능 수량: 487,2347.000 CDT</small>
+			</div>
+			<div class="btn-area">
+				<button class="btn-cancel">취소</button>
+				<a href="find_id.html" class="btn-submit">신청하기</a>
+			</div>
+		</div>
+		<div class="type gold">
+			<div class="staking-list">
+				<h3>GOLD(24개월) <small>(Basic Interest 18.88%+Double preminum 5%)</small></h3>
+					<p>최소수량 <b class="value">200 PAN</b></p>
+					<p>스테이킹기간 <b class="value">730일</b></p>
+					<p class="rate">만기 이자율 <b class="value">54%</b></p>
+					<p class="fee">해지 수수료 <b class="value">-54%</b></p>
+			</div>
+			<div class="frm">
+				<input type="text" class="text" placeholder="스테이킹 수량(CDT)" />
+				<small class="comment">신청가능 수량: 487,2347.000 CDT</small>
+			</div>
+			<div class="btn-area">
+				<button class="btn-cancel">취소</button>
+				<a href="find_id.html" class="btn-submit">신청하기</a>
+			</div>
+		</div>
+		<div class="type silver">
+			<div class="staking-list">
+				<h3>SILVER(6개월) <small>(Basic Interest 18.88%+Double preminum 5%)</small></h3>
+				<p>최소수량 <b class="value">50 PAN</b></p>
+				<p>스테이킹기간 <b class="value">180일</b></p>
+				<p class="rate">만기 이자율 <b class="value">10%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-10%</b></p>
+			</div>
+			<div class="frm">
+				<input type="text" class="text" placeholder="스테이킹 수량(CDT)" />
+				<small class="comment">신청가능 수량: 487,2347.000 CDT</small>
+			</div>
+			<div class="btn-area">
+				<button class="btn-cancel">취소</button>
+				<a href="find_id.html" class="btn-submit">신청하기</a>
+			</div>
+		</div>
+		<div class="type bronze">
+			<div class="staking-list">
+				<h3>BRONZE(12개월) <small>(Basic Interest 18.88%+Double preminum 5%)</small></h3>
+				<p>최소수량 <b class="value">100 PAN</b></p>
+				<p>스테이킹기간 <b class="value">360일</b></p>
+				<p class="rate">만기 이자율 <b class="value">20%</b></p>
+				<p class="fee">해지 수수료 <b class="value">-20%</b></p>
+			</div>
+			<div class="frm">
+				<input type="text" class="text" placeholder="스테이킹 수량(CDT)" />
+				<small class="comment">신청가능 수량: 487,2347.000 CDT</small>
+			</div>
+			<div class="btn-area">
+				<button class="btn-cancel">취소</button>
+				<a href="find_id.html" class="btn-submit">신청하기</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('.popup .btn-close, .popup .btn-cancel').on('click',function(){
+		$('#popup_container').removeAttr('class').removeAttr('style');
+	});
+	$('.staking-list .btn-submit').on('click',function(){
+		$('#popup_container').addClass('add_staking').show().find('.popup.add_staking').find('.type').hide().end().find('.type.'+$(this).data('type')).show();;
+	});
+	$('.tab a').on('click',function(){
+		$(this)
+			.closest('.tab')
+				.find('a').removeClass('current').end()
+			.end()
+		.addClass('current')
+			.closest('.staking')
+				.find('.staking-list').show().end()
+			.find('.staking-detail').hide()
+	});
+</script>
+</body>
+</html>

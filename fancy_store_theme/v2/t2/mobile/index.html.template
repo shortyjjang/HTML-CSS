@@ -1,0 +1,64 @@
+<div id="content">
+	<div class="collection-list">
+		<h3>COLLECTIONS</h3>
+		<a href="{{path_prefix}}/collections" class="more">VIEW ALL COLLECTIONS</a>
+		<ul class="after inner">
+			{% for c in settings.collections|to_collections %}
+			<li class="collection{{forloop.counter}}" data-id="{{c.id}}">
+				<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{c.image_url}})" alt="">
+				<div class="collection-item">
+					<small class="cate">Collection #{{forloop.counter}}</small>
+					<b class="title">{{c.name}}</b>
+					<span class="description">{%if c.description%}{{c.description}}{%endif%}</span>
+					<a href="{{path_prefix}}/collections/{{c.id}}" class="btn-view">VIEW</a>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="paging">
+		{% for c in settings.collections|to_collections %}
+		<a href="#">{{forloop.counter}}</a>
+		{% endfor %}
+	</div>
+</div>
+
+{{ 'js/jquery-ui.js' | common_asset_script }}
+{{ 'js/jquery.touchSwipe.js' | common_asset_script }}
+<script>
+$('#wrap').attr('class', 'home');
+
+var $cover = $('#content'), $slide = $cover.find('ul'), $paging = $cover.find('.paging'), imageURLs = [];
+$paging.find('a:first').addClass('current');
+
+$(".paging a").click(function(event){
+	event.preventDefault();
+	$this = $(event.currentTarget);
+	var width = $slide.width();
+	var length = $slide.find("li").length;
+	var idx = $this.prevAll("a").length;
+	var toLeft = Math.max(width*idx, 0);
+	$slide.animate({scrollLeft: toLeft+"px"},300,"easeInOutExpo");
+	$paging.find('a.current').removeClass('current');
+	$this.addClass("current");
+})
+
+$slide.swipe({
+	//allowPageScroll:"horizontal",
+	threshold:30,
+	triggerOnTouchEnd:false,
+	swipeRight:function(e){
+		$paging.find("a.current").prev("a").trigger("click");
+	},
+	swipeLeft:function(e){
+		$paging.find("a.current").next("a").trigger("click");
+	}
+});
+$paging.find("a:eq(0)").addClass('current');
+
+
+{%if not settings.collections|length%}
+$("#header .navigation li:eq(0) a:eq(0) span").click();
+{%endif%}
+
+</script>

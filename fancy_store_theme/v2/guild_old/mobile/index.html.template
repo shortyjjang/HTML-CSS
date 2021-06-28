@@ -1,0 +1,44 @@
+<div id="home" class="page">
+	<div class="cover"><img src="{{settings.cover.image}}" style="margin-top:{{settings.cover.offset_y}}px" alt=""></div>
+	<div class="featured minimum-list inner">
+		<h3>FEATURED</h3>
+		<ul class="after">
+			{% for thing in settings.featured_items|to_things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{thing.id}}">
+					<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ thing.image.url | resize_url:'231x160' }})" alt="">
+					<b class="title">{{thing.name|truncate_string:"60"}}</b>
+                    {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price%}
+					<span class="price sales">${{thing.sale.price|amount_nodecimals|intcomma}}
+                    <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                    </span>
+                    {% else %}
+					<span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+                    {% endif %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="sale minimum-list inner">
+		<h3>ON SALE</h3>
+		<a href="{{path_prefix}}/shop?sale_item_only" class="more">VIEW ALL SALE ITEMS</a>
+		<ul class="after">
+			{% for thing in settings.onsale_items|to_things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{thing.id}}">
+					<img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ thing.image.url | resize_url:'231x160' }})" alt="">
+					<b class="title">{{thing.name|truncate_string:"60"}}</b>
+                    {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price%}
+					<span class="price sales">${{thing.sale.price|amount_nodecimals|intcomma}}
+                    <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                    </span>
+                    {% else %}
+					<span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+                    {% endif %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

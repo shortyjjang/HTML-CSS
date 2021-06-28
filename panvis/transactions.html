@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>PANVIS</title>
+<link rel="shortcut icon" href="./_static/favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/flag.css" rel="stylesheet" type="text/css" media="all" />
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	<div id="header">
+		<div class="inner">
+			<div class="logo"><a href="#">PANVIS</a></div>
+			<a href="#" class="menu" title="메뉴열기" onclick="$('body').toggleClass('open_navigation');return false;"><i></i></a>
+		</div>
+		<div class="navigation">
+			<span class="logo"></span>
+			<a href="#" class="close" title="메뉴닫기" onclick="$('body').removeClass('open_navigation');return false;"></a>
+			<ul>
+				<li class="home"><a href="index.html">홈</a></li>
+				<li class="send"><a href="send.html">보내기</a></li>
+				<li class="recieve"><a href="recieve.html">받기</a></li>
+				<li class="exchange"><a href="exchange.html">교환하기</a></li>
+				<li class="products"><a href="products.html">스테이킹</a></li>
+				<li class="transactions"><a href="transactions.html" class="current">거래목록</a></li>
+				<li class="share"><a href="share.html">공유하기</a></li>
+				<li class="profile"><a href="profile.html">개인정보</a></li>
+			</ul>
+			<a href="login.html" class="buttons btn-logout">로그아웃</a>
+			<div class="language">
+				<a href="#" class="lang-ko">KOR</a>
+				<a href="#" class="lang-us">ENG</a>
+				<a href="#" class="lang-jp">JPN</a>
+				<a href="#" class="lang-ch">CHN</a>
+			</div>
+		</div>
+	</div>
+	<!-- content area -->
+	<div class="container transactions">
+		<h1 class="ptit">거래목록</h1>
+		<ul class="tab">
+			<li class="mobile"><a href="#" class="current" onclick="$(this).closest('.tab').find('a').removeClass('current').closest('.transactions').find('.stit span').text('PAN').end().end().end().end().addClass('current');return false;">PAN</a></li>
+			<li class="email"><a href="#" onclick="$(this).closest('.tab').find('a').removeClass('current').closest('.transactions').find('.stit span').text('PANVIS').end().end().end().end().addClass('current');return false;">PANVIS</a></li>
+			<li class="wallet"><a href="#" onclick="$(this).closest('.tab').find('a').removeClass('current').closest('.transactions').find('.stit span').text('HAMA').end().end().end().end().addClass('current');return false;">HAMA</a></li>
+		</ul>
+		<div id="content">
+			<h2 class="stit"><span>PAN</span> 거래목록</h2>
+			<dl class="transaction-item">
+				<dt>Type <b class="input">입금</b></dt>
+				<dd>
+					<ul>
+						<li><label>상태 :</label> <b class="status">완료 [TX]</b></li>
+						<li><label>보낸 사람 :</label> <a href="#">0xb42e0b6cbb5bcb7d6f6b91ec7c3cfa5d6674c826</a></li>
+						<li><label>받는사람 :</label> <a href="#">내지갑</a></li>
+						<li><label>수량 (PAN) :</label> <b>63</b></li>
+						<li><label>시간 :</label> 2020-04-17 12:03:38</li>
+					</ul>
+				</dd>
+			</dl>
+			<dl class="transaction-item">
+				<dt>Type <b class="output">출금</b></dt>
+				<dd>
+					<ul>
+						<li><label>상태 :</label> <b class="status">완료 [TX]</b></li>
+						<li><label>보낸 사람 :</label> <a href="#">0xb42e0b6cbb5bcb7d6f6b91ec7c3cfa5d6674c826</a></li>
+						<li><label>받는사람 :</label> <a href="#">내지갑</a></li>
+						<li><label>수량 (PAN) :</label> <b>63</b></li>
+						<li><label>시간 :</label> 2020-04-17 12:03:38</li>
+					</ul>
+				</dd>
+			</dl>
+			<dl class="transaction-item">
+				<dt>Type <b class="output">출금</b></dt>
+				<dd>
+					<ul>
+						<li><label>상태 :</label> <b class="status">완료 [TX]</b></li>
+						<li><label>보낸 사람 :</label> <a href="#">0xb42e0b6cbb5bcb7d6f6b91ec7c3cfa5d6674c826</a></li>
+						<li><label>받는사람 :</label> <a href="#">내지갑</a></li>
+						<li><label>수량 (PAN) :</label> <b>63</b></li>
+						<li><label>시간 :</label> 2020-04-17 12:03:38</li>
+					</ul>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<!-- //content area -->
+</div>
+</body>
+
+</html>

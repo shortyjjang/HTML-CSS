@@ -1,0 +1,49 @@
+jQuery(function($){
+	
+	$('script[type="template"]').each(function(){
+		var $tpl = $(this);
+		$tpl.parent().data('template', _.template($tpl.remove().html()));
+	});
+
+	// search field
+	$("input[type=text][name=q]")
+		.focus(function(){
+			$(this).closest('form').addClass('focus');
+		})
+		.blur(function(){
+			$(this).closest('form').removeClass('focus');
+		})
+		.keydown(function(event){
+			if (event.which != 13) return;
+			event.preventDefault();
+
+			var keyword = $.trim(event.currentTarget.value);
+			if (!keyword.length){
+				return;
+			}
+
+			var url = location.pathname, args = location.search.slice(1);
+			url = path_prefix+"things";
+			args = args.replace(/&?(q|p|c|sort_by_price|categories)=[^&]*/g,'');
+			args += '&q='+keyword;
+
+			document.location.href = url + "?" + args;
+		});
+
+	$(".search .btn-search").click(function(event){
+		if( $(event.currentTarget).closest('.search').find("fieldset").hasClass('focus') )
+			$("input[type=text][name=q]").trigger({type:'keydown',which:13});
+		else
+			$("input[type=text][name=q]").val('').show().trigger('focus');
+	})
+
+	Cart.get().then(function(data){
+		var count = 0;
+		if (data && data.items) {
+			for (var i=0; i < data.items.length; i++) {
+				count += data.items[i].quantity;
+			}
+		}
+		$('#widget .count').text(count);
+	});
+});

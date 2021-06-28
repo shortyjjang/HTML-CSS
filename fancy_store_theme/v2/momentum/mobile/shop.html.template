@@ -1,0 +1,39 @@
+<div id="shop" class="page">
+	<div class="inner figure-list" data-component='infiniteshow' data-nextpage="{{next_page}}">
+		{% if params.q %}<h2 class="tit">Search result for "{{parasm.q}}"</h2>{% endif %}
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{t.id}}">
+					<span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{ t.image.url | resize_url:'313x313' }})"></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						<span class="price{% if t.sale.retail_price %} sales{% endif %}">
+						{% if t.sale.price_varies %}
+							From ${{t.sale.price_min|amount_nodecimals|intcomma}}
+						{% else %}
+                            {% if t.sale.retail_price %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            <small class="before">${{t.sale.retail_price|amount_nodecimals|intcomma}}</small>
+                            {% else %}
+							${{t.sale.price|amount_nodecimals|intcomma}}
+                            {% endif %}
+						{% endif %}
+						</span>
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator"><span class="loading">Loading...</span></div>		
+	</div>
+</div>
+{{ 'js/infiniteshow.js' | common_asset_script }}
+<script>
+jQuery(function($){
+	$('#wrap').attr('class', 'list sub');
+	{% if params.q and not things %}
+	$('a.btn-nav').click();
+	{% endif %}
+});
+</script>

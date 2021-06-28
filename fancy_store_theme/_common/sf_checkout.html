@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fancy - Merchant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<link rel="stylesheet" href="./css/checkout.v4.css">
+</head>
+<body>
+
+<!-- store -->
+<div id="wrap">
+	<div id="container">
+		<div id="about">
+			<span class="logo" style="background-image:url('https://resize-ec1.thefancy.com/resize/crop/220/thefancy/CoverImages/original/fancy_saleitemsellerlogo_421_6f09a9e2ab45.png');"></span>
+			<h1>Fancy Store <small>fancy.com</small></h1>
+		</div>
+		<div id="summary" >
+			<h2><a href="#" onclick="$(this).closest('#summary').toggleClass('show').find('.summary-wrapper').slideToggle();return false;"></a>Order Summary <small>6 Items</small></h2>
+			<div class="summary-wrapper">
+				<ul class="items">
+					<li><div class="item_info">
+						<div class="figure" style="background-image:url('https://resize-ec4.thefancy.com/resize/crop/952/thingd/default/1194278362084807522_921e18cd3c8b.jpg')"></div>
+						<div class="figcaption">
+							<span class="qty"><b>3</b></span>
+							<b class="title">Nike Free RN Flyknit</b>
+							<small class="option">Men 11 Black / White </small>
+							<b class="price">$150.00</b>
+							<div class="cs"><a href="#" class="show" onclick="$(this).closest('.cs').find('div').show().end().end().hide();return false;">Customize this item</a><div style="display:none;"><label>Customize</label><textarea class="text personalization" placeholder="Type your request..." data-sale-id="145" data-option-id="113"></textarea></div></div>
+						</div>
+					</div></li>
+					<li><div class="item_info">
+						<div class="figure" style="background-image:url('https://resize-ec2.thefancy.com/resize/crop/952/thingd/default/1348428896017585493_f18478c0a0e0.jpg')"></div>
+						<div class="figcaption">
+							<span class="qty"><b>1</b></span>
+							<b class="title">Nest Learning Thermostat</b>
+							<b class="price">$150.00</b>
+						</div>
+					</div></li>
+					<li><div class="item_info">
+						<div class="figure" style="background-image:url('https://resize-ec4.thefancy.com/resize/crop/952/thingd/default/1194278362084807522_921e18cd3c8b.jpg')"></div>
+						<div class="figcaption">
+							<span class="qty"><b>3</b></span>
+							<b class="title">Nike Free RN Flyknit</b>
+							<small class="option">Men 11 Black / White </small>
+							<b class="price">$150.00</b>
+						</div>
+					</div></li>
+					<li><div class="item_info">
+						<div class="figure" style="background-image:url('https://resize-ec4.thefancy.com/resize/crop/952/thingd/default/1194278362084807522_921e18cd3c8b.jpg')"></div>
+						<div class="figcaption">
+							<span class="qty"><b>2</b></span>
+							<b class="title">Withings Body Cardio Heart Health and Body Composition Wi-Fi Scale</b>
+							<small class="option">White </small>
+							<b class="price">$150.00</b>
+						</div>
+					</div></li>
+				</ul>
+				<div class="receipt">
+					<h3>Receipt details</h3>
+					<ul>
+						<li><label>Subtotal</label>
+						<b>$1,129.00</b></li>
+						<li><label>Shipping</label>
+						<b>$9.95</b></li>
+						<li><label>Tax</label>
+						<b>$100.00</b></li>
+						<li class="discount"><label>Discount Code</label>
+						<b>-$50.00</b></li>
+						<li class="total"><big><label>Order Total</label>
+						<b>$1,238.95 <small class="currency">Approx <strong>£989.97 <a href="#" onclick="$('#popup_container').addClass('show_currency').show().css('opacity','1');return false;">GBP</a></strong></small></b></big></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="checkout">
+			<div class="step signin loading" style="display:none;">
+				<div class="default">
+					<h2>Create Account</h2>
+					<fieldset class="frm">
+						<p><label class="label">Email address</label>
+						<input type="text" class="text" onkeypress="$(this).closest('p').addClass('loading').closest('.step').find('.account').removeClass('disabled');"  onblur="if($(this).val().lenght>0){$(this).closest('p').removeClass('loading').closest('.step').find('.account').hide().end().find('.existing').show();}" placeholder="Email address" /></p>
+						<p><label class="label">Password</label>
+						<input type="password" class="text" placeholder="New password" />
+						<small class="comment">At least six characters. Include a number or symbol.</small></p>
+						<p><label class="label">Confirm Password</label>
+						<input type="password" class="text" placeholder="Confirm password" /></p>
+						<button class="submit" onclick="$(this).closest('#checkout').find('.step').hide().end().find('.shipping').show();">Create Account</button>
+					</fieldset>
+					<div class="another">
+						<a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.member').show();return false;">Have an account?</a> · <a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.guest').show();return false;">Continue as a Guest</a>
+					</div>
+				</div>
+				<div class="guest" style="display:none;">
+					<h2>Continue as a Guest</h2>
+					<fieldset class="frm">
+						<p><label class="label">Email address</label>
+						<input type="text" class="text" onkeypress="$(this).closest('p').addClass('loading').closest('.step').find('.account').removeClass('disabled');"  onblur="if($(this).val().lenght>0){$(this).closest('p').removeClass('loading').closest('.step').find('.account').hide().end().find('.existing').show();}" placeholder="Email address" /></p>
+						<button class="submit" onclick="$(this).closest('#checkout').find('.step').hide().end().find('.shipping').show();">Continue as a Guest</button>
+					</fieldset>
+					<div class="another">
+						<a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.default').show();return false;">Create New Account</a> · <a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.member').show();return false;">Have an account?</a>
+					</div>
+				</div>
+				<div class="member" style="display:none;">
+					<h2>Sign in</h2>
+					<fieldset class="frm">
+						<p><label class="label">Email address</label>
+						<input type="text" class="text" onkeypress="$(this).closest('p').addClass('loading').closest('.step').find('.account').removeClass('disabled');"  onblur="if($(this).val().lenght>0){$(this).closest('p').removeClass('loading').closest('.step').find('.account').hide().end().find('.existing').show();}" placeholder="Email address" /></p>
+						<p><label class="label">Password</label>
+						<input type="password" class="text" placeholder="New password" />
+						<button class="submit" onclick="$(this).closest('#checkout').find('.step').hide().end().find('.shipping').show();">Sign in and Continue</button>
+					</fieldset>
+					<div class="another">
+						<a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.default').show();return false;">Create New Account</a> · <a href="#" onclick="$(this).closest('.step').find('> div').hide().end().find('.guest').show();return false;">Continue as a Guest</a>
+					</div>
+				</div>
+			</div>
+			<div class="step shipping" style="display:none;">
+				<h2><em>1</em> Shipping address</h2>
+				<a href="#" class="back">Go Back</a>
+				<div class="userinfo">
+					<span class="avatar" style="background-image:url(https://resize-ec5.thefancy.com/resize/crop/62/thefancy/UserImages/original/shortyjjang_f8dc498fef0d.jpg)"></span>
+					<label>SIGNED IN AS</label>
+					Theodore Burton <a href="#">NOT YOU?</a>
+				</div>
+				<div class="saved">
+					<ul class="select_option">
+						<li class="selected"><input type="radio" name="shipping_ads" onclick="$(this).closest('.shipping').find('.new').hide();" checked id="shipping_ads_home" />
+						<label for="shipping_ads_home">
+							Jack Bingham
+							<small>Address, City, County, Postcode</small>
+						</label></li>
+						<li><input type="radio" name="shipping_ads" onclick="$(this).closest('.shipping').find('.new').show();" id="shipping_ads_new" />
+						<label for="shipping_ads_new">
+							Use another shipping address
+						</label></li>
+					</ul>
+				</div>
+				<div class="new" style="display:none;">
+					<fieldset class="frm">
+						<p><label class="label">Full name</label>
+						<input type="text" class="text" placeholder="Full name" /></p>
+						<p><label class="label">Address</label>
+						<input type="text" class="text" placeholder="Address" /></p>
+						<p><label class="label">City</label>
+						<input type="text" class="text" placeholder="City" /></p>
+						<p><label class="label">Country</label>
+						<span class="selectBox"><select>
+							<option>United Kingdom</option>
+						</select></span></p>
+						<p class="state"><label class="label">State</label>
+						<input type="text" class="text" placeholder="State" />
+						<span class="selectBox" style="display:none;"><select>
+							<option>New York</option>
+						</select></span></p>
+						<p class="zipcode"><label class="label">Postcode</label>
+						<input type="text" class="text" placeholder="Postcode" /></p>
+					</fieldset>
+				</div>
+				<div class="options">
+					<h3>Shipping options</h3>
+					<ul class="select_option">
+						<li class="selected"><input type="radio" name="shipping_opt" checked id="opt_standard" />
+						<label for="opt_standard">
+							Standard Shipping
+							<small>7 - 14 Days to [Postcode]</small>
+							<strong>$9.95</strong>
+						</label></li>
+						<li><input type="radio" name="shipping_opt" id="opt_expedited" />
+						<label for="opt_expedited">
+							Expedited Shipping
+							<small>1 - 2 Days to [Postcode]</small>
+							<strong>$39.95</strong>
+						</label></li>
+					</ul>
+				</div>
+				<div class="note">
+					<h3>Order Notes</h3>
+					<fieldset class="frm">
+						<p><input type="checkbox" id="order_gift" onclick="$(this).closest('.frm').find('.gift-note').toggle();"/> <label for="order_gift">This Order is a Gift</label></p>
+						<p class="gift-note" style="display:none;"><label class="label">Gift Note</label>
+						<textarea placeholder="Type a gift message"></textarea></p>
+						<p><label class="label">Note for [Store Name]</label>
+						<textarea placeholder="Type a note for [store name]" value="Please leave the package by the back gate. Thanks!"></textarea></p>
+					</fieldset>
+				</div>
+				<button class="submit" onclick="$(this).closest('#checkout').find('.step').hide().end().find('.payment').show();">Continue to Payment</button>
+			</div>
+			<div class="step payment" style="display:none;">
+				<h2><em>2</em> Payment information</h2>
+				<div class="saved">
+					<ul class="select_option">
+						<li class="selected"><input type="radio" name="payment_method" onclick="$(this).closest('.payment').find('.new').hide();" checked id="payment_method_visa" />
+						<label for="payment_method_visa">
+							<span class="card visa">Visa</span>
+							Jack Bingham
+							<small>VISA Credit Card - 1234</small>
+						</label></li>
+						<li><input type="radio" name="payment_method" onclick="$(this).closest('.payment').find('.new').show();" id="payment_method_new" />
+						<label for="payment_method_new">
+							Use another payment method
+						</label></li>
+					</ul>
+				</div>
+				<div class="new" style="display:none;">
+					<fieldset class="frm">
+						<p><label class="label">Name on card</label>
+						<input type="text" class="text" placeholder="Name on card" /></p>
+						<p><label class="label">Card number</label>
+						<span class="card visa">Visa</span>
+						<input type="text" class="text" placeholder="xxxx xxxx xxxx xxxx" /></p>
+						<p class="expiry"><label class="label">Expiry date</label>
+						<input type="text" class="text" placeholder="MM/YY" /></p>
+						<p class="cvc"><label class="label">CVC</label>
+						<input type="text" class="text" placeholder="xxx" /></p>
+						<p class="tip">Your payment details are encrypted and sent over a secure connection</p>
+					</fieldset>
+					<div class="billing">
+						<h3>Billing address</h3>
+						<ul class="select_option">
+							<li class="selected"><input type="radio" name="billing_addr" checked id="addr_default" onclick="$(this).closest('.billing').find('.frm').hide();"/>
+							<label for="addr_default">
+								Same as shipping address
+								<small>Address Line 1</small>
+							</label></li>
+							<li><input type="radio" name="billing_addr" id="addr_new" onclick="$(this).closest('.billing').find('.frm').show();" />
+							<label for="addr_new">
+								Use a different billing address
+							</label></li>
+						</ul>
+						<fieldset class="frm" style="display:none;">
+							<p><label class="label">Full name</label>
+							<input type="text" class="text" placeholder="Full name" /></p>
+							<p><label class="label">Address</label>
+							<input type="text" class="text" placeholder="Address" /></p>
+							<p><label class="label">City</label>
+							<input type="text" class="text" placeholder="City" /></p>
+							<p><label class="label">Country</label>
+							<span class="selectBox"><select>
+								<option>United Kingdom</option>
+							</select></span></p>
+							<p class="state"><label class="label">State</label>
+							<input type="text" class="text" placeholder="State" />
+							<span class="selectBox" style="display:none;"><select>
+								<option>New York</option>
+							</select></span></p>
+							<p class="zipcode"><label class="label">Postcode</label>
+							<input type="text" class="text" placeholder="Postcode" /></p>
+						</fieldset>
+					</div>
+				</div>
+				<div class="discount_code">
+					<a href="#" onclick="$(this).hide().closest('.discount_code').find('.frm').show();return false;">Have a discount code?</a>
+					<fieldset class="frm" style="display:none;">
+						<label class="label">Discount Code</label>
+						<input type="text" onfocus="$(this).removeClass('error').closest('.discount_code').find('.error_txt').hide().end().find('.btn-apply').removeAttr('disabled');" onkeypress="$(this).closest('.discount_code').addClass('confirm').find('.btn-apply').text('Remove Code');" class="text error" placeholder="Discount Code" />
+						<button class="btn-apply" disabled>Apply Code</button>
+						<span class="error_txt">[Code] is an invalid discount code</span>
+					</fieldset>
+				</div>
+				<button class="submit" onclick="$(this).closest('#checkout').find('.step').hide().end().find('.complete').show();">Complete Order</button>
+			</div>
+			<div class="step complete">
+				<h2>Order Complete <small>#12345678</small></h2>
+				<p><b>Thank you for your purchase, Jack!</b> We’ll send details of your order to your email address</p>
+				<a href="#" class="submit">Continue Shopping</a>
+				<div class="detail">
+					<h3>Order details</h3>
+					<dl>
+						<dt>Shipping address</dt>
+						<dd>Jack Bingham<br />
+						Address, City<br />
+						State, ZIP Code</dd>
+					</dl>
+					<dl>
+						<dt>Billing address</dt>
+						<dd>Jack Bingham<br />
+						Address, City<br />
+						State, ZIP Code</dd>
+					</dl>
+					<dl>
+						<dt>Shipping options</dt>
+						<dd>Standard Shipping</dd>
+					</dl>
+					<dl>
+						<dt>Payment method</dt>
+						<dd>Jack Bingham - VISA 1234</dd>
+					</dl>
+					<!-- a href="#" class="btn2">Print Receipt</a -->
+				</div>
+				<div class="qa">Problems with your order? <a href="#">Contact [Merchant Name]</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+	<div class="popup show_currency"><div data-reactroot=""><p class="ltit">Choose your currency</p><div class="currency-list after"><span class="line"></span><div class="left"><ul class="continents"><li class="continent code-continent-all"><a class="current" data-continent="all">All Currencies</a></li><li class="continent code-continent-ap"><a class="" data-continent="ap">Asia-Pacific</a></li><li class="continent code-continent-af"><a class="" data-continent="af">Africa and Middle East</a></li><li class="continent code-continent-am"><a class="" data-continent="am">Americas</a></li><li class="continent code-continent-eu"><a class="" data-continent="eu">Europe</a></li></ul></div><div class="right-outer scroll"><div class="right" style="display: block;"><ul class="major after"><li class="currency"><a class="" data-currency="USD"><b>U.S. dollars</b><small> USD</small><span>United States ($)</span></a></li><li class="currency"><a class="" data-currency="GBP"><b>British pounds</b><small> GBP</small><span>United Kingdom (£)</span></a></li><li class="currency"><a class="" data-currency="CAD"><b>Canadian dollars</b><small> CAD</small><span>Canada ($)</span></a></li><li class="currency"><a class="" data-currency="CNY"><b>Chinese yuan</b><small> CNY</small><span>China (¥)</span></a></li><li class="currency"><a class="" data-currency="EUR"><b>Euros</b><small> EUR</small><span>European Union (€)</span></a></li><li class="currency"><a class="" data-currency="JPY"><b>Japanese yen</b><small> JPY</small><span>Japan (¥)</span></a></li><li class="currency"><a class="current" data-currency="KRW"><b>South Korean won</b><small> KRW</small><span>Republic of Korea (₩)</span></a></li></ul><ul class="after"><li class="currency"><a class="" data-currency="AUD"><b>Australian dollars</b><small> AUD</small><span>Australia ($)</span></a></li><li class="currency"><a class="" data-currency="BHD"><b>Bahrain dinars</b><small> BHD</small><span>Bahrain (BD)</span></a></li><li class="currency"><a class="" data-currency="BRL"><b>Brazil reals</b><small> BRL</small><span>Brazil (R$)</span></a></li><li class="currency"><a class="" data-currency="GBP"><b>British pounds</b><small> GBP</small><span>United Kingdom (£)</span></a></li><li class="currency"><a class="" data-currency="BND"><b>Brunei dollars</b><small> BND</small><span>Brunei ($)</span></a></li><li class="currency"><a class="" data-currency="CAD"><b>Canadian dollars</b><small> CAD</small><span>Canada ($)</span></a></li><li class="currency"><a class="" data-currency="CNY"><b>Chinese yuan</b><small> CNY</small><span>China (¥)</span></a></li><li class="currency"><a class="" data-currency="CZK"><b>Czech koruny</b><small> CZK</small><span>Czech (Kč)</span></a></li><li class="currency"><a class="" data-currency="DKK"><b>Danish kroner</b><small> DKK</small><span>Denmark (kr)</span></a></li><li class="currency"><a class="" data-currency="EGP"><b>Egyptian pounds</b><small> EGP</small><span>Egypt (£)</span></a></li><li class="currency"><a class="" data-currency="EUR"><b>Euros</b><small> EUR</small><span>European Union (€)</span></a></li><li class="currency"><a class="" data-currency="HKD"><b>Hong Kong dollars</b><small> HKD</small><span>Hong Kong ($)</span></a></li><li class="currency"><a class="" data-currency="HUF"><b>Hungarian forints</b><small> HUF</small><span>Hungary (Ft)</span></a></li><li class="currency"><a class="" data-currency="INR"><b>Indian rupees</b><small> INR</small><span>India (₹)</span></a></li><li class="currency"><a class="" data-currency="IDR"><b>Indonesian rupiahs</b><small> IDR</small><span>Indonesia (Rp)</span></a></li><li class="currency"><a class="" data-currency="ILS"><b>Israeli shekels</b><small> ILS</small><span>Israel (₪)</span></a></li><li class="currency"><a class="" data-currency="JPY"><b>Japanese yen</b><small> JPY</small><span>Japan (¥)</span></a></li><li class="currency"><a class="" data-currency="JOD"><b>Jordanian dinars</b><small> JOD</small><span>Jordan (JD)</span></a></li><li class="currency"><a class="" data-currency="KZT"><b>Kazakh tenge</b><small> KZT</small><span>Kazakhstan (лв)</span></a></li><li class="currency"><a class="" data-currency="KWD"><b>Kuwaiti dinars</b><small> KWD</small><span>Kuwait (K.D.)</span></a></li><li class="currency"><a class="" data-currency="LTL"><b>Lithuanian litai</b><small> LTL</small><span>Lithuania (Lt)</span></a></li><li class="currency"><a class="" data-currency="MYR"><b>Malaysian ringgits</b><small> MYR</small><span>Malaysia (RM)</span></a></li><li class="currency"><a class="" data-currency="MXN"><b>Mexican pesos</b><small> MXN</small><span>Mexico ($)</span></a></li><li class="currency"><a class="" data-currency="NZD"><b>New Zealand dollars</b><small> NZD</small><span>New Zealand ($)</span></a></li><li class="currency"><a class="" data-currency="NOK"><b>Norwegian kroner</b><small> NOK</small><span>Norway (kr)</span></a></li><li class="currency"><a class="" data-currency="PKR"><b>Pakistan rupees</b><small> PKR</small><span>Pakistan (₨)</span></a></li><li class="currency"><a class="" data-currency="PHP"><b>Philippine pesos</b><small> PHP</small><span>Philippines (₱)</span></a></li><li class="currency"><a class="" data-currency="PLN"><b>Polish zloty</b><small> PLN</small><span>Poland (zł)</span></a></li><li class="currency"><a class="" data-currency="QAR"><b>Qatar riyals</b><small> QAR</small><span>Qatar (﷼)</span></a></li><li class="currency"><a class="" data-currency="RON"><b>Romanian leu</b><small> RON</small><span>Romania (L)</span></a></li><li class="currency"><a class="" data-currency="RUB"><b>Russian rubles</b><small> RUB</small><span>Russia (руб)</span></a></li><li class="currency"><a class="" data-currency="SAR"><b>Saudi riyals</b><small> SAR</small><span>Saudi Arabia (﷼)</span></a></li><li class="currency"><a class="" data-currency="RSD"><b>Serbian dinars</b><small> RSD</small><span>Serbia (Дин.)</span></a></li><li class="currency"><a class="" data-currency="SGD"><b>Singapore dollars</b><small> SGD</small><span>Singapore ($)</span></a></li><li class="currency"><a class="" data-currency="ZAR"><b>South African rands</b><small> ZAR</small><span>South Africa (R)</span></a></li><li class="currency"><a class="current" data-currency="KRW"><b>South Korean won</b><small> KRW</small><span>Republic of Korea (₩)</span></a></li><li class="currency"><a class="" data-currency="SEK"><b>Swedish kronor</b><small> SEK</small><span>Sweden (kr)</span></a></li><li class="currency"><a class="" data-currency="CHF"><b>Swiss francs</b><small> CHF</small><span>Switzerland (CHF)</span></a></li><li class="currency"><a class="" data-currency="TWD"><b>Taiwan dollars</b><small> TWD</small><span>Taiwan (NT$)</span></a></li><li class="currency"><a class="" data-currency="THB"><b>Thai baht</b><small> THB</small><span>Thailand (฿)</span></a></li><li class="currency"><a class="" data-currency="TRY"><b>Turkish liras</b><small> TRY</small><span>Turkey (₤)</span></a></li><li class="currency"><a class="" data-currency="USD"><b>U.S. dollars</b><small> USD</small><span>United States ($)</span></a></li><li class="currency"><a class="" data-currency="AED"><b>United Arab Emirates dirhams</b><small> AED</small><span>United Arab Emirates (AED)</span></a></li><li class="currency"><a class="" data-currency="VND"><b>Vietnamese dong</b><small> VND</small><span>Viet Nam (₫)</span></a></li></ul></div><div class="right" style="display: none;"><ul class="after"><li class="currency"><a class="" data-currency="AUD"><b>Australian dollars</b><small> AUD</small><span>Australia ($)</span></a></li><li class="currency"><a class="" data-currency="BND"><b>Brunei dollars</b><small> BND</small><span>Brunei ($)</span></a></li><li class="currency"><a class="" data-currency="CNY"><b>Chinese yuan</b><small> CNY</small><span>China (¥)</span></a></li><li class="currency"><a class="" data-currency="HKD"><b>Hong Kong dollars</b><small> HKD</small><span>Hong Kong ($)</span></a></li><li class="currency"><a class="" data-currency="INR"><b>Indian rupees</b><small> INR</small><span>India (₹)</span></a></li><li class="currency"><a class="" data-currency="IDR"><b>Indonesian rupiahs</b><small> IDR</small><span>Indonesia (Rp)</span></a></li><li class="currency"><a class="" data-currency="JPY"><b>Japanese yen</b><small> JPY</small><span>Japan (¥)</span></a></li><li class="currency"><a class="" data-currency="KZT"><b>Kazakh tenge</b><small> KZT</small><span>Kazakhstan (лв)</span></a></li><li class="currency"><a class="" data-currency="MYR"><b>Malaysian ringgits</b><small> MYR</small><span>Malaysia (RM)</span></a></li><li class="currency"><a class="" data-currency="NZD"><b>New Zealand dollars</b><small> NZD</small><span>New Zealand ($)</span></a></li><li class="currency"><a class="" data-currency="PKR"><b>Pakistan rupees</b><small> PKR</small><span>Pakistan (₨)</span></a></li><li class="currency"><a class="" data-currency="PHP"><b>Philippine pesos</b><small> PHP</small><span>Philippines (₱)</span></a></li><li class="currency"><a class="" data-currency="SGD"><b>Singapore dollars</b><small> SGD</small><span>Singapore ($)</span></a></li><li class="currency"><a class="current" data-currency="KRW"><b>South Korean won</b><small> KRW</small><span>Republic of Korea (₩)</span></a></li><li class="currency"><a class="" data-currency="TWD"><b>Taiwan dollars</b><small> TWD</small><span>Taiwan (NT$)</span></a></li><li class="currency"><a class="" data-currency="THB"><b>Thai baht</b><small> THB</small><span>Thailand (฿)</span></a></li><li class="currency"><a class="" data-currency="VND"><b>Vietnamese dong</b><small> VND</small><span>Viet Nam (₫)</span></a></li></ul></div><div class="right" style="display: none;"><ul class="after"><li class="currency"><a class="" data-currency="BHD"><b>Bahrain dinars</b><small> BHD</small><span>Bahrain (BD)</span></a></li><li class="currency"><a class="" data-currency="EGP"><b>Egyptian pounds</b><small> EGP</small><span>Egypt (£)</span></a></li><li class="currency"><a class="" data-currency="ILS"><b>Israeli shekels</b><small> ILS</small><span>Israel (₪)</span></a></li><li class="currency"><a class="" data-currency="JOD"><b>Jordanian dinars</b><small> JOD</small><span>Jordan (JD)</span></a></li><li class="currency"><a class="" data-currency="KWD"><b>Kuwaiti dinars</b><small> KWD</small><span>Kuwait (K.D.)</span></a></li><li class="currency"><a class="" data-currency="QAR"><b>Qatar riyals</b><small> QAR</small><span>Qatar (﷼)</span></a></li><li class="currency"><a class="" data-currency="SAR"><b>Saudi riyals</b><small> SAR</small><span>Saudi Arabia (﷼)</span></a></li><li class="currency"><a class="" data-currency="ZAR"><b>South African rands</b><small> ZAR</small><span>South Africa (R)</span></a></li><li class="currency"><a class="" data-currency="AED"><b>United Arab Emirates dirhams</b><small> AED</small><span>United Arab Emirates (AED)</span></a></li></ul></div><div class="right" style="display: none;"><ul class="after"><li class="currency"><a class="" data-currency="BRL"><b>Brazil reals</b><small> BRL</small><span>Brazil (R$)</span></a></li><li class="currency"><a class="" data-currency="CAD"><b>Canadian dollars</b><small> CAD</small><span>Canada ($)</span></a></li><li class="currency"><a class="" data-currency="MXN"><b>Mexican pesos</b><small> MXN</small><span>Mexico ($)</span></a></li><li class="currency"><a class="" data-currency="USD"><b>U.S. dollars</b><small> USD</small><span>United States ($)</span></a></li></ul></div><div class="right" style="display: none;"><ul class="after"><li class="currency"><a class="" data-currency="GBP"><b>British pounds</b><small> GBP</small><span>United Kingdom (£)</span></a></li><li class="currency"><a class="" data-currency="CZK"><b>Czech koruny</b><small> CZK</small><span>Czech (Kč)</span></a></li><li class="currency"><a class="" data-currency="DKK"><b>Danish kroner</b><small> DKK</small><span>Denmark (kr)</span></a></li><li class="currency"><a class="" data-currency="EUR"><b>Euros</b><small> EUR</small><span>European Union (€)</span></a></li><li class="currency"><a class="" data-currency="HUF"><b>Hungarian forints</b><small> HUF</small><span>Hungary (Ft)</span></a></li><li class="currency"><a class="" data-currency="LTL"><b>Lithuanian litai</b><small> LTL</small><span>Lithuania (Lt)</span></a></li><li class="currency"><a class="" data-currency="NOK"><b>Norwegian kroner</b><small> NOK</small><span>Norway (kr)</span></a></li><li class="currency"><a class="" data-currency="PLN"><b>Polish zloty</b><small> PLN</small><span>Poland (zł)</span></a></li><li class="currency"><a class="" data-currency="RON"><b>Romanian leu</b><small> RON</small><span>Romania (L)</span></a></li><li class="currency"><a class="" data-currency="RUB"><b>Russian rubles</b><small> RUB</small><span>Russia (руб)</span></a></li><li class="currency"><a class="" data-currency="RSD"><b>Serbian dinars</b><small> RSD</small><span>Serbia (Дин.)</span></a></li><li class="currency"><a class="" data-currency="SEK"><b>Swedish kronor</b><small> SEK</small><span>Sweden (kr)</span></a></li><li class="currency"><a class="" data-currency="CHF"><b>Swiss francs</b><small> CHF</small><span>Switzerland (CHF)</span></a></li><li class="currency"><a class="" data-currency="TRY"><b>Turkish liras</b><small> TRY</small><span>Turkey (₤)</span></a></li></ul></div></div></div><div class="btn-area"><button class="btns-gray-embo cancel">Cancel</button><button class="btns-blue-embo save">Save</button></div></div></div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$('.select_option input').click(function(){
+		$(this).closest('.select_option').find('li').removeClass('selected').end().end().closest('li').addClass('selected');
+	});
+	$('.tooltip')
+		.hover(function(){
+			$(this).find('em').css('margin-left',-$(this).find('em').outerWidth()/2 +'px');
+		});
+	$('#popup_container')
+		.on('click', function(event){
+			if(event.target === this) {
+				$(this).hide().removeAttr('class');
+			}
+		});
+	$('.popup .ly-close')
+		.on('click', function(event){
+				$(this).closest('#popup_container').hide().removeAttr('class');
+		});
+</script>
+</body>
+</html>

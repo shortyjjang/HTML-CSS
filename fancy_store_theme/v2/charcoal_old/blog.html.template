@@ -1,0 +1,41 @@
+{%if post.cover_image_url%}
+<div class="cover">
+  <img src="{{post.cover_image_url}}" />
+</div>
+{%endif%}
+<div class="title">
+  <div class="inner">
+    <h2>
+      {{post.title}}
+    </h2>
+    <p>
+      {{post.tagline}}
+    </p>
+  </div>
+</div>
+<div class="date">
+  {{post.date_created|date:"F j, Y"}}
+</div>
+<div class="post">
+  {{post.content|safe}}
+</div>
+<script>
+    $(function() {
+      $('#content').addClass('blog-post');
+      $('.blog-post .title').height($('.cover img').height());
+      $(window).resize(function(){
+        $('.blog-post .title').height($('.cover img').height());
+      });
+    });
+</script>
+<script>
+(function($){
+      $('#wrap').attr('class', 'blog sub');
+      $('.cover img').load(function(){
+        $('.blog-post .title').height($(this).height());
+      });
+      $(window).resize(function(){
+        $('.blog-post .title').height($('.cover img').height());
+      });
+})(jQuery);
+</script>

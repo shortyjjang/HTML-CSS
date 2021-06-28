@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper" class="sign">
+	
+	<div id="header">
+		<a href="/" class="title">회원가입</a>
+	</div>
+	<div id="content" class="fix_btns">
+		<!-- content area -->
+		<p class="ptit">이용약관에 동의해주세요</p>
+		<ul class="agreement">
+			<li class="all"><input type="checkbox" /><label>전체동의</label></li>
+			<li><input type="checkbox" /><a href="signup_policy.html">개인정보 수집 및 이용 동의(필수)</a></li>
+			<li><input type="checkbox" /><a href="signup_policy.html">개인정보처리방침(필수)</a></li>
+			<li><input type="checkbox" /><a href="signup_policy.html">서비스 이용약관(필수)</a></li>
+			<li><input type="checkbox" /><a href="signup_policy.html">컨텐츠 이용약관(필수)</a></li>
+			<li><input type="checkbox" /><a href="signup_policy.html">이메일가입 개인정보취급방침(필수)</a></li>
+		</ul>
+		<button class="button" disabled>다음</button>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.agreement input').click(function(){
+		if($(this).closest('li').hasClass('all') || $('.agreement input:checked').length > 4) {
+			$('.agreement input').attr('checked','checked');
+			$('.button').removeAttr('disabled');
+		}
+	});
+	$('.button').click(function(){
+		location.href = 'signup_step2.html';
+	});
+});
+
+</script>
+</body>
+
+</html>

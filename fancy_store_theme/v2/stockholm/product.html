@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{settings.page_title}}{% if thing.name %} - {{thing.name}}{% endif %}</title>
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+	<link rel="shortcut icon"href="{{ 'img/favicon.ico' | asset_url }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+
+	<meta property="og:site_name" content="{{settings.page_title}}">
+	<meta property="og:title" content="{{settings.page_title}} - {{thing.name}}">
+	<meta property="og:description" content="{{thing.sale.description}}">
+	<meta property="og:image" content="{{thing.image.url}}">
+
+	<link href="./assets/theme.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body{%if is_preview %} class="stockholm-theme"{%endif%}>
+
+<!-- header -->
+<header id="header">
+	<div class="top-menu">
+		<div class="language">
+			<a href="#">{{seller.tagline}}</a>
+		</div>
+		<ul class="quick">
+			<li><a href="../contact">Customer Service</a></li>
+		</ul>
+	</div>
+	<div class="header-wrap">
+		<div class="inner">
+			<h1 class="logo"><a href="{{path_prefix}}/"><img src="//thefancy-media-ec3.thefancy.com/themes/custom/26490/assets/img/logotype-b_4eec742c5ddb.svg" alt="{{settings.page_title}}"></a></h1>
+
+			<div class="search"><input type="text" placeholder="Search" name="q" /></div>
+
+			<div class="menu">
+				<a href="#!" onclick="if($('body').hasClass('hover')){var sc = -$('#wrap').position().top;$('body').removeClass('hover').find('#wrap').css('top','0');$(window).scrollTop(sc);}else{$('#wrap').css('top',-$(window).scrollTop()+'px').closest('body').addClass('hover');$(window).scrollTop(0);};return false;" class="m_menu"></a>
+					<a onclick="location.href='{{path_prefix}}/wishlist';" href="{{path_prefix}}/wishlist" class="wishlist"></a>
+					<a href="https://{{secure_url}}/{{seller.username}}/orders{% if LANG %}?lang={{LANG}}{% endif %}" class="account"></a>
+				<a href="{{path_prefix}}/cart" class="btn-cart"><i class="icon"></i><small class="count"><b>0</b></small></a>
+			</div>
+		</div>
+	</div>
+	<ul class="navigation">
+		<li><a href="../">Home</a></li>
+		<li><a href="../shop">Shop</a></li>
+		<li><a href="../about">About Us</a></li>
+		<li><a href="../contact">Contact Us</a></li>
+	</ul>
+</header>
+<!-- / header --> 
+
+<div id="wrap">
+	<div id="container">
+		<div id="content">
+<div id="thing" class="page">
+  <div class="thing-detail">
+    <div class="figure">
+		<figure class="overlay">
+			<img src="https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg">
+		</figure>
+		<div class="figure-thumbnail">
+			<ul class="thumbnail">
+				<li><a href="#{{forloop.counter}}" data-image="{{image.url}}" {%if forloop.first %}class='current'{%endif%}><img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)"></a></li>
+			</ul>
+		</div>
+    </div>
+    <div class="figcaption">
+      <span class="by">{{settings.page_title}}</span>
+      <h2 class="title">{{thing.sale.title}}</h2>
+      <div class="description">
+        <dl class="show">
+          <dd style="display:block;"><div class="description_cont short">
+            {{thing.sale.description|safe}}</div>
+            <a href="#" class="more" onclick="$(this).hide().closest('dd').find('.description_cont').removeClass('short');return false;">Read More</a>
+         </dd>
+        </dl>
+      </div>
+      <p class="price"><b>$20.00</b><small class="unit">USD</small></p>
+      <fieldset class="frm">
+			<p class="option">
+				<label class="label">SELECT OPTION</label>
+				<span class="selectBox">
+					<select name="option">
+						<option data-price="{{opt.price}}" value="{{opt.id}}" {% if opt.soldout %}disabled{% endif %}>{{opt.title}}</option>
+					</select>
+				</span>
+			</p>
+			<div class="multi-option">
+				<label class="label">Option</label>
+				<ul class="text">
+					<li><a href="#" class="disabled">Small</a></li>
+					<li><a href="#">Medium</a></li>
+					<li><a href="#" class="selected">Large</a></li>
+				</ul>
+			</div>
+			<div class="multi-option">
+				<label class="label">Option</label>
+				<ul class="color">
+					<li><a href="#" style="background: #9FA2A7" class="disabled">#9FA2A7</a></li>
+					<li><a href="#" style="background: #B6D4A8">#B6D4A8</a></li>
+					<li><a href="#" style="background: #64739A" class="selected">#64739A</a></li>
+				</ul>
+			</div>
+			<div class="multi-option">
+				<label class="label">Option</label>
+				<ul class="thumbnail">
+					<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="disabled">Small</a></li>
+					<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)">Medium</a></li>
+					<li><a href="#" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" class="selected">Large</a></li>
+				</ul>
+			</div>
+			<p class="qty">
+				<label class="label">QUANTITY</label>
+				<input type="text" class="text" name="qty" value="1">
+			</p>
+			<button class="buttons btn-cart cart">Add to Bag</button>
+      </fieldset>
+      <div class="sr">
+        <ul>
+         <li><a href="#" class="wishlist on" {% if viewer.is_anonymous%} require-login{%endif%}" data-tid="{{thing.thing_id}}">Save to Wishlist</a></li>
+         <li><a href="#" onclick="$('#popup_container').addClass('shipping').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.shpping').height()){$('.popup.shipping').css('margin-top',($('#popup_container').height()-$('.popup.shipping').height())/2+'px');}},10);return false;">Shipping Information</a></li>
+         <li><a href="#" onclick="$('#popup_container').addClass('returns').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.returns').height()){$('.popup.returns').css('margin-top',($('#popup_container').height()-$('.popup.returns').height())/2+'px');}},10);return false;">Returns & Exchanges</a></li>
+        </ul>
+      </div>
+      <div class="misc">
+        <dl class="share">
+        <dd>
+          <a href="mailto:?subject=Check%20out%20{{thing.name}}%20on%20{{path_prefix}}&body={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="mail">Mail</a>
+          <a href="http://www.facebook.com/sharer.php?u={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="fb">Facebook</a>
+          <a href="https://plus.google.com/share?url={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="gg">Google+</a>
+          <a href="http://twitter.com/share?text=Check%20out%20{{thing.name}}%20on%20{{request.hostname}}&url={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="tw">Twitter</a>
+          <a href="http://pinterest.com/pin/create/link/?url={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}&description={{thing.name}}" class="pin">Pinterest</a>
+        </dd>
+      </dl>
+      <p class="qa">Any questions? <a href="{{path_prefix}}/contact">Contact Us</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="related">
+    <h3 class="stit">Shoppers also viewed</h3>
+    <div class="figure-list">
+      <ol class="stream">
+        <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+          <span class="figure"><img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" /></span>
+          <span class="figcaption"><span class="caption">
+            <small class="category">{{settings.page_title}}</small>
+            <b class="title">{{thing.name}}</b>
+            <span class="price">$20.00 <small class="unit">USD</small></span>
+          </span></span>
+        </a></li>
+        <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+          <span class="figure"><img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" /></span>
+          <span class="figcaption"><span class="caption">
+            <small class="category">{{settings.page_title}}</small>
+            <b class="title">{{thing.name}}</b>
+            <span class="price">$20.00 <small class="unit">USD</small></span>
+          </span></span>
+        </a></li>
+        <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+          <span class="figure"><img src="../../_common/img/blank.gif" style="background-image:url(https://thefancy-media-ec2.thefancy.com/commerce/original/20190123/59976d10db224725827f52190d6fefc5.jpg)" /></span>
+          <span class="figcaption"><span class="caption">
+            <small class="category">{{settings.page_title}}</small>
+            <b class="title">{{thing.name}}</b>
+            <span class="price">$20.00 <small class="unit">USD</small></span>
+          </span></span>
+        </a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<script>
+jQuery(function($){
+	$('#content').attr('class', 'shop');
+	$('.figure .thumbnail').on('click', 'a[href]', function(event){
+		event.preventDefault();
+      	$(this).closest('ul').find("a.current").removeClass('current');
+        $(this).addClass('current');
+		$('.figure figure img').attr('src', $(this).attr('data-image'));
+	});
+
+    $('select[name="option"]').on('change', function(event){
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0 && $selected.data('price')) {
+                   $(this).closest('.figcaption').find('.price b').text('$' + $selected.data('price'));
+          }
+    }).change();
+
+    $('button.btn-cart').on('click', function(){
+		{%if viewer.id == seller.id%}
+		document.location.href = "https://fancy.com/merchant/products/{{thing.sale.id}}/edit?";
+		return;
+		{%endif%}
+
+		var qty = $('input[name="qty"]').val(), opt = $('select[name="option"]').val();
+		Cart.add({{thing.sale.id}}, qty, opt)
+			.then(function(data){
+				var count = 0;
+				if (data && data.items) {
+					for (var i=0; i < data.items.length; i++) {
+						if (data.items[i].seller_id != storeID) continue;
+						count += data.items[i].quantity;
+					}
+                    $('#header .btn-cart').find('.count b').text(count);
+					//$(".btn-cart:eq(0) i").click();
+                    goog_report_conversion('/cart');
+				}
+			})
+			.fail(function(res){
+				if(res.responseText){
+					var json = JSON.parse(res.responseText);
+					if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+                        alert("The item(s) in your cart are all that is currently available");
+						$('input[name="qty"]').val(json.quantity);
+					}else{
+						alert('Unable to add to cart. Please try again later.');
+					}
+				}else{
+					alert('Unable to add to cart. Please try again later.');
+				}
+			});
+	});
+        
+   {%if thing.sale.images|length > 6%}
+   (function(){
+      var $div = $('.thing-detail .figure-thumbnail');
+      var $ul = $('.thing-detail .figure-thumbnail .thumbnail');
+
+      // width of div
+      var height = $div.height();
+
+      // width of ul - width of div
+      var ulHeight = $ul.height() - height;
+
+      $div
+        .on('mouseenter', function(e) {
+          // get left offset of div on page
+          var divHeight = $div.offset().top;
+
+          $(window).on('mousemove', function(e) {
+            var top = e.pageY - divHeight;
+            // get percent of width the mouse position is at
+            var percent = top / height;
+            // set margin-left on ul to achieve a 'scroll' effect
+            $ul.css('margin-top', -(percent * ulHeight));
+          });
+        })
+        .on('mouseleave', function() {
+          // remove mousemove event
+          $(window).off('mousemove');
+        });
+   })()
+   {%endif%}
+   
+         
+});
+      
+</script>
+<!-- Google Code for Add to Cart Conversion Page
+In your html page, add the snippet and call goog_report_conversion
+when someone clicks on the chosen link or button. -->
+<script type="text/javascript">
+ /* <![CDATA[ */
+goog_snippet_vars = function() {
+  var w = window;
+  w.google_conversion_id = 868004020;
+  w.google_conversion_language = "en";
+  w.google_conversion_format = "3";
+  w.google_conversion_color = "ffffff";
+  w.google_conversion_label = "hU9fCKKn62sQtOHynQM";
+  w.google_conversion_value = {{thing.sale.price}};
+  w.google_conversion_currency = "USD";
+  w.google_remarketing_only = false;
+}
+// DO NOT CHANGE THE CODE BELOW.
+goog_report_conversion = function(url) {
+  goog_snippet_vars();
+  window.google_conversion_format = "3";
+  var opt = new Object();
+  opt.onload_callback = function() {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  }  
+  var conv_handler = window['google_trackConversion'];
+  if (typeof(conv_handler) == 'function') {
+    conv_handler(opt);
+  }
+}
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
+
+
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div id="footer">
+		<div id="wrap-fix">
+			<div class="footer-menu">
+				<dl>
+					<dt><a href="{{path_prefix}}/shipping-information">Customer Service</a></dt>
+					<dd><ul>
+						<li><a href="{{path_prefix}}/shipping-information">Shipping Information</a></li>
+						<li><a href="{{path_prefix}}/returns-exchanges">Returns & Exchanges</a></li>
+					</ul></dd>
+				</dl>
+				<dl>
+					<dt><a href="{{path_prefix}}/about">About</a></dt>
+					<dd><ul>
+						<li><a href="{{path_prefix}}/about">About Us</a></li>
+						<li><a href="{{path_prefix}}/contact">Contact Us</a></li>
+					</ul></dd>
+				</dl>
+				<dl>
+					<dt>Get Social</dt>
+					<dd><ul class="sns">
+						<li><a href="https://www.facebook.com/{{settings.facebook_username}}/" class="fb" target="_blank">Facebook</a></li>
+						<li><a href="https://twitter.com/{{settings.twitter_username}}" class="tw" target="_blank">Twitter</a></li>
+						<li><a href="https://instagram.com/{{settings.instagram_username}}" class="in" target="_blank">Instagram</a></li>
+						<li><a href="https://www.pinterest.com/{{settings.pinterest_username}}/" class="pin" target="_blank">Pinterest</a></li>
+					</ul></dd>
+				</dl>
+				<div data-component="subscribe-email" class="newsletter">
+					<h2>{{settings.newsletter.title}}</h2>
+					<form>
+						<input type="hidden" name="code" value="{{settings.newsletter.code}}"/>
+						<input type="hidden" name="seller_username" value="{{seller.username}}"/>          
+						<p class="email"><label class="label">Email</label> <input type="text" class="text" name="email" placeholder="Enter your email address" /></p>
+						<button class="btn-send">Sign Up</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom">
+			<div id="wrap-fix">
+				<ul class="about-menu">
+					<li><a href="https://fancy.com/about/terms-copyright" target="blank">Copyright Policy</a></li>
+					<li><a href="{{path_prefix}}/terms">Terms of Service</a></li>
+					<li><a href="https://fancy.com/about/terms-privacy" target="blank">Privacy Policy</a></li>
+				</ul>
+				<p class="copyright">Copyright © {% now "Y" %} {{settings.page_title}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="popup_container">
+	<div class="popup information shipping">
+		<div class="text">
+			<h3 class="title">Shipping Information</h3>
+			<p>{{seller.shipping_policy|linebreaks}}</p> 
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+	<div class="popup information returns">
+		<div class="text">
+			<h3 class="title">Returns & Exchanges</h3>
+			<p>{{seller.custom_policy|linebreaks}}</p>  
+		</div>
+		<a href="#" class="ly-close">Close</a>
+	</div>
+</div>
+<script>
+	$('.popup_close, .ly-close').click(function(){
+		$('#popup_container').removeAttr('class').hide().removeAttr('style');
+		return false;
+	});
+	$('a[href="../pages/return-policy"]').attr('href','#').attr('onclick',"$('#popup_container').addClass('returns').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.returns').height()){$('.popup.returns').css('margin-top',($('#popup_container').height()-$('.popup.returns').height())/2+'px');}},10);return false;");
+</script>
+</body>
+</html>

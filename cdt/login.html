@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	<div class="container login">
+		<!-- content area -->
+		<h1 class="ptit"><img src="./images/logo-blue.png" /></h1>
+		<div class="frm">
+			<p><input type="text" class="text" placeholder="이메일"></p>
+			<p><input type="text" class="text" placeholder="비밀번호"></p>
+			<button class="btn-submit">로그인</button>
+			<div class="other-way">
+				<a href="find_id.html" onclick="$('#popup_container').addClass('find_id').show();return false;">아이디찾기</a>
+				<a href="find_pw.html">비밀번호찾기</a>
+				<a href="signup.html">회원가입</a>
+			</div>
+			<a href="login_simple.html">간편번호로 로그인하기</a>
+			<div class="lang">
+				<a href="#"><img src="./images/ic-ko.png" /> KOR</a>
+				<a href="#"><img src="./images/ic-en.png" /> ENG</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+	<div class="popup find_id">
+		<h3 class="title">아이디 찾기</h3>
+		<p>본인인증 후에 아이디 찾기가 가능합니다.<br />
+		본인인증 페이지로 이동하시겠습니까? </p>
+		<div class="btn-area">
+			<button class="btn-cancel">취소</button>
+			<a href="find_id.html" class="btn-submit">이동하기</a>
+		</div>
+	</div>
+</div>
+<script>
+	$('.popup .btn-close, .popup .btn-cancel').on('click',function(){
+		$('#popup_container').removeAttr('class').removeAttr('style');
+	});
+</script>
+</body>
+</html>

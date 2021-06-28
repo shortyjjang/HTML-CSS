@@ -1,0 +1,23 @@
+<div id="collection" class="page">
+	<div class="inner figure-list">		
+		<ol class="stream after">
+			{% for t in things %}
+			<li>
+				<a href="{{path_prefix}}/shop/{{t.id}}">
+					<span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{t.sale.images.0.url | resize_url:'313x313'}})"/></span>
+					<span class="figcaption">
+						<b class="title">{{t.name}}</b>
+						{% if t.sale %}<span class="price">${{t.sale.price|amount_nodecimals|intcomma}}</span>{% endif %}						
+					</span>
+				</a>
+			</li>
+			{% endfor %}
+		</ol>
+		<div id="loading-indicator">
+			<span class="loading">Loading more products...</span>
+		</div>
+	</div>
+</div>
+<script>
+$('#wrap').attr('class', 'sub list');
+</script>

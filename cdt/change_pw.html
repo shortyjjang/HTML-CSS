@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CHAINDIT Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./css/layout.css">
+<link href="./css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="header">
+	<a href="#" class="back">Back</a>
+	<h1 class="ptit">비밀번호 변경</h1>
+</div>
+<div id="container-wrapper">
+	<div class="container signup">
+		<!-- content area -->
+		<div class="step step1" style="display:block;">
+			<h2 class="stit">현재 비밀번호를 입력해주세요</h2>
+			<div class="frm">
+				<p>
+					<input type="password" class="text" placeholder="현재 비밀번호" />
+					<span class="check" data-pw="en">영문포함</span>
+					<span class="check" data-pw="num">숫자포함</span>
+					<span class="check" data-pw="emo">특수문자포함</span>
+					<span class="check" data-pw="min">8자리이상</span>
+				</p>
+			</div>
+			<div class="btn-area">
+				<button class="btn-submit" onclick="$(this).closest('.container').find('.step').hide().end().find('.step2').show();">다음</button>
+			</div>
+		</div>
+		<div class="step step2">
+			<h2 class="stit">새로운 비밀번호를 입력해주세요</h2>
+			<div class="frm">
+				<p>
+					<input type="password" class="text" placeholder="신규 비밀번호" />
+					<span class="check" data-pw="en">영문포함</span>
+					<span class="check" data-pw="num">숫자포함</span>
+					<span class="check" data-pw="emo">특수문자포함</span>
+					<span class="check" data-pw="min">8자리이상</span>
+				</p>
+				<p><input type="password" class="text" placeholder="신규 비밀번호 확인"/></p>
+			</div>
+			<div class="btn-area">
+				<button class="btn-submit">다음</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="popup_container">
+</div>
+<script>
+	//비밀번호 유효성체크
+	$('input[type="password"].text').on('keyup',function(event){
+		var x = event.which || event.keyCode;
+		if (x > 47 && x < 58) {
+			$(this).closest('p').find('.check[data-pw="num"]').addClass('on');
+		}
+		if (x > 64 && x < 91) {
+			$(this).closest('p').find('.check[data-pw="en"]').addClass('on');
+		}
+		if ($(this).val().length > 7) {
+			$(this).closest('p').find('.check[data-pw="min"]').addClass('on');
+		}else {
+			$(this).closest('p').find('.check[data-pw="min"]').removeClass('on');
+		}
+	});
+	$('.step .btn-area button').on('click',function(){
+		$(this).closest('.step').hide().next().show();
+	});
+	$('#header .back').on('click',function(){
+		if (!$('.step:visible').hasClass('step1')) {
+			$('.step:visible').hide().prev().show();
+			return false;
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">휴대전화번호변경</a>
+	</div>
+	<div id="content" class="fix_btns">
+		<!-- content area -->
+		<p class="ptit">본인인증을 해주세요</p>
+		<fieldset class="frm">
+			<span class="certify">
+				<input type="tel" class="text" placeholder="휴대전화번호"/>
+				<button class="btn-request">본인인증</button>
+			</span>
+			<span class="certify_number" style="display:none;">
+				<input type="text" class="text" placeholder="인증번호를 입력해 주세요" />
+				<small class="time">02:30</small>
+			</span>
+		</fieldset>
+		<button class="button" disabled>다음</button>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.certify input.text').keydown(function(){
+		$(this).closest('.certify').hide();
+		$('.certify_number').show();
+	});
+	$('.certify_number input.text').keydown(function(){
+		$('.button').removeAttr('disabled');
+	});
+	$('.button').click(function(){
+		location.href = 'user_phone_step2.html'
+	});
+});
+
+</script>
+</body>
+
+</html>

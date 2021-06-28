@@ -1,0 +1,198 @@
+<div id="thing" class="page">
+  <div class="thing-detail">
+    <div class="figure">
+      <figure class="overlay">
+        <img src="{{thing.image.url}}">
+      </figure>
+      <div class="figure-thumbnail">
+        <ul class="thumbnail">
+          {% for image in thing.sale.images %}
+          {% if image.url %}
+          <li><a href="#{{forloop.counter}}" data-image="{{image.url}}" {%if forloop.first %}class='current'{%endif%}><img src="{{ 'blank.gif' | asset_url }}" style="background-image:url({{image.url | resize_url:'148x148'}})"></a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="figcaption">
+      <h2 class="title">{{thing.sale.title}}</h2>
+      {% if thing.sale.retail_price and thing.sale.retail_price > thing.sale.price %}
+      <p class="price sales"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b>
+      <small class="before">${{thing.sale.retail_price|amount_nodecimals|intcomma}}</small></p>
+      {% else %}
+      <p class="price"><b>${{thing.sale.price|amount_nodecimals|intcomma}}</b></p>
+      {% endif %}
+      <div class="description">
+        <dl class="show">
+          <dd style="display:block;"><div class="description_cont">
+            {{thing.sale.description|safe}}</div>
+ 
+         </dd>
+        </dl>
+      </div>
+      
+      <div class="sr">
+        <ul>
+         <li><a href="#" class="wishlist {% if thing.wanted %}on{%endif%}" {% if viewer.is_anonymous%} require-login{%endif%}" data-tid="{{thing.thing_id}}">{% if thing.wanted %}Remove from Wishlist{%else%}Save to Wishlist{% endif %}</a></li>
+         <li><a href="#" onclick="$('#popup_container').addClass('shipping').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.shpping').height()){$('.popup.shipping').css('margin-top',($('#popup_container').height()-$('.popup.shipping').height())/2+'px');}},10);return false;">Shipping Information</a></li>
+         <li><a href="#" onclick="$('#popup_container').addClass('returns').show();setTimeout(function(){if($('#popup_container').height()>$('.popup.returns').height()){$('.popup.returns').css('margin-top',($('#popup_container').height()-$('.popup.returns').height())/2+'px');}},10);return false;">Returns & Exchanges</a></li>
+        </ul>
+      </div>
+
+      <fieldset class="frm">
+          {%if thing.sale.options %}
+          <p class="option">
+          <label class="label">Option</label>
+          <span class="selectBox">
+          <select name="option">
+          {% for opt in thing.sale.options %}
+          <option data-price="{{opt.price}}" value="{{opt.id}}" {% if opt.soldout %}disabled{% endif %}>{{opt.title}}</option>
+          {% endfor %}
+          </select>
+          </span>
+          </p>
+          {% endif %}
+          <p class="qty">
+          <label class="label">Quantity</label>
+          <input type="text" class="text" name="qty" value="1">
+          </p>
+          {%if viewer.id != seller.id%}
+          {%if thing.sale.available %}
+          <button class="buttons btn-cart cart">Add to Bag</button>
+          {%else%}
+          <button class="buttons btn-cart cart" disabled>{{thing.sale.status.upper}}</button>
+          {%endif%}
+          {%else%}
+          <a href="{{urls.fancy_home}}/merchant/products/{{thing.sale.id}}/edit" class="buttons btn-cart cart" target="_blank">Edit Sale</a>
+          {%endif%}
+      </fieldset>
+      <div class="misc">
+        <dl class="share">
+        <dd>
+          <a href="http://www.facebook.com/sharer.php?u={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="fb">Facebook</a>
+          <a href="http://twitter.com/share?text=Check%20out%20{{thing.name}}%20on%20{{request.hostname}}&url={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}" class="tw">Twitter</a>
+          <a href="http://pinterest.com/pin/create/link/?url={{request.hostname}}{{path_prefix}}/shop/{{thing.id}}&description={{thing.name}}" class="pin">Pinterest</a>
+        </dd>
+      </dl>
+      </div>
+    </div>
+  </div>
+  {%if similar_things %}
+  <div class="related">
+    <h3 class="stit">Shoppers also viewed</h3>
+    <div class="figure-list">
+      <ol class="stream">
+        {% for thing in similar_things|slice:":3" %}
+        <li class="itemElement"><a href="{{path_prefix}}/shop/{{thing.id}}">
+          <span class="figure"><img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{thing.image.url}})" /></span>
+          <span class="figcaption">
+            <b class="title">{{thing.name}}</b> 
+            <span class="price">${{thing.sale.price|amount_nodecimals|intcomma}}</span>
+            </span>
+          </span>
+        </a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  {%endif%}
+</div>
+<script>
+jQuery(function($){
+    $('#content').attr('class', 'shop');
+    if ($('.thing-detail .description_cont').removeClass('short').closest('.figcaption').height()>$('.thing-detail .figure').height()){
+      $('.description').find('.description_cont').addClass('short').end().find('.more').show();
+    }else{
+      $('.description').find('.description_cont').removeClass('short').end().find('.more').hide();
+    }
+    $(window).resize(function(){
+      if ($('.thing-detail .description_cont').removeClass('short').closest('.figcaption').height()>$('.thing-detail .figure').height()){
+        $('.description').find('.description_cont').addClass('short').end().find('.more').show();
+      }else{
+        $('.description').find('.description_cont').removeClass('short').end().find('.more').hide();
+      }
+    });
+    $('.figure .thumbnail').on('click', 'a[href]', function(event){
+        event.preventDefault();
+        $(this).closest('ul').find("a.current").removeClass('current');
+        $(this).addClass('current');
+        $('.figure figure img').attr('src', $(this).attr('data-image'));
+    });
+
+    $('select[name="option"]').on('change', function(event){
+           event.preventDefault();
+           var $selected = $(this).find(':selected');
+           if ($selected.length > 0 && $selected.data('price')) {
+                   $(this).closest('.figcaption').find('.price b').text('$' + $selected.data('price'));
+          }
+    }).change();
+
+    $('button.btn-cart').on('click', function(){
+        {%if viewer.id == seller.id%}
+        document.location.href = "https://fancy.com/merchant/products/{{thing.sale.id}}/edit?";
+        return;
+        {%endif%}
+
+        var qty = $('input[name="qty"]').val(), opt = $('select[name="option"]').val();
+        Cart.add({{thing.sale.id}}, qty, opt)
+            .then(function(data){
+                var count = 0;
+                if (data && data.items) {
+                    for (var i=0; i < data.items.length; i++) {
+                        count += data.items[i].quantity;
+                    }
+                    $('#header .btn-cart').find('.count b').text(count);
+                    goog_report_conversion('/cart');
+                }
+            })
+            .fail(function(res){
+                if(res.responseText){
+                    var json = JSON.parse(res.responseText);
+                    if(json && json.error_fields && json.error_fields[0] == 'quantity'){
+                        alert("The item(s) in your cart are all that is currently available");
+                        $('input[name="qty"]').val(json.quantity);
+                    }else{
+                        alert('Unable to add to cart. Please try again later.');
+                    }
+                }else{
+                    alert('Unable to add to cart. Please try again later.');
+                }
+            });
+    });
+        
+   {%if thing.sale.images|length > 6%}
+   (function(){
+      var $div = $('.thing-detail .figure-thumbnail');
+      var $ul = $('.thing-detail .figure-thumbnail .thumbnail');
+
+      // width of div
+      var height = $div.height();
+
+      // width of ul - width of div
+      var ulHeight = $ul.height() - height;
+
+      $div
+        .on('mouseenter', function(e) {
+          // get left offset of div on page
+          var divHeight = $div.offset().top;
+
+          $(window).on('mousemove', function(e) {
+            var top = e.pageY - divHeight;
+            // get percent of width the mouse position is at
+            var percent = top / height;
+            // set margin-left on ul to achieve a 'scroll' effect
+            $ul.css('margin-top', -(percent * ulHeight));
+          });
+        })
+        .on('mouseleave', function() {
+          // remove mousemove event
+          $(window).off('mousemove');
+        });
+   })()
+   {%endif%}
+   
+         
+});
+      
+</script>
+

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AUC Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="./_static/css/layout.css">
+<link href="./_static/css/layout.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./_static/js/common.js"></script>
+</head>
+
+<body>
+<div id="container-wrapper">
+	
+	<div id="header">
+		<a href="#" class="back">Back</a>
+		<a href="/" class="title">거래내역</a>
+	</div>
+	<div id="content">
+		<!-- content area -->
+		<div class="tab">
+			<a href="#" tab-cont="all" class="current">전체</a>
+			<a href="#" tab-cont="in">입금</a>
+			<a href="#" tab-cont="out" >출금</a>
+		</div>
+		<ul class="history">
+			<li class="out auc">
+				<b class="type">출금</b>
+				<b class="qty">200 AUC</b>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">대기</span>
+				<small class="addr">0x2dad73fb871f03b5a29e45800081cc6541537ef1</small>
+			</li>
+			<li class="in eth">
+				<b class="type">입금</b>
+				<b class="qty">56 ETH</b>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">완료</span>
+				<small class="addr">0x2dad73fb871f03b5a29e45800081cc6541537ef1</small>
+			</li>
+			<li class="in auc">
+				<b class="type">입금</b>
+				<b class="qty">200 AUC</b>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">완료</span>
+				<small class="addr">0x2dad73fb871f03b5a29e45800081cc6541537ef1</small>
+			</li>
+			<li class="out auc">
+				<b class="type">출금</b>
+				<b class="qty">200 AUC</b>
+				<span class="date">2020-07-30 12:22:38</span>
+				<span class="status">대기</span>
+				<small class="addr">0x2dad73fb871f03b5a29e45800081cc6541537ef1</small>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+jQuery(function($){
+	$('.tab a').click(function(){
+		var tabCont = $(this).attr('tab-cont');
+		if (tabCont == 'all') {
+			$('.history li').show();
+		}else{
+			$('.history').find('li').hide().end().find('li.'+tabCont).show();
+		}
+	});
+});
+
+</script>
+</body>
+
+</html>

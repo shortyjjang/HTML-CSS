@@ -1,0 +1,46 @@
+{% load pipeline_assets %}{% load i18n %}{% load humanize %}{% load seller_themes %}{% load fancy_custom_filters %}<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+    <title>{{seller_profile.brand_name}}- Orders </title>
+	<link rel="apple-touch-icon" sizes="114x114" href="{% pipeline_url '_ui/images/ios-114.png' %}">
+	<link rel="apple-touch-icon" sizes="57x57" href="{% pipeline_url '_ui/images/ios-57.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% pipeline_url '_ui/images/ios-72.png' %}">
+	<link rel="shortcut icon" href="{% pipeline_url '_ui/images/favicon.ico' %}" type="image/x-icon" />
+    {% pipeline_css 'themes/_common/css/checkout.css' %}
+	{% pipeline_compressed_js 'shop_common.min.js' %}
+    {% pipeline_compressed_js '_ui/js/main.new.min.js' %}
+    {% pipeline_i18n_js CURRENT_LANGCODE %}
+</head>
+<body>
+<div id="checkout">
+	<div class="sign signin">
+		{% if logo_url %}<h1 class="logo"><a href="{{ store_url }}"><img src="{{ logo_url }}" alt="" /></a></h1>{% endif %}
+        <h2>{% blocktrans with name=seller_profile.brand_name %}Your {{name}} Orders{% endblocktrans %}</h2>
+        <ul class="orders">
+        {% for sale_order in orders %}
+        <li>
+            <div><a href="/purchases/{{sale_order.id}}">Order #{{sale_order.order_num}}</a></div>
+            <div><label class="label">{% trans 'Order placed' %}:</label> <span class="value">{{ sale_order.date_created|localize }}</span></div>
+            <div><label class="label">{% trans 'Order total' %}:</label> <span class="value">
+                    {% with currency=sale_order.used_currency %}
+                    {{currency.symbol}}{{ sale_order.total_price|convert_currency:currency.rate|floatformat:-2|intcomma }}
+                    {% endwith %}
+            </span></div>
+            <div><label class="label">{% trans 'Order status' %}:</label> <span class="value">{{ sale_order.get_status }}</span></div>
+        </li>
+        {% empty %}
+        <p>{% trans "You have not ordered anything yet!" %}</p>
+        {% endfor %}
+        </li>
+	</div>
+    <div class="logout">
+        <a href="{% url 'store_front_logout' seller_name=owner.username %}">{% trans "Sign Out" %}</a>
+    </div>
+</div>
+<div id="fb-root"></div>
+{% include "seller_themes/_common/_tracking.html" %}
+</body>
+</html>

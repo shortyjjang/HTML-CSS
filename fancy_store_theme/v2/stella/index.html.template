@@ -1,0 +1,51 @@
+<div id="home" class="page">
+	<div class="collection-list{% if not settings.collections %} empty{% endif %}">
+		<h3>{{settings.collections_title|default:"COLLECTIONS"}}</h3>
+		<a href="{{path_prefix}}/" class="more">VIEW ALL {{settings.collections|default:"COLLECTIONS"}}</a>
+		<ul class="after inner">
+			{% if not settings.collections %}
+				{% for i in "xxx" %}
+				<li>
+					<div class="collection-item">
+						<b class="title"></b>
+						Collection cover image
+						{%if viewer.id == seller.id%}
+						<div class="empty-msg">
+							<p><b>NO ACTIVE COLLECTIONS</b>
+							<a href="http://fancy.com/merchant/themes/customize?theme_id={{custom_theme.id}}" target="_top">Customize</a> your theme to display Collections on this page</p>
+						</div>
+						{%endif%}
+					</div>
+				</li>
+				{% endfor %}
+			{% endif %}
+			{% for c in settings.collections|to_collections %}
+			<li class="collection{{forloop.counter}}" data-id="{{c.id}}">
+				<img src="{%if c.image_url%}{{c.image_url}}{%else%}{{'img/blank.gif'|common_asset_url}}{%endif%}" alt="">
+				<div class="collection-item">
+					<small class="cate">Collection #{{forloop.counter}}</small>
+					<b class="title">{{c.name}}</b>
+					<a href="{{path_prefix}}/collections/{{c.id}}" class="btn-view">VIEW</a>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{%if seller.blog_posts|length > 0 and settings.blogposts %}  
+	<div class="blogSection">
+        <ul class="blogList">
+          {%for post in seller.blog_posts|slice:settings.blogposts.count %}
+          <li class="blogElement {{settings.blogposts.type}} {{settings.blogposts.size}}"><a href="#blog-post" data-component="popup" data-seller_id="{{seller.id}}" data-blogpostid="{{post.id}}">
+		      <img src="{{'img/blank.gif'|common_asset_url}}" style="background-image:url({{post.cover_image_url}})" />
+		      <b class="title">{{post.title}}</b>
+		      <small class="date">{{post.date_created|date:"F j, Y"}}</small>
+		      <span class="description">
+		        {{post.plaintext_content|truncate_string:"200"}}
+		      </span>
+		      <small class="more">Read More</small>
+		    </a></li>
+          {%endfor%}
+        </ul>
+	  </div>
+	{%endif%}
+</div>

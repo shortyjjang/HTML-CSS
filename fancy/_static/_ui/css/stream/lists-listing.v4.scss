@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.listsection {
+	.figure {
+		position: relative;display:block;
+		img {display:block;width:100%;background: no-repeat 50% 50%;background-size: cover;border-radius:4px;}
+		.delete {
+			display:none;position:absolute;top:15px;right:15px;z-index:1;width:35px;height:35px;background: #FFFFFF;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);text-indent:-1000em;border-radius:100%;
+			&:before {content:'';position:absolute;top:50%;left:50%;width: 12px;height: 13px;margin: -7px 0 0 -5px;transform: scale(1.3);background: url('../../images/svg/ic-detail.svg') no-repeat -20px 0;background-size: 200px 200px;}
+		}
+		.move {position:absolute;top: 0;right:0;background: no-repeat url('../../images/svg/ic_move.svg') 50% 50% rgba(0,0,0,0.2);background-size: 28px 28px;width: 100%;height: 100%;cursor: move;display:none;opacity:0.7;border-radius:4px;}
+	}
+	a {color:#3F434B;}
+	.title {display:block;font-size:18px;line-height:25px;padding-top:12px;}
+	.description {display:block;font-size:16px;line-height:22px;height:44px;overflow:hidden;}
+}
+body:not(.touchscreen) .listsection:hover .figure {
+	.delete, &:hover .move {display:block;}
+}
+@media screen and (max-width: 900px) {
+	.listsection {
+		.figure img {width:85.27%;padding-right:14.73%;}
+		.title {font-size:16px;line-height:22px;padding-top:8px;}
+		.description {font-size:15px;line-height:20px;height:auto;max-height:80px;}
+	}
+}

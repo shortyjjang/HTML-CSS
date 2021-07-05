@@ -1,0 +1,9 @@
+<td><a href="/merchant/orders/management/detail/<%= id_str %>">#<%= id_str %></a> <% if (is_vip) { %><span class="label vip">VIP</span><% } %></td>
+<td class="qty"><%= formatInteger(quantity) %></td>
+<td><a href="<%= customer.html_url %>"><%= customer.username %></a></td>
+<td>
+	<% if(note) {%>
+	<a href="#" class="tooltip note"><i class="icon"></i><em><b>Note</b> <%= note %></em></a>
+	<% } %>
+</td>
+<td class="dis"><a href="#" poi-id="<%= id_str %>">Disassociate</a></td>

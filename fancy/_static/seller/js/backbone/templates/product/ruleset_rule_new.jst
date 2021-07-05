@@ -1,0 +1,10 @@
+<td class="professions"><%if('102' in rule.condition.tags){%>
+    <%if(rule.condition.tags['102'].length){%><%-rule.condition.tags['102'].join(", ")%><%}else{%>All professions<%}%>
+<%}else{%><a>Select profession</a><%}%></td>
+<td class="regions"><%if('103' in rule.condition.tags){%>
+    <%if(rule.condition.tags['103'].length){%><%-rule.condition.tags['103'].join(", ")%><%}else{%>All regions<%}%>
+<%}else{%><a>Select region</a><%}%></td>
+<td>
+    <span class="price"><input class="only-number text" name="value" data-max-value="100" data-min-value="0" type="text" value="<%-rule.value%>" <%if(readonly){%>readonly<%}%>><small class="unit">%</small></span>
+    <%if(!readonly){%><a class="btn-del tooltip"><em>Delete</em></a><%}%>
+</td>

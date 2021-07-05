@@ -1,0 +1,7 @@
+<% if( maxPage > 1 ) { %>
+	<a href="<%= getPageURL(currentPage - 1) %>" class="prev <% if (currentPage <= 1) { %>disabled<% } %>"><%= gettext('Prev') %></a>
+	<a href="<%= getPageURL(currentPage + 1) %>" class="next <% if (currentPage >= maxPage) { %>disabled<% } %>"><%= gettext('Next') %></a>
+	<% _.each(_.range(Math.max(1, currentPage - 2), Math.min(maxPage, currentPage + 2) + 1), function(page) { %>
+	    <a href="<%= getPageURL(page) %>" class="<% if (currentPage == page) { %>current<% } %>"><%= page %></a>
+	<% }) %>
+<% } %>

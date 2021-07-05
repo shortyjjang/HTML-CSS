@@ -1,0 +1,64 @@
+<div class="f_circleG frotateG_01"></div>
+<div class="f_circleG frotateG_02"></div>
+<div class="f_circleG frotateG_03"></div>
+<div class="f_circleG frotateG_04"></div>
+<div class="f_circleG frotateG_05"></div>
+<div class="f_circleG frotateG_06"></div>
+<div class="f_circleG frotateG_07"></div>
+<div class="f_circleG frotateG_08"></div>
+<ul class="viewer">
+    <li><a href="#" <% if (chartType == 'area') { %>class="current"<% } %> chart-type="area"><i class="icon graph"></i> Overview</a></li>
+    <li><a href="#" <% if (chartType == 'map') { %>class="current"<% } %> chart-type="map"><i class="icon map"></i> Map</a></li>
+    <li style="float: right;padding-right: 10px;"><a href="/merchant/insights.pdf?range=<%=range%>&date_from=<%=dateFrom%>&date_to=<%=dateTo%><%if (user.attributes.is_admin_senior || user.attributes.is_admin_any){%>&seller_id=<%= user.attributes.id_str%><%}%>" target="_blank" class="export"><i class="icon export"></i> Export</a></li>
+</ul>
+<ul class="type">
+    <li><a href="#" <% if (logType == 'impressions') { %>class="current"<% } %> log-type="impressions">
+        <b>
+        <% if (summary.current_values.impressions < 1000000) {%>
+            <%= numeral(summary.current_values.impressions).format("0,0a") %>
+        <% } else {%>
+            <%= numeral(summary.current_values.impressions).format("0,0a").toUpperCase() %>
+        <% } %>
+        </b> <label>Impressions</label></a></li>
+    <li><a href="#" <% if (logType == 'view') { %>class="current"<% } %> log-type="view">
+        <b>
+        <% if (summary.current_values.view < 1000000) { %>
+            <%= numeral(summary.current_values.view).format("0,0a") %>
+        <% } else { %>
+            <%= numeral(summary.current_values.view).format("0,0a").toUpperCase() %>
+        <% } %>
+        </b> <label>Clicks</label></a></li>
+    <li><a href="#" <% if (logType == 'fancyd') { %>class="current"<% } %> log-type="fancyd">
+        <b>
+        <% if (summary.current_values.fancyd < 1000000) { %>
+            <%= numeral(summary.current_values.fancyd).format("0,0a") %>
+        <% } else { %>
+            <%= numeral(summary.current_values.fancyd).format("0,0a").toUpperCase() %>
+        <% } %>
+        </b> <label>Fancys</label></a></li>
+    <li><a href="#" <% if (logType == 'orders') { %>class="current"<% } %> log-type="orders"><b><%= numeral(summary.current_values.orders).format("0,0") %></b> <label>Orders</label></a></li>
+    <li><a href="#" <% if (logType == 'sales') { %>class="current"<% } %> log-type="sales"><b><%= numeral(summary.current_values.sales).format("$0,0.00") %></b> <label>Sales</label></a></li>
+    <% if ( typeof summary.current_values.sf_affiliate_sales_revenue != 'undefined'){ %>
+        <li><a href="#" <% if (logType == 'sf_affiliate_sales_revenue') { %>class="current"<% } %> log-type="sf_affiliate_sales_revenue"><b><%= numeral(summary.current_values.sf_affiliate_sales_revenue).format("$0,0.00") %></b> <label>Affiliate Sales</label></a></li>
+    <% } %>
+    <% if ( typeof summary.current_values.sf_affiliate_sales_commission != 'undefined'){ %>
+        <li><a href="#" <% if (logType == 'sf_affiliate_sales_commission') { %>class="current"<% } %> log-type="sf_affiliate_sales_commission"><b><%= numeral(summary.current_values.sf_affiliate_sales_commission).format("$0,0.00") %></b> <label>Affiliate Sales Commission</label></a></li>
+    <% } %>
+</ul>
+<div class="chart">
+    <h3>Total <% if (logType == 'view') { %>Clicks<% } else if (logType == 'fancyd') { %>Fancys<% } else if (logType == 'orders') { %>Orders<% } else if (logType == 'impressions') { %>Impressions <small>Store impression data only available beginning in May 2017</small><% } else if (logType == 'sf_affiliate_sales_commission') {%>Affiliate Sales Commission<%} else if (logType == 'sf_affiliate_sales_revenue') {%>Affiliate Sales<%} else {%>Sales<% } %></h3>
+    <% if (chartType == "map") { %>
+        <div class="map">
+            <button class="btns-white btn-close" style="display:none"><i class="icon"></i></button>
+            <div class='chart-content'></div>
+        </div>
+    <% } else if (chartType == "area") { %>
+        <span class="tooltip">
+            <div class="date"></div>
+            <b class="value"></b>
+        </span>
+        <div class="graph">
+            <svg class="line"></svg>
+        </div>
+    <% } %>
+</div>

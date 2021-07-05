@@ -1,0 +1,23 @@
+<ol class="stream after" ts="" loc="shop-cake">
+    <% _.each(products, function(product) { %>
+        <li tid="<%= product.thing_id_str %>" uid="<%= product.seller_id %>" tname="<%= product.name %>" timage="<%= product.image_url %>" username="<%= product.seller %>">
+            <div class="figure-item" data-id="220849">
+                <figure>
+                    <a href="#" id="<%= product.thing_id_str %>">
+                        <span class="back"></span>
+                        <span class="figure" style="background-image:url(<%= product.image_310_url %>)" data-ori-url="<%= product.image_url %>" data-310-url="<%= product.image_310_url %>"></span>
+                    </a>
+                </figure>
+                <figcaption>
+                    <a href="#" id="<%= product.thing_id_str %>" class="title"><%= product.name %></a>
+                    <em class="figure-detail">
+                        <span class="username">by <a href="/<%= product.seller %>"><%= product.seller %></a></span>
+                        <span class="price"><small>Price</small> <b><%= numeral(product.price).format("$0,0.00") %></b></span>
+                        <span class="commission"><small>Commission</small> <b><%= numeral(product.commission).format("$0,0.00") %></b></span>
+                    </em>
+                </figcaption>
+            </div>
+        </li>
+    <% }) %>
+    
+</ol>

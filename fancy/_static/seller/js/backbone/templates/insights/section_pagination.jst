@@ -1,0 +1,19 @@
+<% if( maxPage > 1 ) { %>
+	<a href="#" page="<%= (currentPage - 1) %>" class="prev <% if (currentPage <= 1) { %>disabled<% } %>"><%= gettext('Prev') %></a>
+	<a href="#" page="<%= (currentPage + 1) %>" class="next <% if (currentPage >= maxPage) { %>disabled<% } %>"><%= gettext('Next') %></a>
+	<% if( Math.max(1, currentPage - 5) > 1 ) { %>
+		<a href="#" page="1"><%= 1 %></a>
+		<% if( Math.max(1, currentPage - 5) > 2 ) { %>
+		...
+		<% } %>
+	<% } %>
+	<% _.each(_.range(Math.max(1, currentPage - 5), Math.min(maxPage, currentPage + 5) + 1), function(page) { %>
+	    <a href="#" page="<%= page %>" class="<% if (currentPage == page) { %>current<% } %>"><%= page %></a>
+	<% }) %>
+	<% if( Math.min(maxPage, currentPage + 5) < maxPage ) { %>
+		<% if( Math.min(maxPage, currentPage + 5) < maxPage-1 ) { %>
+		...
+		<% } %>
+		<a href="#" page="<%= maxPage %>"><%= maxPage %></a>
+	<% } %>
+<% } %>

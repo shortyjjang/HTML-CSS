@@ -1,0 +1,38 @@
+<ul class="range">
+    <li>
+        <span class="label">Added to Cart</span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral(total_cart/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= total_cart %></small>
+        <span class="gauge" style="width:<%= total_cart/total_view * 100 %>%"></span>
+    </li>
+    <li>
+        <span class="label">Reached Checkout</span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral(total_checkout/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= total_checkout %></small>
+        <span class="gauge" style="width:<%= total_checkout/total_view * 100 %>%"></span>
+    </li>
+    <li>
+        <span class="label">Purchased</span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral(total_order/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= total_order %></small>
+        <span class="gauge" style="width:<%= total_order/total_view * 100 %>%"></span>
+    </li>
+</ul>

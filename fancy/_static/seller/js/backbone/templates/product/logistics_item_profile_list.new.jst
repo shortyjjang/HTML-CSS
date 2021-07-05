@@ -1,0 +1,41 @@
+<table class="tb-type4 sales">
+    <colgroup>
+        <col style="width:33px;" />
+        <col style="*" />
+        <col style="width:86px;" />
+        <col style="width:58px;" />
+        <col style="width:72px;" />
+        <col style="width:102px;" />
+        <% if (isViewerAdmin) { %>
+            <col style="width:34px;" />
+            <col style="width:64px;" />
+            <col style="width:77px;" />
+        <% } %>
+    </colgroup>
+    <thead>
+        <tr>
+            <th class="check">
+                <input type="checkbox" class="select-all-item-profiles" />
+            </th>
+            <th class="title">
+                <%= gettext('Title') %>
+            </th>
+            <th class="id"><%= gettext('Sale ID') %></th>
+            <th class="order"><%= gettext('Orders') %></th>
+            <th class="fancy"><%= gettext('Fancy') %> <i class="icon"></i></th>
+            <th class="warehouse"><%= gettext('Warehouse') %> <i class="icon"></i></th>
+            <% if (isViewerAdmin) { %>
+                <th class="change">
+                    <span class="tooltip">
+                        <i class="icon"></i>
+                        <em><%= gettext('Cross shipping') %></em>
+                    </span>
+                </th>
+                <th class="link"><%= gettext('Link') %></th>
+                <th class="tag"><%= gettext('Tag') %></th>
+            <% } %>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

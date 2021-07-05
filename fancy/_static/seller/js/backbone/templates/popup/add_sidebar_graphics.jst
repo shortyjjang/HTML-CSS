@@ -1,0 +1,23 @@
+<p class="ltit">Sidebar graphic</p>
+<div class="frm">
+    <div class="additional">
+        <span class="figure" <%if(image_url){%>data-image_url="<%-image_url%>"<%}%>>
+            <img src="/_ui/images/common/blank.gif" style=" <%if(!image_url){%>opacity:0;<%}%>background-image:url('<%-image_url||'none'%>')" alt="<%-title%>">
+            <input type="file" name="upload-file">
+            <em class="infscr-loading" style="display:none"><span class="loading">Loading</span></em>
+            <a href="#" class="btn-del" <%if(!image_url){%>style='display:none'<%}%>>Remove</a>
+        </span>
+        <small class="comment">Transparent PNG<br /> Images will be resized.</small>
+    </div>
+    <p><input type="text" placeholder="Graphic title" name="title" value='<%-title%>'/></p>
+    <p><input type="text" placeholder="Short Description" name="short_description" value='<%-short_description%>'/></p>
+    <p><textarea placeholder="Long Description" name="description"><%-description%></textarea></p>
+</div>
+<div class="btn-area">
+    <%if(image_url){%>
+    <button class="btns-gray-embo btn-delete">Delete</button>
+    <%}%>
+    <button class="btns-gray-embo btn-close">Cancel</button>
+    <button class="btns-blue-embo btn-save">Save Graphic</button>
+</div>
+<button class="ly-close" title="Close"><i class="ic-del-black"></i></button>

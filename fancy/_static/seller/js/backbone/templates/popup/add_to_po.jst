@@ -1,0 +1,15 @@
+<p class="ltit">Add to Current PO</p>
+<div class="ltxt">
+	<fieldset>
+		<label>PO ID</label>
+		<select class="po-id">
+		<% _.each(purchaseOrders, function(po) { %>
+        	<option value="<%=po.get('id')%>">#<%=po.get('id')%></option>
+		<% }) %>
+		</select>
+	</fieldset>
+	<div class="btn-area">
+		<button class="btns-blue-embo btn-add">Add</button>
+	</div>
+</div>
+<button class="ly-close" title="Close"><i class="ic-del-black"></i></button>

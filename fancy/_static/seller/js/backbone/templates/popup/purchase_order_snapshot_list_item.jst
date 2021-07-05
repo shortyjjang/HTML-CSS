@@ -1,0 +1,37 @@
+<td><a href="<%= product.html_url %>">#<%= item_number %></a></td>
+<td class="title">
+    <img src="/_static/_ui/images/common/blank.gif" style="background-image:url(<%= product.image_url %>);" alt="">
+    <%= product.title %><br>
+    <% if (has_vip_order) { %>
+        <span class="label vip">VIP</span>
+    <% } %>
+    <% if (product.personalizable) { %>
+        <span class="label personalized">PERSONALIZED</span>
+    <% } %>
+    <% if (sale_item_option) { %>
+        <small class="option"><%= sale_item_option.title %>(#<%= sale_item_option.id_str %>)</small>
+    <% } %>
+</td>
+<td class="quantity" current-value="<%= formatInteger(quantity) %>"><%= formatInteger(quantity) %></td>
+<td><%= formatInteger(vip_quantity) %></td>
+<td>
+    <input type="text" item-no="<%= item_number %>" class="quantity" min-quantity="<%= min_quantity %>" current-value="<%= quantity %>" value="<%= quantity %>" name='quantity' disabled>
+</td>
+<!--
+<td>
+    <input type="text" class="unit-cost" value="5.00" default-value="5.00" disabled>
+</td>
+<td>
+    <input type="text" class="unit-discount-value" value="0" placeholder="USD">
+</td>
+<td>
+    <input type="text" class="unit-total" value="5.00" disabled="">
+</td>
+<td>
+    <select class="currency">
+        <% _.each(currencies, function(currency) { %>
+            <option value="<%= currency.code %>" <% if (currency.code == 'USD') { %> selected <% } %>><%= currency.code %></option>
+        <% }) %>
+    </select>
+</td>
+-->

@@ -1,0 +1,136 @@
+.after:after {content:'';clear:both;display:block;}
+#printArea {
+	background:#fff;
+	color:#000;
+	.content {
+		position:relative;
+		width:800px;
+		margin:0 auto;
+		padding: 70px 20px;
+		page-break-before:always;
+	}
+	h1 {
+		font-size:30px;
+		line-height:36px;
+		padding-bottom:29px;
+		&:before {
+			content:'';
+			width:182px;
+			height:36px;
+			float:right;
+			background: url("../../images/svg/print-fancy.svg") no-repeat;
+		}
+	}
+	.order-title {
+		&:after {@extend .after:after;}
+		dl {
+			font-size: 14px;
+			line-height: 22px;
+			padding-bottom: 40px;
+			&.address {
+				float:left;
+				width:50%;
+			}
+			&:after {@extend .after:after;}
+		}
+		dt {
+			float:left;
+			clear:both;
+			width:155px;
+			padding: 1px 0;
+			font-size: 15px;
+			font-weight: bold;
+		}
+		dd {
+			float:left;
+			width:calc(100% - 155px);
+			padding:2px 0;
+		}
+	}
+	.order-detail {
+		border-top:2px solid #000;
+		font-size: 14px;
+		padding-bottom:40px;
+		line-height: 22px;
+		> ul {
+			padding: 12px 0;
+			border-bottom:1px solid rgba(0,0,0,0.1);
+			b {font-size:15px;}
+		}
+		.cart-list {
+			&:after {@extend .after:after;}
+			&:nth-child(2) li b {display:block;}
+			li {
+				position:relative;
+				float:right;
+				width: 120px;
+				text-align: right;
+				b {
+					position:absolute;
+					bottom:100%;
+					left:0;
+					width:100%;
+					padding: 0 0 25px;
+					display: none;
+				}
+				&.title {
+					float:left;
+					width: calc(100% - 360px);
+					text-align: left;
+					b {
+						display:block;
+						padding:0;
+						position:static;
+					}
+				}
+			}
+		}
+		.detail {
+			padding:0;
+			border:0;
+			li {
+				padding: 12px 0;
+				border-bottom:1px solid rgba(0,0,0,0.1);
+				b {
+					float:left;
+					width:155px;
+				}
+				&:after {@extend .after:after;}
+			}
+		}
+		.total-frm {
+			ul {
+				float:right;
+				min-width:265px;
+			}
+			li {
+				padding: 12px 0;
+				border-top:1px solid rgba(0,0,0,0.1);
+				&:first-child {border-top:0;}
+				&:after {@extend .after:after;}
+				&.total {
+					border-bottom:2px solid #000;
+					border-top:2px solid #000;
+				}
+				label {
+					float:left;
+					font-weight:bold;
+					font-size:15px;
+				}
+				span {float:right;}
+			}
+		}
+	}
+}
+@media print {
+	body {
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+	}
+}
+@page {
+	size:portrait;
+	-webkit-print-color-adjust: exact !important;
+	print-color-adjust: exact !important;
+}
+

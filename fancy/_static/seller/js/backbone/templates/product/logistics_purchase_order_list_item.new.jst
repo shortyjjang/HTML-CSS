@@ -1,0 +1,16 @@
+<td class="check"><input type="checkbox" name='select'></td>
+<td class="id">#<%= id_str %></td>
+<td class="status"><span class="status <%= status.toLowerCase() %>"><%= status %></span></td>
+<td class="ref"><% if (order_ref_num) {%>#<%= order_ref_num %><% } %></td>
+<td class="ships"><%= carrier_display || '-' %></td>
+<td class="tracking">
+    <% if (tracking_id) { %>
+    #<%= tracking_id %>
+    <% } %>
+</td>
+<td class="date"><%= moment.utc(date_last_modified).format("lll") %></td>
+<td class="btns">
+    <% _.each(FancyBackbone.Models.PurchaseOrder.PurchaseOrder.getListItemActionByStatusAndItem(status, 1), function(action) { %>
+        <a href="#" action="<%= action %>" class="btn-<%= action %> tooltip"><em style="margin-left: -25px;"><%= gettext(_.str.capitalize(action)) %></em><i class="icon"></i></a>
+    <% }) %>
+</td>

@@ -1,0 +1,1664 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<title>Fancy Seller API &mdash; Fancy Seller API documentation</title>
+	<link rel="stylesheet" href="_static/nature.css" type="text/css" />
+	<link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+	<link rel="stylesheet" href="_static/doc.css" type="text/css" />
+	<script type="text/javascript">
+		var DOCUMENTATION_OPTIONS = {
+			URL_ROOT:    './',
+			VERSION:     '1.0',
+			COLLAPSE_INDEX: false,
+			FILE_SUFFIX: '.html',
+			HAS_SOURCE:  true
+		};
+	</script>
+	<script type="text/javascript" src="_static/jquery.js"></script>
+	<script type="text/javascript" src="_static/underscore.js"></script>
+	<script type="text/javascript" src="_static/doctools.js"></script>
+	<link rel="top" title="Fancy Seller API documentation" href="#" /> 
+</head>
+<body>
+<div id="container-wrapper">
+	<div class="related">
+		<h3>Navigation</h3>
+		<ul>
+			<li class="right" style="margin-right: 10px"><a href="genindex.html" title="General Index" accesskey="I">index</a></li>
+			<li><a href="#">Fancy Seller API documentation</a> &raquo;</li> 
+		</ul>
+	</div>  
+<div class="container document">
+	<div class="documentwrapper" id="content">
+		<div class="bodywrapper">
+			<div class="body">
+				<div class="section" id="fancy-seller-api">
+					<h1>Fancy Seller API<a class="headerlink" href="#fancy-seller-api" title="Permalink to this headline">Permalink</a></h1>
+					<div class="toctree-wrapper compound">
+						<ul class="simple"></ul>
+					</div>
+					<p>To make an API request, you must prefix the url with <tt class="docutils literal"><span class="pre">https://api.fancy.com/rest-api/v1/seller/{seller-id}/</span></tt>and send your API token as a parameter. All request/response formats are JSON.</p>
+					<div class="source">
+						<p class="tit">GET request example:</p>
+<pre><span class="yellow">GET</span> /rest-api/v1/seller/1001/dashboard/summary/daily?token=APITOKEN
+<span class="green">Host</span>: <span class="blue">api.fancy.com</span></pre>
+					</div>
+					<div class="source">
+						<p class="tit">POST request example:</p>
+<pre><span class="yellow">POST</span> /rest-api/v1/seller/1001/products/
+<span class="green">Host</span>: <span class="blue">api.fancy.com</span>
+Content-Type: application/json
+
+{ <span class="green">"token"</span>: <span class="blue">"APITOKEN"</span>, <span class="green">"title"</span>: <span class="blue">"New Item"</span>, <span class="green">"price"</span>: <span class="blue">"19.80"</span>, ... }</pre>
+					</div>
+					<div class="section" id="dashboard-summary">
+						<h2>Dashboard Summary<a class="headerlink" href="#dashboard-summary" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSummaryView"><em class="property">class </em><tt class="descname">DashboardSummaryView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSummaryView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSummaryView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSummaryView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Summary</p>
+										<ul>
+											<li>
+												<dl class="first docutils">
+													<dt>URL</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>dashboard/summary/<strong>{range}</strong>/</li>
+															<li>dashboard/summary/specific/<strong>{date_from}</strong>/<strong>{date_to}</strong>/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{range}</strong>: one of &#8220;daily&#8221;, &#8220;weekly&#8221;, &#8220;monthly&#8221;, &#8220;24h&#8221;, &#8220;7d&#8221;, &#8220;30d&#8221;, &#8220;12m&#8221;.</li>
+															<li><strong>{date_from}</strong>, <strong>{date to}</strong>: 8 characters string as <strong>YYYYMMDD</strong> format</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>
+																/dashboard/summary/
+															</li>
+															<li>
+																/dashboard/summary/weekly/
+															</li>
+															<li>
+																/dashboard/summary/12m/
+															</li>
+															<li>
+																/dashboard/summary/specific/20140101/20150301/
+															</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"range"</span>: one of "daily", "weekly", "monthly", "24h", "7d", "30d", "12m" (string),
+    <span class="green">"date_from_str"</span> : start date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"date_to_str"</span>: end date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"current_values"</span>: {
+        <span class="green">"sales"</span>: sales count in this range (number),
+        <span class="green">"fancyd"</span>: fancyd count in this range (number),
+        <span class="green">"orders"</span>: orders count in this range (number),
+        <span class="green">"view"</span>: view count in this range (number)
+    },
+    <span class="green">"prev_values"</span>: {
+        <span class="green">"sales"</span>: sales count in previous range (number),
+        <span class="green">"fancyd"</span>: fancyd count in previous range (number),
+        <span class="green">"orders"</span>: orders count in previous range (number),
+        <span class="green">"view"</span>: view count in this previous (number)
+    }
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="dashboard-area-chart">
+						<h2>Dashboard Area Chart<a class="headerlink" href="#dashboard-area-chart" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardAreaChartDataView"><em class="property">class </em><tt class="descname">DashboardAreaChartDataView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardAreaChartDataView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardAreaChartDataView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardAreaChartDataView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Area Chart</p>
+										<ul>
+											<li>
+												<dl class="first docutils">
+													<dt>URL</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>dashboard/area-chart-data/<strong>{log_type}</strong>/<strong>{range}</strong>/</li>
+															<li>dashboard/area-chart-data/<strong>{log_type}</strong>/specific/<strong>{date_from}</strong>/<strong>{date_to}</strong>/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{log_type}</strong>: one of &#8220;view&#8221;, &#8220;fancyd&#8221;, &#8220;orders&#8221;, &#8220;sales&#8221;</li>
+															<li>
+																<strong>{range}</strong>: one of &#8220;daily&#8221;, &#8220;weekly&#8221;, &#8220;monthly&#8221;, &#8220;7d&#8221;, &#8216;30d&#8221;, &#8220;12m&#8221;.
+															</li>
+															<li><strong>{date_from}</strong>, <strong>{date to}</strong>: 8 characters string as <strong>YYYYMMDD</strong> format</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/dashboard/area-chart-data/fancyd/daily
+															</li>
+															<li>
+																/dashboard/area-chart-data/orders/12m
+															</li>
+															<li>/dashboard/area-chart-data/sales/specific/20140101/20150301</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+										</ul>
+										<p>HTTP Method: <strong>GET</strong></p>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"range"</span>: one of <span class="green">"daily"</span>, <span class="green">"weekly"</span>, <span class="green">"monthly"</span>, <span class="green">"7d"</span>, <span class="green">"30d"</span>, <span class="green">"12m"</span> or <span class="green">"specific"</span> (string),
+    <span class="green">"date_from_str"</span> : start date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"date_to_str"</span>: end date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"data"</span>: [
+        {
+            <span class="green">"date"</span>: "2015-01-01 00:00:00",
+            <span class="green">"value"</span>: 2
+        },
+        {
+            <span class="green">"date"</span>: "2015-02-01 00:00:00",
+            <span class="green">"value"</span>: 15
+        }
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="dashboard-shop-activity">
+						<h2>Dashboard Shop Activity<a class="headerlink" href="#dashboard-shop-activity" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardShopActivityListView"><em class="property">class </em><tt class="descname">DashboardShopActivityListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardShopActivityListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardShopActivityListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardShopActivityListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Shop Activity</p>
+										<ul>
+											<li><p class="first">URL: dashboard/shop-activity?page={page}</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{page}</strong>: page number</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/dashboard/shop-activity/</li>
+															<li>/dashboard/shop-activity?page=2</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+										</ul>
+										<p>HTTP Method: <strong>GET</strong></p>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"max_page"</span>: max page number,
+    <span class="green">"current_page"</span>: current page number,
+    <span class="green">"shop_activities"</span>: [
+        {
+            <span class="green">"id"</span>: id (number),
+            <span class="green">"id_str"</span>: "id" (string),
+            <span class="green">"date"</span>: "YYYY-MM-DD HH:mm:SS",
+            <span class="green">"status"</span>: (TODO),
+            <span class="green">"order_id"</span>: order_id (number),
+            <span class="green">"order_id_str"</span>: "order_id" (string),
+            <span class="green">"order"</span>: {
+                <span class="green">"quantity"</span>: number,
+                <span class="green">"is_gift"</span>: true or false,
+                <span class="green">"total_price"</span>: decimal number string,
+                <span class="green">"is_vip"</span>: true or false
+            }
+            <span class="green">"customer": {
+                <span class="green">"img_url"</span>: url string,
+                <span class="green">"username"</span>: string,
+                <span class="green">"name"</span>: string
+            },
+            <span class="green">"sale_item"</span>: {
+                <span class="green">"id"</span>: id,
+                <span class="green">"id_str"</span>: <span class="green">"id"</span> (string),
+                <span class="green">"num_available"</span>: number,
+                <span class="green">"title"</span>: string
+            }
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="dashboard-best-sellers">
+						<h2>Dashboard Best Sellers<a class="headerlink" href="#dashboard-best-sellers" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardBestSellerListView"><em class="property">class </em><tt class="descname">DashboardBestSellerListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardBestSellerListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardBestSellerListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardBestSellerListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Best Sellers</p>
+										<ul>
+											<li>
+												<dl class="first docutils">
+													<dt>URL</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>dashboard/best-sellers/<strong>{range}</strong>/</li>
+															<li>dashboard/best-sellers/specific/<strong>{date_from}</strong>/<strong>{date_to}</strong>/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{range}</strong>: one of &#8220;daily&#8221;, &#8220;weekly&#8221;, &#8220;monthly&#8221;, &#8220;24h&#8221;, &#8220;7d&#8221;, &#8220;30d&#8221;, &#8220;12m&#8221;.
+															</li>
+															<li>
+																<strong>{date_from}</strong>, <strong>{date to}</strong>: 8 characters string as <strong>YYYYMMDD</strong> format</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/dashboard/best-sellers/
+															</li>
+															<li>
+																/dashboard/best-sellers/weekly/
+															</li>
+															<li>
+																/dashboard/best-sellers/12m/
+															</li>
+															<li>
+																/dashboard/best-sellers/specific/20140101/20150301/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"range"</span>: one of "daily", "weekly", "monthly", "24h", "7d", "30d", "12m" or "specific" (string),
+    <span class="green">"date_from_str"</span> : start date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"date_to_str"</span>: end date (date format string, YYYY-MM-DD HH:mm:ss),
+    <span class="green">"best_sellers"</span>: [
+        {
+            <span class="green">"quantity_ordered"</span>: number,
+            <span class="green">"total_revenue"</span>: decimal number string,
+            <span class="green">"sale_item"</span>: {
+                <span class="green">"id"</span>: id (number),
+                <span class="green">"id_str"</span>: "id" (string),
+                <span class="green">"title"</span>: string,
+                <span class="green">"price"</span>: decimal number string,
+                <span class="green">"img_url"</span>: url string
+            }
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="dashboard-referrals">
+						<h2>Dashboard Referrals<a class="headerlink" href="#dashboard-referrals" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardReferralListView"><em class="property">class </em><tt class="descname">DashboardReferralListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardReferralListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardReferralListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardReferralListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Referrals</p>
+										<ul>
+											<li>
+												<dl class="first docutils">
+													<dt>URL</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>dashboard/referrals/<strong>{range}</strong>/
+															</li>
+															<li>dashboard/referrals/specific/<strong>{date_from}</strong>/<strong>{date_to}</strong>/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{range}</strong>: one of &#8220;daily&#8221;, &#8220;weekly&#8221;, &#8220;monthly&#8221;, &#8220;24h&#8221;, &#8220;7d&#8221;, &#8220;30d&#8221;, &#8220;12m&#8221;.
+															</li>
+															<li>
+																<strong>{date_from}</strong>, <strong>{date to}</strong>: 8 characters string as <strong>YYYYMMDD</strong> format</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/dashboard/referrals/
+															</li>
+															<li>
+																/dashboard/referrals/30d or /dashboard/referrals/12m/
+															</li>
+															<li>
+																/dashboard/referrals/specific/20140101/20150301/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+										</ul>
+										<p>HTTP Method: <strong>GET</strong></p>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"max_page"</span>: max page number,
+    <span class="green">"current_page"</span>: current page number,
+    <span class="green">"traffic_sources"</span> : [
+        {
+            <span class="green">"count"</span>: number,
+            <span class="green">"mobile_count"</span>: number,
+            <span class="green">"source"</span>: string
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="dashboard-search-history">
+						<h2>Dashboard Search History<a class="headerlink" href="#dashboard-search-history" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSearchKeywordView"><em class="property">class </em><tt class="descname">DashboardSearchKeywordView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSearchKeywordView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSearchKeywordView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSearchKeywordView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Dashboard Search History</p>
+										<ul>
+											<li>
+												<dl class="first docutils">
+													<dt>URL</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>dashboard/search-history/<strong>{range}</strong>/
+															</li>
+															<li>
+																dashboard/search-history/specific/<strong>{date_from}</strong>/<strong>{date_to}</strong>/</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{range}</strong>: one of &#8220;daily&#8221;, &#8220;weekly&#8221;, &#8220;monthly&#8221;, &#8220;24h&#8221;, &#8220;7d&#8221;, &#8220;30d&#8221;, &#8220;12m&#8221;
+															</li>
+															<li>
+																<strong>{date_from}</strong>, <strong>{date to}</strong>: 8 characters string as <strong>YYYYMMDD</strong> format</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+
+												<dl class="first docutils">
+												  <dt>Example</dt>
+												  <dd>
+												    <ol class="first last arabic simple">
+												      <li>
+													/dashboard/search-history
+												      </li>
+												      <li>
+													/dashboard/search-history/30d
+												      </li>
+												      <li>
+													/dashboard/search-history/12m
+												      </li>
+												      <li>
+													 /dashboard/search-history/specific/20140101/20150301/
+												      </li>
+												    </ol>
+												  </dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p></li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="green">"search_str"</span><span class="p">:</span> <span class="n">string</span><span class="p">,</span>
+        <span class="green">"sum_count"</span><span class="p">:</span> <span class="n">number</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="orders">
+						<h2>Orders<a class="headerlink" href="#orders" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderListView"><em class="property">class </em><tt class="descname">SellerOrderListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Orders</p>
+										<ul>
+											<li><p class="first">URL: orders/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>per_page</strong>: orders per page number
+															</li>
+															<li>
+																<strong>page</strong>: current page number
+															</li>
+															<li>
+																<strong>filter</strong>: one of &#8220;all&#8221;, &#8220;open&#8221;, &#8220;completed&#8221;, &#8220;canceled&#8221;
+															</li>
+															<li>
+																<strong>search</strong>: search string
+															</li>
+															<li>
+																<strong>sort[sort]</strong>: one of &#8220;id&#8221;, &#8220;total_price&#8221;
+															</li>
+															<li>
+																<strong>sort[ascending]</strong>: &#8220;true&#8221; or &#8220;false&#8221;</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/orders?per_page=20&amp;page=1
+															</li>
+															<li>
+																/orders?page_page=20&amp;page=1&amp;filter=canceled&amp;sort[sort]=total_price&amp;sort[asceding]=false</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"current_page"</span> : number,
+    <span class="green">"max_page"</span> : number,
+    <span class="green">"orders"</span>: [
+        {
+            <span class="green">"id"</span> : id (number),
+            <span class="green">"id_str"</span> : "id" (string),
+            <span class="green">"quantity"</span> : number,
+            <span class="green">"note"</span> : order note string,
+            <span class="green">"customer"</span> : {
+                <span class="green">"id"</span> : id (number),
+                <span class="green">"id_str"</span> : "id" (string),
+                <span class="green">"username"</span> : username string,
+                <span class="green">"fullname"</span> : fullname string,
+                <span class="green">"html_url"</span> : fancy profile url string,
+            },
+            <span class="green">"channel"</span> : string,
+            <span class="green">"total"</span> : decimal number string,
+            <span class="green">"date"</span> : "YYYY-MM-DD HH:mm:SS"
+            <span class="green">"net_total"</span> : decimal number string,
+            <span class="green">"is_vip"</span> : true or false,
+            <span class="green">"status"</span> : number,
+            <span class="green">"status_str"</span> : string
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="order-detail">
+						<h2>Order Detail<a class="headerlink" href="#order-detail" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView"><em class="property">class </em><tt class="descname">SellerOrderDetailView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Order Detail</p>
+										<ul>
+											<li><p class="first">URL: orders/<strong>{order_id}</strong></p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>order_id</strong>: order_id number</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /orders/1</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Order &#8216;status_id&#8217; and &#8216;status&#8217; value (on Returned JSON):</dt>
+													<dd>
+														<ul class="first last simple">
+															<li>(0, &#8220;Order received&#8221;)
+															</li>
+															<li>
+																(1, &#8220;Payment flagged&#8221;)
+															</li>
+															<li>
+																(2, &#8220;Payment received&#8221;)
+															</li>
+															<li>
+																(3, &#8220;Payment refunded&#8221;)
+															</li>
+															<li>
+																(4, &#8220;Order cancelled by Seller&#8221;)
+															</li>
+															<li>
+																(5, &#8220;Order cancelled by Customer&#8221;)
+															</li>
+															<li>
+																(6, &#8220;Processing order&#8221;)
+															</li>
+															<li>
+																(7, &#8220;Partial Shipment&#8221;)
+															</li>
+															<li>
+																(8, &#8220;Order shipped&#8221;)
+															</li>
+															<li>
+																(9, &#8220;Order delivered&#8221;)
+															</li>
+															<li>
+																(10, &#8220;Order processing&#8221;)
+															</li>
+															<li>
+																(11, &#8220;VIP order&#8221;)
+															</li>
+															<li>
+																(12, &#8220;Gift card sent&#8221;)
+															</li>
+															<li>
+																(13, &#8220;Purchase verification&#8221;)
+															</li>
+															<li>
+																(14, &#8220;Card verification&#8221;)
+															</li>
+															<li>
+																(15, &#8220;Partially processed&#8221;)
+															</li>
+															<li>
+																(16, &#8220;Payment partially refunded&#8221;)
+															</li>
+															<li>
+																(17, &#8220;Address verification&#8221;)
+															</li>
+															<li>
+															        (18, &#8220;Twitter Buy Now verification&#8221;)
+															</li>
+															<li>
+															        (19, &#8220;Waiting for address complete&#8221;)</li>
+														</ul>
+													</dd>
+												</dl>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"order"</span> : {
+        <span class="green">"address"</span> : {
+            <span class="green">"full_name"</span> : string,
+            <span class="green">"state"</span> : string,
+            <span class="green">"phone"</span> : phone number (string),
+            <span class="green">"zip"</span> : zip (string),
+            <span class="green">"address1"</span> : string,
+            <span class="green">"address2"</span> : string,
+            <span class="green">"address_id"</span> : number,
+            <span class="green">"alias"</span> : string,
+            <span class="green">"city"</span> : string,
+            <span class="green">"is_default"</span> : true or false,
+            <span class="green">"country_code"</span> : string,
+            <span class="green">"country"</span> : string
+        },
+        <span class="green">"order_date"</span> : "YYYY-MM-DD HH:mm:SS",
+        <span class="green">"seller"</span> : {
+          <span class="green">"id"</span> : id (number),
+          <span class="green">"username"</span> : string,
+          <span class="green">"image_url"</span> : url string
+        },
+        <span class="green">"status"</span> : status string,
+        <span class="green">"shipping_trackings"</span> : [
+            {
+                <span class="green">"courier"</span> : string,
+                <span class="green">"tracking"</span> : tracking number (string)
+            },
+            ...
+        ],
+        <span class="green">"shipping_cost"</span> : decimal number string,
+        <span class="green">"gift_message"</span> : string,
+        <span class="green">"can_release_to_seller"</span> : true or false,
+        <span class="green">"order_id"</span> : id (number),
+        <span class="green">"quantity"</span> : number,
+        <span class="green">"sub_total"</span> : decimal number string,
+        <span class="green">"total_price"</span> : decimal number string,
+        <span class="green">"customer"</span> : {
+            <span class="green">"id"</span> : id (number),
+            <span class="green">"following"</span> : true or false,
+            <span class="green">"original_image_url": url string,
+            <span class="green">"image_url"</span> : url string,
+            <span class="green">"is_private"</span> : true or false,
+            <span class="green">"username"</span> : string,
+            <span class="green">"email"</span> : email string,
+            <span class="green">"type"</span> : string,
+            <span class="green">"fullname"</span> : string
+        },
+            <span class="green">"is_gift"</span> : true or false,
+            <span class="green">"note"</span> : string,
+            <span class="green">"sale_items"</span> : [
+            {
+                <span class="green">"id"</span> : id (number),
+                <span class="green">"quantity"</span> : number,
+                <span class="green">"total_price"</span> : decimal number string,
+                <span class="green">"thing_id"</span> : id (number),
+                <span class="green">"currency_type"</span> : string,
+                <span class="green">"shipping_option"</span> : {
+                    <span class="green">"name"</span> : string,
+                    <span class="green">"code"</span> : 0
+                },
+                <span class="green">"image_url"</span> : url string,
+                <span class="green">"title"</span> : string,
+                <span class="green">"price"</span> : decimal number string,
+                <span class="green">"selected_option"</span> : {
+                    <span class="green">"id"</span> : id (number),
+                    <span class="green">"value"</span> : string
+                },
+            <span class="green">"tracking_status"</span> : string,
+            <span class="green">"images"</span> : [
+                {
+                    <span class="green">"thumb_image_url_90_square_height"</span> : number,
+                    <span class="green">"thumb_image_url_310_height"</span> : number,
+                    <span class="green">"thumb_image_url_90_square"</span> : url string,
+                    <span class="green">"thumb_image_url_200"</span> :  url string,
+                    <span class="green">"thumb_image_url_200_height"</span> : number,
+                    <span class="green">"image_url_height"</span> : number,
+                    <span class="green">"image_url"</span> : url string,
+                    <span class="green">"thumb_image_url_100_80_height"</span> : number,
+                    <span class="green">"image_url_width"</span> : number,
+                    <span class="green">"thumb_image_url_100_80"</span> : url string,
+                    <span class="green">"thumb_image_url_90_square_width"</span> : number,
+                    <span class="green">"thumb_image_url_310"</span> : url string,
+                    <span class="green">"thumb_image_url_310_width"</span> : number,
+                    <span class="green">"thumb_image_url_100_80_width"</span> : number,
+                    <span class="green">"thumb_image_url_200_width"</span> : number
+                },
+                ...
+            ],
+            <span class="green">"sale_id"</span> : number,
+            <span class="green">"is_shipped"</span> : true or false,
+            <span class="green">"status"</span> : string
+            },
+        ],
+            <span class="green">"sales_tax"</span> : decial number string,
+            <span class="green">"seller_id"</span> : id (number),
+            <span class="green">"sameday_message"</span> : string,
+            <span class="green">"status_id"</span> : number,
+            <span class="green">"currency_type"</span> : string
+    }
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView.put"><tt class="descname">put</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView.put" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Order Detail Action</p>
+										<ul>
+											<li><p class="first">URL: orders/<strong>{order_id}</strong></p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic">
+															<li><p class="first"><strong>order_id</strong>: order_id number</p>
+															</li>
+															<li>
+																<p class="first"><strong>action</strong>: one of &#8220;mark_as_processing&#8221;, &#8220;fulfill&#8221;, &#8220;cancel&#8221;</p>
+															</li>
+															<li>
+																<dl class="first docutils">
+																	<dt><strong>service</strong>: (when action is &#8220;fulfill&#8221;) carrier code number,</dt>
+																	<dd>
+																		<ul class="first last simple">
+																			<li>USPS = 0
+																			</li>
+																			<li>
+																				FEDEX = 1
+																			</li>
+																			<li>
+																				UPS = 2
+																			</li>
+																			<li>
+																				DHL = 3
+																			</li>
+																			<li>
+																				EMS = 4
+																			</li>
+																			<li>
+																				Australian Post = 5
+																			</li>
+																			<li>
+																				DPD = 6
+																			</li>
+																			<li>
+																				SameDay Shipping = 98
+																			</li>
+																			<li>
+																				Private Courier = 99</li>
+																		</ul>
+																	</dd>
+																</dl>
+															</li>
+															<li>
+																<p class="first"><strong>tracking</strong>: (when action is &#8220;fulfill&#8221;) tracking number string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>items</strong>: (when action is &#8220;fulfill&#8221;) string as &#8220;id, id, id, ...&#8221; format. Ex) &#8220;130, 131, 132&#8221;</p></li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic">
+															<li>
+																<dl class="first docutils">
+																	<dt>/orders/1</dt>
+																	<dd>
+																		<ul class="first last simple">
+																			<li>action=mark_as_processing
+																			</li>
+																			<li>
+																				action=fulfill&amp;service=0&amp;items=130, 131
+																			</li>
+																			<li>
+																				action=cancel</li>
+																		</ul>
+																	</dd>
+																</dl>
+															</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>PUT</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+											<pre>Same format as Order Detail</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="product-list">
+						<h2>Product List<a class="headerlink" href="#product-list" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductListView"><em class="property">class </em><tt class="descname">ProductListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Products</p>
+										<ul>
+											<li><p class="first">URL: products/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>per_page</strong>: orders per page number
+															</li>
+															<li>
+																<strong>page</strong>: current page number
+															</li>
+															<li>
+																<strong>status</strong>: one of &#8220;all&#8221;, &#8220;active&#8221;, &#8220;pending&#8221;, &#8220;sold_out&#8221;, &#8220;coming_soon&#8221;, &#8220;expired&#8221;
+															</li>
+															<li>
+																<strong>sort[sort]</strong>: &#8220;one of &#8220;id&#8221;, &#8220;title&#8221;, &#8220;price&#8221;, &#8220;num_sold&#8221;, &#8220;num_available&#8221;
+															</li>
+															<li>
+																<strong>sort[ascending]</strong>: &#8220;true&#8221; or &#8220;false&#8221;
+															</li>
+															<li>
+																<strong>search[field]</strong>: one of &#8220;all&#8221;, &#8220;id&#8221;, &#8220;title&#8221;, &#8220;brand&#8221;
+															</li>
+															<li>
+																<strong>search[text]</strong>: search keyword</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Example</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li>/products?per_page=20&amp;page=1
+															</li>
+															<li>
+																/products?per_page=20&amp;page=1&amp;status=active&amp;sort[sort]=id&amp;sort[ascending]=true</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"current_page"</span> : number,
+    <span class="green">"max_page"</span> : number,
+    <span class="green">"products": [
+        {
+            <span class="green">"sync_quantity_with_warehouse"</span> : true or false,
+            <span class="green">"html_url"</span> : url string,
+            <span class="green">"personalizable"</span> : true or false,
+            <span class="green">"status"</span> : string,
+            <span class="green">"title"</span> : string,
+            <span class="green">"weight"</span> : decimal number string,
+            <span class="green">"unit_cost"</span> : decimal number string,
+            <span class="green">"options"</span> : [
+                {
+                    <span class="green">"id"</span> : id (number),
+                    <span class="green">"id_str"</span> : "id" (string),
+                    <span class="green">"quantity"</span> : number,
+                    <span class="green">"product_id"</span> : id (number),
+                    <span class="green">"product_id_str"</span> : "id" (string),
+                    <span class="green">"seller_sku"</span> : string,
+                    <span class="green">"num_sold"</span> : number,
+                    <span class="green">"prod_height"</span> : decimal number string,
+                    <span class="green">"position"</span> : number,
+                    <span class="green">"prod_length"</span> : decimal number string,
+                    <span class="green">"color"</span> : null,
+                    <span class="green">"price"</span> : decimal number string,
+                    <span class="green">"sync_quantity_with_warehouse"</span> : true or false,
+                    <span class="green">"unit_cost"</span> : decimal number string,
+                    <span class="green">"prod_width"</span> : decimal number string,
+                    <span class="green">"images"</span> : [
+
+                    ],
+                    <span class="green">"retail_price"</span> : decimal number string,
+                    <span class="green">"prod_weight"</span> : decimal number string,
+                    <span class="green">"name"</span> : string
+                },
+                ...
+            ],
+            <span class="green">"end_date"</span> : "YYYY-MM-DD HH:mm:SS" (nullable),
+            <span class="green">"retail_price"</span> : decimal number string,
+            <span class="green">"images"</span> : [
+                {
+                    <span class="green">"url_original"</span> : url string,
+                    <span class="green">"id"</span> : id (number),
+                    <span class="green">"id_str"</span> : "id" (string),
+                    <span class="green">"url_310"</span> : url string,
+                    <span class="green">"position"</span> : number
+                },
+                ...
+            ],
+            <span class="green">"keywords"</span> : string (nullable),
+            <span class="green">"num_available"</span> : number,
+            <span class="green">"num_options"</span> : number,
+            <span class="green">"id"</span> : id (number),
+            <span class="green">"is_active"</span> : true or false,
+            <span class="green">"thing_id_str"</span> : "id" (string),
+            <span class="green">"quantity"</span> : number,
+            <span class="green">"image_url_original"</span> : url string,
+            <span class="green">"seller_id_str"</span> : "id" (string),
+            <span class="green">"height"</span> : decimal number string,
+            <span class="green">"length"</span> : decimal number string,
+            <span class="green">"width"</span> : decimal number string,
+            <span class="green">"num_sold"</span> : number,
+            <span class="green">"start_date"</span> : "YYYY-MM-DD HH:mm:SS",
+            <span class="green">"scarcity_ribbon_threshold"</span> : null,
+            <span class="green">"price"</span> : decimal number string,
+            <span class="green">"seller_id"</span> : id (number),
+            <span class="green">"id_str"</span> : "id" (string),
+            <span class="green">"image_url"</span> : url string
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductListView.post"><tt class="descname">post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductListView.post" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Add New Product</p>
+										<ul>
+											<li><p class="first">URL: products/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic">
+															<li><p class="first"><strong>is_active</strong>: true or false,</p>
+															</li>
+															<li>
+																<p class="first"><strong>title</strong>: string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>price</strong>: decimal number string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>num_available</strong>: number,</p>
+															</li>
+															<li>
+																<p class="first"><strong>description</strong>: string (html available),</p>
+															</li>
+															<li>
+																<div class="source">
+																	<p class="tit">options:</p>
+<pre>[
+    {
+        <span class="green">"price"</span> : decimal number string,
+        <span class="green">"name"</span> : string,
+        <span class="green">"quantity"</span> : number,
+        <span class="green">"sync_quantity_with_warehouse"</span> : true or false,
+        <span class="green">"retail_price"</span> : decimal number string,
+        <span class="green">"prod_height"</span> : decimal number string,
+        <span class="green">"prod_width"</span> : decimal number string,
+        <span class="green">"prod_length"</span> : decimal number string,
+        <span class="green">"prod_weight"</span> : decimal number string
+    },
+    ...
+]
+</pre>
+																</div>&nbsp;
+
+															</li>
+															<li>
+																<div class="source">
+																	<p class="tit">images:</p>
+<pre>[
+    { <span class="green">"original_rel_path"</span> : url string },
+    ...
+]
+</pre>
+																</div>&nbsp;
+
+															</li>
+															<li>
+																<p class="first"><strong>sync_quantity_with_warehouse</strong>: true or false,</p>
+															</li>
+															<li>
+																<p class="first"><strong>categories</strong>: [],</p>
+															</li>
+															<li>
+																<p class="first"><strong>collection_ids</strong>: [],</p>
+															</li>
+															<li>
+																<p class="first"><strong>colors</strong>: [],</p>
+															</li>
+															<li>
+																<p class="first"><strong>return_policy</strong>: number,</p>
+															</li>
+															<li>
+																<p class="first"><strong>retail_price</strong>: decimal number string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>start_date</strong>: &#8220;MM/dd/YYYY&#8221;,</p>
+															</li>
+															<li>
+																<p class="first"><strong>shipping_rate_group_id</strong>: -1,</p>
+															</li>
+															<li>
+																<p class="first"><strong>exchange_policy</strong>: -3,</p>
+															</li>
+															<li>
+																<p class="first"><strong>expected_delivery_day_1</strong>: &#8220;&#8221;</p>
+															</li>
+															<li>
+																<p class="first"><strong>expected_delivery_day_2</strong>: &#8220;&#8221;,</p>
+															</li>
+															<li>
+																<p class="first"><strong>expected_delivery_day_intl_1</strong>: &#8220;&#8221;,</p>
+															</li>
+															<li>
+																<p class="first"><strong>expected_delivery_day_intl_2</strong>: &#8220;&#8221;</p></li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /products</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>POST</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+											<pre>Same as Product Detail</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="product-detail">
+						<h2>Product Detail<a class="headerlink" href="#product-detail" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView"><em class="property">class </em><tt class="descname">ProductDetailView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Product Detail</p>
+										<ul>
+											<li><p class="first">URL: products/{product_id}</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>product_id</strong>: id (number)</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /products/1</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+      <span class="green">"categories"</span> : [],
+      <span class="green">"retail_price"</span> : decimal number string,
+      <span class="green">"id"</span> : number,
+      <span class="green">"shipping_rate_group_id"</span> : number,
+      <span class="green">"charge_domestic_shipping"</span> : true or false,
+      <span class="green">"end_date"</span> : "YYYY-MM-DD HH:mm:SS" (nullable),
+      <span class="green">"weight"</span> : decimal number string,
+      <span class="green">"personalizable"</span> : true or false,
+      <span class="green">"expected_delivery_day_intl_1"</span> : null,
+      <span class="green">"expected_delivery_day_intl_2"</span> : null,
+      <span class="green">"start_date"</span> : "YYYY-MM-DD HH:mm:SS",
+      <span class="green">"seller_collections"</span> : [
+        {
+            <span class="green">"id"</span> : "id" (string),
+            <span class="green">"title"</span> : string
+        },
+        ...
+    ],
+      <span class="green">"title"</span> : string,
+      <span class="green">"exchange_policy"</span> : number,
+      <span class="green">"scarcity_ribbon_threshold"</span> : null,
+      <span class="green">"status"</span> : string,
+      <span class="green">"description"</span> : string (html available),
+      <span class="green">"harmonized_commodity_code"</span> : null,
+      <span class="green">"use_custom_shipping"</span> : true or false,
+      <span class="green">"num_sold"</span> : number,
+      <span class="green">"brand"</span> : string,
+      <span class="green">"is_active"</span> : true or false,
+      <span class="green">"price"</span> : decimal number string,
+      <span class="green">"length"</span> : decimal number string,
+      <span class="green">"colors"</span> : [
+        (string)
+    ],
+      <span class="green">"num_available"</span> : number,
+      <span class="green">"unit_cost"</span> : decimal number string,
+      <span class="green">"thing_id_str"</span> : "id" (string),
+      <span class="green">"seller_tags"</span> : [
+        (string)
+    ],
+      <span class="green">"soldout_after_expired"</span> : true or false,
+      <span class="green">"international_shipping"</span> : true or false,
+      <span class="green">"height"</span> : decimal number string,
+      <span class="green">"custom_domestic_incremental_fee"</span> : number,
+      <span class="green">"seller_sku"</span> : string,
+      <span class="green">"custom_exchange_policy_days"</span> : number,
+      <span class="green">"tax_code"</span> : string,
+      <span class="green">"expected_delivery_day_1"</span> : null,
+      <span class="green">"expected_delivery_day_2"</span> : null,
+      <span class="green">"custom_international_incremental_fee"</span> : number,
+      <span class="green">"options"</span> : [
+        {
+            Same in Products item's option
+        }
+    ],
+      <span class="green">"show_in_search"</span> : true or false,
+      <span class="green">"return_policy"</span> : number,
+      <span class="green">"thing_id"</span> : id (number),
+      <span class="green">"return_exchange_policy_description"</span> : string,
+      <span class="green">"seller_owns_thing"</span> : true or false,
+      <span class="green">"collection_ids"</span> : [
+
+    ],
+      <span class="green">"custom_international_charge"</span> : number,
+      <span class="green">"keywords"</span> : null,
+      <span class="green">"charge_international_shipping"</span> : true or false,
+      <span class="green">"quantity"</span> : number,
+      <span class="green">"images"</span> : [
+        {
+              <span class="green">"url_original"</span> : url string
+              <span class="green">"id"</span> : id (number),
+              <span class="green">"id_str"</span> : "id" (string),
+              <span class="green">"url_310"</span> : url string,
+              <span class="green">"position"</span> : number
+        }
+    ],
+      <span class="green">"sync_quantity_with_warehouse"</span> : true or false,
+      <span class="green">"width"</span> : decimal number string,
+      <span class="green">"origin_country"</span> : string,
+      <span class="green">"id_str"</span> : "id" (string),
+      <span class="green">"custom_domestic_charge"</span> : 0,
+      <span class="green">"custom_return_policy_days"</span> : null
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView.patch"><tt class="descname">patch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView.patch" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Update Product</p>
+										<ul>
+											<li><p class="first">URL: products/{product_id}</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic">
+															<li><p class="first"><strong>product_id</strong>: id (number)</p>
+															</li>
+															<li>
+																<p class="first"><strong>is_active</strong>: true or false,</p>
+															</li>
+															<li>
+																<p class="first"><strong>marked_soldout</strong>: true or false,</p>
+															</li>
+															<li>
+																<p class="first"><strong>title</strong>: string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>price</strong>: decimal number string,</p>
+															</li>
+															<li>
+																<p class="first"><strong>num_available</strong>: number,</p>
+															</li>
+															<li>
+																<p class="first"><strong>description</strong>: string (html available),</p>
+															</li>
+															<li>
+																<div class="source">
+																	<p class="tit">options:</p>
+<pre>[
+    {
+        <span class="green">"price"</span> : decimal number string,
+        <span class="green">"name"</span> : string,
+        <span class="green">"quantity"</span> : number,
+        <span class="green">"sync_quantity_with_warehouse"</span> : true or false,
+        <span class="green">"retail_price"</span> : decimal number string,
+        <span class="green">"prod_height"</span> : decimal number string,
+        <span class="green">"prod_width"</span> : decimal number string,
+        <span class="green">"prod_length"</span> : decimal number string,
+        <span class="green">"prod_weight"</span> : decimal number string,
+        <span class="green">"marked_soldout"</span> : true or false
+    },
+    ...
+]
+</pre>
+																</div>
+
+															</li>
+															<li>
+																<div class="source">
+																	<p class="tit">images:</p>
+<pre>[
+    { <span class="green">"id_str"</span> : <span class="green">"id" (string), <span class="green">"id"</span> : id (number), <span class="green">"position"</span> : number }, //Existing Image
+    { <span class="green">"original_rel_path"</span> : url string }, //New Image
+    ...
+]
+</pre>
+																</div>
+
+															</li>
+															<li>
+																<p class="first"><strong>sync_quantity_with_warehouse</strong>: true or false</p></li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /products/1</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>PATCH</strong></p>
+											</li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+											<pre>Same as Product Detail</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="customer-list">
+						<h2>Customer List<a class="headerlink" href="#customer-list" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerListView"><em class="property">class </em><tt class="descname">CustomerListView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerListView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerListView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerListView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Customers</p>
+										<ul>
+											<li><p class="first">URL: customers/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>per_page</strong>: orders per page number
+															</li>
+															<li>
+																<strong>page</strong>: current page number</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /customers?per_page=20&amp;page=1</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p></li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"num_pages"</span> : number,
+    <span class="green">"page"</span> : number,
+    <span class="green">"customers"</span> : [
+        {
+            <span class="green">"id_str"</span> : "id" (string),
+            <span class="green">"is_vip"</span> : true or false,
+            <span class="green">"address"</span> : {
+                <span class="green">"phone"</span> : string,
+                <span class="green">"city"</span> : string,
+                <span class="green">"country"</span> : string,
+                <span class="green">"address1"</span> : string,
+                <span class="green">"zip"</span> : string,
+                <span class="green">"full_name"</span> : string,
+                <span class="green">"state"</span> : string,
+                <span class="green">"address2"</span> : string
+            },
+            <span class="green">"id"</span> : id (number),
+            <span class="green">"total_spend"</span> : decimal number string,
+            <span class="green">"username"</span> : string,
+            <span class="green">"email"</span> : email string,
+            <span class="green">"img_url"</span> : url string,
+            <span class="green">"full_name"</span> : string
+        },
+        ...
+    ]
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="customer-info">
+						<h2>Customer Info<a class="headerlink" href="#customer-info" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrderInfoView"><em class="property">class </em><tt class="descname">CustomerOrderInfoView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrderInfoView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrderInfoView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrderInfoView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Customer Order Info</p>
+										<ul>
+											<li><p class="first">URL: customers/<strong>{customer_id}</strong>/info/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{customer_id}</strong>: orders per page number</li>
+														</ol>
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<p class="first">Example: /customers/1/info</p>
+											</li>
+											<li>
+												<p class="first">HTTP Method: <strong>GET</strong></p></li>
+										</ul>
+										<div class="source">
+											<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"address"</span> : {
+        Same as customers
+    },
+    <span class="green">"is_vip"</span> : true or false,
+    <span class="green">"customer_note"</span> : string,
+    <span class="green">"id"</span> : id (number),
+    <span class="green">"total_spend"</span> : decimal number string,
+    <span class="green">"username"</span> : string,
+    <span class="green">"first_name"</span> : string,
+    <span class="green">"email"</span> : email string,
+    <span class="green">"processing_order"</span> : number,
+    <span class="green">"img_url"</span> : url string,
+    <span class="green">"ip_addr"</span> : string,
+    <span class="green">"completed_order"</span> : number
+}
+</pre>
+										</div>
+									</dd>
+								</dl>
+							</dd>
+						</dl>
+					</div>
+					<div class="section" id="customer-orders">
+						<h2>Customer Orders<a class="headerlink" href="#customer-orders" title="Permalink to this headline">Permalink</a></h2>
+						<dl class="class">
+							<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrdersView"><em class="property">class </em><tt class="descname">CustomerOrdersView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrdersView" title="Permalink to this definition">Permalink</a></dt>
+							<dd>
+								<dl class="method">
+									<dt id="fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrdersView.get"><tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrdersView.get" title="Permalink to this definition">Permalink</a></dt>
+									<dd>
+										<p>Customer Orders</p>
+										<ul>
+											<li><p class="first">URL: customers/<strong>{customer_id}</strong>/orders/</p>
+											</li>
+											<li>
+												<dl class="first docutils">
+													<dt>Parameters</dt>
+													<dd>
+														<ol class="first last arabic simple">
+															<li><strong>{customer_id}</strong>: orders per page number
+															</li>
+															<li>
+																page: page number</li>
+														</ol>
+													</dd>
+												</dl>
+												</li>
+												<li>
+													<p class="first">Example: /customers/1/orders?page=1</p>
+												</li>
+												<li>
+													<p class="first">HTTP Method: <strong>GET</strong></p>
+												</li>
+											</ul>
+											<div class="source">
+												<p class="tit">Return (JSON):</p>
+<pre>{
+    <span class="green">"page": page number,
+    <span class="green">"max_page": max page number,
+    <span class="green">"orders"</span> : [
+        {
+            <span class="green">"id_str"</span> : "id" (string),
+            <span class="green">"quantity"</span> : number,
+            <span class="green">"note"</span> : string,
+            <span class="green">"id"</span> : id (number),
+            <span class="green">"status"</span> : string,
+            <span class="green">"status_id"</span> : number,
+            <span class="green">"status_icon"</span> : string,
+            <span class="green">"date_created"</span> : "YYYY-MM-DD HH:mm:SS",
+            <span class="green">"total_price"</span> : decimal number string,
+            <span class="green">"net_amount"</span> : decimal number string
+        },
+        ...
+    ]
+}
+</pre>
+											</div>
+										</dd>
+									</dl>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sphinxsidebar" id="sidebar">
+			<div class="sphinxsidebarwrapper">
+				<h1><a href="/help/merchant-api/"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="18" viewBox="0 0 92 18">
+					<path d="M90.467,2.719l-6.46,8.39L84,16.5a1.5,1.5,0,1,1-3,0l0-5.373L74.393,2.718a2.006,2.006,0,0,1-.386-1.15A1.469,1.469,0,0,1,74.5.446,1.692,1.692,0,0,1,75.691-.01a1.635,1.635,0,0,1,1.4,1.029l5.4,7.049,5.383-7.142A1.649,1.649,0,0,1,89.3-.012a1.621,1.621,0,0,1,1.2.444A1.5,1.5,0,0,1,91,1.536,1.962,1.962,0,0,1,90.467,2.719ZM69.483,4.986a1.5,1.5,0,0,1-.92-0.3,7.936,7.936,0,0,0-4.716-1.722,5.843,5.843,0,0,0-5.86,5.971v0.05a6.175,6.175,0,0,0,6.172,6.042,6.489,6.489,0,0,0,4.478-1.681A1.39,1.39,0,0,1,69.556,13,1.569,1.569,0,0,1,71,14.541a1.472,1.472,0,0,1-.5,1.095,8.946,8.946,0,0,1-6.333,2.353,9.034,9.034,0,0,1-9.183-8.954V8.985a8.824,8.824,0,0,1,8.995-9A9.821,9.821,0,0,1,70.4,2.274,1.529,1.529,0,0,1,71,3.494,1.486,1.486,0,0,1,69.483,4.986Zm-19.414,12.9a1.535,1.535,0,0,1-.639.135H49.3A2.324,2.324,0,0,1,47.617,16.9L43,11.023,39,5.831V16.517a1.5,1.5,0,0,1-1.5,1.5h0a1.5,1.5,0,0,1-1.5-1.5L35.994,1.539A1.364,1.364,0,0,1,36.147.88,1.5,1.5,0,0,1,36.931.131,1.535,1.535,0,0,1,37.57,0H37.7a2.324,2.324,0,0,1,1.681,1.117l4.541,5.8,4.06,5.273L48,1.5A1.5,1.5,0,0,1,49.5,0h0A1.5,1.5,0,0,1,51,1.5l0.006,14.978a1.364,1.364,0,0,1-.153.659A1.5,1.5,0,0,1,50.069,17.885ZM30.414,18a1.653,1.653,0,0,1-1.679-1.057l-1.3-2.965H19.582l-1.447,3.075A1.529,1.529,0,0,1,16.545,18a1.507,1.507,0,0,1-1.13-.35,1.418,1.418,0,0,1-.429-1.084,1.583,1.583,0,0,1,.191-0.748l6.212-14.43A2.136,2.136,0,0,1,23.4-.006h0.213A2.14,2.14,0,0,1,25.6,1.411L31.815,15.84a1.4,1.4,0,0,1,.194.69,1.51,1.51,0,0,1-.454,1.114A1.49,1.49,0,0,1,30.414,18ZM23.492,4.04l-2.9,6.942h5.8ZM11.48,3.008H2.992V7.983h7.487a1.456,1.456,0,0,1,1.075.408A1.552,1.552,0,0,1,12,9.5a1.49,1.49,0,0,1-1.524,1.505H2.992L3,16.5a1.5,1.5,0,1,1-3,0V1.5A1.5,1.5,0,0,1,1.5,0l9.987-.014a1.456,1.456,0,0,1,1.07.423A1.49,1.49,0,0,1,13,1.488a1.488,1.488,0,0,1-.449,1.082A1.487,1.487,0,0,1,11.48,3.008Z"/>
+				</svg> docs</a></h1>
+				<select class="open_menu">
+					<option value="fancy-seller-api">Fancy Seller API</option>
+					<option value="dashboard-summary">Dashboard Summary</option>
+					<option value="dashboard-area-chart">Dashboard Area Chart</option>
+					<option value="dashboard-shop-activity">Dashboard Shop Activity</option>
+					<option value="dashboard-best-sellers">Dashboard Best Sellers</option>
+					<option value="dashboard-referrals">Dashboard Referrals</option>
+					<option value="dashboard-search-history">Dashboard Search History</option>
+					<option value="orders">Orders</option>
+					<option value="order-detail">Order Detail</option>
+					<option value="product-list">Product List</option>
+					<option value="product-detail">Product Detail</option>
+					<option value="customer-list">Customer List</option>
+					<option value="customer-info">Customer Info</option>
+					<option value="customer-orders">Customer Orders</option>
+				</select>
+				<ul>
+					<li><a class="reference internal" href="/help/merchant-api/">Introduction</a>
+						<ul>
+							<li><a href="index.html#fancy-seller-api">Fancy Seller API</a></li>
+						</ul>
+					</li>
+					<li><a class="reference internal" href="/help/merchant-api/">Topics</a>
+						<ul>
+							<li><a class="reference internal" href="index.html#dashboard-summary">Dashboard Summary</a></li>
+							<li><a class="reference internal" href="index.html#dashboard-area-chart">Dashboard Area Chart</a></li>
+							<li><a class="reference internal" href="index.html#dashboard-shop-activity">Dashboard Shop Activity</a></li>
+							<li><a class="reference internal" href="index.html#dashboard-best-sellers">Dashboard Best Sellers</a></li>
+							<li><a class="reference internal" href="index.html#dashboard-referrals">Dashboard Referrals</a></li>
+							<li><a class="reference internal" href="index.html#dashboard-search-history">Dashboard Search History</a></li>
+							<li><a class="reference internal" href="index.html#orders">Orders</a></li>
+							<li><a class="reference internal" href="index.html#order-detail">Order Detail</a></li>
+							<li><a class="reference internal" href="index.html#product-list">Product List</a></li>
+							<li><a class="reference internal" href="index.html#product-detail">Product Detail</a></li>
+							<li><a class="reference internal" href="index.html#customer-list">Customer List</a></li>
+							<li><a class="reference internal" href="index.html#customer-info">Customer Info</a></li>
+							<li><a class="reference internal" href="index.html#customer-orders">Customer Orders</a></li>
+						</ul>
+					</li>
+				</ul>
+				<div id="searchbox" style="display: none">
+					<h3>Quick search</h3>
+					<form class="search" action="search.html" method="get"><input type="text" name="q" /><input type="submit" value="Go" /><input type="hidden" name="check_keywords" value="yes" /><input type="hidden" name="area" value="default" /></form>
+					<p class="searchtip" style="font-size: 90%">Enter search terms or a module, class or function name.</p>
+				</div>
+				<script type="text/javascript">$('#searchbox').show(0);</script></div>
+			</div>
+			<div class="clearer"></div>
+		</div>
+	</div>
+	<div class="related">
+		<h3>Navigation</h3>
+		<ul>
+			<li class="right" style="margin-right: 10px"><a href="genindex.html" title="General Index">index</a></li>
+			<li><a href="#">Fancy Seller API documentation</a> &raquo;</li>
+		</ul>
+	</div>
+	<div class="footer">&copy; Copyright 2015, Fancy.Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.</div>
+</div>
+</body>
+<script src="/_ui/js/jquery.json.min.js"></script>
+<script src="/_ui/js/jquery.fixedbar.js"></script>
+<script>
+	jQuery(function ($) {
+		$('#sidebar').css('margin-left',-($(window).width()/2)-$(window).scrollLeft()+'px');
+		$(window).resize(function(){
+			$('#sidebar').css('margin-left',-($(window).width()/2)-$(window).scrollLeft()+'px');
+		});
+		$(window).scroll(function(){
+			$('#sidebar').find('a').removeClass('current').end().css('margin-left',-($(window).width()/2)-$(window).scrollLeft()+'px');
+			$('.section').removeClass('pass').each(function(){
+				if(($(this).offset().top-5)<$(window).scrollTop()){$(this).addClass('pass');}
+				if ($('.section.pass').length < 2) {
+					$('#sidebar')
+						.find('a').removeClass('current')
+						.end()
+						.find('a[href="index.html#fancy-seller-api"]').addClass('current');
+						$('.open_menu').find('option').removeAttr('selected').end().find('option:nth-child(1)').attr('selected','selected');
+				}else {
+					var current = $('.section.pass:nth-of-type('+($('.section.pass').length+2)+')').attr('id');
+					$('#sidebar')
+						.find('a[href="index.html#'+current+'"]').addClass('current')
+							.closest('ul')
+								.find('li:lt('+($('.section.pass').length-2)+') a').removeClass('current')
+								.end()
+							.end()
+						.end()
+						.find('a[href="index.html#fancy-seller-api"]').removeClass('current');
+					$('.open_menu').find('option').removeAttr('selected').end().find('option:nth-child('+$('.section.pass').length+')').attr('selected','selected');
+				}
+			});
+		});
+		$('.open_menu').change(function(){
+			var target = $('#'+$(this).val()).offset().top;
+			$(window).scrollTop(target-120);
+		});
+	});
+</script>
+</html>

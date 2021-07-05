@@ -1,0 +1,36 @@
+<ul class="range">
+    <li>
+        <span class="label"><%= gettext("DIRECT") %></span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral((total_view-view_from_referrer-view_from_search_engine)/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= numeral(total_view-view_from_referrer-view_from_search_engine).format("0,0") %></small>
+        <span class="gauge" style="width:<%= (total_view-view_from_referrer-view_from_search_engine)/total_view * 100 %>%"></span></li>
+    <li>
+        <span class="label"><%= gettext("REFERRALS") %></span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral(view_from_referrer/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= numeral(view_from_referrer).format("0,0") %></small>
+        <span class="gauge" style="width:<%= view_from_referrer/total_view * 100 %>%"></span></li>
+    <li>
+        <span class="label"><%= gettext("Search Engines") %></span>
+        <span class="val">
+            <% if (!total_view) { %>
+                0%
+            <% } else { %>
+                <%= numeral(view_from_search_engine/total_view).format("0,0.00%") %>
+            <% } %>
+        </span>
+        <small class="detail"><%= numeral(view_from_search_engine).format("0,0") %></small>
+        <span class="gauge" style="width:<%= view_from_search_engine/total_view * 100 %>%"></span></li>
+</ul>
+<a href="#" class="view">View All</a>

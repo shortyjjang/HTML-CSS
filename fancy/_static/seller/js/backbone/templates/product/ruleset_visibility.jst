@@ -1,0 +1,10 @@
+<td class="professions"><%if(tag_filter.tag_type){%>
+    <%if(tag_filter.tag_type=='102' && tag_filter.tags.length){%><%-tag_filter.tags.join(", ")%><%}else{%>All professions<%}%>
+<%}else{%><a>Select profession</a><%}%></td>
+<td class="regions"><%if(tag_filter.tag_type){%>
+    <%if(tag_filter.tag_type=='103' && tag_filter.tags.length){%><%-tag_filter.tags.join(", ")%><%}else{%>All regions<%}%>
+<%}else{%><a>Select region</a><%}%></td>
+<td>
+    <button class="btn-visibility tooltip <%if(tag_filter.filter_type=='ALLOW'){%>on<%}%>"><em>Your products are <small><%if(tag_filter.filter_type=='ALLOW'){%>visible<%}else{%>hidden<%}%></small></em></button>
+    <%if(!readonly){%><a class="btn-del tooltip" ><em>Delete</em></a><%}%>
+</td>

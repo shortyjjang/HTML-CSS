@@ -1,0 +1,103 @@
+<td class="title">
+    <% if (status == 'active' || status == 'sold out') { %>
+        <% if ( getStorefrontURL(thing_id_str)) { %>
+            <input type='hidden' name='storefronturl' value='<%- getStorefrontURL(thing_id_str) %>'/>
+            <input type='hidden' name='saleitemurl' value='<%- html_url%>'/>
+        <% }else{ %>
+            <input type='hidden' name='saleitemurl' value='<%- html_url%>'/>
+        <% } %>
+    <% } %>
+
+    <input type="checkbox" data-id="<%- id_str %>" data-thing-id='<%- thing_id_str %>' status="<%-status%>" />
+    <div class="item">
+        <% if(isAffiliateProduct) {%>
+        <a href="<%- html_url%>" class="after">
+        <% } else { %>
+        <a href="<%- getProductEditURL(id_str) %>" class="after">
+        <% } %>
+            <img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" style="background-image:url(<%- image_url %>)" alt="" />
+            <b class="title <% if (num_options < 1) { %>no-option<% } %>"><%- title %></b>
+            <% if (num_options > 0) { %><span class="option"><%- num_options %> <% if (num_options == 1) { %>option<% } else {%>options<% } %></span><% } %>
+        </a>
+    </div>
+</td>
+<td class="id">
+    #<%- id_str %>
+</td>
+<% if(!isAffiliateProduct) { %>
+<td class="avail">
+    <% if (num_available) { %>
+        <div class="qty">
+            <% if(isAffiliateProduct) { %>
+                <%- num_available %>
+            <% } else { %>
+                <a href="#" class="add_qty"><%- num_available %></a>
+                <% if (num_options) { %>
+                    <div class="availability_qty">
+                        <p class="tit">Availability</p>
+                        <ul>
+                            <% for (var i=0; i<options.models.length; i++) { %>
+                                <li>
+                                    <label><%-options.models[i].get('name')%></label>
+                                    <% if (options.models[i].get('marked_soldout')) { %>
+                                    <span class="val">0</span> <span class="range red" style="width:0%;"></span>
+                                    <% } else { %>
+                                    <span class="val"><%-(options.models[i].get('quantity')-options.models[i].get('num_sold'))%></span> <span class="range <% if((options.models[i].get('quantity')-options.models[i].get('num_sold'))<5){%>red<%}%>" style="width:<%-(Math.min( (options.models[i].get('quantity')-options.models[i].get('num_sold')), 20)*100/20)%>%;"></span>
+                                    <% } %>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    <% } else { %>
+        <% if(!isAffiliateProduct) { %>
+          <a href="#" class="add_qty"><%= gettext('Add quantity') %></a>
+          <fieldset style="display:none;"><input type="text" class="text" /> <button class="btns-blue-embo"><%= gettext('Add') %></button></fieldset>
+        <% } %>
+    <% } %>
+</td>
+<td class="sold"><%- num_sold %></td>
+<% } %>
+<td>
+            <% if (status == 'active') { %>
+                <span class="status active tooltip">Active <em>This item is Active</em></span>
+            <% } else if (status == 'pending') { %>
+                <span class="status pending tooltip">Inactive <em>This item is inactive</em></span>
+            <% } else if (status == 'sold out') { %>
+                <span class="status soldout tooltip">Sold out<em>This item is sold out</em></span>
+            <% } else if (status == 'expired') { %>
+                <span class="status expired tooltip">Expired <em>This item has been expired</em></span>
+            <% } else if (status == 'coming soon') { %>
+                <span class="status comingsoon">Coming soon</span>
+            <% } %>
+</td>
+<td class="price">$<%- numeral(price).format('0.00') %> <% if (retail_price > price) { %><small class="retail">($<%- numeral(retail_price).format('0.00') %>)</small><% } %></td>
+<td class="set">
+    <div class="setting-menu">
+        <a href="#" class="btn-setting" onclick="$(this).closest('.setting-menu').toggleClass('opened');return false;"><i class="icon"></i></a>
+        <% if(isAffiliateProduct) { %>
+            <select class="select-product" sale-id="<%=id_str%>">
+                <option value="none">Action</option>
+                <option value="delete-affiliate-items">Delete item</option>
+            </select>
+        <% } else { %>
+            <ul class="select-product" sale-id="<%=id_str%>">
+                <li><a href="#" data-value="edit">Edit Product</a></li>
+                <% if (status == 'pending') { %>
+                <li><a href="#" data-value="activate-items">Activate item</a></li>            
+                <% } else { %>
+                <li><a href="#" data-value="deactivate-items">Deactivate item</a></li>
+                <% } %>
+                <li><a href="#" data-value="delete-items">Delete item</a></li>
+                <li><a href="#" data-value="manage-tags">Manage tags</a></li>
+                <li><a href="#" data-value="add-to-collections">Add to collections</a></li>
+                <li><a href="#" data-value="duplicate-sale-item">Duplicate item</a></li>
+                <% if (status == 'active' || status == 'sold out') { %>
+                <li><a href="#" data-value="view-sale-item">View sale</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
+</td>

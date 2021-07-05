@@ -1,0 +1,23 @@
+<figure style="background-image:url(<%= image.src %>)"></figure>
+<figcaption>
+    <h2 class="title"><small class="username"><%= sales.seller.brand_name %></small> <%= name %></h2>
+    <div class="retail">
+        <span class="price"><b><%= numeral(sales.price).format("$0,0.00") %></b> <label>Item Price</label></span>
+        <span class="commission"><b></b> <label>Commission</label></span>
+    </div>
+    <div class="description">
+        <%= sales.description %>
+    </div>
+    <div class="product-link">
+        <input type="text" readonly class="buy-url" value="https://fancy.com<%= referrer_url %>"/>
+        <button class="btns-blue-embo btn-copy">Copy Product Link</button>
+    </div>
+    <div class="menu-container on-home ignore-ext" data-object-type='thing' data-object-id='<%=id%>' data-uname='<%=viewer.username_viewer%>' data-logged-in='<%=!!viewer.username_viewer%>' data-shortcuts='false'>
+        <small class="btn-more"><em>Share &amp; Lists</em></small>
+        <small id="more-menu" class="has-arrow menu-content new">
+            <button class="share before-bg-share2"><b>Share</b><small>Share this with friends</small></button>
+            <button class="add-list before-bg-share2"><b>Lists</b><small>Save this to your profile</small></button>
+        </small>
+    </div>
+</figcaption>
+<button class="ly-close" title="Close"><i class="ic-del-black"></i></button>

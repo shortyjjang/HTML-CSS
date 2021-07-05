@@ -1,0 +1,49 @@
+<div>
+    <h3 class="stit">Products Shared <small><%= totalCount || 0 %></small></h3>
+    <div class="inner">
+        <div>
+            <fieldset class="search"><i class="icon"></i><input type="text" class="text" placeholder="Search products" <% if (search) { %> value="<%= search %>" <% } %>></fieldset>
+            <table class="tb-product tb-type1">
+                <thead>
+                    <tr>
+                        <th colspan="2"><span>Product</span></th>
+                        <th><a href="#" name="clicks" <% if (sort == "clicks") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Clicks</span></a></th>
+                        <th><a href="#" name="sales" <% if (sort == "sales") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Sales</span></a></th>
+                        <th><a href="#" name="commission" <% if (sort == "commission") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Commission</span></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% _.each(products, function(product, idx) { %>
+                        <tr><td class="center"><%= initIdx + (idx+1) %></td>
+                        <td><%= product.get('name') %></td>
+                        <td><%= product.get('clicks') %></td>
+                        <td><%= product.get('sales') %></td>
+                        <td><%= numeral(product.get('commission')).format("$0,0.00") %></td></tr>
+                    <% }) %>
+                    <% if(products.length==0) { %>
+                        <td class="empty" colspan="5">
+                            <% if(search) { %>
+                                <b>We couldn't find any result.</b> Try a different search term.
+                            <% }else{ %>
+                                <b>No products</b>
+                            <% } %>
+                        </td>
+                    <% } %>
+                </tbody>
+            </table>
+            <% if( maxPage > 1) { %>
+            <div class="pagination">
+                <a href="#" class="prev <% if (currentPage <= 1) { %>disabled <% } %>">Prev</a>
+                <% for (var i=Math.max(currentPage - 2, 1); i<=Math.min(currentPage + 2, maxPage); i++) { %>
+                    <a href="#" page="<%= i%>"
+                       class="page <% if (i == currentPage) { %> current <% } %>">
+                        <%= i %>
+                    </a>
+                <% } %>
+                <a href="#" class="next <% if (currentPage >= maxPage) { %>disabled <% } %>">Next</a>
+            </div>
+            <% } %>
+            <div class="loading" style="display: none;"><img class="loading-img"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<p class="ltit">Product Info</p>
+<div class="info">
+    <span class="figure" style="background-image:url(<%= image.src %>)"></span>
+    <b class="title"><%= name %></b>
+    <span class="username">by <%= sales.seller.username %></span>
+    <p class="description"><%= sales.description %></p>
+    <fieldset>
+        <ul class="after">
+            <li><span class="left">Price</span> <span class="right price"><%= numeral(sales.price).format("$0,0.00") %></span></li>
+            <li><span class="left">Commission</span> <b class="right commission">$5.20</b></li>
+        </ul>
+        <input type="text" class="text" id="referrer-url" value="<%= referrer_url %>" />
+        <button class="btns-blue-embo btn-copy" data-clipboard-target="#referrer-url">Copy Link</button>
+    </fieldset>
+</div>
+<div class="btn-area">
+    <div class="share-via">
+        <a href="#" class="tooltip"><em></em></a>
+        <ul class="less">
+            <li><a href="http://www.facebook.com/sharer.php?u=<%= referrer_url %>" class="fb" target="_blank"><span class="ic-fb"></span> <em>Share on Facebook</em></a></li>
+            <li><a href="http://twitter.com/share?text=<%= name %>&amp;url=<%= referrer_url %>&amp;via=fancy" class="tw" target="_blank"><span class="ic-tw"></span> <em>Share on Twitter</em></a></li>
+            <li><a href="#" id="gplus-share" class="gg" target="" data-gapiattached="true"><span class="ic-gg"></span> <em style="left: 84px; margin-left: -51.5px;">Share on Google+</em></a></li>
+            <li><a href="http://www.stumbleupon.com/submit?url=<%= referrer_url %>&amp;title=<%= name %>" class="su" target="_blank"><span class="ic-su"></span> <em>Share on StumbleUpon</em></a></li>
+            <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<%= referrer_url %>&amp;title=<%= name %>&amp;source=thefancy.com" class="li" target="_blank"><span class="ic-link"></span> <em>Share on LinkedIn</em></a></li>
+            <li><a href="http://www.tumblr.com/share/link?url=<%= referrer_url %>&amp;name=<%= name %>&amp;description=<%= name %>" class="tb" target="_blank"><span class="ic-tb"></span> <em>Share on Tumblr</em></a></li>
+            <li><a href="http://vkontakte.ru/share.php?url=<%= referrer_url %>" class="vk" target="_blank"><span class="ic-vk"></span> <em>Share on ВКонтакте</em></a></li>
+            <li><a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&amp;st.s=2&amp;st.noresize=on&amp;st._surl=<%= url %>" class="od" target="_blank"><span class="ic-od"></span> <em>Share on Одноклассники</em></a></li>
+            <li><a href="http://mixi.jp/share.pl?u=<%= referrer_url %>&amp;k=91966ce7669c34754b21555e4ae88eedce498bf0" class="mx"><span class="ic-mx"></span> <em>Share on mixi</em></a></li>
+            <li><a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<%= referrer_url %>" class="qz" target="_blank"><span class="ic-qz"></span> <em>Share on q-zone</em></a></li>
+            <li><a href="http://service.weibo.com/share/share.php?url=<%= referrer_url %>&amp;appkey=&amp;title=<%= name %>" class="wb" target="_blank"><span class="ic-wb"></span> <em>Share on Weibo</em></a></li>
+            <li><a href="http://mixi.jp/share.pl?u=<%= referrer_url %>&amp;k=91966ce7669c34754b21555e4ae88eedce498bf0" class="re"><span class="ic-re"></span> <em>Share on Renren</em></a></li>
+        </ul>
+        <a href="#" class="show"></a>
+    </div>
+    <button class="btns-white btn-close">Close</button>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

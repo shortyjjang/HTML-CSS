@@ -1,0 +1,55 @@
+@charset "UTF-8";
+@import url('./sales_popup.css'); 
+@import url('./share_popup.css'); 
+
+._slidable .paging a:before, ._slidable .paging a:before {background: url('../../images/normal/shop_index2.png') no-repeat ;background-size:100px 100px;}
+.figure-item .btn-cart .icon {background-image: url("../../images/normal/shop_buttons.png");background-size:50px 50px;background-repeat: no-repeat;}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+	._slidable .paging a:before, ._slidable .paging a:before {background-image: url('../../images/retina/shop_index2.png');}
+	.figure-item .btn-cart .icon {background-image: url("../../images/retina/shop_buttons.png");}
+}
+
+._slidable {position:relative;}
+._slidable dt, ._slidable h3 {color: #444a54;font-size: 14px;clear: both;padding: 16px 15px 16px;/* border-bottom: 1px solid #F0F1F2; */margin: 0 0 4px;}
+._slidable dt a, ._slidable h3 a {color:#444a54;}
+._slidable dt a:hover, ._slidable h3 a:hover {text-decoration:none;}
+._slidable dt a small, ._slidable h3 a small {font-size:12px;font-weight:normal;margin-left:8px;}
+._slidable .slide {height: 242px;overflow:hidden;white-space:nowrap;font-size:0;padding-right: 4px;}
+._slidable .slide > ol {display: inline-block;vertical-align: top;}
+._slidable .stream > li {padding: 0 0 4px 4px;font-size:13px;float: none;display: inline-block;vertical-align: top;width: 238px;}
+._slidable .stream > li:nth-of-type(4n), ._slidable .stream > li:nth-of-type(4n+1) {width:237px;}
+._slidable .stream > li:nth-of-type(4n) .figure-item .show_cart .sale-item-input {left:auto;right:-10px;}
+._slidable .stream > li:nth-of-type(4n) .figure-item .show_cart .sale-item-input:before {left:auto;right:27px;}
+._slidable .stream > li:nth-of-type(4n) .figure-item .show_cart .sale-item-input:after {left:auto;right:27px;}
+._slidable dt .paging {top:auto;bottom:13px;}
+._slidable .paging {position: absolute;top: 10px;right: 3px;line-height: 26px;height: 26px;}
+._slidable .paging:before {content: '';position: absolute;left: 50%;top: 50%;width: 1px;height: 15px;background: #F3F3F3;margin-top: -6px;}
+._slidable .paging a {display: inline-block;position: relative;width: 8px;height: 14px;opacity: 0.5;text-indent: -1000em;vertical-align: middle;margin: 0;padding: 6px 12px;}
+._slidable .paging a.disabled:hover, ._slidable .paging a.disabled, ._slidable .paging a.disbaled, ._slidable .paging a.disbaled:hover {opacity: 0.25;cursor: default;}
+._slidable .paging a:hover {opacity: 0.8;}
+._slidable .paging a:before {content: '';position: absolute;width: 9px;height: 15px;top: 6px;left: 12px;}
+._slidable .paging a.next:before {background-position: -50px 0;}
+._slidable .paging a.prev:before {background-position: -40px 0;}
+._slidable .paging small {display:none;}
+._slidable fieldset.sale-item-input {display:none;}
+.figure-item {position:relative;padding: 0;}
+.figure-item .back {background:rgba(0,0,0,0.2);border-radius:0;}
+.figure-item figure {background: no-repeat 50% 50%;background-size: cover;}
+.figure-item figure .figure {display:block;height:238px;background: no-repeat 50% 50%;background-size: cover;}
+.figure-item figure .figure img {display:none;}
+.figure-item figcaption {position: absolute;bottom: -54px;left: 0;background: #fff;width: 100%;padding: 11px 0 7px;transition: bottom 0.2s;-webkit-transition: bottom 0.2s;-moz-transition: bottom 0.2s;}
+.figure-item figcaption .title {position:relative;margin: 0 60px 1px 9px;display: block;overflow: hidden;white-space: nowrap;color: #494F59;}
+.figure-item figcaption .figure-detail {position:relative;margin: 0 60px 0 9px;display: block;overflow: hidden;white-space: nowrap;}
+.figure-item figcaption .title:after, .figure-item figcaption .figure-detail:after {content: '';position: absolute;top: 0;right: 0;width: 30%;height: 100%;background: -webkit-linear-gradient(0deg, rgba(255,255,255,0), rgba(255,255,255,0) 60%, white 90%);background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0) 60%, white 90%);pointer-events: none;}
+.figure-item figcaption .username, .figure-item figcaption .username a {color: #8a8f9c;}
+.figure-item figcaption .price small {display:none;}
+.figure-item figcaption .price.sales {color:#b42c2c;}
+.figure-item figcaption .price small.before {font-weight:normal;display:inline;font-size:13px;color: #8a8f9c;text-decoration:line-through;}
+.figure-item .buttons {position:absolute;right:9px;bottom:-45px;transition: bottom 0.2s;-webkit-transition: bottom 0.2s;-moz-transition: bottom 0.2s;z-index: 2;}
+.figure-item .buttons .menu-container, .figure-item .buttons .button {display:none;}
+.figure-item .buttons .btn-cart {width:44px;line-height:27px;background:none;box-shadow: 0 1px 2px rgba(0,0,0,0.01),0 0 0 1px rgba(0,0,0,0.15);border-radius: 3px;}
+.figure-item .buttons .btn-cart em {display:none;}
+.figure-item .buttons .btn-cart .icon {width: 28px;height: 14px;background-position: -10px 0;vertical-align: middle;top: 1px;left: 1px;position: relative;opacity:0.9;display: inline-block;margin-top: -3px;}
+.figure-item .price {font-weight:bold;}
+.figure-item:hover .buttons {bottom:9px;transition: bottom 0.2s;-webkit-transition: bottom 0.2s;-moz-transition: bottom 0.2s;}
+.figure-item:hover figcaption {bottom:0;}

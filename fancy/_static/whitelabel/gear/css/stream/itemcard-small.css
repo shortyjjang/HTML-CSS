@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+
+.itemList {position:relative;padding-bottom: 20px;}
+.itemList:after {content:'';clear:both;display:block;}
+.itemList li,.itemList li.itemListElement {float:left;margin:0 0 20px 20px;width: calc(33% - 11px);width: -webkit-calc(33% - 12px);width: -moz-calc(33% - 11px);background: #fff;box-shadow: 0 1px 1px rgba(0,0,0,0.08);}
+.itemList li:nth-child(3n+1),.itemList li.itemListElement:nth-child(3n+1) {margin-left:0;clear:both;}
+.itemList li span.figure, .itemList li.itemListElement span.figure {display:block;padding: 5% 5% 0;}
+.itemList .figcaption {display:block;padding: 11px 14px;}
+.itemList .figure img {display:block;background:no-repeat 50% 50%;background-size:contain;width: 100%;}
+.itemList .title {display:block;font-size: 14px;line-height:20px;color:#1c1e27;font-weight:500;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.itemList .price {display:block;font-size:13px;line-height:19px;color:#636673;font-weight:500;}
+.itemList .price.sales {color:#b42c2c;}
+.itemList .price.sales small {text-decoration:line-through;color: #8a8f9c;font-weight:400;}
+
+@media screen and (max-width: 800px) {
+	.itemList {padding-bottom:0;}
+	.itemList li, .itemList li.itemListElement {float:none;margin: 0 0 15px;width:auto;}
+}

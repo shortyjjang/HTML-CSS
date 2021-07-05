@@ -1,0 +1,30 @@
+<h3 class="stit">Referral summary <a href="#" class="download tooltip"><i class="icon"></i><em>Download CSV</em></a></h3>
+<div class="inner">
+    <p class="total"><b><%= total_people %></b> People Joined</p>
+    <div class="select-date">
+        <a href="#" class="current" date-period="7" onclick="$(this).closest('.select-date').toggleClass('opened');return false;"> Last week </a>
+        <ul>
+            <li date-period="0"><a href="#"> All </a></li>
+            <li date-period="30"><a href="#"> Last 30 days </a></li>
+            <li date-period="7"><a href="#"> Last week </a></li>
+            <li date-period="1"><a href="#"> Last day </a></li>
+        </ul>
+    </div>
+    <table class="tb-type1 total-earned">
+        <colgroup>
+            <col width="*" />
+            <col width="150" />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>Total Earned</td>
+                <td class="commission"><%= numeral(total_commission).format("$0,0.00") %></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="invite-notify after">
+        <p><b>Earn more credits</b> You can earn more credits by sharing your link with friends on social networks.</p>
+        <button class="btns-blue-embo">Invite Friends</button>
+    </div>
+</div>
+<div class="loading"><img class='loading-img' /></div>

@@ -1,0 +1,112 @@
+$bgColor: #ebeced;
+$defaultFont: 'Hanken Grotesk',"Helvetica Neue",sans-serif;
+$serifFont: Georgia,"Times New Roman",Times,serif;
+$codeFont: 'Courier New',Courier,monospace;
+$defaultColor: #373d48;
+$pointColor: #2785fa;
+$grayColor: #8a8f9c;
+$lightColor: #f2f2f2;
+@mixin set-loading($color: #949597,$width: 40px, $border: 2px) {
+	content:'';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	border: $border solid $color;
+	border-radius:100% !important;
+	height: $width;
+	opacity: 1;
+	width: $width;
+	margin-top: -($width/2 + $border);
+	margin-left: -($width/2 + $border);
+	line-height: $width;
+	@include animation(pulsate,1s);
+}
+@mixin animation($name,$time,$count: infinite){
+	animation: $name $time ease-in-out;
+	animation-iteration-count:$count;
+	-webkit-animation: $name $time ease-in-out;
+	-webkit-animation-iteration-count:$count;
+	-moz-animation: $name $time ease-in-out;
+	-moz-animation-iteration-count:$count;
+}
+.apple-pay-cart-button {
+	width: 100%;
+	display: block;
+	height: 38px;
+	border: 1px solid black;
+	box-sizing: border-box;
+	padding: 10px 10px;
+	border: 1px solid;
+	border-radius:3px;
+	margin: 10px 0px;
+}
+.apple-pay-thing-button {
+	width: 100%;
+	display: block;
+	height: 38px;
+	border: 1px solid black;
+	box-sizing: border-box;
+	padding: 10px 10px;
+	border: 1px solid;
+	border-radius:3px;
+	margin-bottom: 10px;
+}
+.apple-pay-button {
+	background-image: -webkit-named-image(apple-pay-logo-white);
+	background-color:black;
+	background-size: 100% 26px;
+	background-position-y: 6px;
+	background-repeat: no-repeat;
+	cursor:pointer;
+}
+.apple-pay-button-with-text {
+	-webkit-appearance: -apple-pay-button;
+	-apple-pay-button-type: buy;
+	background-image: none;
+	--apple-pay-scale: 1.1875; /* (height / 32) */
+	display: inline-flex;
+	justify-content: center;
+	font-size: 12px;
+	border-radius: 5px;
+	padding: 0px;
+	box-sizing: border-box;
+	min-width: 200px;
+	min-height: 32px;
+	max-height: 64px;
+	> .text {
+		font-family: -apple-system;
+		font-size: calc(1em * var(--apple-pay-scale));
+		font-weight: 300;
+		align-self: center;
+		margin-right: calc(2px * var(--apple-pay-scale));
+	}
+	> .logo {
+		width: calc(35px * var(--apple-pay-scale));
+		height: 100%;
+		background-size: 100% 60%;
+		background-repeat: no-repeat;
+		background-position: 0 50%;
+		margin-left: calc(2px * var(--apple-pay-scale));
+		border: none;
+	}
+}
+$apple-button: ("white": "black", "black": "white"); 
+@each $text, $bg in $apple-button {
+	.apple-pay-button-#{$bg}-with-text {
+		background-color: #{$bg};
+		color: #{$text};
+		> .logo {
+			background-image: -webkit-named-image(apple-pay-logo-#{$text});
+			background-color: #{$bg};
+		}
+	}
+	.apple-pay-button-#{$bg}-with-line-with-text {
+		background-color: #{$bg};
+		color: #{$text};
+		border: .5px solid #{$text};
+		> .logo {
+			background-image: -webkit-named-image(apple-pay-logo-#{$text});
+			background-color: #{$bg};
+		}
+	}
+}

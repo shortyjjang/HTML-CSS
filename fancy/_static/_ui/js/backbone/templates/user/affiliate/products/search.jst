@@ -1,0 +1,60 @@
+<fieldset class="search after">
+    <div class="left">
+        <a href="#" class="mn-filter" onclick="$(this).closest('.search').find('.filter-popup').toggle();return false;">Filter products</a>
+        <i class="icon"></i>
+        <input type="text" placeholder="Search keywords" class="text">
+        <div class="filter-popup" style="display:none;">
+            <dl class="cate">
+                <dt onclick="$(this).closest('dl').find('dd').slideToggle('fast');">CATEGORIES</dt>
+                <dd style="display:none"><ul>
+                </ul></dd>
+            </dl>
+            <dl class="color">
+                <dt onclick="$(this).closest('dl').find('dd').slideToggle('fast');">COLOR</dt>
+                <dd><ul class="after">
+                    <li class="black"><input type="checkbox" id="black" name="color"><label for="black">Black</label></li>
+                    <li class="white"><input type="checkbox" id="white" name="color"><label for="white">White</label></li>
+                    <li class="blue checked"><input type="checkbox" id="blue" name="color"><label for="blue">Blue</label></li>
+                    <li class="mint"><input type="checkbox" id="mint" name="color"><label for="mint">Mint</label></li>
+                    <li class="green"><input type="checkbox" id="green" name="color"><label for="green">Green</label></li>
+                    <li class="pink"><input type="checkbox" id="pink" name="color"><label for="pink">Pink</label></li>
+                    <li class="violet"><input type="checkbox" id="violet" name="color"><label for="violet">Violet</label></li>
+                    <li class="red"><input type="checkbox" id="red" name="color"><label for="red">Red</label></li>
+                    <li class="orange"><input type="checkbox" id="orange" name="color"><label for="orange">Orange</label></li>
+                    <li class="yellow"><input type="checkbox" id="yellow" name="color"><label for="yellow">Yellow</label></li>
+                    <li class="brown"><input type="checkbox" id="brown" name="color"><label for="brown">Brown</label></li>
+                    <li class="gray"><input type="checkbox" id="gray" name="color"><label for="gray">Gray</label></li>
+                    <li class="gold"><input type="checkbox" id="gold" name="color"><label for="gold">Gold</label></li>
+                    <li class="silver"><input type="checkbox" id="silver" name="color"><label for="silver">Silver</label></li>
+                </ul></dd>
+            </dl>
+            <dl class="price">
+                <dt onclick="$(this).closest('dl').find('dd').slideToggle('fast');">PRICE</dt>
+                <dd style="display:none"><fieldset>
+                    <span class="min"><em>$</em><input type="text" class="text" value=""></span> -
+                    <span class="max"><em>$</em><input type="text" class="text" value=""></span>
+                    <button class="btns-white btn-apply"><span>Apply</span></button>
+                </fieldset></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="right">
+        <label>Sort by</label>
+        <select>
+            <option name="newest"><%= gettext('Newest') %></option>
+            <option name="popular"><%= gettext('Popular') %></option>
+            <option name="price_asc"><%= gettext('Price: Low to High') %></option>
+            <option name="price_desc"><%= gettext('Price: High to Low') %></option>
+        </select>
+    </div>
+</fieldset>
+<div class="filter-result">
+    <p class="left">
+    </p>
+    <ul class="show_option">
+        <li><a href="#" class="current">50</a></li>
+        <li><a href="#">100</a></li>
+        <li><a href="#">150</a></li>
+    </ul>
+    <p class="right"><label class="hidden">Total</label> products</p>
+</div>

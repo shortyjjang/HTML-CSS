@@ -1,0 +1,42 @@
+<ul class="tab" <% if (all_products_count <= 0) { %> style="display:none;" <% } %> >
+    <li>
+        <a href="<%= getSubnavURLWithStatus('all') %>" name="all">
+            <%= gettext('All Products') %>
+            <% if (all_products_count) { %>
+                <small><%= numeral(all_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('active') %>" name="active">
+            <%= gettext('Active') %>
+            <% if (active_products_count) { %>
+                <small><%= numeral(active_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('pending') %>" name="pending">
+            <%= gettext('Pending') %>
+            <% if (pending_products_count) { %>
+                <small><%= numeral(pending_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('sold_out') %>" name="sold_out">
+            <%= gettext('Sold Out') %>
+            <% if (sold_out_products_count) { %>
+                <small><%= numeral(sold_out_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('expired') %>" name="expired">
+            <%= gettext('Expired') %>
+            <% if (expired_products_count) { %>
+                <small><%= numeral(expired_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+</ul>

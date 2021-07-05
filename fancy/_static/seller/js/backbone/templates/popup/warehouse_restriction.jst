@@ -1,0 +1,69 @@
+<p class="ltit"><%= gettext('Warehouse Restrictions') %></p>
+<div class="restrictions-cont after">
+    <div class="restrictions-info">
+        <img src="/_static/_ui/images/common/blank.gif" alt="" class="sale-img" style="background-image: url(<%= product ? product.image_url : '' %>)">
+        <ul>
+            <li>
+                <b><%= gettext('Order ID') %></b>
+                <span class="order-id">
+                    <% if (saleOrderItem && saleOrderItem.sale_order) { %>
+                        #<%= saleOrderItem.sale_order.id_str %>
+                    <% } %>
+                </span>
+            </li>
+            <li>
+                <b><%= gettext('Sale ID') %></b>
+                <span class="sale-id">
+                    <% if (product) { %>
+                        #<%= product.id %>
+                    <% } %>
+                </span>
+            </li>
+            <li><b><%= gettext('Title') %></b>
+            <span class="sale-title"><%= product ? product.title : '' %></span></li>
+            <li>
+                <b><%= gettext('Option') %></b>
+                <span class="sale-option">
+                    <% if (saleOrderItem && saleOrderItem.option) { %>
+                        <%= saleOrderItem.option.title %>
+                    <% } %>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <dl class="left">
+        <dt><%= gettext('Lock to warehouse') %></dt>
+        <dd>
+            <ul>
+                <% _.each(warehouses, function(warehouse) { %>
+                    <li>
+                        <input type="radio" name="lock" id="lock-<%= warehouse.id %>" value="<%= warehouse.id %>"/>
+                        <label for="lock-<%= warehouse.id %>"><%= warehouse.name %></label>
+                    </li>
+                <% }) %>
+                <li>
+                    <input type="radio" name="lock" id="lock-none" value="none"/>
+                    <label for="lock-none"><%= gettext("Don't Lock") %></label>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <dl class="right disallow">
+        <dt><%= gettext('Disallow warehouses') %></dt>
+        <dd>
+            <ul>
+                <% _.each(warehouses, function(warehouse) { %>
+                    <li>
+                        <input type="checkbox" id="disallow-<%= warehouse.id %>" value="<%= warehouse.id %>" name="disallow" />
+                        <label for="disallow-<%= warehouse.id %>"><%= warehouse.name %></label>
+                    </li>
+                <% }) %>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<div class="btn-area">
+    <button class="btns-white btn-cancel"><%= gettext('Cancel') %></button>
+    <button class="btns-blue-embo btn-save"><%= gettext('Save changes') %></button>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

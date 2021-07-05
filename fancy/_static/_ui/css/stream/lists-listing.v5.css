@@ -1,0 +1,168 @@
+.listsection {
+  position: relative;
+  -webkit-box-shadow: inset 0 0 0 1px #EBECED;
+          box-shadow: inset 0 0 0 1px #EBECED;
+  background-color: #fff;
+}
+
+.listsection img {
+  float: left;
+  width: 25%;
+  background: no-repeat 0 50%;
+  background-size: contain;
+}
+
+.listsection figure {
+  position: relative;
+}
+
+.listsection figure:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-box-shadow: inset 0 0 0 1px #EBECED;
+          box-shadow: inset 0 0 0 1px #EBECED;
+}
+
+.listsection figure:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.listsection figure .edit-list {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background: #FFFFFF;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-indent: -1000em;
+  border-radius: 100%;
+}
+
+.listsection figure .edit-list:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: url("../../images/svg/ic-detail.svg") no-repeat -40px 0;
+  background-size: 200px 200px;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+}
+
+.listsection figure .move {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: no-repeat url("../../images/svg/ic_move.svg") 50% 50% rgba(0, 0, 0, 0.2);
+  background-size: 28px 28px;
+  width: 100%;
+  height: 100%;
+  cursor: move;
+  display: none;
+  opacity: 0.7;
+}
+
+.listsection figcaption a {
+  padding: 16px;
+}
+
+.listsection a {
+  display: block;
+  color: #3F434B;
+}
+
+.listsection .title {
+  display: block;
+  font-size: 16px;
+  line-height: 22px;
+  padding-bottom: 4px;
+  font-weight: 600;
+}
+
+.listsection .count {
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  color: #C4C4C4;
+}
+
+.listsection .private:before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 12px;
+  vertical-align: middle;
+  margin: -3px 4px 0 0;
+  background: url("../../images/svg/ic-detail.svg") no-repeat 0 -25px;
+  background-size: 100px 100px;
+}
+
+.listsection .ic-plus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -73px 0 0 -39px;
+  width: 78px;
+  height: 78px;
+  border-radius: 100%;
+  background: #2986d9;
+}
+
+.listsection .ic-plus:before, .listsection .ic-plus:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 28px;
+  background: #fff;
+  margin: -14px 0 0 -1px;
+}
+
+.listsection .ic-plus:after {
+  height: 2px;
+  width: 28px;
+  margin: -1px 0 0 -14px;
+}
+
+.listsection .btn-create b {
+  display: block;
+  height: 70px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.listsection .btn-create img {
+  float: none;
+}
+
+body:not(.touchscreen) .listsection:hover figure .edit-list, body:not(.touchscreen) .listsection:hover figure:hover .move {
+  display: block;
+}
+
+@media screen and (max-width: 900px) {
+  .listsection figure .edit-list {
+    display: block;
+  }
+  .listsection:hover figure:hover .move {
+    display: none;
+  }
+  .listsection .ic-plus {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+    margin-top: -60px;
+  }
+}
+/*# sourceMappingURL=lists-listing.v5.css.map */

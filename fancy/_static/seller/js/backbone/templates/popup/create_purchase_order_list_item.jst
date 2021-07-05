@@ -1,0 +1,8 @@
+<td class="title"><b><%= product.title %><br></b>
+<% if (sale_item_option) { %>
+    <span class="option"><%= sale_item_option.title %>(#<%= sale_item_option.id_str %>)</span>
+<% } %>
+<a href="/merchant/products/<%= product.id %>/edit" target="_blank">#<%= item_number %></a></td>
+<td><%= formatInteger(quantity) %></td>
+<td><input type="text" class="text qty" min-quantity="<%= min_quantity %>" value="<%= quantity %>" name='quantity'></td>
+<td><a href="#" class="btn-del tooltip" data-item_number="<%= item_number %>"><em data-adjust="-5">Remove</em><i class="icon"></i></a></td>

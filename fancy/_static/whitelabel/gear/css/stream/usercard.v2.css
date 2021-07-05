@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.followerList {clear:both;padding-bottom:50px;text-align:center;}
+.followerList:after {content:'';clear:both;display:block;}
+.followerList li {float:left;margin: 0 0 17px 17px;width: calc(25% - 13px);width: -webkit-calc(25% - 13px);width: -moz-calc(25% - 13px);}
+.followerList li:nth-child(4n+1) {margin-left:0;clear:both;}
+.followerElement {background: #F5F5F5;position:relative;border-radius:3px;}
+.followerElement .cover {display:none;height:100%;width:100%;top:0;left:0;position: absolute;border-radius: 3px;}
+.followerElement .cover img {width:100%;height:100%;background:no-repeat 50% 50% ;background-size:cover;border-radius: 3px;}
+.followerElement .avatar {position:relative;display: block;padding: 46px 0 18px;}
+.followerElement .avatar.store img {border-radius:3px;}
+.followerElement .avatar img {display:block;height: 90px;width: 90px;box-shadow:0 5px 20px rgba(0,0,0,0.06);background: no-repeat 50% 50% #fff;background-size:cover;margin:0 auto;border-radius: 100%;}
+.followerElement .title {display:block;font-weight:500;font-size:18px;color:#1c1e27;line-height:22px;padding-bottom:8px;}
+.followerElement .title .verified {display:inline-block;width: 22px;height: 22px;vertical-align:middle;margin: -12px 0 0 2px;background: url('../../images/svg/sprite.layout.merge.svg') no-repeat 0 -170px;background-size: 300px 300px;}
+.followerElement .location, .followerElement .count, .followerElement .followers {line-height:18px;font-size: 14px;color:#636673;}
+.followerElement .followers:before {content:'·';margin-right:4px;}
+.followerElement .figure-list {display:block;white-space:nowrap;overflow:hidden;text-align: center;padding: 40px 0 46px;min-height:60px;}
+.followerElement .figure-list img {display:inline-block;width:60px;vertical-align:middle;background: no-repeat 50% 50% #e9e9e9;background-size:cover;border-radius:3px;}
+.followerElement .figure-list img+img {margin-left:6px;}
+
+@media screen and (max-width: 920px) {
+	.followerList {padding-bottom: 15px;}
+	.followerList .followerElement {float:none;margin-left:0;width:auto;margin-bottom: 20px;}
+	.followerElement .title {font-size:14px;line-height: 20px;padding-bottom: 3px;}
+	.followerElement .location, .followerElement .count, .followerElement .followers {font-size:11px;line-height: 16px;}
+}

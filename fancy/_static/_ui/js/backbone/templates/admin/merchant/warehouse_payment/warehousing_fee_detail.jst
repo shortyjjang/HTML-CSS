@@ -1,0 +1,288 @@
+<form id="test<%= model.id %>">
+    <td></td>
+    <td colspan="6">
+
+        <!-- Prepayment -->
+        <dl class="table">
+            <dt>Prepayment</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Prepayment From Last Month</th>
+                        <th>Prepayment Amount</th>
+                        <th>Prepayment Charged</th>
+                        <th>Date Charged</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= model.prepayment_status_display %></td>
+                        <td><%= displayFee(model.prepayment_carried_over) %></td>
+                        <td><input type="text" class="text" name="prepayment" value-type="float" value="<%= model.prepayment %>" <% if (!model.is_first_full_month_fee || model.prepayment_status == 1) { %>disabled<% } %> /></td>
+                        <td><%= displayFee(model.prepayment_charged) %></td>
+                        <td><%= displayDatetime(model.date_prepayment_charged) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Inbound -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Inbound</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Receiving and stocking</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.RECEIVED_AND_STOCKED_ITEMS_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="received_and_stocked_items_qty" value-type="int" value="<%= model.received_and_stocked_items_qty %>" disabled /></td>
+                        <td><%= displayFee(model.received_and_stocked_items_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Outbound -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Outbound</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Standard shipping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.SHIPPED_ITEMS_STANDARD_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="shipped_items_qty" value-type="int" value="<%= model.shipped_items_qty %>" disabled /></td>
+                        <td><%= displayFee(model.shipped_items_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td> - Additional item</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.SHIPPED_ITEMS_ADDITIONAL_RATE).format('0,0.[0000]') %></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Oversize shipping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.OVERSIZED_ITEMS_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="oversized_items_qty" value-type="int" value="<%= model.oversized_items_qty %>" /></td>
+                        <td><%= displayFee(model.oversized_items_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Inserts</td>
+                        <td>Per two inserts</td>
+                        <td>$<%= numeral(model.rate_constants.INSERTS_AND_MARKETING_MATERIALS_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="inserts_and_marketing_materials_qty" value-type="int" value="<%= model.inserts_and_marketing_materials_qty %>" /></td>
+                        <td><%= displayFee(model.inserts_and_marketing_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>International shipping</td>
+                        <td>Order</td>
+                        <td>$<%= numeral(model.rate_constants.INTERNATIONAL_SHIPPING_ORDER_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="international_shipping_order_qty" value-type="int" value="<%= model.international_shipping_order_qty %>" /></td>
+                        <td><%= displayFee(model.international_shipping_order_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Freight</td>
+                        <td>Cost + <%= numeral((model.rate_constants.FREIGHT_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.FREIGHT_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="freight_cost" value-type="float" value="<%= model.freight_cost %>" /></td>
+                        <td><%= displayFee(model.freight_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Warehousing -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Warehousing</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Location</td>
+                        <td>Location per month</td>
+                        <td>$<%= numeral(model.rate_constants.LOCATION_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="location_num" value-type="int" value="<%= model.location_num %>" /></td>
+                        <td><%= displayFee(model.location_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Pallet</td>
+                        <td>Pallet per month</td>
+                        <td>$<%= numeral(model.rate_constants.PALLET_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="pallet_qty" value-type="int" value="<%= model.pallet_qty %>" /></td>
+                        <td><%= displayFee(model.pallet_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Long term storage</td>
+                        <td>Cubic ft semi-annually</td>
+                        <td>$<%= numeral(model.rate_constants.LONG_TERM_STORAGE_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="long_term_storage_volume" value-type="float" value="<%= model.long_term_storage_volume %>" /></td>
+                        <td><%= displayFee(model.long_term_storage_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Production and kitting</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.PRODUCTION_AND_KITTING_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="production_and_kitting_cost" value-type="float" value="<%= model.production_and_kitting_cost %>" /></td>
+                        <td><%= displayFee(model.production_and_kitting_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Physical inventory</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.PHYSICAL_INVENTORY_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="physical_inventory_cost" value-type="float" value="<%= model.physical_inventory_cost %>" /></td>
+                        <td><%= displayFee(model.physical_inventory_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Inventory transfers</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.INVENTORY_TRANSFER_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="inventory_transfer_cost" value-type="float" value="<%= model.inventory_transfer_cost %>" /></td>
+                        <td><%= displayFee(model.inventory_transfer_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Value Added Services -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Value Added Services</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gift message</td>
+                        <td>Order</td>
+                        <td>$<%= numeral(model.rate_constants.GIFT_MESSAGE_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="gift_message_order_qty" value-type="int" value="<%= model.gift_message_order_qty %>" /></td>
+                        <td><%= displayFee(model.gift_message_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Gift wrapping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.GIFT_WRAPPING_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="gift_wrapping_qty" value-type="int" value="<%= model.gift_wrapping_qty %>" /></td>
+                        <td><%= displayFee(model.gift_wrapping_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Warehouse labor</td>
+                        <td>Hour</td>
+                        <td>$<%= numeral(model.rate_constants.WAREHOUSE_LABOR_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="warehouse_labor_hour" value-type="float" value="<%= model.warehouse_labor_hour %>" /></td>
+                        <td><%= displayFee(model.warehouse_labor_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Miscellaneous Services -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Miscellaneous Services</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Operational Startup</td>
+                        <td>One-time</td>
+                        <td>No charge</td>
+                        <td><input type="text" class="text" name="operational_startup_cost" value-type="float" value="0.00" disabled/></td>
+                        <td><%= displayFee(model.operational_startup_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SHIPPING_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SHIPPING_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="shipping_cost" value-type="float" value="<%= model.shipping_cost %>" /></td>
+                        <td><%= displayFee(model.shipping_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Supplies and materials</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="supplies_and_materials_cost" value-type="float" value="<%= model.supplies_and_materials_cost %>" /></td>
+                        <td><%= displayFee(model.supplies_and_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Custom supplies and materials</td>
+                        <td>Cost + <%= numeral((model.rate_constants.CUSTOM_SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.CUSTOM_SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><input type="text" class="text" name="custom_supplies_and_materials_cost" value-type="float" value="<%= model.custom_supplies_and_materials_cost %>" /></td>
+                        <td><%= displayFee(model.custom_supplies_and_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Returns</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.RETURNS_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="returns_cost" value-type="float" value="<%= model.returns_cost %>" /></td>
+                        <td><%= displayFee(model.returns_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>IT development</td>
+                        <td>Hour</td>
+                        <td>$<%= numeral(model.rate_constants.IT_DEVELOPMENT_RATE).format('0,0.[0000]') %></td>
+                        <td><input type="text" class="text" name="it_development_hour" value-type="float" value="<%= model.it_development_hour %>" /></td>
+                        <td><%= displayFee(model.it_development_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <div class="btn-area" warehousing_fee_id="<%= model.id %>">
+        <% if (model.payment_status == 0) { // pending status %>
+            <button class="btns-blue-embo btn-save">Save</button>
+        <% } else if (model.payment_status == 2) { // completed status %>
+            <button class="btns-gray-embo btn-view-invoice" model_id="<%= model.id %>">View Invoice</button>
+        <% } %>
+
+        <% if (model.prepayment_status != 1) { %>
+        <button class="btns-gray-embo btn-prepayment-charge" <% if (!model.ready_to_charge_prepayment) { %>disabled<% } %>>Charge Prepayment</button>
+        <% } else { %>
+        <button class="btns-gray-embo btn-fee-charge" <% if (!model.ready_to_charge_fee) { %>disabled<% } %>>Charge Fee</button>
+        <% } %>
+        </div>
+    </td>
+</form>

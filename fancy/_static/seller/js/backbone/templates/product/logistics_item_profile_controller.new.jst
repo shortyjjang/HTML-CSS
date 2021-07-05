@@ -1,0 +1,29 @@
+<ul class="tab3">
+	<li><a href="/merchant/products/logistics?filter=pending" tab="pending">Pending orders</a></li>
+	<li><a href="/merchant/products/logistics?filter=vip"  tab="vip">VIP orders</a></li>
+	<li><a href="/merchant/products/logistics?filter=all"  tab="all">All products</a></li>
+</ul>
+<div class="search-frm after"><fieldset class="search left">
+	<div class="dropdown bulk disabled">
+		<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;"><%= gettext('Select an item') %></a>
+		<ul>
+			<li><a href="#" value='create'><%= gettext('Create new PO') %></a></li>
+			<li><a href="#"  value='add-po'><%= gettext('Add to current PO') %></a></li>
+		</ul>
+	</div>
+</fieldset>
+<fieldset class="search right">
+	<input type="hidden" name="search-field">
+	<input type="text" placeholder="<%= gettext('Search') %>" class="text" name="search-text" />
+	<a href="#" class="remove"><i class="icon"></i></a>
+	<div class="dropdown">
+		<a href="#" class="toggle-button" onclick="if($(this).closest('.dropdown').hasClass('disabled')==false){$(this).closest('.dropdown').toggleClass('opened');};return false;"></a>
+		<ul name="search-field">
+			<li><a href="#" value="all" selected="">All</a></li>
+			<li><a href="#" value="sale-id">Sale ID</a></li>
+			<li><a href="#" value="sale-title">Title</a></li>
+			<li><a href="#" value="option-id">Option ID</a></li>
+			<li><a href="#" value="tag-id">Tag</a></li>
+		</ul>
+	</div>
+</fieldset></div>

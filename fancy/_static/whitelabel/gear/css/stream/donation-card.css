@@ -1,0 +1,60 @@
+.donationList:after {content:'';clear:both;display:block;}
+.donationList .userElement {float:left;margin: 0 0 20px 20px;width: 224px;z-index: 0;position: relative;width: calc((100% - 40px)/3);}
+.donationList .userElement:nth-child(3n+1) {clear:both;margin-left: 0;}
+.userElement {background: #fff;position:relative;border-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,0.08),0 0 0 1px rgba(0,0,0,0.05);text-align:center;}
+.userElement .cover {display: block;border-radius: 5px 5px 0 0;overflow: hidden;position: relative;}
+.userElement .cover img {width: 37%;background: no-repeat 50% 50% #f2f2f2;background-size:cover;border-radius: 5px 5px 0 0;padding-right: 63%;vertical-align: top;}
+.userElement .info {position:relative;display: block;overflow: hidden;}
+.userElement .avatar {display:block;position:relative;}
+.userElement .avatar.store img {border-radius:5px;}
+.userElement .avatar img {display:block;width: 120px;box-shadow:0 5px 20px rgba(0,0,0,0.06);background: no-repeat 50% 50%;background-size:cover;margin:0 auto;border-radius: 100%;position: absolute;bottom: -60px;left: 50%;margin-left: -60px;}
+.userElement .title .verified {display:inline-block;vertical-align:middle;margin: -12px 0 0 2px;}
+.userElement .title .verified:before {content:'';display:block;width: 22px;height: 22px;background: url("../../images/svg/sprite.layout.merge.svg") no-repeat 0 -170px;background-size: 300px 300px;}
+.userElement .title {position:relative;font-size:18px;font-weight:bold;display:block;color:#1A1B1C;white-space:nowrap;text-overflow:ellipsis;padding: 80px 10px 0;}
+.userElement .tagline {display:block;color:#636672;font-size:14px;padding-top:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding: 0 20px;}
+.userElement .btns {display:block;padding: 12px 10px 0;margin-bottom: 30px;position: relative;}
+.userElement .btns a+a, .userElement .btns .volunteer+a {margin-left:11px;}
+.userElement .btns .volunteer:hover ul {display:block;}
+.userElement .btns .volunteer ul:before {content:'';position:absolute;bottom:100%;left:50%;width:14px;height:14px;background:#fff;border-radius:3px;border: 1px solid #E9E9EB;transform:rotate(45deg);margin-bottom:-10px;box-shadow: 0 1px 10px rgba(0,0,0,0.05);}
+.userElement .btns .volunteer {position:relative;display:inline-block;vertical-align:middle;z-index: 1;}
+.userElement .btns .volunteer a {display:block;}
+.userElement .btns .volunteer li:first-child {padding-top:15px;}
+.userElement .btns .volunteer li:first-child .info {top:15px;}
+.userElement .btns .volunteer li {padding: 0 15px 15px;display: block;width: auto;border: 0;height:50px;overflow: hidden;position: relative;background: #fff;}
+.userElement .btns .volunteer ul {display:none;position:absolute;top: 100%;left:50%;margin-top: 10px;overflow: visible;font-size: 1em;white-space: normal;border: 1px solid #E9E9EB;box-shadow: 0 1px 10px rgba(0,0,0,0.05);background: #fff;border-radius: 6px;width: 300px;margin-left: -150px;text-align: left;}
+.userElement .btns .volunteer .info {display:block;padding: 4px 0 4px 76px;font-size:12px;position: absolute;color: #93959E;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;box-sizing: border-box;top: 0;left: 0;width: 100%;}
+.userElement .btns .volunteer .info b {display:block;font-size:14px;line-height:19px;padding-bottom:5px;color: #1A1B1C;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.userElement .btns .volunteer .info img {position:absolute;top:0;left: 15px;width:50px;height:50px;background: no-repeat 50% 50% #FAFAFA;background-size: contain;background-blend-mode: darken;border-radius: 3px;}
+.userElement .btns .volunteer .info .price {font-weight:500;color:#1A1B1C;}
+.userElement .btns a.btn-volunteer, .userElement .btns a.btn-donate {display:inline-block;vertical-align:middle;line-height:47px;padding:0;font-size:15px;font-weight:bold;border-radius:24px;min-width: 85px;box-shadow: 0 2px 5px rgba(60, 202, 131, .4);padding: 0 15px;margin-top: 10px;}
+.userElement .btns a.btn-volunteer:before {content:'';width:27px;height:27px;margin:-3px 8px 0 0;background: url("../../images/svg/sprite.layout.merge.svg") no-repeat -35px -230px;display: inline-block;vertical-align: middle;}
+.userElement .btns a.btn-volunteer {box-shadow:0 0 0 1px rgba(0,0,0,0.05),0 2px 5px rgba(0,0,0,0.05);color:#3CCB83;}
+.userElement .wishlist {display:block;padding:25px 25px 30px;text-align:center;white-space:nowrap;overflow:hidden;border-top: 1px solid rgba(227, 227, 227, .5);}
+.userElement .wishlist:after {content:'';clear:both;display:block;}
+.userElement .wishlist small {display:block;color:#636672;font-size:12px;padding-bottom:18px;letter-spacing: 2px;}
+.userElement .wishlist > img+img, .userElement .wishlist > a+a {margin-left:10px;}
+.userElement .wishlist > img, .userElement .wishlist > a {float:left;width:90px;width: calc((100% - 30px)/4);}
+.userElement .wishlist a img {width:100%;}
+.userElement .wishlist img {vertical-align:top;;background:no-repeat 50% 50% #f2f2f2;background-blend-mode:darken;border-radius:4px;background-size:cover;}
+
+@media screen and (max-width: 920px) {
+    .donationList .userElement {width:calc(50% - 10px);}
+    .donationList .userElement:nth-child(3n+1) {clear:none;margin-left:20px;}
+    .donationList .userElement:nth-child(2n+1) {clear:both;margin-left:0;}
+    .userElement .avatar img {width:80px;bottom: -40px;margin-left: -40px;}
+    .userElement .title {padding-top:50px;font-size: 15px;}
+    .userElement .tagline {font-size:12px;}
+    .userElement .btns {padding-top: 5px;margin-bottom:20px;}
+    .userElement .btns .volunteer {position: static;}
+    .userElement .btns .volunteer ul {width:100%;margin-left: -50%;}
+    .userElement .btns .volunteer:hover ul {display:none;}
+    .userElement .btns a.btn-volunteer, .userElement .btns a.btn-donate {font-size:12px;line-height:37px;min-width:0;}
+    .userElement .btns a.btn-volunteer:before {transform:scale(0.7);margin:-3px 0 0 -10px;}
+    .userElement .btns a.btn-volunteer, .userElement .btns a.btn-donate {margin-left:5px;}
+    .userElement .title .verified:before {transform:scale(0.7);margin-left: -5px;}
+}
+@media screen and (max-width: 500px) {
+    .donationList .userElement {float:none;width:auto;margin-left:0;}
+    .donationList .userElement:nth-child(3n+1) {clear:none;margin-left:0;}
+    .donationList .userElement:nth-child(2n+1) {clear:both;margin-left:0;}
+}

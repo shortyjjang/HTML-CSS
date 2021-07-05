@@ -1,0 +1,590 @@
+
+
+
+.apple_watch {
+	.visual .detail:before, .visual .timeline:before, .tit b:before, .watch:before, .watch span, .feature .watch:after {
+		background: url('../../_ui/images/business/apple_watch.png') no-repeat;
+		background-size: 1000px 1000px;
+	}
+	.tit {
+		font-size:41px;
+		position:relative;
+		color:#383d48;
+		font-weight: 600;
+		b {
+			text-transform:uppercase;
+			&:before {
+				display:inline-block;
+				vertical-align:middle;
+				margin: -17px 13px 0 6px;
+				content:'';
+				width:37px;
+				height:43px;
+				background-position: -300px -240px;
+			}
+		}
+	}
+	.visual {
+		background:#e7eaee;
+		padding: 165px 0 133px;
+		overflow:hidden;
+		p {
+			padding: 16px 0 40px 0;
+			color:#62666f;
+			font-size:16px;
+			line-height:24px;
+			max-width: calc(100% - 300px);
+		}
+		.tit {max-width: calc(100% - 300px);}
+		.inner {max-width:970px;}
+		.intro, .outtro {
+			top:50%;
+			left:50%;
+			margin:-132px 0 0 -107px;
+			width:214px;
+			height:265px;
+			background-position:-300px -290px;
+			background-color:#17171b;
+		}
+		.detail:before, .time:after, .timeline:before, .push span, .push span:before {
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+		}
+		.watch {
+			position:absolute;
+			width:291px;
+			height:533px;
+			right: 0;
+			top:50%;
+			margin-top: -280px;
+			.mask {
+				position:absolute;
+				width: 214px;
+				height: 265px;
+				top:50%;
+				left: 140px;
+				margin: -133px 0 0 -107px;
+				overflow: hidden;
+			}
+			span {position:absolute;}
+		}
+		.detail {
+			opacity:0;
+			width: 100%;
+			height: 100%;
+			background-position:-748px -190px;
+			left: 0;
+			top: 0;
+			&:before {
+				content:'';
+				height:23px;
+				background-position:-748px -190px;
+			}
+		}
+		.time {
+			width:83px;
+			height:43px;
+			background-position: -260px -580px;
+			top: -21px;
+			right: -22px;
+			opacity:0;
+			&:after {
+				content:'';
+				height:100%;
+				background-color:#17171b;
+				opacity:0;
+			}
+		}
+		.timeline {
+			opacity:0;
+			width: 100%;
+			height: 100%;
+			background-position:-530px -190px;
+			left: 0;
+			top: 0;
+			&:before {
+				content:'';
+				height:23px;
+				background-position:-530px -190px;
+			}
+			.push {
+				position:absolute;
+				left: -5px;
+				bottom: -7px;
+				width:220px;
+				height: 219px;
+				opacity:0;
+				span {
+					height:100%;
+					background-position: -525px -636px;
+					&:before {
+						content:'';
+						height:100%;
+						opacity:0.2;
+					}
+				}
+			}
+		}
+		&.animation .intro, .outtro {
+			transform: scale(3);
+			-webkit-transform: scale(3);
+			-moz-transform: scale(3);
+			opacity: 0;
+		}
+		&.animation {
+			.outtro {
+				transform:scale(1);
+				-webkit-transform:scale(1);
+				-moz-transform:scale(1);
+				opacity:1;
+			}
+			.timeline {
+				opacity:1;
+				background-position: -530px -583px;
+				left: -100%;
+				.push {
+					transform: scale(0.98);
+					-webkit-transform: scale(0.98);
+					-moz-transform: scale(0.98);
+					opacity:1;
+					span {
+						transform: scale(1.02);
+						-webkit-transform: scale(1.02);
+						-moz-transform: scale(1.02);
+						opacity:0;
+						&:before {background-color:#17171b;}
+					}
+				}
+			}
+			.time {opacity:1;}
+			.detail {
+				opacity:1;
+				background-position: -748px -656px;
+			}
+		}
+		&.ani {
+			.intro {
+				transition:1.5s 2.5s ease-in-out;
+				-webkit-transition: 1.5s 2.5s ease-in-out;
+				-moz-transition: 1.5s 2.5s ease-in-out;
+			}
+			.time {
+				transition:1s 3s ease-in;
+				-webkit-transition:1s 3s ease-in;
+				-moz-transition:1s 3s ease-in;
+			}
+			.timeline {
+				transition: 2s 5s, left 1s 9s, opacity 1s 3s ease-in;
+				-webkit-transition: 2s 5s, left 1s 9s, opacity 1s 3s ease-in;
+				-moz-transition: 2s 5s, left 1s 9s, opacity 1s 3s ease-in;
+				.push {
+					transition:0.5s 8s, opacity 0.1s 8s;
+					-webkit-transition:0.5s 8s, opacity 0.1s 8s;
+					-moz-transition:0.5s 8s, opacity 0.1s 8s;
+					span {
+						transition:0.5s 8.5s, opacity 0.1s 8.9s;
+						-webkit-transition: 0.5s 8.5s, opacity 0.1s 8.9s;
+						-moz-transition::0.5s 8.5s, opacity 0.1s 8.9s;
+						&:before {
+							transition:0.5s 8s, opacity 0.5s 8.5s;
+							-webkit-transition:0.5s 8s, opacity 0.5s 8.5s;
+							-moz-transition:0.5s 8s, opacity 0.5s 8.5s;
+						}
+					}
+				}
+			}
+			.detail {
+				transition: 2s 12s, opacity 1s 10s;
+				-webkit-transition:2s 12s, opacity 1s 10s;
+				-moz-transition:2s 12s, opacity 1s 10s;
+			}
+			.outtro {
+				transition:1s 17s;
+				-webkit-transition: 1s 17s;
+				-moz-transition: 1s 17s;
+			}
+		}
+	}
+	.feature {
+		ul.after {padding: 40px 0 39px;}
+		li {
+			float:left;
+			padding: 40px 20px 36px;
+			font-size:14px;
+			line-height:20px;
+			text-align:center;
+			width: 29%;
+			width: calc(33% - 38px);
+			width: -webkit-calc(33% - 38px);
+			width: -moz-calc(33% - 38px);
+			&:nth-child(3n+1) {clear:both;}
+			b {
+				display:block;
+				color:#383d48;
+				font-size:18px;
+				padding: 43px 0 12px;
+			}
+			.watch {
+				display:block;
+				margin:0 auto;
+				position: relative;
+				&:before {
+					width: 203px;
+					height: 238px;
+					background-position: -299px 0;
+				}
+				&:after {
+					content:'';
+					position:absolute;
+					top:50%;
+					left:50%;
+					margin:-93px 0 0 -73px;
+					width:146px;
+					height:186px;
+				}
+			}
+			&.feature1 .watch:after {background-position: -520px 4px;}
+			&.feature2 .watch:after {background-position:-670px 0;}
+			&.feature3 .watch:after {background-position:-820px 4px;}
+		}
+	}
+	.for_seller {
+		background: #eef1f3;
+		.inner {
+			padding: 182px 20px 177px;
+			position: relative;
+			&:after {
+				content:'';
+				clear:both;
+				display:block;
+			}
+		}
+		h3 {
+			font-size:37px;
+			float: right;
+			width: 50%;
+		}
+		p {
+			font-size:16px;
+			line-height:24px;
+			padding: 15px 0 88px;
+			float: right;
+			width: 50%;
+			clear: right;
+		}
+		.watch {
+			position:absolute;
+			top:50%;
+			left:0;
+			width:50%;
+			margin-top: -225px;
+			height:450px;
+			&:before {
+				background-position:0 -540px;
+				width: 245px;
+				height: 450px;
+			}
+		}
+		.btn-ios {
+			left: 50%;
+			bottom: 177px;
+			position: absolute;
+		}
+	}
+	.watch:before {
+		content:'';
+		display:block;
+		margin:0 auto;
+		width: 291px;
+		height: 533px;
+	}
+	.btn-ios {
+		position: relative;
+		text-indent:-1000em;
+		display: inline-block;
+		border: 0;
+		vertical-align: middle;
+		width: 166px;
+		height: 50px;
+		background: url('../../_ui/images/business/mobile_icon.png') no-repeat  -200px 0;
+		background-size:500px 200px;
+	}
+	&.seller {
+		.visual .detail:before, .visual .timeline:before, .tit:before, .watch span, .feature .watch:after {background-image: url('../../_ui/images/business/apple_watch_seller.png');}
+		.feature {
+			li.feature1 .watch:after {background-position: -520px 0;}
+			li.feature2 .watch:after {background-position:-670px 0;}
+			li.feature3 .watch:after {background-position:-820px 0;}
+			li.feature4 .watch:after {background-position: -520px -190px;}
+			li.feature5 .watch:after {background-position:-670px -190px;}
+			li.feature6 .watch:after {background-position:-820px -190px;}
+		}
+		.visual {
+			.time {
+				transform:scale(0.8);
+				-webkit-transform:scale(0.8);
+				-moz-transform:scale(0.8);
+				-webkit-transform-origin: 0 100%;
+			}
+			.button {
+				width:86px;
+				height:85px;
+				top:32px;
+				left:14px;
+				span {background-position:-530px -412px;}
+			}
+			.button2 {
+				width:210px;
+				height:80px;
+				top: 25px;
+				left:2px;
+				span {background-position: -738px -402px;}
+			}
+			.button, .button2 {
+				position:absolute;
+				opacity:0;
+				span {
+					width:100%;
+					height:100%;
+					top:0;
+					left:0;
+					&:before {
+						content:'';
+						position:absolute;
+						top:0;
+						left:0;
+						width:100%;
+						height:100%;
+						opacity:0.2;
+					}
+				}
+			}
+			.scene1, .scene2, .scene3, .scene4, .scene5, .sale, .order, .view {
+				left:4px;
+				opacity:0;
+			}
+			.sale {
+				width:206px;
+				height:77px;
+				top:10px;
+				background-position:-740px -406px;
+			}
+			.order {
+				width:206px;
+				height:77px;
+				top:87px;
+				background-position:-740px -483px;
+			}
+			.view {
+				width:206px;
+				height:77px;
+				top:164px;
+				background-position:-740px -560px;
+			}
+			.scene1 {
+				width:206px;
+				height:259px;
+				top:3px;
+				background-position:-520px -383px;
+				transform:scale(0.9);
+				-webkit-transform:scale(0.9);
+				-moz-transform:scale(0.9);
+			}
+			.scene2 {
+				width:206px;
+				height:23px;
+				top:3px;
+				background-position:-740px -383px;
+			}
+			.scene3, .scene4, .scene5 {width:206px;}
+			.scene3 {
+				height:23px;
+				top:3px;
+				background-position:-520px -653px;
+			}
+			.scene4 {
+				height:83px;
+				top:6px;
+				background-position:-520px -676px;
+			}
+			.scene5 {
+				height:259px;
+				top:89px;
+				background-position:-520px -759px;
+			}
+			&.animation {
+				.time, .scene1 {
+					transform:scale(1);
+					-webkit-transform:scale(1);
+					-moz-transform:scale(1);
+				}
+				.button, .button2 {
+					opacity: 1;
+					span {
+						opacity:0;
+						&:before {background-color:#17171b;}
+					}
+				}
+				.button {
+					transform: scale(0.9);
+					-webkit-transform: scale(0.9);
+					-moz-transform: scale(0.9);
+					span {
+						transform: scale(1.11);
+						-webkit-transform: scale(1.11);
+						-moz-transform: scale(1.11);
+					}
+				}
+				.button2 {
+					transform: scale(0.98);
+					-webkit-transform: scale(0.98);
+					-moz-transform: scale(0.98);
+					span {
+						transform: scale(1.02);
+						-webkit-transform: scale(1.02);
+						-moz-transform: scale(1.02);
+					}
+				}
+				.sale, .order, .view {
+					opacity:1;
+					left:-100%;
+				}
+				.sale {top:29px;}
+				.order {top:106px;}
+				.view {top:183px;}
+				.scene1, .scene2, .scene3, .scene4, .scene5 {opacity:1;}
+				.scene1 {left:-100%;}
+				.scene4 {top:26px;}
+				.scene5 {top:109px;}
+			}
+			&.ani {
+				.time {
+					transition:.5s 3.5s ;
+					-webkit-transition:.5s 3.5s;
+					-moz-transition:.5s 3.5s;
+				}
+				.scene1 {
+					transition: 0.5s 3.5s , left 1s 6s;
+					-webkit-transition: 0.5s 3.5s , left 0.5 6s;
+					-moz-transition: 0.5s 3.5s, left 1s 6s;
+				}
+				.scene2 {
+					transition: 0.3s 7s , left 1s 11.5s;
+					-webkit-transition: 0.3s 7s , left 1s 11.5s;
+					-moz-transition: 0.3s 7s , left 1s 11s;
+				}
+				.scene3 {
+					transition:.5s 11s;
+					-webkit-transition:.5s 11s;
+					-moz-transition:.5s 11s;
+				}
+				.scene4 {
+					transition:.5s 12s;
+					-webkit-transition:.5s 12s;
+					-moz-transition:.5s 12s;
+				}
+				.scene5 {
+					transition:.5s 12.5s;
+					-webkit-transition:.5s 12.5s;
+					-moz-transition:.5s 12.5s;
+				}
+				.button {
+					transition:0.3s 5s, opacity .1s 5s;
+					-webkit-transition:0.3s 5s, opacity .1s 5s;
+					-moz-transition:0.3s 4s, opacity .1s 5s;
+					span {
+						transition:0.3s 5.3s, opacity .1s 5.5s;
+						-webkit-transition:0.3s 5.3s, opacity .1s 5.5s;
+						-moz-transition:0.3s 5.3s, opacity .1s 5.5s;
+						&:after {
+							transition:0.3s 5s, opacity .3s 5.3s;
+							-webkit-transition:0.3s 5s, opacity .3s 5.3s;
+							-moz-transition:0.3s 5s, opacity .3s 5.3s;
+						}
+					}
+				}
+				.button2 {
+					transition:0.3s 10s, opacity .1s 10s;
+					-webkit-transition:0.3s 10s, opacity .1s 10s;
+					-moz-transition:0.3s 12s, opacity .1s 10s;
+					span {
+						transition:0.3s 10.3s, opacity .1s 10.5s;
+						-webkit-transition:0.3s 10.3s, opacity .1s 10.5s;
+						-moz-transition:0.3s 10.3s, opacity .1s 10.5s;
+						&:after {
+							transition:0.3s 10s, opacity .3s 10.3s;
+							-webkit-transition:0.3s 10s, opacity .3s 10.3s;
+							-moz-transition:0.3s 10s, opacity .3s 10.3s;
+						}
+					}
+				}
+				.sale {
+					transition: 0.4s 7.5s ease-in-out , left 1s 11s;
+					-webkit-transition: 0.4s 7.5s ease-in-out, left 1s 11s;
+					-moz-transition: 0.4s 7.5s ease-in-out, left 1s 11s;
+				}
+				.order {
+					transition: 0.4s 7.9s ease-in-out , left 1s 11s;
+					-webkit-transition: 0.4s 7.9s ease-in-out, left 1s 11s;
+					-moz-transition: 0.4s 7.9s ease-in-out, left 1s 11s;
+				}
+				.view {
+					transition: 0.4s 8.4s ease-in-out, left 1s 11s;
+					-webkit-transition: 0.4s 8.4s ease-in-out, left 1s 11s;
+					-moz-transition: 0.4s 8.4s ease-in-out, left 1s 11s;
+				}
+				.outtro {
+					transition:1s 17s;
+					-webkit-transition: 1s 17s;
+					-moz-transition: 1s 17s;
+				}
+			}
+		}
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+	.apple_watch .btn-ios  {background-image: url('../../_ui/images/business/mobile_icon2x.png');}
+}
+@media screen and (max-width: 600px) {
+	.apple_watch {
+		.visual {
+			padding-bottom:0;
+			text-align:center;
+			.tit, p {max-width:none;}
+			.watch {
+				position:static;
+				margin:50px auto -30px;
+				.mask {
+					left:50%;
+					top:auto;
+					bottom:130px;
+					margin-left: -110px;
+				}
+			}
+		}
+		.feature li {
+			width:auto;
+			float:none;
+			padding-left:0;
+		}
+		.for_seller {
+			.inner {padding-bottom:50px;}
+			.watch {
+				position:static;
+				display:block;
+				width: auto;
+				margin-bottom: 40px;
+			}
+			h3, p {
+				float:none;
+				width: auto;
+			}
+			.btn-ios {
+				left:20px;
+				bottom:50px;
+			}
+		}
+	}
+}

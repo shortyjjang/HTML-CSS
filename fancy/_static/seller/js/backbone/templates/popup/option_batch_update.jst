@@ -1,0 +1,183 @@
+<%if(type=='dimension'){%>
+<div class="options dimensions">
+    <p class="ltit">Update Dimensions</p>
+    <div class="current-data"><table>
+        <colgroup>
+            <col width="*" />
+            <col width="112" />
+            <col width="112" />
+            <col width="112" />
+            <col width="112" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Apply to</th>
+                <th>Current Weight</th>
+                <th>Current Length</th>
+                <th>Current Width</th>
+                <th>Current Height</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(options, function(option) { %>
+            <tr>
+                <td><%-option.get('name')%></td>
+                <td><%-option.get('prod_weight')%></td>
+                <td><%-option.get('prod_length')%></td>
+                <td><%-option.get('prod_width')%></td>
+                <td><%-option.get('prod_height')%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table></div>
+    <fieldset class="frm">
+        <p><label class="label">New Weight</label>
+        <span class="unt"><input type="text" name="weight" /><small>lbs</small></span></p>
+        <p><label class="label">New Length</label>
+        <span class="unt"><input type="text" name="length"/><small>in</small></span></p>
+        <p><label class="label">New Width</label>
+        <span class="unt"><input type="text" name="width"/><small>in</small></span></p>
+        <p><label class="label">New Height</label>
+        <span class="unt"><input type="text" name="height"/><small>in</small></span></p>
+    </fieldset>
+    <div class="btn-area">
+        <button class="btns-gray-embo btn-close">Cancel</button>
+        <button class="btns-blue-embo btn-save">Update</button>
+    </div>
+</div>
+<%}else if(type=='price'){%>
+<div class="options price">
+    <p class="ltit">Update Prices</p>
+    <div class="current-data"><table>
+        <colgroup>
+            <col width="*" />
+            <col width="112" />
+            <col width="116" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Apply to</th>
+                <th>Current Price</th>
+                <th>Current Sale Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(options, function(option) { %>
+            <tr>
+                <td><%-option.get('name')%></td>
+                <td><%-option.get('retail_price')%></td>
+                <td><%if(option.get('price')==option.get('retail_price')){%>-<%}else{%><%-option.get('price')%><%}%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table></div>
+    <fieldset class="frm">
+        <p><label class="label">New Price</label>
+        <span class="unt"><em>$</em><input type="text" name="retail_price" /></span></p>
+        <p><label class="label">New Sale Price</label>
+        <span class="unt"><em>$</em><input type="text" name="price" /></span></p>
+    </fieldset>
+    <div class="btn-area">
+        <button class="btns-gray-embo btn-close">Cancel</button>
+        <button class="btns-blue-embo btn-save">Update</button>
+    </div>
+</div>
+<%}else if(type=='quantity'){%>
+<div class="options qty">
+    <p class="ltit">Update Quantities</p>
+    <div class="current-data"><table>
+        <colgroup>
+            <col width="*" />
+            <col width="112" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Apply to</th>
+                <th>Current Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(options, function(option) { %>
+            <tr>
+                <td><%-option.get('name')%></td>
+                <td><%-(isNaN(option.get('quantity'))?'∞':option.get('quantity'))%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table></div>
+    <fieldset class="frm">
+        <p><label class="label">New Quantity</label>
+        <input type="text" name="quantity"/></p>
+    </fieldset>
+    <div class="btn-area">
+        <button class="btns-gray-embo btn-close">Cancel</button>
+        <button class="btns-blue-embo btn-save">Update</button>
+    </div>
+</div>
+<%}else if(type=='image'){%>
+<div class="options image">
+    <p class="ltit">Update Images</p>
+    <ul class="additional">
+        <li class="add">
+            <input type="file" name="upload-file" multiple="" style="display:none">
+            <a href="#">
+                <em class="infscr-loading"><span class="loading">Loading</span></em>
+            </a>
+        </li>
+    </ul>
+    <div class="btn-area">
+        <span class="existing_variant"><input type="checkbox" id="remove_existing_variant" /> <label for="remove_existing_variant">Remove existing variant images</label></span>
+        <button class="btns-gray-embo btn-close">Cancel</button>
+        <button class="btns-blue-embo btn-save">Update</button>
+    </div>
+    <div class="current-data">
+        <table>
+            <thead>
+                <tr>
+                    <th>Apply to</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(options, function(option) { %>
+                <tr>
+                    <td><%-option.get('name')%></td>
+                </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%}else if(type=='gtin'){%>
+<div class="options gtin">
+    <p class="ltit">Update GTINs</p>
+    <div class="current-data"><table>
+        <colgroup>
+            <col width="*" />
+            <col width="112" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Apply to</th>
+                <th>Current GTIN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(options, function(option) { %>
+            <tr>
+                <td><%-option.get('name')%></td>
+                <td><%-option.get('gtin')%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table></div>
+    <fieldset class="frm">
+        <p><label class="label">New GTIN</label>
+        <input type="text" name="gtin"/></p>
+    </fieldset>
+    <div class="btn-area">
+        <button class="btns-gray-embo btn-close">Cancel</button>
+        <button class="btns-blue-embo btn-save">Update</button>
+    </div>
+</div>
+<%}%>
+<button class="ly-close" title="Close"><i class="ic-del-black"></i></button>

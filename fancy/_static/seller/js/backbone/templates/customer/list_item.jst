@@ -1,0 +1,40 @@
+<td class="customer-name">
+<div class="relative">
+    <% if (username == 'guestuser') { %>
+        <%= full_name %>
+    <% } else { %>
+        <% if (is_storefront_user) { %>
+            <a href="<%=FancyBackbone.Utils.makeURL('/merchant/storefront/users/'+username, false)%>"><%= full_name %></a>
+        <% } else { %>
+            <a href="<%=FancyBackbone.Utils.makeURL('/merchant/orders/customer/'+username, false)%>"><%= full_name %></a>
+        <% } %>
+    <% } %>
+    <div class="userinfo-tooltip" onmouseenter="$(this).closest('td').find('.userinfo-tooltip').addClass('show');" onmouseleave="$(this).closest('td').find('.userinfo-tooltip').removeClass('show');">
+	<div class="cover <%= image_color %>"><img src="/_ui/images/common/blank.gif" style="background-image:url(<%= cover_img_url %>);"/></div>
+        <% if (username == 'guestuser') { %>
+            <div class="user">
+                <img src="/_ui/images/common/blank.gif" style="background-size:100px; background-image:url(<%= img_url %>)" />
+                <b class="username"><%= full_name %></b>
+            </div>
+        <% } else { %>
+            <a href="/<%= username %>" class="user">
+                <img src="/_ui/images/common/blank.gif" style="background-size:100px; background-image:url(<%= img_url %>)" />
+                <b class="username"><%= username %></b>
+                <% if (is_vip) { %><span class="label vip">VIP</span><% } %>
+            </a>
+            <ul class="contact">
+                <% if (is_storefront_user) { %><li><%= email %></li><% } %>
+                <% if (address.phone) { %><li><%= address.phone %></li><% } %>
+                <% if (ip_addr) { %><li><%= ip_addr %></li><% } %>
+            </ul>
+            <span class="total">
+                <b><%= order_count %></b> Orders · <b><%= processing_order_count %></b> Open
+            </span>
+        <% } %>
+    </div>
+</div>
+</td>
+<td><%= last_order_addr %></td>
+<td class="orders"><%= order_count %></td>
+<td><a href="/merchant/orders/management/detail/<%= last_order_id %>">#<%= last_order_id %></a></td>
+<td class="price"><%= numeral(total_spend).format("$0,0.00") %></td>

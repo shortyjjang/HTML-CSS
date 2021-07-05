@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.followerList {padding-top:50px;}
+.followerList:after {content:'';clear:both;display:block;}
+.followerList .followerElement {float:left;margin:0 0 25px 25px;width: calc((100%/3) - 17px);}
+.followerList .followerElement:nth-child(3n+1) {margin-left:0;clear: both;}
+.followerElement {position:relative;background: #fff;text-align:center;}
+.followerElement .title {display:block;font-size: 15px;padding: 25px 20px 1px;line-height:20px;font-weight:700;}
+.followerElement .location {display:block;font-size: 12px;color: #636673;line-height:18px;padding: 2px 20px 22px;font-weight:500;}
+.followerElement .avatar {display:block;padding: 126px 20px 20px;position: relative;}
+.followerElement .avatar img {display:block;width:100px;height:100px;background: no-repeat 50% 50% #fff;background-size: cover;}
+.followerElement .cover {position:absolute;top:0;left:0;width:100%;height:246px;}
+.followerElement .cover img {display:block;width:100%;height:100%;background: no-repeat 50% 50%;background-size: cover;}
+.followerElement .cover:after {content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;}
+.followerElement .figure-list {display:block;padding:0 0 30px;white-space: nowrap;overflow:hidden;height:90px;}
+.followerElement .figure-list img {display:inline-block;width:90px;vertical-align:top;background: no-repeat 50% 50%;background-size: cover;}
+@media screen and (max-width: 920px) {
+	.followerList .followerElement {float:none;width:auto;margin: 0 0 20px 0;}
+	.followerElement .avatar {padding-top:50px;}
+	.followerElement .figure-list {height:70px;}
+	.followerElement .figure-list img {width:70px;}
+	.followerElement .cover {height:170px;}
+}

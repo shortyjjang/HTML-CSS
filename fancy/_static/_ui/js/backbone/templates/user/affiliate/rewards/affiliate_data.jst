@@ -1,0 +1,27 @@
+<colgroup>
+    <col width="*" />
+    <col width="150" />
+    <col width="150" />
+    <col width="150" />
+    <col width="150" />
+</colgroup>
+<thead>
+    <tr>
+        <th><a href="#" name="item" <% if (sort == "item") { %> class="current" <% } %>><span>Item</span></a></th>
+        <th>Merchant</th>
+        <th><a href="#" name="date" <% if (sort == "date") { %> class="current" <% } %>><span>Date</span></a></th>
+        <th><a href="#" name="price" <% if (sort == "price") { %> class="current" <% } %>><span>Price</span></a></th>
+        <th><a href="#" name="commission" <% if (sort == "commission") { %> class="current" <% } %>><span>Commission</span></a></th>
+    </tr>
+</thead>
+<tbody>
+    <% _.each(rewards, function(reward) { %>
+        <tr>
+            <td><%= reward.item %></a></td>
+            <td><%= reward.merchant %></td>
+            <td><%= reward.date %></td>
+            <td><%= numeral(reward.price).format("$0,0.00") %></td>
+            <td><%= numeral(reward.commission).format("$0,0.00") %></td>
+        </tr>
+    <% }) %>
+</tbody>

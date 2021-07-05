@@ -1,0 +1,41 @@
+@charset "UTF-8";
+#popup_container.add_mylist .popup.add_mylist {display:block;}
+.popup.add_mylist {
+	width:602px;
+	background:#fff;
+	border-radius:5px;
+	.search {
+		position:relative;padding:15px;
+		.text {padding-left: 28px;width: 100%;}
+		&:before {content:'';width: 12px;height: 12px;background: url("../../images/normal/seller.png") no-repeat -225px -15px;background-size: 250px 250px;opacity: 0.8;position: absolute;top: 27px;left: 24px;}
+	}
+	.loading:before {content:'';border: 2px solid #949597;border-radius:100%;height: 40px;left:50%;margin: -22px 0 0 -22px;opacity:0;position:absolute;top:50%;width: 40px;animation: pulsate 1s ease-out;animation-iteration-count:infinite;-webkit-animation: pulsate 1s ease-out;-webkit-animation-iteration-count:infinite;-moz-animation: pulsate 1s ease-out;-moz-animation-iteration-count:infinite;background: none;z-index: 4;	}
+	.item-list {
+		height:443px;overflow:auto;padding:0 15px 11px ;
+		li {
+			font-size:16px;font-weight:600;line-height:22px;padding-bottom:4px;
+			a {position:relative;display:block;padding:15px 15px 15px 80px;color:#393d4d;border-radius:5px;box-shadow:inset 0 0 0 1px #eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+			small {display:block;font-weight:400;font-size:13px;line-height:18px;color:#777;}
+			img {position:absolute;top:0;left:0;width:70px;background:no-repeat 50% 50%;background-size:cover;border-radius:5px 0 0 5px;}
+			.selected:before {content:'';display: inline-block;vertical-align: middle;margin: -3px 4px 0 0;width:11px;height:9px;background:url('../../images/svg/campaigns_check_blue.svg') no-repeat;}
+		}
+		.loading {
+			clear:both;float:none;text-align:center;padding:15px 0 0;
+			&:before {height: 20px;width: 20px;}
+		}
+		.empty {
+			display:table;width:100%;height:100%;
+			p {
+				display:table-cell;text-align:center;padding:15px 15px 0 0;vertical-align:middle;font-size: 15px;line-height: 20px;color: #777;
+				b {color:#373d48;}
+			}
+		}
+	}
+	.btn-area {
+		text-align:right;box-shadow:0 -1px 0 rgba(0,0,0,0.1);padding:15px;position: relative;
+		button {font-size: 13px;line-height: 29px;margin: 0 0 0 6px;}
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+	.popup.add_mylist .search:before {background-image: url("../../images/retina/seller.png") ;}
+}

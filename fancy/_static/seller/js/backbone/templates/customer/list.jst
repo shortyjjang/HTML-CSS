@@ -1,0 +1,86 @@
+<div class="data-field">
+	<div class="search-frm after">
+		<fieldset class="search right">
+			<input type="text" class="text" placeholder="Search Customer Name">
+			<div class="dropdown">
+				<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;"></a>
+				<ul>
+					<li><a href="#" key="customer_name" name="Customer Name"><%= gettext("Customer Name") %></a></li>
+					<li><a href="#" key="customer_id" name="Customer ID"><%= gettext("Customer ID") %></a></li>
+					<li><a href="#" key="order_id" name="Order ID"><%= gettext("Order ID") %></a></li>
+					<li><a href="#" key="item_id" name="Item ID"><%= gettext("Item ID") %></a></li>
+				</ul>
+			</div>
+		</fieldset>
+	</div>
+	<div class="controller right">
+		<a href="#" class="btns-gray-embo btn-export">Export</a>
+	</div>
+	<div class="table">
+		<table class="tb-type4">
+			<colgroup>
+				<col style="" />
+				<col style="width:215px;" />
+				<col style="width:180px;" />
+				<col style="width:130px;" />
+				<col style="width:135px;" />
+			</colgroup>
+			<thead>
+				<tr>
+					<% if (sort_option ==1 && sort_ascending == 'true') { %>
+						<th><a href="#" class="down" sort_option="1"><span><%= gettext("Name") %></span></a></th>
+					<% } else if (sort_option ==1 && sort_ascending == 'false') { %>
+						<th><a href="#" class="up" sort_option="1"><span><%= gettext("Name") %></span></a></th>
+					<% } else { %>
+						<th><a href="#" sort_option="1"><span><%= gettext("Name") %></span></a></th>
+					<% } %>
+					<th>Location</th>
+					<% if (sort_option ==2 && sort_ascending == 'true') { %>
+						<th><a href="#" class="down" sort_option="2"><span><%= gettext("Orders") %></span></a></th>
+					<% } else if (sort_option ==2 && sort_ascending == 'false') { %>
+						<th><a href="#" class="up" sort_option="2"><span><%= gettext("Orders") %></span></a></th>
+					<% } else { %>
+						<th><a href="#" sort_option="2"><span><%= gettext("Orders") %></span></a></th>
+					<% } %>
+					<% if (sort_option ==0 && sort_ascending == 'true') { %>
+						<th><a href="#" class="down" sort_option="0"><span><%= gettext("Last Order") %></span></a></th>
+					<% } else if (sort_option ==0 && sort_ascending == 'false') { %>
+						<th><a href="#" class="up" sort_option="0"><span><%= gettext("Last Order") %></span></a></th>
+					<% } else { %>
+						<th><a href="#" sort_option="0"><span><%= gettext("Last Order") %></span></a></th>
+					<% } %>
+					<% if (sort_option ==3 && sort_ascending == 'true') { %>
+						<th><a href="#" class="down" sort_option="3"><span><%= gettext("Total Spent") %></span></a></th>
+					<% } else if (sort_option ==3 && sort_ascending == 'false') { %>
+						<th><a href="#" class="up" sort_option="3"><span><%= gettext("Total Spent") %></span></a></th>
+					<% } else { %>
+						<th><a href="#" sort_option="3"><span><%= gettext("Total Spent") %></span></a></th>
+					<% } %>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	<% if ( page_list.length > 1) { %>
+	<div class="pagination4">
+		<% if ( page > 1) { %>
+			<a href="#" class="prev">Prev</a>
+		<% } else { %>
+			<a href="#" class="prev disabled">Prev</a>
+		<% } %>
+		<% if (page < num_pages) { %>
+			<a href="#" class="next">Next</a>
+		<% } else { %>
+			<a href="#" class="next disabled">Next</a>
+		<% } %>
+		
+		<% for(var i = 0; i < page_list.length; i++) { %>
+			<% if (page_list[i] == page) { %>
+				<a href="#" class="page current"><%= page_list[i] %></a>
+			<% } else { %>
+				<a href="#" class="page"><%= page_list[i] %></a>
+			<% } %>
+		<% } %>
+	</div>
+	<% } %>
+</div>

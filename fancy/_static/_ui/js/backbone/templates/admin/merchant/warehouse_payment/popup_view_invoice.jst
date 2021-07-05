@@ -1,0 +1,537 @@
+<p class="ltit">Storefront Invoice - <%= moment(model.from_date).format('MMM D, YYYY') %> - <%= moment(model.to_date).format('MMM D, YYYY') %></p>
+<button class="btn-print"></button>
+<div class="data-field" style="height: 666px;">
+    <p />
+    <p />
+    <p />
+    <p />
+    <h3><span class="logo">Fancy</span> Invoice</h3>
+    <ul class="info">
+        <p />
+        <p />
+        <li><b>Invoice #</b> <span><%= model.id %></span></li>
+        <li><b>Date</b> <span><%= today_date %></span></li>
+        <li><b>For</b> <span>Monthly Warehousing Invoice</span></li>
+    </ul>
+    <p />
+    <p />
+    <p />
+    <p />
+    <p />
+    <p />
+    <!--
+    <div class="location after">
+        <div class="to">
+            <h4>To</h4>
+            <p><%= model.seller_name %></p>
+        </div>
+        <div class="from">
+            <h4>From</h4>
+            <p>FANCY<br>
+            96 Spring St<br>
+            New York, NY 10012<br>
+            cs@fancy.com | fancy.com</p>
+        </div>
+    </div>
+    -->
+    <!--
+    <h4>Subscription Fees</h4>
+    <div class="table subscription"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Subscription Fees</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="sub">
+                <td>Monthly Storefront Subscription Fee</td>
+                <td class="amount">$(29)</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <div class="table creditcard"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Credit Card Processing Fees</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Monthly Transaction Volume</td>
+                <td class="amount">10,000 orders</td>
+            </tr>
+            <tr>
+                <td>Total Monthly Revenue</td>
+                <td class="amount">$(13,875)</td>
+            </tr>
+            <tr>
+                <td>Processing Fee Rate (2.9% + $0.30 per transaction)</td>
+                <td class="amount"></td>
+            </tr>
+            <tr class="sub">
+                <td>Total Monthly Credit Card Processing Fees</td>
+                <td class="amount">$(29)</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <div class="table shipping"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Shipping Fees</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Shipping Revenue</td>
+                <td class="amount">$9,775</td>
+            </tr>
+            <tr class="sub">
+                <td>Total Monthly Shipping Costs (use of Storefront Shipping Services)</td>
+                <td class="amount">$(7,250)</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <div class="table logistics"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Logistics Fees</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Packages Shipped ($1.08 per box packed)</td>
+                <td class="amount">11,017</td>
+            </tr>
+            <tr>
+                <td>Total Additional SKUs ($0.40 per same SKU / $0.50 per different SKU)</td>
+                <td class="amount">1,034</td>
+            </tr>
+            <tr class="sub">
+                <td>Previous Monthly Upfront Cost (Deductible)</td>
+                <td class="amount">$6,250</td>
+            </tr>
+            <tr class="sub">
+                <td>Total Monthly Logistics Fees</td>
+                <td class="amount">$(13,684)</td>
+            </tr>
+            <tr class="sub">
+                <td> Net Fees Debited</td>
+                <td class="amount">$(6,134)</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <h4>Services Due</h4>
+    <div class="table warehousing"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Warehousing Fees</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Monthly Upfront Cost 50% (based on previous 3 month’s volume)</td>
+                <td class="amount">$(6,842)</td>
+            </tr>
+            <tr>
+                <td>Total Pallets Stored</td>
+                <td class="amount">10</td>
+            </tr>
+            <tr class="sub">
+                <td>Storage Fees ($5.00 per pallet)</td>
+                <td class="amount">$(50)</td>
+            </tr>
+            <tr>
+                <td>Total Units Received</td>
+                <td class="amount">3,000</td>
+            </tr>
+            <tr class="sub">
+                <td>Receiving Fees ($0.72 per unit received)</td>
+                <td class="amount">$2,160</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <div class="table custom"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Custom Box Fees</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sub">Plating Fees ($2,000 per design)</td>
+                <td class="amount">$4,000</td>
+            </tr>
+            <tr>
+                <td>10x10x10 Boxes</td>
+                <td class="amount">2,000</td>
+            </tr>
+            <tr class="sub">
+                <td>Production Fees ($1.00 per box)</td>
+                <td class="amount">$(2,000)</td>
+            </tr>
+            <tr>
+                <td>2x15x24 Boxes</td>
+                <td class="amount">2,000</td>
+            </tr>
+            <tr class="sub">
+                <td>Production Fees ($1.10 per box)</td>
+                <td class="amount">$(2,200)</td>
+            </tr>
+        </tbody>
+    </table></div>
+    <div class="table totals"><table class="tb-type2">
+        <colgroup>
+            <col width="*">
+            <col width="160">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Totals</th>
+                <th class="amount">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Services Paid</td>
+                <td class="amount">($28,704)</td>
+            </tr>
+            <tr>
+                <td>Total Services Due</td>
+                <td class="amount">($16,702)</td>
+            </tr>
+            <tr>
+                <td>Total Revenue Earned</td>
+                <td class="amount">$375,000</td>
+            </tr>
+            <tr>
+                <td>Total Profit</td>
+                <td class="amount">$329,594</td>
+            </tr>
+        </tbody>
+    </table></div>
+    -->
+    <td colspan="6">
+
+        <!-- Payment -->
+        <dl class="table">
+            <dt>Total Payment</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= model.payment_status_display %></td>
+                        <td><%= displayFee(model.total_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Prepayment -->
+        <dl class="table">
+            <dt>Prepayment</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Prepayment From Last Month</th>
+                        <th>Prepayment Amount</th>
+                        <th>Prepayment Charged</th>
+                        <th>Date Charged</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= model.prepayment_status_display %></td>
+                        <td><%= displayFee(model.prepayment_carried_over) %></td>
+                        <td><%= model.prepayment %></td>
+                        <td><%= displayFee(model.prepayment_charged) %></td>
+                        <td><%= displayDatetime(model.date_prepayment_charged) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Inbound -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Inbound</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Receiving and stocking</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.RECEIVED_AND_STOCKED_ITEMS_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.received_and_stocked_items_qty %></td>
+                        <td><%= displayFee(model.received_and_stocked_items_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Outbound -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Outbound</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Standard shipping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.SHIPPED_ITEMS_STANDARD_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.shipped_items_qty %></td>
+                        <td><%= displayFee(model.shipped_items_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td> - Additional item</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.SHIPPED_ITEMS_ADDITIONAL_RATE).format('0,0.[0000]') %></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Oversize shipping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.OVERSIZED_ITEMS_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.oversized_items_qty %></td>
+                        <td><%= displayFee(model.oversized_items_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Inserts</td>
+                        <td>Per two inserts</td>
+                        <td>$<%= numeral(model.rate_constants.INSERTS_AND_MARKETING_MATERIALS_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.inserts_and_marketing_materials_qty %></td>
+                        <td><%= displayFee(model.inserts_and_marketing_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>International shipping</td>
+                        <td>Order</td>
+                        <td>$<%= numeral(model.rate_constants.INTERNATIONAL_SHIPPING_ORDER_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.international_shipping_order_qty %></td>
+                        <td><%= displayFee(model.international_shipping_order_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Freight</td>
+                        <td>Cost + <%= numeral((model.rate_constants.FREIGHT_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.FREIGHT_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.freight_cost %></td>
+                        <td><%= displayFee(model.freight_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Warehousing -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Warehousing</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Location</td>
+                        <td>Location per month</td>
+                        <td>$<%= numeral(model.rate_constants.LOCATION_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.location_num %></td>
+                        <td><%= displayFee(model.location_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Pallet</td>
+                        <td>Pallet per month</td>
+                        <td>$<%= numeral(model.rate_constants.PALLET_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.pallet_qty %></td>
+                        <td><%= displayFee(model.pallet_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Long term storage</td>
+                        <td>Cubic ft semi-annually</td>
+                        <td>$<%= numeral(model.rate_constants.LONG_TERM_STORAGE_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.long_term_storage_volume %></td>
+                        <td><%= displayFee(model.long_term_storage_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Production and kitting</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.PRODUCTION_AND_KITTING_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.production_and_kitting_cost %></td>
+                        <td><%= displayFee(model.production_and_kitting_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Physical inventory</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.PHYSICAL_INVENTORY_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.physical_inventory_cost %></td>
+                        <td><%= displayFee(model.physical_inventory_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Inventory transfers</td>
+                        <td>Quoted</td>
+                        <td><%= numeral(model.rate_constants.INVENTORY_TRANSFER_RATE * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.inventory_transfer_cost %></td>
+                        <td><%= displayFee(model.inventory_transfer_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Value Added Services -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Value Added Services</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gift message</td>
+                        <td>Order</td>
+                        <td>$<%= numeral(model.rate_constants.GIFT_MESSAGE_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.gift_message_order_qty %></td>
+                        <td><%= displayFee(model.gift_message_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Gift wrapping</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.GIFT_WRAPPING_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.gift_wrapping_qty %></td>
+                        <td><%= displayFee(model.gift_wrapping_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Warehouse labor</td>
+                        <td>Hour</td>
+                        <td>$<%= numeral(model.rate_constants.WAREHOUSE_LABOR_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.warehouse_labor_hour %></td>
+                        <td><%= displayFee(model.warehouse_labor_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+
+        <!-- Miscellaneous Services -->
+        <dl class="table" style="margin-top:10px">
+            <dt>Miscellaneous Services</dt>
+            <dd><table class="tb-type2">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Unit of Measure</th>
+                        <th>Cost</th>
+                        <th>Monthly Quantity / Cost / Volume</th>
+                        <th>Extension</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Operational Startup</td>
+                        <td>One-time</td>
+                        <td>No charge</td>
+                        <td>0.00</td>
+                        <td><%= displayFee(model.operational_startup_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SHIPPING_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SHIPPING_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.shipping_cost %></td>
+                        <td><%= displayFee(model.shipping_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Supplies and materials</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.supplies_and_materials_cost %></td>
+                        <td><%= displayFee(model.supplies_and_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Custom supplies and materials</td>
+                        <td>Cost + <%= numeral((model.rate_constants.CUSTOM_SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td>Cost + <%= numeral((model.rate_constants.CUSTOM_SUPPLIES_AND_MATERIALS_RATE - 1) * 100).format('0.[0000]') %>%</td>
+                        <td><%= model.custom_supplies_and_materials_cost %></td>
+                        <td><%= displayFee(model.custom_supplies_and_materials_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Returns</td>
+                        <td>Unit</td>
+                        <td>$<%= numeral(model.rate_constants.RETURNS_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.returns_cost %></td>
+                        <td><%= displayFee(model.returns_fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>IT development</td>
+                        <td>Hour</td>
+                        <td>$<%= numeral(model.rate_constants.IT_DEVELOPMENT_RATE).format('0,0.[0000]') %></td>
+                        <td><%= model.it_development_hour %>></td>
+                        <td><%= displayFee(model.it_development_fee) %></td>
+                    </tr>
+                </tbody>
+            </table></dd>
+        </dl>
+    </td>
+</div>
+<div class="btn-area">
+    <button class="btns-blue-embo btn-done">Done</button>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

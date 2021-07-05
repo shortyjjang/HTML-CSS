@@ -1,0 +1,12 @@
+<td class="professions"><%if(!readonly){%><a href="#" class="selector" data-type="102"><%}%>
+    <%if('102' in rule.condition.tags){%>
+        <%if(rule.condition.tags['102'].length){%><%-rule.condition.tags['102'].join(", ")%><%}else{%>Select profession<%}%>
+    <%}else{%>All professions<%}%>
+<%if(!readonly){%></a><%}%></td>    
+<td class="regions"><%if(!readonly){%><a href="#" class="selector" data-type="103"><%}%>
+    <%if('103' in rule.condition.tags){%>
+        <%if(rule.condition.tags['103'].length){%><%-rule.condition.tags['103'].join(", ")%><%}else{%>Select region<%}%>
+    <%}else{%>All regions<%}%>    
+<%if(!readonly){%></a><%}%></td>
+<td class="discount"><span class="price"><input type="text" name="value" value="<%-rule.value%>" <%if(readonly){%>readonly<%}%>/><small>%</small></span></td>
+<td class="btns"><%if(!readonly){%><a href="#" class="btn-del tooltip"><em>Delete</em></a><%}%></td>

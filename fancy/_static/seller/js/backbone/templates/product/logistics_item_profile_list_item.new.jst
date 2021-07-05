@@ -1,0 +1,33 @@
+<td class="check"><input type="checkbox" class="select-all-pending-sale-order-items" /></td>
+<td class="title"><div class="item">
+        <img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" style="background-image:url(<%= product.image_url %>)" alt="" data-lightbox="<%= product.image_url %>" />
+        <b><%- product.title %>
+        <% if (has_vip_order) { %>
+            <em class="label vip">VIP</em>
+        <% } %>
+        <% if (product.personalizable) { %>
+            <em class="label person">PERSONALIZED</em>
+        <% } %>
+        </b>
+        <% if (sale_item_option) { %>
+            <small class="option"><%- sale_item_option.title %>(#<%= sale_item_option.id_str %>)</small>
+        <% } %>
+    </div>
+</td>
+<td class="id"><a href="<%= product.html_url %>" class="sales-id">#<%= product.id %></a></td>
+<td class="order"><%= numeral(num_orders).format("0,0") %></td>
+<td class="fancy"><%= numeral(sale_quantity).format("0,0") %></td>
+<td class="warehouse"><%= numeral(stock_quantity).format("0,0") %></td>
+<% if (isViewerAdmin) { %>
+    <td class="change"><input type="checkbox" <% if (allow_cross_shipping) { %> checked <% } %> disabled/></td>
+    <td class="link">
+        <% for (var i=0; i<buy_urls.length; i++) { %>
+            <a href="<%= buy_urls[i].url %>"><%= i+1 %></a>
+        <% } %>
+    </td>
+    <td class="tag">
+        <% for (var i=0; i<tags.length; i++) { %>
+            <a href="<%= getTagURL(tags[i]) %>"><%= tags[i].tag %></a>
+        <% } %>
+    </td>
+<% } %>

@@ -1,0 +1,27 @@
+<h2 class="ptit embo"><b>Dashboard <small>– <%= moment.utc(date_from_str).format("ll") %> – <%= moment.utc(date_to_str).format("ll") %></small></b></h2>
+<div class="select-date">
+    <a href="analytics/download/<%=range.replace(/d$/,'')%>?dateFrom=<%=moment.utc(date_from_str).format("YYYY/MM/DD")%>&dateTo=<%=moment.utc(date_to_str).format("YYYY/MM/DD")%><%if (user.is_admin_senior || user.is_admin_any){%>&admin=true&username=<%= username%><%}%>" target="_blank" class="download">Export</a>
+    <button class="date-range" onclick="$('.controll-date').toggle();">
+        <% if (range == "7d") { %><%= gettext('Last 7 Days') %>
+        <% } else if (range == "30d" ) { %><%= gettext('Last 30 Days') %>
+        <% } else if (range == "12m" ) { %><%= gettext('Last 12 Months') %>
+        <% } else { %><%= moment.utc(date_from_str).format("ll") %> - <%= moment.utc(date_to_str).format("ll") %>
+        <% } %>
+    </button>
+    <div class="controll-date">
+        <span class="trick" onclick="$('.controll-date').toggle();"></span>
+        <ul>
+            <li><a href="#" class="date_ <% if (range == "7d") { %>current<% } %>" range="7d"><%= gettext('Last 7 Days') %></a></li>
+            <li><a href="#" class="date_ <% if (range == "30d") { %>current<% } %>" range="30d"><%= gettext('Last 30 Days') %></a></li>
+            <li><a href="#" class="date_ <% if (range == "12m") { %>current<% } %>" range="12m"><%= gettext('Last 12 Months') %></a></li>
+        </ul>
+        <div class="after">
+            <a href="#" class="date_ <% if (range == "specific") { %>current<% } %> specific"><%= gettext('Specific Dates') %></a>
+            <div class="date_detail">
+                <span class="start-date"><input type="text" class="text" value="<%= moment.utc(date_from_str).format("ll") %>"></span> - 
+                <span class="end-date"><input type="text" class="text" value="<%= moment.utc(date_to_str).format("ll") %>"></span>
+                <div id="datepickers"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,286 @@
+.summary._card {
+  position: relative;
+  background: #DAEDF9;
+  border-radius: 5px;
+  -webkit-transition: 0.1s -webkit-box-shadow ease-in-out;
+  transition: 0.1s -webkit-box-shadow ease-in-out;
+  transition: 0.1s box-shadow ease-in-out;
+  transition: 0.1s box-shadow ease-in-out, 0.1s -webkit-box-shadow ease-in-out;
+  padding: 0 0 24px;
+}
+
+.summary._card .bio {
+  display: none;
+}
+
+.summary._card .cover {
+  display: block;
+  background: #DAEDF9;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  height: auto;
+  margin: 0;
+}
+
+.summary._card .cover .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 0 0;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+}
+
+.summary._card .cover img {
+  width: 34.75%;
+  display: block;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  left: 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.summary._card .cover.blue {
+  background: #92a7bd;
+}
+
+.summary._card .cover.silver {
+  background: #a3a7af;
+}
+
+.summary._card .cover.green {
+  background: #92b3bd;
+}
+
+.summary._card .cover.purple {
+  background: #929fbd;
+}
+
+.summary._card .info {
+  display: block;
+  padding: 56px 0 15px;
+  color: #8a8f9c;
+  font-size: 13px;
+  line-height: 17px;
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+}
+
+.summary._card .info > a:first-child {
+  display: block;
+  color: #8a8f9c;
+}
+
+.summary._card .info .description {
+  display: none;
+  position: relative;
+  overflow: hidden;
+  height: 34px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 12px;
+  margin-bottom: 90px;
+  line-height: 17px;
+}
+
+.summary._card .info .description:after {
+  content: '';
+  position: absolute;
+  top: 17px;
+  right: 20px;
+  width: 30%;
+  height: 17px;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(60%, rgba(255, 255, 255, 0)), color-stop(90%, white));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 60%, white 90%);
+  pointer-events: none;
+}
+
+.summary._card .info .followers, .summary._card .info .location {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.summary._card .info .location {
+  display: block;
+  padding-top: 4px;
+}
+
+.summary._card .info .username {
+  display: block;
+  color: #383d48;
+  font-size: 13.5px;
+  padding: 5px 0 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.summary._card .logo {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  margin-left: -50px;
+  width: 100px;
+}
+
+.summary._card .logo img {
+  vertical-align: top;
+  width: 100%;
+  border-radius: 100%;
+  background: no-repeat 50% 50% #fff;
+  background-size: cover;
+}
+
+.summary._card .ic-verified, .summary._card .ic-lock {
+  margin: -3px 0px 0px 2px;
+  display: inline-block;
+  height: 17px;
+  vertical-align: middle;
+}
+
+.summary._card .ic-verified {
+  width: 17px;
+  background: url("../../images/svg/ic_user.svg") no-repeat -16px -16px;
+  background-size: 82px;
+}
+
+.summary._card .ic-lock {
+  width: 15px;
+  background: url("../../images/normal/user-icon.png") no-repeat -65px -115px;
+  background-size: 200px 200px;
+}
+
+.summary._card .tooltip {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.summary._card .tooltip:hover small {
+  display: block;
+}
+
+.summary._card .tooltip small {
+  display: none;
+  background: #2c3239;
+  padding: 0 11px;
+  line-height: 22px;
+  font-size: 11px;
+  bottom: 17px;
+  left: 50%;
+  position: absolute;
+  white-space: nowrap;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.summary._card .tooltip small:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 4px solid transparent;
+  margin-left: -4px;
+  border-top-color: #2c3239;
+}
+
+.summary._card .tooltip .icon.shop {
+  display: block;
+  width: 11px;
+  height: 10px;
+  background: url("../../images/normal/find_people.png") no-repeat -90px -40px;
+  background-size: 200px 70px;
+}
+
+.summary._card .go-shop, .summary._card .follow-user-link {
+  display: none;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: center;
+  font-size: 14px;
+  background: #2581E3;
+  color: #fff;
+  max-width: 118px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.summary._card .follow-user-link.following {
+  color: #3F434B;
+  background: #fff;
+}
+
+.summary._card .figure-list {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+}
+
+.summary._card .figure-list img {
+  background: no-repeat 50% 50% #f7f7f7;
+  background-size: cover;
+  border-radius: 4px;
+}
+
+.summary._card .figure-list a, .summary._card .figure-list > img {
+  display: none;
+  vertical-align: top;
+  width: 60px;
+  margin: 0 8px;
+}
+
+.summary._card .figure-list a:nth-child(1), .summary._card .figure-list a:nth-child(2), .summary._card .figure-list a:nth-child(3), .summary._card .figure-list > img:nth-child(1), .summary._card .figure-list > img:nth-child(2), .summary._card .figure-list > img:nth-child(3) {
+  display: inline-block;
+}
+
+.summary._card .figure-list > a > img {
+  display: block;
+  width: 100%;
+}
+
+.summary._card.store .logo img {
+  border-radius: 5px;
+}
+
+.summary._card.store .info {
+  padding-top: 39px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .summary._card .ic-lock {
+    background-image: url("../../images/retina/user-icon.png");
+  }
+  .summary._card .tooltip .icon.shop {
+    background-image: url("../../images/retina/find_people.png");
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .summary._card {
+    padding-bottom: 12px;
+  }
+  .summary._card .figure-list {
+    display: none;
+  }
+  .summary._card .logo {
+    top: -25px;
+    margin-left: -25px;
+    width: 50px;
+  }
+  .summary._card .info {
+    padding: 33px 0 0;
+  }
+  .summary._card .cover img {
+    width: 36.37%;
+  }
+  .summary._card.store .info {
+    padding-top: 12px;
+  }
+  .summary._card .go-shop, .summary._card .follow-user-link {
+    margin-top: 12px;
+  }
+}
+/*# sourceMappingURL=stores_card.v3.css.map */

@@ -1,0 +1,64 @@
+<td class="title">
+    <a href="<%= getProductEditURL(id_str) %>" class="after">
+        <span class="status tooltip">
+            <% if (status == 'active') { %>
+                <i class="active"></i>
+                <em>Active Item</em>
+            <% } else if (status == 'pending') { %>
+                <i class="pending"></i>
+                <em>Pending Item</em>
+            <% } else if (status == 'sold out') { %>
+                <i class="soldout"></i>
+                <em>Sold out Item</em>
+            <% } else if (status == 'expired') { %>
+                <i class="expired"></i>
+                <em>Expired Item</em>
+            <% } else if (status == 'coming soon') { %>
+                <i class="coming-soon"></i>
+                <em>Coming Soon Item</em>
+            <% } %>
+        </span>
+        <span class="thumbnail" data-image="<%= image_url_original %>"><img src=".tb-type4" style="background-image:url(<%= image_url %>)" alt=""></span>
+        <%= title %>
+    </a>
+    <% if (num_options > 0) { %>
+        <a href="#" class="toggle-option"><%= num_options %> <% if (num_options == 1) { %>option<% } else {%>options<% } %></a>
+    <% } %>
+</td>
+<td><a href="<%= getProductEditURL(id_str) %>" class="sale-id">#<%= id_str %></a>
+<a href="<%= getProductEditURL(id_str) %>" class="edit-sale tooltip"><i class="icon"></i><em><%= gettext('Edit Sale') %></em></a>
+<% if (status == 'pending') { %>
+<a href="#" class="delete-sale tooltip"><i class="icon"></i><em><%= gettext('Delete Sale') %></em></a>
+<% } %>
+<% if (status == 'active' || status == 'sold out') { %>
+    <% if ( getStorefrontURL(thing_id_str)) { %>
+    <span class="btns">
+        <a href="#" class="view-sale tooltip" onclick="$(this).closest('.btns').toggleClass('opened');return false;"><i class="icon"></i><em style="left: 50%; margin-left: -31.5px;"><%=gettext('View Sale')%></em></a>
+        <small class="dropdown">
+            <a href="<%= getStorefrontURL(thing_id_str) %>" target="_blank" onclick="$(this).closest('.btns').removeClass('opened');"><%= gettext('View on Storefront') %></a>
+            <a href="<%= html_url%>" target="_blank" onclick="$(this).closest('.btns').removeClass('opened');"><%= gettext('View on Fancy') %></a>
+        </small>
+    </span>
+    <% }else{ %>
+        <a href="<%= html_url%>" class="view-sale tooltip" target="_blank"><i class="icon"></i><em><%= gettext('View Sale') %></em></a></td>
+    <% } %>
+<% } %>
+<td class="price">$<%= numeral(price).format('0.00') %> <small>USD</small></td>
+<td><%= moment(start_date).format("L") %></td>
+<td>
+    <a href="#" class="tooltip end-date">
+        <% if (end_date) { %>
+        <%= moment(end_date).format("L") %>
+        <em style="left: 50%; margin-left: -36.5px;"><%= gettext('Change date') %></em>
+        <% } %>
+    </a>
+</td>
+<td>
+    <% if (num_available) { %>
+        <%= num_available %>
+    <% } else { %>
+        <a href="#" class="add_qty"><%= gettext('Add quantity') %></a>
+	<fieldset style="display:none;"><input type="text" class="text" /> <button class="btns-blue-embo"><%= gettext('Add') %></button></fieldset>
+    <% } %>
+</td>
+<td><% if (num_sold > 0) { %><%= num_sold %><% } %></td>

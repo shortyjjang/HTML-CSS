@@ -1,0 +1,8 @@
+<td><input type="checkbox" /></td>
+<td class="merchant-name"><a href="#"><%= model.seller_name %></a></td>
+<td class="merchant-username"><a href="#"><%= model.seller_username %></a></td>
+<td><%= moment(model.from_date).format('MMM D, YYYY') %> - <%= moment(model.to_date).format('MMM D, YYYY') %></td>
+<td class="number"><%= displayQty(model.shipped_order_qty) %></td>
+<td><span class="status <% if (model.prepayment_status == 2) { %>disabled<% } %>"><%= model.prepayment_status_display %></span></td>
+<td><span class="status <% if (model.payment_status == 3) { %>disabled<% } %>"><%= model.payment_status_display %></span></td>
+<td class="number"><%= displayFee(model.total_fee) %></td>

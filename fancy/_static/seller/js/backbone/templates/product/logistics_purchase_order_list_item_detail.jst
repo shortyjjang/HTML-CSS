@@ -1,0 +1,68 @@
+<td colspan="8" class="sales-detail">
+    <fieldset class="frm">
+        <ul class="info">
+            <li class="service"><label class="label"><%= gettext('Service') %></label>
+            <span class="value"><%= service_level_display || '-' %></span></li>
+            <li class="eta"><label class="label"><%= gettext('ETA') %></label>
+            <span class="calendar"><span class="value"> <%= eta ? moment.utc(eta).format("ll") : '-' %></span></span></li>
+            <li class="create"><label class="label"><%= gettext('Created') %></label>
+            <span class="value"><%= moment.utc(date_created).format("lll") %></span></li>
+            <li class="sent"><label class="label"><%= gettext('Sent') %></label>
+            <span class="value"> <%= date_ordered ? moment.utc(date_ordered).format("lll") : '-' %></span></li>
+            <li class="btns"><a href="#" onclick='return false' class="btn-comment tooltip"><i class="icon"></i><em><b><%= gettext('Comment') %></b> <%= comment || '-' %></em></a></li>
+        </ul>
+        <% if (item_profiles && item_profiles.length > 0) { %>
+        <dl>
+            <dt>Item</dt>
+            <dd class="table finished">
+                <table class="tb-type1">
+                    <colgroup>
+                        <col width="*">
+                        <col width="100">
+                        <col width="70">
+                        <col width="130">
+                        <col width="130">
+                        <col width="100">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="title">Item</th>
+                            <th class="price">Item Price</th>
+                            <th class="id">Sale ID</th>
+                            <th class="qty">Quantity</th>
+                            <th class="qty">Received Quantity</th>
+                            <th class="view"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(item_profiles, function(item_profile) { %>
+                        <tr  item-number="<%= item_profile.item_number %>">
+                            <td class="title"><div class="item">
+                                <a href="<%= item_profile.product.get('html_url') %>">
+                                    <img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" style="background-image:url(<%= item_profile.product.get('image_url') %>)">
+                                    <b><%= item_profile.product.get('title') %>
+                                        <% if (item_profile.has_vip_order) { %>
+                                            <span class="label vip">VIP</span>
+                                        <% } %>
+                                    </b>
+                                    <% if (item_profile.sale_item_option) { %>
+                                        <span class="option">
+                                            <%= item_profile.sale_item_option.name %> (#<%= item_profile.sale_item_option.id_str %>)
+                                        </span>
+                                    <% } %>
+                                </a>
+                            </div></td>
+                            <td class="price"><%= formatPrice(item_profile.product.get('price')) %></td>
+                            <td class="id"><a href="<%= item_profile.product.get('html_url') %>">#<%= item_profile.product.id %></a></td>
+                            <td class="qty"><%= formatInteger(item_profile.quantity) %></td>
+                            <td class="qty"><%= formatInteger(item_profile.quantity_received) %></td>
+                            <td class="view"><a href="#">View Orders</a></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
+        <% } %>
+    </fieldset>
+</td>

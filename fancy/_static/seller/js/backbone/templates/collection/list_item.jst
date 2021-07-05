@@ -1,0 +1,19 @@
+    <a href="<%= FancyBackbone.Utils.makeURL(_.str.sprintf('/merchant/products/collections/%d', id),false)%>">
+        <strong class="title"><%= name %></strong>
+        <span class="fig-image">
+            <img class="blank" src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" <% if (image) { %>style="background-image:url(<%= image.resized_url %>)"<% } else { %>class="blank"<% } %> alt=""/>
+            <small class="account">
+            <% if (item_count > 1) { %>
+                <%= numeral(item_count).format("0,0") %> items
+            <% } else { %>
+                <%= numeral(item_count).format("0,0") %> item
+            <% } %>
+            </small>
+        </span>
+        <span class="description"><%= notchatty_description %></span>
+    </a>
+    <a href="#" class="move"></a>
+    <div class="wrapper-btn" collection-id="<%= id %>">
+        <a href="#" class="edit-list btn"><i class="icon"></i><%= gettext("Edit Collection") %></a>
+        <a href="<%= FancyBackbone.Utils.makeURL(_.str.sprintf('/merchant/products/collections/%d', id),false)%>" class="btn"><i class="icon"></i><%= gettext("Organize Items") %></a>
+    </div>

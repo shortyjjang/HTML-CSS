@@ -1,0 +1,116 @@
+.filter {
+	&#content {padding:0;}
+	.search-frm:after {content:'';clear:both;display:block;}
+	div.option {margin-bottom:10px;}
+	.search {
+		position:relative;float:right;width: 425px;
+		&:before {content:'';background:url('../../../_ui/images/normal/seller.png') no-repeat -225px -15px;background-size:250px 250px;position:absolute;top:50%;left: 10px;width:12px;height:12px;margin-top: -6px;}
+	}
+	.sort {
+		position:relative;float:left;
+		&:before {content:'';position:absolute;top:50%;right:8px;border:3px solid transparent;border-top-color:#9099a6;margin-top:1px;}
+		&:after {content:'';position:absolute;bottom:50%;right:8px;border:3px solid transparent;border-bottom-color:#9099a6;margin-bottom:1px;}
+		select {
+			position:relative;z-index:1;border-color:#d9dbdd;box-shadow:0 1px 1px rgba(0,0,0,0.05);background:none;width: 100%;
+			&:focus {background:none !important;}
+		}
+	}
+	.tooltip em {font-size:11px;line-height:17px;padding:8px 9px;left:50%;bottom:100%;z-index:1;}
+	.date {
+		.icon {display:block;width:12px;height:12px;background-position:-140px -60px;}
+		em b {display:block;}
+	}
+}
+@media screen and (max-width: 730px) {
+    .filter {
+		.sort {float:none;width:auto;}
+		.search {float:none;width:auto;margin-top: 10px;}
+	}
+}
+.popup.manage_filter .btn-del:before, .popup.manage_filter .options span.option, .popup.manage_filter .options .remove, #lists .btn-manage:before, #lists .btn-move:before {background:url('../../../_ui/images/normal/product_new.png') no-repeat;background-size:200px 200px;}
+#lists {
+	.btn-manage, .btn-move {padding:0 6px;}
+	.btn-manage:before {content: '';display: inline-block;width: 12px;height: 12px;background-position: -30px -80px;vertical-align: middle;margin: -3px 0 0;opacity:0.6;}
+	.btn-move:before {content: '';display: inline-block;vertical-align: middle;margin: -3px 0 0;width:5px;height:11px;background-position:-60px -15px;opacity:0.5}
+}
+.manage_filter {
+	&#popup_container .popup.manage_filter {display:block;}
+	&.popup {
+		width:430px;background:#fff;border-radius:3px;
+		.options {
+			display:block;border:1px solid #f8f8f8;border-radius:3px;padding: 0 4px 5px 5px;
+			.option {margin:5px 1px 0 0;}
+			.remove {display:inline-block;vertical-align:middle;width:5px;height:5px;background-position:-100px -145px;margin:-3px 0 0 1px;}
+			span.option {
+				display:inline-block;border-radius:2px;margin:2px;padding:0 8px;line-height:22px;background:grey;color:white;font-size:11px;vertical-align: middle;white-space: nowrap;
+				.remove  {background-position:-110px -145px;}
+			}
+			.none {display:inline-block;vertical-align:middle;line-height:22px;margin-top:5px;padding:0 4px;opacity:0.6;}
+		}
+		.data-frm {padding: 15px;}
+		input.text {
+			height:auto;
+			&.full {width:100%;}
+		}
+		.btn-del {
+			float:left;
+			&:before {content:'';display:inline-block;vertical-align:middle;width:9px;height:11px;background-position: -90px 0px;margin:-3px 5px 0 0;}
+		}
+		.popup-close:before {width:11px;height:11px;margin:-6px 0 0 -6px;}
+		.added .option-picker {width:383px;}
+		.option-picker {
+			position: relative;
+			&:first-child {margin-top:0;}
+			.selected > span {border-color:#b6cddf;background:#fff;color:#6594b5;z-index:1;position: relative;}
+			.select-lists {position:static;line-height: 23px;}
+		}
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+	.popup.manage_filter .btn-del:before, .popup.manage_filter .options span.option, .popup.manage_filter .options .remove, #lists .btn-manage:before, #lists .btn-move:before {background-image:url('../../../_ui/images/retina/product_new.png');}
+}
+.multi-text {
+	background-color: #f8f8f8;border-radius: 3px;border: 1px solid #d9dcde;padding: 0 3px 3px 0;display: block;
+	&:after {content: '';clear: both;display: block;}
+	.select-lists {
+		float:left;margin:3px 0 0 3px;position:relative;
+		input.text {
+			width: 190px;border: 0;background: none;padding: 2px 0 2px 4px;display: block;font-size:12px;
+			&:focus {box-shadow:none !important;background-color: #f8f8f8 !important}
+		}
+	}
+	.selected {
+		> span {float:left;margin:3px 0 0 3px;font-size:12px;line-height:21px;padding:0 0 0 7px;color:#487fa6;background:#dbe6f2;border-radius:3px;border:1px solid #bad0e1;}
+		.btn-del {
+			display:inline-block;text-indent:-1000em;position:relative;width:20px;height:21px;float:none;
+			&:before {content:'×';position:absolute;left: 0;top: 0;text-align: center;text-indent: 0;width: 100%;font-size: 10px;line-height: 19px;background:none;}
+		}
+	}
+}
+.selected-category {margin-top:10px;}
+ul.step-category a.btn-del-cat:before, .category-results ul .add:before {background:url("../../../_ui/images/normal/product_new.png") no-repeat;background-size:200px 200px;}
+.category-results {
+	display:none;z-index:3;margin-top:5px;position:relative;background:#fff;width:100%;border-radius:3px;box-shadow: 0 0 0 1px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.09);padding:0;max-height:150px;overflow:scroll;
+	ul {
+		a {
+			display: inline-block;line-height: 32px;color: #767a89;padding: 0 11px;width: 350px;font-size: 12px;
+			&:hover {background:#f8f8f8;}
+			&.add {position: relative;top:5px;right:3px;width:20px;height:20px;padding:0;border-radius:3px;border:1px solid #b9cfe0;text-indent:-1000em;background:#fff;}
+		}
+		.add:before {content: '';background-position: -60px -70px;opacity: 0.6;width: 8px;height: 8px;margin: -4px 0 0 -4px;position: absolute;top: 50%;left: 50%;}
+	}
+}
+ul.step-category {
+	li {
+		position: relative;border: 0;font-size: 12px;color: #4d5461;font-weight: bold;line-height: 24px;padding: 0 30px 5px 10px;
+		&.selected {background: none;margin: 0;}
+		&i:last-child {padding-bottom: 0;}
+	}
+	a.btn-del-cat {
+		position: absolute;width: 20px;height: 20px;text-indent: -1000em;
+		&:before {content: '';position: absolute;left: 50%;top: 50%;margin: -5px 0 0 -5px;width: 9px;height: 9px;opacity: 0.5;background-position: -60px 0;}
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+    .category-results ul .add:before, ul.step-category a.btn-del-cat:before {background-image:url("../../../_ui/images/retina/product_new.png");}
+}

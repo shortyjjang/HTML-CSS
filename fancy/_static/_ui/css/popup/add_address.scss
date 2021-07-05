@@ -1,0 +1,110 @@
+@charset "UTF-8";
+#popup_container {
+	&.newadds-frm .popup.newadds-frm {display:block;}
+	.popup.newadds-frm {width: 482px;}
+}
+.popup.newadds-frm {
+	dt {
+		padding:25px 0 27px 25px;
+		display: none;
+		small {
+			font-size:13px;
+			color:#8a90a1;
+			padding-left:4px;
+		}
+	}
+	dd {padding: 7px 11px 15px;}
+	form {
+		p {
+			float:left;
+			padding:0 4px 3px;
+			width:calc(50% - 8px);
+			&.checkbox, &.full {float:none;width:auto;clear:both;}
+			&.zipcode {width:80px;}
+			&.tel {width:calc(50% - 96px);}
+		}
+		.checkbox {
+			padding:9px 2px 2px;
+			label {
+				padding:0 0 0 4px;
+				display:inline;
+				font-weight:500;
+			}
+		}
+	}
+	label {
+		display:block;
+		position:relative;
+		font-size: 13px;
+		color: #393d4d;
+		font-weight: 600;
+		padding: 10px 0 7px;
+	}
+	input.text, select {width:100%;margin-bottom: 7px;}
+	.ltxt {
+		clear:both;
+		background:#fff;
+		border-radius:0 0 5px 5px;
+		padding:0;
+	}
+	.btns-area {
+		clear:both;
+		padding:14px 15px;
+		border-top:1px solid #f2f2f2 ;
+		text-align: right;
+	}
+	.btn-cancel {margin-right:6px;}
+	.btn-delete {float:left;}
+	.left, .right {
+		padding-right:13px;
+		width:320px;
+	}
+	.left {padding:0 0 14px 25px;}
+	.saved {
+		.btn-delete {
+			border:1px solid #cccecf;
+			color:#383d48;
+			background:#fff;
+			font-weight:bold;
+			line-height:28px;
+			float:none;
+			padding: 0;
+			width: 29px;
+			text-align: center;
+			height: 29px;
+			margin: 0 0 1px 1px;
+			border-radius: 3px;
+			box-shadow: 0 1px 0 #fafafa;
+			.ic-delete {
+				display: inline-block;
+				width: 9px;
+				height: 12px;
+				background:url('../../images/normal/checkout.png') no-repeat -88px -5px;
+				background-size:220px 310px;
+				vertical-align: middle;
+				margin-top: -4px;
+			}
+			&[disabled] {
+				cursor:default;
+				opacity:.5;
+			}
+		}
+		select {width: 417px;}
+	}
+	.frm {
+		border-top:1px solid #ebebed;
+		margin: 12px -13px 0;
+		width:100%;
+		padding: 15px 13px 0;
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:2){
+	.popup.newadds-frm .saved .btn-delete .ic-delete {background-image:url('../../images/retina/checkout.png') ;}
+}
+@media screen and (max-width: 800px) {
+	.popup.newadds-frm form p {
+		width:auto;float:none;clear:both;
+		&.zipcode {float:left;}
+		&.tel {clear:none;float:left;width:calc(100% - 96px);}
+	}
+}

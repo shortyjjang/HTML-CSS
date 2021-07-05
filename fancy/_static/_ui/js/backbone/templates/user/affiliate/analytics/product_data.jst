@@ -1,0 +1,25 @@
+<table class="tb-product tb-type1">
+    <thead>
+        <tr>
+            <th></th>
+            <th><fieldset class="search"><i class="icon"></i><input type="text" class="text" <% if (search) { %> value="<%= search %>" <% } %>></fieldset>Product</th>
+            <th><a href="#" name="clicks" <% if (sort == "clicks") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Clicks</span></a></th>
+            <th><a href="#" name="sales" <% if (sort == "sales") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Sales</span></a></th>
+            <th><a href="#" name="commission" <% if (sort == "commission") { %> class="current <% if (sort_order == "desc"){ %>down<% }else{ %>up<% }%>" <% } %>><span>Commission</span></a></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% _.each(products, function(product, idx) { %>
+            <tr><td class="center"><%= initIdx + (idx+1) %></td>
+            <td><%= product.name %></td>
+            <td><%= product.clicks %></td>
+            <td><%= product.sales %></td>
+            <td><%= numeral(product.commission).format("$0,0.00") %></td></tr>\n
+        <% }) %>
+    </tbody>
+</table>
+<div class="pagination">
+    <button class="prev disabled">Previous</button>
+    <button class="next">Next</button>
+</div>
+<div class="loading"><img class='loading-img' /></div>

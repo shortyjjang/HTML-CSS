@@ -1,0 +1,36 @@
+<p class="ltit">Add quantities</p>
+<div class="data-frm">
+    <p>Add quantities to your product options.</p>
+    <p><label class="label">Quantity</label>
+    <input type="text" class="text qty" value=""></p>
+    <div class="options">
+        <table>
+            <colgroup>
+                <col width="*">
+                <col width="110">
+                <col width="80">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Options</th>
+                    <th>QTY Before</th>
+                    <th>QTY After</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(options, function(option) { %>
+                    <tr <%if(option.get('id')){%>id="<%-option.get('id')%>"<%}else{%>tid="<%-option.get('tid')%>"<%}%> >
+                        <td><input type="checkbox" checked> <label><%-option.get('name')%></label></td>
+                        <td><%if(option.get('quantity')!=null){%><%-option.get('quantity')%><%}else{%>∞<%}%></td>
+                        <td><%if(option.get('quantity')!=null){%><%-option.get('quantity')%><%}else{%>∞<%}%></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="btn-area">
+    <button class="btns-white btn-cancel">Cancel</button>
+    <button class="btns-blue-embo btn-add">Add</button>
+</div>
+<button type="button" class="ly-close" title="Close"><i class="ic-del-black"></i></button>

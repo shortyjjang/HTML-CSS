@@ -1,0 +1,57 @@
+<p class="ltit">Add Item Option</p>
+<div class="ltxt add-saleitem-option-cont after">
+    <p class="name">
+        <label>Name</label>
+        <input type="text" class="text" value="" />
+    </p>
+    <p class="price">
+        <label>Price</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>USD</small></span>
+    </p>
+    <p class="retail">
+        <label>Retail Price</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>USD</small></span>
+    </p>
+    <p class="unit-cost">
+        <label class="label">Unit cost</label>
+	    <span class="detail hastext"><input type="text" class="text" /><small>USD</small></span>
+	</p>
+    <p class="sku">
+        <label>SKU</label>
+        <input type="text" class="text" placeholder="SKU or Product ID" />
+    </p>
+    <p class="qty warehouse"><label class="label">Quantity</label>
+        <span <% if (seller.get('has_fancy_warehouse_access_right')) { %> class="qty" <% } %>>
+            <input type="text" class="text" name="quantity" />
+            <input type="checkbox" id="sync_qty_checkbox" <% if (!seller.get('has_fancy_warehouse_access_right')) { %> style="display: none;" <% } %>/>
+            <label for="sync_qty" <% if (!seller.get('has_fancy_warehouse_access_right')) { %> style="display: none;" <% } %>><span class="tooltip"><i class="icon"></i>
+            Sync<em style="margin-left: -105px;"><b>Sync with warehouse</b>
+            Sync this product with warehouse quantity. Turning this feature on will disable manual input of quantity.</em></span></label>
+        </span>
+    </p>
+    <p class="color">
+        <label>Color</label>
+        <input type="text" class="text" value="" />
+    </p>
+    <p class="length">
+        <label>Length</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>inch</small></span>
+    </p>
+    <p class="height">
+        <label>Height</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>inch</small></span>
+    </p>
+    <p class="width">
+        <label>Width</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>inch</small></span>
+    </p>
+    <p class="weight">
+        <label>Weight</label>
+        <span class="detail"><input type="text" class="text" value="" /><small>lbs</small></span>
+    </p>
+</div>
+<div class="btn-area">
+    <button class="btns-blue-embo btn-save">Save</button>
+    <button class="btns-white btn-cancel">Cancel</button>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

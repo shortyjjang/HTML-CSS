@@ -1,0 +1,20 @@
+<td class="title">
+    <span class="item">
+        <a href="/sales/<%= sale_item_id %>/<%= title %>">
+            <img src="/_ui/images/common/blank.gif" alt="" style="background-image:url(<%= images[0].thumbnail_src %>)"  />
+            <%= title %>
+        </a>
+    </span>
+</td>
+<td><%= numeral(price).format("$0,0.00") %></td>
+<td class="count"><%= numeral(fancyd_count).format("0,0") %></td>
+<td class="sold">
+    <% if (sold_count) { %>
+        <%= numeral(sold_count).format("0,0") %>
+    <% } else { %>
+        0
+    <% } %>
+</td>
+<td class="btns">
+    <a href="#" class="btns-white btn-del"><i class="icon"></i></a>
+</td>

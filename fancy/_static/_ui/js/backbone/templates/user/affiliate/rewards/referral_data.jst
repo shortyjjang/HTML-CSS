@@ -1,0 +1,28 @@
+<colgroup>
+    <col width="*" />
+    <col width="150" />
+    <col width="150" />
+    <col width="150" />
+</colgroup>
+<thead>
+    <tr>
+        <th>Referral type</th>
+        <th>Updated</th>
+        <th>Via</th>
+        <th>Status</th>
+    </tr>
+</thead>
+<tbody>
+    <% _.each(referral_data, function(referral) { %>
+        <tr>
+            <td><span class="state"><%= referral.referral %></span></td>
+            <td><%= referral.date %></td>
+            <td><%= referral.via %></td>
+            <td class="status">
+                <% if (referral.status) { %>
+                    <b><%= numeral(referral.status).format("$0,0.00") %></b>
+                <% } %>
+            </td>
+        </tr>
+    <% }) %>
+</tbody>

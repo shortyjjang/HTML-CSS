@@ -1,0 +1,196 @@
+/* 1.1 Reset
+------------------------------------------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+	color: #568bca;
+}
+
+a:hover {
+	text-decoration: none;
+}
+/* Basic styles
+------------------------------------------------------------------------------*/
+
+html {
+	background: #eef0f6 url(../images/common/bg_body.png) repeat 50% 0;
+}
+
+body {
+	font: 75%/1.25 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #53575f;
+}
+
+/* Landscape mode (default) */
+.container {
+	position: relative;
+	overflow-x: hidden;
+	text-align: left;
+}
+
+/* Header
+------------------------------------------------------------------------------*/
+@media only screen and (orientation:portrait) {
+	html { width: 750px; }
+	body { width: 500px; zoom: 150%;}
+	#header {
+		width: 470px;
+		padding: 20px 15px 20px 15px;
+		margin: 0 auto;
+	}
+
+	#header h1 {
+		float: left;
+		width: 220px;
+		height: 131px;
+		margin-bottom: 30px;
+		text-indent: -999em;
+		background: url(../images/android/sprite.png) no-repeat -30px 0;
+	}
+
+	#header a,
+	#header a span {
+		display: block;
+		width: 220px;
+		padding-top: 20px;
+		height: 54px;
+		position: relative;
+	}
+
+	#header a {
+		float: right;
+		text-align: center;
+	}
+
+	#header a span{
+		position: absolute;
+		top: 0; left: 0;
+		background: url(../images/amazon/amazon.png) no-repeat;
+		cursor: pointer;
+		text-align: center;
+	}
+
+	#content {
+		clear: both;
+		text-align: center;
+	}
+
+	#footer {
+		position: relative;
+		padding: 40px 0 45px;
+		font: normal 20px/1.1 'AvantGarde Book', 'Helvetica Neue', Arial, sans-serif;
+		text-align: center;
+	}
+}
+
+@media only screen and (orientation:landscape){
+	body { width: 750px; margin: 0 auto; }
+	
+	#header {
+		position: relative;
+		width: 50%;
+		float: right;
+		text-align: center;
+		margin: 30px 0 20px 0;
+	}
+
+	#header h1 {
+		position: relative;
+		left: 50%;
+		margin-left: -110px;
+		width: 220px;
+		height: 131px;
+		margin-bottom: 30px;
+		text-indent: -999em;
+		background: url(../images/android/sprite.png) no-repeat -30px 0;
+	}
+	
+	#header a,
+	#header a span {
+		display: block;
+		width: 220px;
+		padding-top: 20px;
+		height: 54px;
+		position: relative;
+	}
+
+	#header a {
+		position: relative;
+		left: 50%;
+		margin-left: -110px;
+		
+	}
+
+	#header a span {
+		position: absolute;
+		left: 0; top: 0;
+		background: url(../images/amazon/amazon.png) no-repeat;
+		cursor: pointer;
+		text-align: center;
+	}
+
+	#content {
+		width: 50%;
+		float: left;
+		text-align: center;
+	}
+	
+	#content img {
+		width: 200px;
+	}
+
+	#footer {
+		clear: right;
+		float: right;
+		width: 50%;
+		margin-top: 40px;
+	}
+	
+	#footer p {
+		text-align: center;
+		font: normal 20px/1.1 'AvantGarde Book', 'Helvetica Neue', Arial, sans-serif;
+	}
+}

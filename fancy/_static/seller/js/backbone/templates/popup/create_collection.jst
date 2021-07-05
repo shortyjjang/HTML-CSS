@@ -1,0 +1,60 @@
+<p class="ltit"><%= gettext(title) %></p>
+<div class="fill">
+    <div class="ltxt">
+        <dl>
+            <dt><%= gettext('Name') %></dt>
+            <dd><input type="text" class="text list-title" maxlength="100"></dd>
+        </dl>
+        <% if (isEdit) { %>
+        <dl>
+            <dt><%= gettext('Slug') %></dt>
+            <dd><input type="text" class="text list-slug" maxlength="100"></dd>
+        </dl>
+        <% } %>
+        <dl>
+            <dt><%= gettext('Description') %></dt>
+            <dd><textarea class="text list-desc"></textarea></dd>
+        </dl>
+        <dl class="clear line">
+            <dt>Cover image</dt>
+            <dd>
+                <div class="cover-preview blank">
+                    <div class="infscr-loading"><span class="loading">Loading</span></div>
+                    <input type="file" id="add-cover-photo" name="upload-file" style="display:none">
+                    <em class="complete" style="display:none"><span>Position Saved </span></em>
+                    <em class="guide" style="display:none"><span>Drag to Reposition</span></em>
+                    <img id="coverImg" src="" data-url="" data-url-retina="" style="display:none;">
+                    <span class="no"><i class="icon"></i></span>
+                    <a href="#" class="btn-del" style="display:none"><i class="icon"></i></a>
+                    <a href="#" class="btn-move" style="display:none"><i class="icon"></i></a>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clear">
+            <dt>Add cover image from URL</dt>
+            <dd>
+                <input type="text" id="uploadcoverUrl" class="text placeholder" placeholder="http://">
+                <button class="btns-gray-embo btn-fetch"><%= gettext("Fetch") %></button>
+                <div class="guide-line">
+                    <h5><span>Cover Image Guidelines</span></h5>
+                    <dl>
+                        <dt>Filetypes</dt>
+                        <dd>Allowed file types JPG, GIF or PNG.</dd>
+                        <dt>Image Size</dt>
+                        <dd><p><em>Minimum:</em><span>970 by 150px</span></p></dd>
+                    </dl>
+                </div>
+            </dd>
+        </dl>
+        <div class="btn-area">
+            <% if (isEdit) { %>
+                <button class="btns-gray-embo btn-delete" collection-id=<%= collectionId %>>
+                    <i class="ic-del"></i><%= gettext("Delete") %>
+                </button>
+            <% } %>
+            <button class="btns-gray-embo btn-cancel"><%= gettext("Cancel") %></button>
+            <button class="btns-blue-embo btn-create"><%= gettext(button) %></button>
+        </div>
+    <div>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

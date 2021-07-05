@@ -1,0 +1,176 @@
+<% if (loading) { %>
+	<div class="data-frm loading">
+		<div class="f_circleG frotateG_01"></div>
+		<div class="f_circleG frotateG_02"></div>
+		<div class="f_circleG frotateG_03"></div>
+		<div class="f_circleG frotateG_04"></div>
+		<div class="f_circleG frotateG_05"></div>
+		<div class="f_circleG frotateG_06"></div>
+		<div class="f_circleG frotateG_07"></div>
+		<div class="f_circleG frotateG_08"></div>
+	</div>
+<% } else if (has_products) { %>
+	<div class="data-field">
+		<div class="search-frm after">
+			<fieldset class="search left">
+				<div class="dropdown check">
+					<span class="checkbox"></span>
+					<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;"></a>
+					<ul class='check_action'>
+						<li data-status="all"><a href="#">All</a></li>
+						<li data-status="none"><a href="#">None</a></li>
+						<li data-status="active"><a href="#">Active</a></li>
+						<li data-status="pending"><a href="#">Inactive</a></li>
+						<li data-status="sold out"><a href="#">Sold Out</a></li>
+						<li data-status="expired"><a href="#">Expired</a></li>
+						<li data-status="coming soon"><a href="#">Coming Soon</a></li>
+					</ul>
+				</div>
+				<div class="dropdown bulk disabled">
+					<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;">Select Products</a>
+					<ul>
+						<li type="bulk"><a href="#" class="activate-items">Activate selected items</a></li>
+						<li class="hr"></li>
+						<li type="bulk"><a href="#" class="deactivate-items">Deactivate selected items</a></li>
+						<li type="bulk"><a href="#" class="delete-items">Delete selected items</a></li>
+						<li class="hr"></li>
+						<li type="bulk"><a href="#" class="add-to-collections">Add to collections</a></li>
+						<li type="single"><a href="#" class="activate-items">Activate selected item</a></li>
+						<li class="hr"></li>
+						<li type="single"><a href="#" class="deactivate-items">Deactivate selected item</a></li>
+						<li type="single"><a href="#" class="delete-items">Delete selected item</a></li>
+						<li class="hr"></li>
+						<li type="single"><a href="#" class="manage-tags">Manage tags</a></li>
+						<li type="single"><a href="#" class="add-to-collections">Add to collections</a></li>
+						<li type="single"><a href="#" class="duplicate-sale-item">Duplicate item</a></li>
+						<li type="single"><a href="#" class="view-sale-item">View sale</a></li>
+						<li type="affiliate"><a href="#" class="delete-affiliate-items">Delete selected item</a></li>
+						<li type="affiliate"><a href="#" class="add-to-collections">Add to collections</a></li>
+					</ul>
+				</div>
+			</fieldset>
+			<fieldset class="search right">
+				<input type="text" placeholder="<%= gettext('Search') %>" class="text" name="search-text" value="<%= search.text %>" />
+				<a href="#" class="remove" <% if (search.text) { %>style='display:inline'<% } %> ><i class="icon"></i></a>
+				<div class="dropdown">
+					<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;"></a>
+					<ul name="search-field">
+						<li><a href="#" value="all" <% if (!search.field || search.field== 'all') { %> selected <% } %>>All</a></li>
+						<li><a href="#" value="id" <% if (search.field == 'id') { %> selected <% } %>>ID</a></li>
+						<li><a href="#" value="title" <% if (search.field == 'title') { %> selected <% } %>>Product Title</a></li>
+						<li><a href="#" value="brand" <% if (search.field == 'brand') { %> selected <% } %>>Brand</a></li>
+						<li><a href="#" value="sku" <% if (search.field == 'sku') { %> selected <% } %>>SKU</a></li>
+					</ul>
+				</div>
+			</fieldset>
+			<a href="#" class="sort" onclick="$(this).closest('.data-field').find('.table thead').toggleClass('show');return false;"></a>
+		</div>
+		<p class="selected-notify" style='display:none'><b>50</b> products on this page are selected.</p>
+		<div class="table">
+			<table class="tb-type4">
+				<colgroup>
+					<col style="*">
+					<col style="width:110px;">
+			<% if(productStatus!='affiliate') { %>
+					<col style="width:110px;">
+				<% if ($.extend(params, location.args).status == 'sold_out' && $.extend(params, location.args).subscribers == 'true') { %>
+					<col style="width:150px;">
+					<col style="width:50px;">
+				<% } else { %>
+					<col style="width:80px;">
+				<% } %>
+			<% } %>
+					<col style="width:100px;">
+					<col style="width:100px;">
+					<col style="width:44px;">
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="title"><a href="<%= getURLOfColumn('title') %>" class="<%= getStatusOfColumn('title') %>"><span><%= gettext('Product') %></span></a></th>
+						<th class="id"><a href="<%= getURLOfColumn('id') %>" class="<%= getStatusOfColumn('id') %>"><span><%= gettext('ID') %></span></a></th>
+					<% if(productStatus!='affiliate') { %>
+						<th class="avail"><a href="<%= getURLOfColumn('quantity') %>" class="<%= getStatusOfColumn('quantity') %>"><span><%= gettext('Quantity') %></span></a></th>
+						<% if ($.extend(params, location.args).status == 'sold_out' && $.extend(params, location.args).subscribers == 'true') { %>
+						<th class="subscribers"><%= gettext('Restock Subscribers') %></th>
+						<% } %>
+						<th class="sold"><a href="<%= getURLOfColumn('num_sold') %>" class="<%= getStatusOfColumn('num_sold') %>"><span><%= gettext('Sold') %></span></a></th>
+					<% } %>
+						<th><span><%= gettext('Status') %></span></th>
+						<th class="price"><a href="<%= getURLOfColumn('price') %>" class="<%= getStatusOfColumn('price') %>"><span><%= gettext('Price') %></span></a></th>
+						<th class="set"></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	<% if( maxPage > 1) { %>
+		<div class="pagination4">
+			<div class="page-buttons">
+				<a href="<%= getURLOfPage(currentPage - 1) %>" class="btns-gray-embo btn-prev prev <% if (currentPage <= 1) { %> disabled <% } %>"><%= gettext('Prev') %></a>
+				<a href="<%= getURLOfPage(currentPage + 1) %>" class="btns-gray-embo btn-next next <% if (currentPage >= maxPage) { %> disabled <% } %>"><%= gettext('Next') %></a>
+			<% for (var i=Math.max(currentPage - 2, 1); i<=Math.min(currentPage + 2, maxPage); i++) { %>
+				<a href="<%= getURLOfPage(i) %>" class="page <% if (i == currentPage) { %> current <% } %>"><%= i %></a>
+			<% } %>
+			</div>
+		</div>
+	<% } %>
+	</div>
+<% } else { %>
+	<div class="data-field empty">
+		<div class="search-frm after">
+			<fieldset class="search left">
+				<div class="dropdown check">
+					<span class="checkbox"></span>
+					<a href="#" class="toggle-button" onclick="return false;"></a>
+				</div>
+				<div class="dropdown bulk">
+					<a href="#" class="toggle-button" onclick="$(this).closest('.dropdown').toggleClass('opened');return false;">Select Products</a>
+					<ul>
+						<li type="single"><a href="#" class="delete-items">Delete selected item</a></li>
+					</ul>
+				</div>
+			</fieldset>
+		</div>
+		<div class="table">
+			<table class="tb-type4">
+				<colgroup>
+					<col style="*">
+					<col style="width:94px;">
+					<col style="width:94px;">
+					<col style="width:154px;">
+					<col style="width:118px;">
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="title">Title</th>
+						<th class="avail">Available</th>
+						<th class="sold">Sold</th>
+						<th>Status</th>
+						<th class="price">Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="title">
+							<input type="checkbox" data-id="demo" data-thing-id='demo' status="demo" />
+							<div class="item"><a href="#" class="after" onclick="if($('#container-wrapper').hasClass('show_alert')){$('.popup.help_demo').css('top',$('.alert-expiration').height()+10+'px');}else{$('.popup.help_demo').css('top','0');}$.dialog('help_demo').open();return false;">
+								<img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" style="background-image:url(http://resize-ec6.thefancy.com/resize/crop/478/thingd/default/498619819914953530_53e2902c4420.jpg)" alt="">
+								OCGlass Screen Protector by OCDesk
+							</a></div>
+						</td>
+						<td class="avail">∞</td>
+						<td class="sold">0</td>
+						<td><span class="status demo">Demo Product</span></td>
+						<td class="price">$30.00</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="empty">
+			<span class="circle"><em></em></span>
+			Add your first product to your store.<br>
+			<a href="<%=FancyBackbone.Utils.makeURL('/merchant/products/new',false)%>">Add Product</a>
+		</div>
+	</div>
+<% } %>

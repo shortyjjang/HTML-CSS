@@ -1,0 +1,246 @@
+
+.apple_pay {
+	.apple-logo, .visual .item span, .description ul.set li:before, .description ul.set a:after {background: url('../../_ui/images/business/applepay.png') no-repeat;}
+	.visual {
+		background: #e7eaee;
+		text-align: center;
+		h2 {
+			font-size: 55px;
+			font-weight: 300;
+			color: #383d48;
+			padding: 105px 0 6px;
+		}
+		.apple-logo {
+			font-weight: 400;
+			background: none;
+		}
+		p {
+			font-size: 18px;
+			color: #383d48;
+			padding-bottom: 43px;
+		}
+		.item {
+			position: relative;
+			margin:0 auto;
+			max-width: 970px;
+			height: 514px;
+			em span {background: url('../../_ui/images/business/applepay_animation.png') no-repeat;}
+			.ipad {
+				display: block;
+				width: 860px;
+				height: 514px;
+				position: relative;
+			}
+			.mobile {
+				display: block;
+				width: 244px;
+				height: 436px;
+				right: 2px;
+				bottom: 0;
+				background-position:-870px 0;
+				position: absolute;
+			}
+			.scene1:before {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: #000;
+				opacity: 0;
+				content: '';
+			}
+			.ipad-screen {
+				position: absolute;
+				width: 686px;
+				height: 484px;
+				bottom: 0;
+				left: 87px;
+				overflow:hidden;
+				span {position:absolute;}
+				.scene1 {
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+					&:before {
+						transition: 0.5s 1s;
+						-webkit-transition: 0.5s 1s;
+						-moz-transition: 0.5s 1s;
+					}
+				}
+				.scene2 {
+					top: 50%;
+					left: 50%;
+					margin:-127px 0 0 -111px;
+					width: 222px;
+					height: 255px;
+					background-position: 0 -520px;
+					transition: 0.5s 1.5s;
+					-webkit-transition: 0.5s 1.5s;
+					-moz-transition: 0.5s 1.5s;
+				}
+			}
+			.mobile-screen {
+				position: absolute;
+				width: 211px;
+				height: 375px;
+				bottom: 0;
+				right: 19px;
+				overflow:hidden;
+				span {position:absolute;}
+				.scene1 {
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+					background-position:-230px -520px;
+					&:before {
+						transition: 0.5s 2s;
+						-webkit-transition: 0.5s 2s;
+						-moz-transition: 0.5s 2s;
+					}
+				}
+				.scene2 {
+					top: 100%;
+					margin: 0 0 0 -92px;
+					width: 185px;
+					height: 163px;
+					background-position:-450px -520px;
+					opacity: 1;
+					transition: 0.5s 2.5s;
+					-webkit-transition: 0.5s 2.5s;
+					-moz-transition: 0.5s 2.5s;
+				}
+			}
+		}
+		&.animation .item {
+			.scene1:before {opacity: 0.6;}
+			.mobile-screen .scene2 {
+				top: 50%;
+				margin-top:-81px;
+			}
+		}
+	}
+	.description {
+		padding-bottom: 80px;
+		h3 {
+			font-size: 28px;
+			font-weight: normal;
+			text-align: center;
+			padding: 79px 0 10px;
+			color: #383d48;
+		}
+		p {
+			font-size: 16px;
+			line-height: 22px;
+			color: #8a8f9c;
+			text-align: center;
+			padding-bottom: 50px;
+		}
+		ul.set {
+			border: 1px solid #d7dbe0;
+			border-radius: 3px;
+			display: table;
+			width: 100%;
+			li {
+				display: table-cell;
+				padding-left: 107px;
+				width: 50%;
+				height: 132px;
+				vertical-align: middle;
+				position: relative;
+				&:before {
+					content: '';
+					position: absolute;
+					top: 50%;
+				}
+			}
+			.apple {
+				border-right: 1px solid #d7dbe0;
+				font-size: 16px;
+				&:before {
+					left: 29px;
+					margin-top:-22px;
+					width: 65px;
+					height: 45px;
+					background-position:-930px -510px;
+				}
+			}
+			.fancy:before {
+				width: 52px;
+				height: 52px;
+				background-position:-870px -510px;
+				margin-top:-26px;
+				left: 40px;
+			}
+			b {
+				color: #383d48;
+				font-size: 19px;
+				display: block;
+				font-weight: normal;
+			}
+			a {
+				position: relative;
+				display: inline-block;
+				color: #3098dc;
+				&:after {
+					content: '';
+					display: inline-block;
+					vertical-align: middle;
+					margin: -2px 0 0 7px;
+					width: 5px;
+					height: 9px;
+					background-position:-870px -580px;
+				}
+			}
+		}
+	}
+}
+@media screen and (max-width: 860px) {
+	.apple_pay {
+		.visual .item {
+			.ipad, .ipad-screen {
+				position:absolute;
+				left:50%;
+				bottom:0;
+				margin-left:-430px;
+			}
+			.ipad-screen {margin-left:-343px;}
+		}
+		.description ul.set {
+			display:block;
+			li {
+				display:block;
+				width: auto;
+				height: auto;
+				padding: 30px;
+				&:before {
+					position:static;
+					display:block;
+					margin: 0 0 10px !important;
+				}
+			}
+			.apple {
+				border-right:0;
+				border-bottom: 1px solid #d7dbe0;
+			}
+		}
+	}
+}
+@media screen and (max-width: 500px) {
+	.apple_pay .visual {
+		.apple-logo {display:block;}
+		.item {
+			height:420px;
+			.ipad, .ipad-screen {opacity:0;}
+			.mobile, .mobile-screen {
+				position:absolute;
+				left:50%;
+				bottom:0;
+				margin-left:-122px;
+			}
+			.mobile-screen {margin-left:-106px;}
+		}
+	}
+}

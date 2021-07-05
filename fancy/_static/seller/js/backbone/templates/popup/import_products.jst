@@ -1,0 +1,219 @@
+<p class="ltit"><%= gettext("Import Products") %></p>
+<ul class="tab">
+    <li><a href="#" class="current" onclick="$('.popup.important').find('.tab a').removeClass('current').end().find('dl').hide().end().find('.docs').show();$(this).addClass('current');return false;">Docs</a></li>
+    <li><a href="#" onclick="$('.popup.important').find('.tab a').removeClass('current').end().find('dl').hide().end().find('.import').show();$(this).addClass('current');return false;">Import Data</a></li>
+</ul>
+<dl class="docs">
+	<input type="file" id="import-product-list-file" name="upload-file" multiple style="display:none"/>
+	<input type="file" id="import-shopify-products-file" name="upload-file" multiple style="display:none"/>
+	<input type="file" id="import-bigcommerce-products-file" name="upload-file" multiple style="display:none"/>
+	<input type="file" id="import-volusion-products-file" name="upload-file" multiple style="display:none"/>
+	<input type="file" id="import-etsy-products-file" name="upload-file" multiple style="display:none"/>
+    <dt><%= gettext("You can upload a CSV file to import products. Download and view a sample product CSV file. You can use this as a template for creating your CSV file. Just remember to remove the example products.") %></dt>
+    <dd>
+        <div class="table"><table class="tb-type2 head">
+            <colgroup>
+                <col width="370">
+                <col width="136">
+                <col width="*">
+            </colgroup>
+            <thead>
+                <tr>
+					<th><%= gettext("Parameter") %></th>
+					<th><%= gettext("Requirement") %></th>
+					<th><%= gettext("Description") %></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="scroll"><table class="tb-type2">
+            <colgroup>
+                <col width="370">
+                <col width="136">
+                <col width="*">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td class="para"><code>title</code></td>
+                    <td class="require">Required</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>description</code></td>
+                    <td class="require">Required</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>quantity</code></td>
+                    <td class="require"></td>
+					<td><%= gettext("Default: Unlimited") %></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>price</code></td>
+                    <td class="require">Required</td>
+                    <td>in USD</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>retail_price</code></td>
+                    <td class="require">Optional</td>
+                    <td>in USD</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>image1_url</code>,<code>image2_url</code>,<code>image3_url</code></td>
+                    <td class="require">Required</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>category_ids</code></td>
+                    <td class="require">Optional</td>
+					<td><%= gettext('Separated by vertical bar "|"') %><br/>
+                        <span class="tooltip">View category IDs</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="para"><code>option_name1</code>,<code>option_quantity1</code>,<code>option_price1</code><br>
+                    <code>option_name2</code>,<code>option_quantity2</code>,<code>option_price2</code><br>
+                    <code>option_name3</code>,<code>option_quantity3</code>,<code>option_price3</code><br>
+                    <code>option_name4</code>,<code>option_quantity4</code>,<code>option_price4</code><br>
+                    <code>option_name5</code>,<code>option_quantity5</code>,<code>option_price5</code></td>
+                    <td class="require"></td>
+					<td><%= gettext("Options are optional. Name and quantity must have value, or it will be ignored. Price can be omitted and it will use the item price.") %></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>charge_shipping</code></td>
+                    <td class="require">True / False</td>
+                    <td>Charge domestic shipping fee (default: true)</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>charge_international_shipping</code></td>
+                    <td class="require">True / False</td>
+                    <td>Charge international shipping fee (default: true)</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>international_shipping</code></td>
+                    <td class="require">True / False</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>us_window_start</code></td>
+                    <td class="require"></td>
+                    <td>Domestic shipping minimum window</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>us_window_end</code></td>
+                    <td class="require"></td>
+                    <td>Domestic shipping maximum window</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>intl_start</code></td>
+                    <td class="require">Optional</td>
+                    <td>International shipping minimum window</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>intl_end</code></td>
+                    <td class="require">Optional</td>
+                    <td>International shipping maximum window</td>
+                </tr>
+                
+                <tr>
+                    <td class="para"><code>start_date</code></td>
+                    <td class="require">Optional</td>
+					<td>YYYY-MM-DD HH:MM:SS<br><%= gettext("Default is upload time.") %></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_colors</code></td>
+                    <td class="require">Optional</td>
+                    <td>Colors separated by comma</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_country_of_origin</code></td>
+                    <td class="require">Optional</td>
+                    <td>Country of origin (2-letter country code)</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_length</code></td>
+                    <td class="require">Optional</td>
+                    <td>Length of the product in inch</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_height</code></td>
+                    <td class="require">Optional</td>
+                    <td>Height of the product in inch</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_width</code></td>
+                    <td class="require">Optional</td>
+                    <td>Width of the product in inch</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>prod_weight</code></td>
+                    <td class="require">Optional</td>
+                    <td>Weight of the product in pound</td>
+                </tr>
+                <tr>
+                    <td class="para"><code>seller_sku</code></td>
+                    <td class="require">Optional</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="para"><code>is_active</code></td>
+                    <td class="require">True / False</td>
+                    <td>Default: Activated</td>
+                </tr>
+            </tbody>
+        </table></div>
+	<span class="tooltip trick"><small>View category IDs</small><em>
+	    1 - Men<br>
+	    2 - Women<br>
+	    3 - Kids<br>
+	    4 - Pets<br>
+	    5 - Home<br>
+	    6 - Gadgets<br>
+	    7 - Art<br>
+	    8 - Food<br>
+	    9 - Media<br>
+	    10 - Other<br>
+	    11 - Architecture<br>
+	    12 - Travel &amp; Destinations<br>
+	    13 - Sports &amp; Outdoors<br>
+	    14 - DIY &amp; Crafts<br>
+	    15 - Workspace<br>
+	    16 - Cars &amp; Vehicles
+	</em></span>
+	</div>
+    </dd>
+    <dd class="btn-area">
+        <button class="btns-gray-embo btn-sample"><%= gettext("Sample CSV") %></button>
+        <button class="btns-gray-embo btn-cancel"><%= gettext("Cancel") %></button>
+        <button class="btns-blue-embo btn-upload"><%= gettext("Upload") %></button>
+    </dd>
+</dl>
+<dl class="import" style="display:none;">
+    <dt>Import your products to Fancy Merchant from these other services:</dt>
+    <dd><ul class="app-info after">
+        <li>
+            <span class="app-logo"><img src="/_ui/images/common/blank.gif" style="background-image:url('/_ui/images/dummy/import_logo4.png');"></span>
+            <b>Etsy <small class="url">http://etsy.com</small></b>
+            <button class="btns-gray-embo btn-etsy-upload">Import</button>
+        </li>
+        <li>
+            <span class="app-logo"><img src="/_ui/images/common/blank.gif" style="background-image:url('/_ui/images/dummy/import_logo3.png');"></span>
+            <b>Shopify <small class="url">http://www.shopify.com/</small></b>
+            <button class="btns-gray-embo btn-shopify-upload">Import</button>
+        </li>
+        <li>
+            <span class="app-logo"><img src="/_ui/images/common/blank.gif" style="background-image:url('/_ui/images/dummy/import_logo2.png');"></span>
+            <b>Bigcommerce <small class="url">http://bigcommerce.com</small></b>
+            <button class="btns-gray-embo btn-bigcommerce-upload">Import</button>
+        </li>
+        <li>
+            <span class="app-logo"><img src="/_ui/images/common/blank.gif" style="background-image:url('/_ui/images/dummy/import_logo1.png');"></span>
+            <b>Volusion<small class="url">http://volusion.com</small></b>
+            <button class="btns-gray-embo btn-volusion-upload">Import</button>
+        </li>
+    </ul></dd>
+    <dd class="btn-area">
+        <button class="btns-gray-embo btn-close">Close</button>
+    </dd>
+</dl>
+<button class="ly-close"><i class="ic-del-black"></i></button>
+

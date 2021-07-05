@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+/* overlay show someone */
+#ov-show {display:none;position:fixed;width:100%;height:100%;left:0;top:0;background:#000;background:rgba(0,0,0,.7);z-index:12}
+#ov-show form {width:90%;margin:30px auto 0;background:#eeeff0;border-radius:5px;padding:10px}
+#ov-show dt {font-weight:bold;font-size:16px;color:#373d48;margin-bottom:12px}
+#ov-show dd {padding-bottom:7px;font-size:14px;color:#373d48}
+#ov-show dd.text input, #ov-show dd.text textarea {width:92%;padding:0 10px;border:1px solid #717379;border-radius:3px;height:34px;background:#f7f7f7}
+#ov-show dd.text textarea {padding:5px 10px;height:56px;text-indent:1px}
+#ov-show dd.on-fancy {display:none;position:relative;z-index:13}
+#ov-show dd.on-fancy input {background:#f7f7f7 url(../images/avatar_blank.jpg) no-repeat 5px 2px;text-indent:30px}
+#ov-show dd.on-fancy ul {position:absolute;background:#fff;border:1px solid #777;width:92%;overflow:hidden;padding:0 5px 5px;top:36px;left:0}
+#ov-show dd.on-fancy li {margin-top:5px}
+#ov-show dd.on-fancy img {width:30px;height:30px;border-radius:2px;vertical-align:middle;margin-right:5px}
+#ov-show dd.on-fancy a {line-height:30px;vertical-align:middle}
+#ov-show dd.on-fancy a span {color:#aaa}
+#ov-show dd.on-fancy.error {padding:0;margin:0;background:transparent}
+#ov-show dd.on-fancy.error input {border:1px solid #ed1c24;background-color:#fff1e5}
+#ov-show dd.on-fancy.error label.error {display:block;padding:0;margin:2px 2px 8px;font-size:12px;background:transparent;color:#ed1c24}
+#ov-show dd.btn-area {border-top:1px solid #d3d4d5;margin:0;padding:10px;padding-bottom:0;text-align:right}
+#ov-show dd.btn-area button.btn {height:28px;line-height:28px}
+#ov-show button.btn-blue {text-shadow:1px 1px 2px #4878bb;box-shadow:inset 0 1px 1px #6e8eBe;color:#fff;border:1px solid #32446e;background:-webkit-linear-gradient(top,#5275ad,#3c619c);background:-moz-linear-gradient(top,#5275ad,#3c619c)}
+
+/* share popup */
+#ov-share {display:none;position:absolute;background-color:rgba(0,0,0,.6);z-index:10;min-width:100%;min-height:1137px;top:0;left:0}
+#ov-share .share-frm {position:relative;float:left;margin:510px 3% 0;width:86%;padding:10px 4%;background:#eeeff0;border-radius:5px;box-shadow:inset 1px 5px 10px #fff;z-index:12}
+#ov-share dl {display:block}
+#ov-share dt {font-size:16px;font-weight:bold;color:#373d48;margin-bottom:10px}
+#ov-share dd {float:left;clear:both;width:100%;padding:12px 0;border-top:1px solid #DDD;margin:0;}
+#ov-share dd.btn-area {text-align:right;}
+#ov-share dd.sh-frm {height:130px;}
+#ov-share b {display:block;}
+#ov-share b.stit {padding-bottom:5px;font-size:13px;}
+#ov-share .copy {padding:0 0 12px;border:0;}
+#ov-share .copy input {margin:5px 0;}
+#ov-share .share-via {float:left;width:100%;}
+#ov-share .share-via li {float:left;width:50%;}
+#ov-share .share-via li a {display:block;line-height:25px;color:#666;}
+#ov-share .email-frm {border: 1px solid #777;background:#f7f7f7;border-radius: 3px 3px 3px 3px;margin-bottom: 12px;position: relative;}
+#ov-share .email-frm b.name {background: none repeat scroll 0 0 #A3AEBC;border: 1px solid #828B96;border-radius: 2px 2px 2px 2px;color: #FFFFFF;cursor: default;display: inline-block;font-weight: bold;height: 25px;line-height: 24px;margin:2px;padding-left: 5px;text-shadow: 1px 0 1px #9BA6B3;}
+#ov-share .email-frm .btn-del {background: none;border: 0;display: inline-block;height: 8px;width: 18px;}
+#ov-share .email-frm .btn-del .ic-del-w {vertical-align:top;margin:0 5px;}
+#ov-share .email-frm span.add {color: #A9A9A9;cursor: pointer;line-height: 30px;padding-left: 5px;vertical-align: middle;white-space: nowrap;}
+#ov-share .email-frm input {border: 0 none;display: none;font-size: 12px;height: 27px;margin: 0 0 3px;padding: 0;width: 150px;}
+#ov-share .email-frm input:focus {outline: medium none;}
+#ov-share .user-list {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #D1D3D9;display: none;left: -1px;max-height: 210px;overflow: auto;position: absolute;top: 30px;width: 100%;z-index:111;}
+#ov-share .user-list li {color: #666666;cursor: pointer;height: 32px;padding: 5px 10px 5px 50px;position: relative;text-decoration: none;}
+#ov-share .user-list li.on {background: none repeat scroll 0 0 #EEEEEE;}
+#ov-share .user-list li img {left: 10px;position: absolute;top: 5px;width: 32px;}
+#ov-share .user-list li b {color: #333333;display: block;font-size: 13px;font-weight: bold;}
+#ov-share .user-list li span {color: #999999;display: block;font-size: 11px;padding-top: 2px;}
+#ov-share textarea {border: 1px solid #777;background:#f7f7f7;border-radius: 3px 3px 3px 3px;width:96%;padding:5px 2%;height:50px;}
+#ov-share dd.sh-frm.focus textarea {display:none;}
+#ov-share input {border: 1px solid #777;background: #F7F7F7;border-radius: 3px 3px 3px 3px;height: 31px;width: 100%;text-indent: 5px;}
+
+/* sales overlay */
+#ov-sale {display:none;position:absolute;top:0;left:0;background-color:rgba(0,0,0,.6);z-index:10;width:100%;min-height:100%}
+#ov-sale form {position:relative;background:#fff;margin:20px auto;width:300px;border:1px solid #636f70;border-radius:3px}
+#ov-sale hr {clear:both;border:0;border-top:1px solid #c7ccd1;height:1px;overflow:hidden}
+#ov-sale .photo {text-align:center}
+#ov-sale .photo .frame {width:100%;overflow:hidden;white-space:nowrap}
+#ov-sale .photo .frame i {width:0;height:1px;visibility:hidden;overflow:hidden;-webkit-transition:margin-left .3s;-moz-transition:margin-left .3s;-ms-transition:margin-left .3s}
+#ov-sale .photo .frame.p1 i {margin-left:-100%}
+#ov-sale .photo .frame.p2 i {margin-left:-200%}
+#ov-sale .photo .frame.p3 i {margin-left:-300%}
+#ov-sale .photo .frame.p4 i {margin-left:-400%}
+#ov-sale .photo .frame.p5 i {margin-left:-500%}
+#ov-sale .photo .frame.p6 i {margin-left:-600%}
+#ov-sale .photo img {width:100%;height:auto;vertical-align:middle}
+#ov-sale .paging {padding:8px 0}
+#ov-sale .paging .ic-circle {width:6px;height:6px;background:#000;border-radius:3px;margin:0 2px;opacity:.5}
+#ov-sale .paging .ic-circle.on {opacity:1}
+#ov-sale .info .price {float:left;padding:8px}
+#ov-sale .info .price big {font-size:11px;color:#52565e}
+#ov-sale .info .price big b {font-size:15px;font-weight:bold;color:#373d48}
+#ov-sale .info .price small {display:block;color:#898b90;font-size:11px;text-decoration:line-through}
+#ov-sale .info .time {font-size:13px;color:#373d48;padding:8px 8px 0 0;text-align:right}
+#ov-sale .info ul {padding:8px 8px 0;border-width:1px 0}
+#ov-sale .info ul li {clear:both;margin-bottom:8px}
+#ov-sale .info ul b {display:block;padding-bottom:5px}
+#ov-sale .info ul select, #ov-sale .info ul input, #ov-sale .info ul button {width:100%;height:22px}
+#ov-sale .info ul li.category {float:left;width:100%;}
+#ov-sale .info ul li.category input {width:auto;float:left;clear:left;height:auto;margin:4px 0;}
+#ov-sale .info ul li.category label {display:block;float:left;line-height:22px;padding-left:5px;}
+#ov-sale .info ul button {line-height:28px;height:28px;font-size:13px}
+#ov-sale .description {margin:8px}
+ #ov-sale .info ul textarea {width:272px;height:50px;padding:5px;}
+
+.share-via span.ic-fb,.share-via span.ic-tw ,.share-via span.ic-gg ,.share-via span.ic-su ,.share-via span.ic-link,.share-via span.ic-tb ,.share-via span.ic-vk ,.share-via span.ic-od ,.share-via span.ic-mx,.share-via span.ic-qz,.share-via span.ic-wb,.share-via span.ic-rr ,.share-via span.ic-me 
+{background-image:url('../images/icon2x.png');background-size:250px 300px;background-repeat:no-repeat}
+.share-via span.ic-fb,.share-via span.ic-tw ,.share-via span.ic-gg ,.share-via span.ic-su ,.share-via span.ic-link,.share-via span.ic-tb ,.share-via span.ic-vk ,.share-via span.ic-od ,.share-via span.ic-mx,.share-via span.ic-qz,.share-via span.ic-wb,.share-via span.ic-rr ,.share-via span.ic-me {display:inline-block;vertical-align:middle;margin:-3px 6px 0 0;}
+
+.share-via span.ic-fb {width:15px;height:17px;background-position:0 -125px;margin-right:2px;}
+.share-via span.ic-tw {width:17px;height:17px;background-position:-22px -125px;margin:0;}
+.share-via span.ic-gg {width:17px;height:17px;background-position:-46px -125px;margin:0;}
+.share-via span.ic-su {width:17px;height:17px;background-position:-70px -125px;margin:0;}
+.share-via span.ic-link {width:15px;height:17px;background-position:-94px -125px;margin-right:2px;}
+.share-via span.ic-tb {width:17px;height:17px;background-position:-116px -125px;margin:0;}
+.share-via span.ic-vk {width:16px;height:17px;background-position:-95px -171px;margin-right:1px;}
+.share-via span.ic-od {width:16px;height:17px;background-position:-115px -171px;margin-right:1px;}
+.share-via span.ic-mx {width:16px;height:17px;background-position:-134px -171px;margin-right:1px;}
+.share-via span.ic-qz {width:16px;height:17px;background-position:-155px -171px;margin-right:1px;}
+.share-via span.ic-wb {width:16px;height:17px;background-position:-174px -171px;margin-right:1px;}
+.share-via span.ic-rr {width:17px;height:17px;background-position:-196px -171px;margin-right:0;}
+.share-via span.ic-me {width:17px;height:17px;background-position:-220px -170px;margin-right:0;}

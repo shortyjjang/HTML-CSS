@@ -1,0 +1,117 @@
+
+<div class="controller right" style='display:none'>
+	<% if (all_products_count > 0 && user.id != 31500760) { %><a href="<%=FancyBackbone.Utils.makeURL('/merchant/products/organize',false)%>" class="btns-gray-embo btn-sort"><%= gettext('Organize') %></a><% } %>
+	<a href=<% if (all_products_count > 0) { %>"<%=exportURL%>"<% } else { %>"#"<% } %> _href="<%=exportURL%>" class="<% if (all_products_count <= 0) { %>disabled <% } %> btns-gray-embo btn-export"><%= gettext('Export') %></a>
+	<a href="<%=FancyBackbone.Utils.makeURL('/merchant/products/import/csv',false)%>" class="btns-gray-embo btn-import"><%= gettext('Import') %></a>
+	<a href="<%=FancyBackbone.Utils.makeURL('/merchant/products/new',false)%>" class="btns-blue-embo tooltip btn-add"><%= gettext('Add Product') %></a>
+</div>
+<ul class="tab3" >
+<% if (all_products_count <= 0 && affiliate_products_count<=0) { %>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('All Products') %>
+        </a>
+    </li>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('Active') %>
+        </a>
+    </li>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('Inactive') %>
+        </a>
+    </li>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('Sold Out') %>
+        </a>
+    </li>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('Expired') %>
+        </a>
+    </li>
+    <% if (!whitelabel) { %>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('Awaiting Approval') %>
+        </a>
+    </li>
+    <% } %>
+    <li>
+        <a href="#"  class='no-items'>
+            <%= gettext('On Sale') %>
+        </a>
+    </li>
+<% } else { %>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('all') %>" name="all">
+            <%= gettext('All Products') %>
+            <% if (all_products_count) { %>
+                <small><%= numeral(all_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('active') %>" name="active" <% if (!active_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Active') %>
+            <% if (active_products_count) { %>
+                <small><%= numeral(active_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <% if(includeAffiliateTab && affiliate_products_count>0) { %>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('affiliate') %>" name="affiliate" <% if (!affiliate_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Affiliate Products') %>
+            <% if (affiliate_products_count) { %>
+                <small><%= numeral(affiliate_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <% } %>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('pending') %>" name="pending" <% if (!pending_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Inactive') %>
+            <% if (pending_products_count) { %>
+                <small><%= numeral(pending_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('sold_out') %>" name="sold_out" <% if (!sold_out_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Sold Out') %>
+            <% if (sold_out_products_count) { %>
+                <small><%= numeral(sold_out_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('expired') %>" name="expired" <% if (!expired_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Expired') %>
+            <% if (expired_products_count) { %>
+                <small><%= numeral(expired_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <% if (!whitelabel) { %>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('awaiting') %>" name="awaiting" <% if (!awaiting_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('Awaiting Approval') %>
+            <% if (awaiting_products_count) { %>
+                <small><%= numeral(awaiting_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+    <% } %>
+    <li>
+        <a href="<%= getSubnavURLWithStatus('on_sale') %>" name="on_sale" <% if (!on_sale_products_count) { %>class='no-items'<%}%>>
+            <%= gettext('On Sale') %>
+            <% if (on_sale_products_count) { %>
+                <small><%= numeral(on_sale_products_count).format("0,0") %></small>
+            <% } %>
+        </a>
+    </li>
+<% } %>
+</ul>

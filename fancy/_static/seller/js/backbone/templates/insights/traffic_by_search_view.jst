@@ -1,0 +1,36 @@
+<dt>Search Engines</dt>
+<dd><ul class="range">
+    <li class="gg">
+        <i class="icon"></i><span class="label">Google</span>
+        <span class="detail"><%= count_from_google %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_google/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_google/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+    <li class="bing">
+        <i class="icon"></i><span class="label">Bing</span>
+        <span class="detail"><%= count_from_bing %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_bing/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_bing/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+    <li class="yahoo">
+        <i class="icon"></i><span class="label">Yahoo</span>
+        <span class="detail"><%= count_from_yahoo %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_yahoo/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_yahoo/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+</ul></dd>

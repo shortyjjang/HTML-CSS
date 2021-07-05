@@ -1,0 +1,31 @@
+<p class="ltit">Warehousing Fee History (Merchant: <%= model.seller_name %> / <%= moment(model.from_date).format('MMM D, YYYY') %> - <%= moment(model.to_date).format('MMM D, YYYY') %>)</p>
+<div class="data-field">
+    <div class="table subscription">
+        <table class="tb-type2">
+            <colgroup>
+                <col width="160">
+                <col width="200">
+                <col width="150">
+                <col width="*">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Action Type</th>
+                    <th>Username</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(model.fee_histories, function (fee_history) { %>
+                <tr class="sub">
+                    <td><%= moment(fee_history.date_created).format('YYYY-MM-DD HH:mm:ss') %></td>
+                    <td><%= fee_history.action_type_display %></td>
+                    <td><%= fee_history.action_username %></td>
+                    <td><%= fee_history.note %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>

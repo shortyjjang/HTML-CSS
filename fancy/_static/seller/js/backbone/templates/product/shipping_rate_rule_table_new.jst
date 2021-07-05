@@ -1,0 +1,30 @@
+<table class="tb-type2">
+    <thead>
+        <tr>
+            <th><%= gettext('Type') %></th>
+            <th><%= gettext('Processing time') %></th>
+            <th><%= gettext('Price Range') %></th>
+            <th><%= gettext('Price') %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i=0; i<rules.length; i++) { %>
+            <tr>
+                <td><%= rules[i].shipping_option_string %></td>
+                <td><%= rules[i].processing_time_string %></td>
+                <td><%= rules[i].price_range_string %></td>
+                <td><%= rules[i].shipping_cost %></td>
+            </tr>
+            <% if (rules[i].adjustments) { %>
+                <% for (var j=0; j<rules[i].adjustments.length; j++) { %>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><%= rules[i].adjustments[j].location %></td>
+                        <td><%= rules[i].adjustments[j].amount %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        <% } %>
+    </tbody>
+</table>

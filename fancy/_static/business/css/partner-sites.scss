@@ -1,0 +1,166 @@
+
+.partner-sites {
+	.visual {
+		position:relative;
+		width:100%;
+		display:table;
+		height: 620px;
+		background:#fff;
+		.inner {
+			display:table-cell;
+			vertical-align:middle;
+		}
+		h2 {
+			position:relative;
+			font-size:60px;
+			font-weight:700;
+			color:#1f3547;
+			max-width: 970px;
+			margin: 0 auto;
+			&:before {
+				content:'';
+				position:absolute;
+				top:50%;
+				right:0;
+				width:254px;
+				height:254px;
+				margin-top:-127px;
+				background:url('../images/partner/logobox.svg') no-repeat 50% 50%;
+				background-size: contain;
+			}
+			small {
+				display:block;
+				max-width: 500px;
+				font-size:24px;
+				line-height:36px;
+				color:#68747f;
+				font-weight: 400;
+				padding-top: 30px;
+			}
+		}
+	}
+	.storefront {
+		height:647px;
+		background:#fff;
+		position: relative;
+		.inner {
+			display:table;
+			width:560px;
+			height:100%;
+			margin: 0;
+			padding: 0;
+		}
+		.text {
+			display:table-cell;
+			vertical-align:middle;
+			text-align:center;
+			color:#fff;
+		}
+		.thumbnail {
+			position:absolute;
+			top:0;
+			left:0;
+			height:100%;
+			width:calc(100% - 560px);
+			width:-webkit-calc(100% - 560px);
+			width:-moz-calc(100% - 560px);
+			display: table;
+			.site {
+				display: table-cell;
+				text-align: center;
+				vertical-align: middle;
+			}
+			img {
+				max-width:682px;
+				width:100%;
+				vertical-align:middle;
+			}
+		}
+		a {
+			color:#fff;
+			&.store {
+				text-decoration:underline;
+				font-size:14px;
+				font-weight:500
+			}
+		}
+		h3 {
+			font-size: 30px;
+			font-weight: 600;
+			padding-bottom: 70px;
+			small {
+				display:block;
+				font-size: 12px;
+				font-weight: 400;
+				opacity: 0.7;
+				padding-bottom: 10px;
+				text-transform: uppercase;
+				color:#fff;
+			}
+		}
+		p {
+			max-width:350px;
+			margin:0 auto;
+			font-size: 18px;
+			line-height: 26px;
+			padding-bottom: 80px;
+		}
+		&:nth-child(even) {
+			background:#f2f5f7;
+			.thumbnail {
+				left:auto;
+				right:0;
+			}
+		}
+		&:nth-child(odd) {
+			&:after {
+				content:'';
+				clear:both;
+				display:block;
+			}
+			.inner {float:right;}
+		}
+		&.watch .inner {background:#2090ec;}
+		&.kitchen .inner {background:#505760;}
+		&.comic .inner {background:#e03e3e;}
+		&.entertainment {
+			.inner {background:#1e272c;}
+			h3, a {color:#5bdf99;}
+		}
+		&.cashmere .inner {background:#9aa1a5;}
+		&.kids .inner {background:#35c890;}
+	}
+}
+@media screen and (max-width: 800px) {
+	.partner-sites {
+		.visual {
+			height:auto;
+			padding:100px 0 50px;
+			h2 {
+				font-size:40px;
+				small {
+					font-size:18px;
+					line-height:24px;
+				}
+				&:before {
+					position:static;
+					margin:0 0 20px;
+					display:block;
+					width: 120px;
+					height: 120px;
+				}
+			}
+		}
+		.storefront {
+			height:auto;
+			.thumbnail {
+				position:static;
+				display: block;
+				width: auto;
+				.site {display:block;}
+			}
+			.inner {width: 100%;}
+			.text {padding:50px 20px;}
+		}
+	}
+}

@@ -1,0 +1,11 @@
+<% if( currentPage > 1 || hasNextPage) { %>
+	<a href="<%= prevPageURL %>" class="prev <% if (!hasPrevPage) { %>disabled<% } %>">Prev</a>
+	<a href="<%= nextPageURL %>" class="next <% if (!hasNextPage) { %>disabled<% } %>">Next</a>
+	<% if (hasPrevPage) { %>
+	    <a href="<%= prevPageURL %>"><%= currentPage - 1 %></a>
+	<% } %>
+	<a href="<%= currentPageURL %>" class="current"><%= currentPage %></a>
+	<% if (hasNextPage) { %>
+	    <a href="<%= nextPageURL %>"><%= currentPage + 1 %></a>
+	<% } %>
+<% } %>

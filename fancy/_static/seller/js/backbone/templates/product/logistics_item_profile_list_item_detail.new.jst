@@ -1,0 +1,215 @@
+<td colspan="<% if (isViewerAdmin) { %>9<% } else { %>6<% } %>" class="sales-detail">
+    <fieldset class="frm">
+        <ul class="info">
+            <li class="price"><label class="label"><%= gettext('Price') %></label>
+            <span class="value"><%= formatPrice(product.price) %></span></li>
+            <li class="dimension"><label class="label"><%= gettext('Dimensions') %> (W x L x H)</label>
+            <span class="benchmark"><span class="value"><%= formatFloat(product.width) %> x <%= formatFloat(product.length) %> x <%= formatFloat(product.height) %></span><small><%= gettext('Inch') %></small></span></li>
+            <li class="weight"><label class="label"><%= gettext('Weight') %></label>
+            <span class="benchmark"><span class="value"><%= formatFloat(product.weight) %></span><small><%= gettext('Lbs') %></small></span></li>
+            <li class="btns"><a href="<%= getProductEditURL(product) %>" class="btn-edit tooltip <%if(product.status == 'deleted'){%>disabled<%}%>"><i class="icon"></i><em><%= gettext('Edit this sale') %></em></a></li>
+        </ul>
+        <dl>
+            <% if (isViewerAdmin) { %>
+                <dt><%= gettext('Inventory Summary') %></dt>
+                <dd class="table inventory-order">
+                    <table class="tb-type1">
+                        <colgroup>
+                            <col width="*" />
+                            <col width="110" />
+                            <col width="110" />
+                            <col width="110" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><%= gettext('Warehouse') %></th>
+                                <th><%= gettext('Inventory') %></th>
+                                <th><%= gettext('Pending') %></th>
+                                <th><%= gettext('Active Total') %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="warehouse">
+                                    <input type="radio" name="warehouse" value="-1">
+                                    <label>All</label>
+                                </td>
+                                <td class="qty_stock"><%= numeral(sum(_.pluck(inventories, 'stock_quantity'))).format("0,0") %></td>
+                                <td class="qty_pending"><%= numeral(sum(_.pluck(inventories, 'pending_quantity'))).format("0,0") %></td>
+                                <td class="qty_active"><%= numeral(sum(_.pluck(inventories, 'active_po_total'))).format("0,0") %></td>
+                            </tr>
+                            <% for (var i=0; i<inventories.length; i++) { %>
+                                <tr>
+                                    <td class="warehouse">
+                                        <input type="radio" name="warehouse" value="<%= inventories[i].warehouse.id %>">
+                                        <label><%= inventories[i].warehouse.name %></label>
+                                    </td>
+                                    <td class="qty_stock"><%= numeral(inventories[i].stock_quantity).format("0,0") %></td>
+                                    <td class="qty_pending"><%= numeral(inventories[i].pending_quantity).format("0,0") %></td>
+                                    <td class="qty_active"><%= numeral(inventories[i].active_po_total).format("0,0") %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </dd>
+            <% } %>
+
+            <dt>Active Purchase Orders</dt>
+            <dd class="table prurchase-order">
+                <table class="tb-type2">
+                    <colgroup>
+                        <col width="*" />
+                        <col width="120" />
+                        <col width="160" />
+                        <col width="140" />
+                        <col width="110" />
+                        <col width="110" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="title"><%= gettext('PO ID') %></th>
+                            <th class="qty"><%= gettext('Quantity') %></th>
+                            <th class="received"><%= gettext('Received Quantity') %></th>
+                            <th class="warehouse"><%= gettext('Warehouse') %></th>
+                            <th class="order"><%= gettext('Order ID') %></th>
+                            <th class="eta"><%= gettext('ETA') %></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (active_purchase_orders.length) { %>
+                            <% _.each(active_purchase_orders, function(active_purchase_order) { %>
+                                <tr class="active-purchase-order-item" purchase-order-id="<%= active_purchase_order.id_str %>">
+                                    <td class="id" ><a href="#">#<%= active_purchase_order.id_str %></a></td>
+                                    <td class="qty"><%= numeral(active_purchase_order.quantity).format("0,0") %></td>
+                                    <td class="recived"><%= numeral(active_purchase_order.quantity_received).format("0,0") %></td>
+                                    <td class="warehouse-name" warehouse-id="<%= active_purchase_order.warehouse.id_str %>"><%= active_purchase_order.warehouse.name %></td>
+                                    <td class="reladted-order-id">
+                                        <a href="#">
+                                            <% if (active_purchase_order.related_order_id_str) { %>
+                                                #<%= active_purchase_order.related_order_id_str %>
+                                            <% } %>
+                                        </a>
+                                    </td>
+                                    <td class="eta"><%= active_purchase_order.eta %></td>
+                                </tr>
+                            <% }) %>
+                        <% } else {%>
+                            <tr>
+                                <td colspan="6" class="empty"><%= gettext('No Active Purchase Orders') %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </dd>
+
+            <dt>Pending Orders</dt>
+            <dd class="table pending-orders">
+                <table class="tb-type1 pending-sale-orders">
+                    <colgroup>
+                        <col width="33">
+                        <col width="*">
+                        <col width="120">
+                        <col width="160">
+                        <col width="140">
+                        <col width="110">
+                        <col width="110">
+                        <% if (isViewerAdmin) { %>
+                            <col width="105" />
+                            <col width="105" />
+                            <col width="95" />
+                        <% } %>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="check"><input type="checkbox" class="select-all-pending-sale-order-items" /></th>
+                            <th class="id"><%= gettext('Order ID') %></th>
+                            <th class="qty"><%= gettext('Quantity') %></th>
+                            <th class="country"><%= gettext('Country') %></th>
+                            <th class="customer"><%= gettext('Customer') %></th>
+                            <th class="po"><%= gettext('Saved PO') %></th>
+                            <th class="note"><%= gettext('Note') %></th>
+                            <% if (isViewerAdmin) { %>
+                                <th><%= gettext('Best Available') %></th>
+                                <th><%= gettext('Best') %></th>
+                                <th><%= gettext('Restrictions') %></th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (pending_sale_order_items.length) { %>
+                            <% for (var i=0; i<pending_sale_order_items.length; i++) { %>
+                                <% var sale_order_item = pending_sale_order_items[i]; %>
+                                <% var sale_order = sale_order_item.sale_order; %>
+                                <% var warehouse_restriction = sale_order_item.warehouse_restriction; %>
+                                <tr class="pending-sale-order-item" sale-order-id="<%= sale_order.id_str %>" sale-order-item-id="<%= sale_order_item.id_str %>">
+                                    <td class="check">
+                                        <% if (!sale_order_item.saved_purchase_order) { %>
+                                            <input type="checkbox" />
+                                        <% } %>
+                                    </td>
+                                    <td class="id">
+                                        <a href="/merchant/orders/management/detail/<%= sale_order.id_str %>/">#<%= sale_order.id_str %>
+                                        <% if (sale_order.is_vip) { %>
+                                            <span class="label vip">VIP</span>
+                                        <% } %>
+                                        </a>
+                                    </td>
+                                    <td class="qty"><%= numeral(sale_order_item.quantity).format("0,0") %></td>
+                                    <td class="country"><%= sale_order.country %></td>
+                                    <td class="customer">
+                                        <a href="/<%= sale_order_item.customer.username %>"><%= sale_order_item.customer.username %></a>
+                                    </td>
+                                    <td class="po">
+                                        <% if (sale_order_item.saved_purchase_order) { %>
+                                            <%= sale_order_item.saved_purchase_order.id_str %>
+                                        <% } %></td>
+                                    <td class="note">
+                                        <% if (sale_order.note) { %>
+                                            <a href="#" onclick="return false" class="btn-note tooltip">
+                                                <i class="icon"></i>
+                                                <em><b>Note</b> <%= sale_order.note %></em>
+                                            </a>
+                                        <% } %>
+                                    </td>
+                                    <% if (isViewerAdmin) { %>
+                                        <td class="available">
+                                            <% if (warehouse_restriction.best_available) { %>
+                                                <%= warehouse_restriction.best_available.name %>
+                                            <% } %>
+                                        </td>
+                                        <% if (warehouse_restriction.best) { %>
+                                            <td class="best" warehouse-id="<%= warehouse_restriction.best.id_str %>">
+                                                <%= warehouse_restriction.best.name %>
+                                            </td>
+                                        <% } else { %>
+                                            <td class="best"></td>
+                                        <% } %>
+                                        <td class="restrictions">
+                                            <a href="#" class="edit edit-warehouse-restriction">
+                                                <%= gettext('Edit') %>
+                                                <% if (warehouse_restriction.disallowed.length > 0) { %>
+                                                    <i class="icon restricted"></i>
+                                                <% } %>
+                                                <% if (sale_order.locked_warehouse) { %>
+                                                    <i class="icon locked"></i>
+                                                <% } %>
+                                            </a>
+                                        </td>
+                                    <% } %>
+                                </tr>
+                            <% } %>
+                        <% } else {%>
+                            <tr>
+                                <td colspan="10" class="empty"><%= gettext('No Pending Sales Orders') %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
+        <div class="btn-area" style="display:none">
+            <button class="btns-blue-embo btn-save" style="display:none"><%= gettext('Save') %></button>
+            <button class="btns-white btn-close" style="display:none"><%= gettext('Close') %></button>
+        </div>
+    </fieldset>
+</td>

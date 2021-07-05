@@ -1,0 +1,47 @@
+<p class="img">
+	<input type="file" name="upload-file" multiple="" style='display:none'>
+	<a href="#">
+		<img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" <%if(images.models.length){%> style="background-image:url('<%-images.models[0].attributes.url_310%>');"<%}%>>
+		<%if(images.models.length){%><small><%-images.models.length%></small><%}%>
+        <em class="infscr-loading" style='display:none'><span class="loading">Loading</span></em>
+	</a>
+</p>
+<p class="name">
+	<label class="label">Option</label>
+	<input type="text" class="text name" name="name" value="<%- name %>">
+</p>
+<p class="qty">
+	<label class="label">QTY</label>
+	<span class="unit"><input type="text" maxlength="6" class="text" name="qty" placeholder="∞" value="<%= quantity==null?"":Math.max(0,quantity- ((typeof num_sold != 'undefined')?num_sold:0)) %>"><small <%if( !product.id ){%>style='display:none'<%}%>><%-num_sold%> Sold</small></span>
+</p>
+<p class="price <%if( discount_percentage && discount_percentage!='0' ){%>onsale<%}%>">
+	<label class="label">Price <small <%if( !discount_percentage || discount_percentage=='0' ){%>style='display:none'<%}%>>On Sale</small></label>
+	<input type="text" class="text price" name="retail_price" value="<%- retail_price %>">
+</p>
+<a href="#" class="btn-up <%if(expand){%>show<%}%>">Down</a>
+<a href="#" class="btn-del">Delete</a>
+<a href="#" class="btn-reposition">Reposition</a>
+<div class="inventory" <%if(expand){%>style="display: block;"<%}%>>
+	<p class="sku">
+		<label class="label">SKU <small>Stock Keeping Unit</small></label>
+		<input type="text" class="text" name="seller_sku" value="<%- seller_sku %>">
+	</p>
+	<p class="price sale">
+		<label class="label">Sale price</label>
+		<span class="unit"><input type="text" class="text" name="price" placeholder="$" <%if(retail_price && price_original && (parseFloat(retail_price) > parseFloat(price_original))){%>value="<%- price_original %>"<%}%>><small <%if(!discount_percentage || discount_percentage=='0'){%>style='display:none'<%}%>><%-(discount_percentage)%>% off</small></span>
+	</p>
+	<p class="weight"><label class="label">Weight</label>
+	<span class="unit"><input type="text" maxlength="6" class="text" name="weight" value="<%- prod_weight %>"><small>Ibs</small></span></p>
+	<p class="length"><label class="label">Length</label>
+	<span class="unit"><input type="text" maxlength="6" class="text" name="length" value="<%- prod_length %>"><small>inches </small></span></p>
+	<p class="width"><label class="label">Width</label>
+	<span class="unit"><input type="text" maxlength="6" class="text" name="width" value="<%- prod_width %>"><small>inches </small></span></p>
+	<p class="height"><label class="label">Height</label>
+	<span class="unit"><input type="text" maxlength="6" class="text" name="height" value="<%- prod_height %>"><small>inches </small></span></p>
+	<ul class="selectable-option">
+		<li>
+			<input type="checkbox" name="marked_soldout" id="marked_soldout" <%if(marked_soldout){%>checked<%}%>>
+			<label for="marked_soldout">Mark as sold out</label>
+		</li>
+	</ul>
+</div>

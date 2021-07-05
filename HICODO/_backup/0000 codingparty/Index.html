@@ -1,0 +1,781 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<!--
+    // id 만드는 규칙: id_cp211_
+    // class 만드는 규칙: cs_cp211_
+    // 웹 표준 API 에 대응하기 위해서 하이픈(-) 대신 언더라인(_) 사용
+    // 파일 명칭을 모함해서 모든 명칭은 영문으로
+    -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+	<link href="/Content/styles/cp211/codingParty.css" rel="stylesheet" />
+	
+    <style>
+	@font-face {
+		font-family: 'CookieRun Black';
+		src: url('/fonts/cookieRun/CookieRun Black.otf') format('opentype');
+	}
+	
+	@font-face {
+		font-family: 'CookieRun Bold';
+		src: url('/fonts/cookieRun/CookieRun Bold.otf') format('opentype');
+	}
+	
+	@font-face {
+		font-family: 'CookieRun Regular';
+		src: url('/fonts/cookieRun/CookieRun Regular.otf') format('opentype');
+	}
+	
+	.cs_cp211_center {
+		margin: auto;
+	}
+	
+	.cp211-main-popUp-bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: 998;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 544px;
+		height: 590px;
+		border: 7px solid #4334c5;
+		border-radius: 20px;
+		background-color: #fff;
+		z-index: 999;
+		transform: translate(-50%, -50%);
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form > .cp211-main-popUp-title {
+		background-color: #4334c5;
+		width: 100%;
+		height: 70px;
+		color: #fff;
+		text-align: center;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form > .cp211-main-popUp-title > p {
+		font-size: 28px;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-content {
+		height: 340px;
+		padding-top: 60px;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-content > li {
+		width: 330px;
+		height: calc(100% / 3);
+		margin: 0 auto;
+		vertical-align: middle;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-content > li > span {
+		font-size: 30px;
+		font-weight: bold;
+		line-height: 1.5em;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-content > li > select,
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-content > li > input {
+		width: 200px;
+		height: 45px;
+		border: 1px solid #cfcfcf;
+		border-radius: 12px;
+		outline: none;
+		font-size: 20px;
+		padding-left: 10px;
+		margin-left: 40px;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-submit {
+		background-color: #4334c5;
+		border-radius: 30px;
+		width: 287px;
+		height: 71px;
+		margin: 0 auto;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-submit > p {
+		color: #fff;
+		font-size: 33px;
+		font-weight: bold;
+		padding-top: 10px;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-submit:hover {
+		background-color: #fff;
+		border: 2px solid #4334c5;
+	}
+	
+	.cp211-main-popUp-bg > #cp211-main-popUp-form .cp211-main-popUp-submit:hover > p {
+		color: #4334c5;
+	}
+	
+	#id_cp211_mission_start {
+		position: absolute;
+		top: 357px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 254px;
+		height: 63px;
+		text-align: center;
+		border-radius: 30px;
+		z-index: 10;
+		background-color: #4334c5;
+		cursor: pointer;
+	}
+	
+	#id_cp211_mission_start > .cs_cp211_mission_start_btn {
+		color: #fff;
+		font-size: 31px;
+		font-weight: bold;
+		padding-top: 8px;
+		font-family: 'CookieRun Bold';
+	}
+	
+	#id_cp211_mission_start:hover {
+		background-color: #fff;
+	}
+	
+	#id_cp211_mission_start:hover > .cs_cp211_mission_start_btn {
+		color: #4334c5;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container {
+		position: relative;
+		padding-top: 637px;
+		width: 720px;
+		margin: 0 auto;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > img {
+		position: absolute;
+		width: 21%;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > .cat {
+		bottom: 0;
+		left: 4%;
+		animation: jump 0.7s ease-in-out alternate infinite;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > .chicken-02 {
+		bottom: 0;
+		left: 20%;
+		animation: shake 0.5s ease-in-out alternate infinite;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > .crab {
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		animation: shake2 0.5s ease-in-out alternate infinite;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > .chicken-01 {
+		bottom: 0;
+		right: 20%;
+		animation: jump 0.4s ease-in-out alternate infinite;
+	}
+	
+	#id_cp211_sub_container_0 #id_cp211_land_animal_container > .bear {
+		bottom: 30px;
+		right: 2%;
+		animation: rotation 0.5s ease-in-out alternate infinite;
+	}
+	
+	@keyframes jump {
+		0% {
+			bottom: 0;
+		}
+		100% {
+			bottom: 8%;
+		}
+	}
+	
+	@keyframes shake {
+		0% {
+			left: 18%;
+		}
+		100% {
+			left: 22%;
+		}
+	}
+	
+	@keyframes shake2 {
+		0% {
+			left: 49%;
+		}
+		50% {
+			bottom: 5%;
+		}
+		100% {
+			left: 51%;
+		}
+	}
+	
+	@keyframes rotation {
+		0% {
+			transform: rotateY(35deg);
+		}
+		100% {
+			transform: rotateY(-35deg);
+		}
+	}
+	
+	#id_cp211_main_login_wrap {
+		position: fixed;
+		top: 70px;
+		left: 0;
+		width: 100px;
+		z-index: 11;
+	}
+	
+	#id_cp211_main_login_wrap > ul > li {
+		width: 88px;
+		width: 103px;
+		height: 60px;
+		padding: 20px 0px 20px 11px;
+		margin: 20px 0px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+		background-color: #8aab29;
+		color: #fff;
+		cursor: pointer;
+		font-size: 14px;
+		font-family: "Noto Sans KR";
+		box-shadow: 0px 7px 19px 1px rgba(0, 0, 0, 0.3);
+	}
+	
+	#id_cp211_main_login_wrap > ul > .cs_cp211_main_login_name {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		background-color: #d7ed97;
+		color: #333;
+		cursor: auto;
+		text-align: left;
+	}
+	
+	#id_cp211_main_login_wrap > ul > li > i {
+		padding-right: 8px;
+	}
+	
+	#id_cp211_main_login_wrap > ul > .cs_cp211_main_login_btn > i {
+		padding-right: 7px;
+	}
+	
+	#id_cp211_main_container {
+		width: 100%;
+		height: 2760px;
+	}
+	
+	#id_cp211_main_container #id_cp211_base_background {
+		position: absolute;
+		width: 110%;
+		height: 2760px;
+		background-image: url('/Content/images/cp211/page_main_bg_title_Add_base.png');
+		margin-top: -5px;
+		margin-left: -5%;
+		/* Add the blur effect */
+		-webkit-filter: blur(8px);
+		-moz-filter: blur(8px);
+		/*-o-filter: blur(3px);*/
+		/*-ms-filter: blur(3px);*/
+		filter: blur(8px);
+		z-index: 0;
+	}
+	
+	#id_cp211_sub_container_0 {
+		width: 1280px;
+		height: 2760px;
+		background-image: url('/Content/images/cp211/page_main_bg_final.jpg');
+		/* remove the blur effect */
+		filter: none;
+		-webkit-filter: blur(0);
+		-moz-filter: blur(0);
+		/*-ms-filter: blur(0);*/
+		/*filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='0');*/
+		background-size: cover;
+		/*background-size: contain;*/
+		background-repeat: no-repeat;
+		z-index: 10;
+	}
+	
+	#id_cp211_mission_map_container {
+		position: relative;
+		/*top: 940px;*/
+		top: 303px;
+	}
+	
+	#id_cp211_mission_map_certification {
+		width: 120px;
+		height: 50px;
+		top: 105px;
+		left: 22.5%;
+		position: absolute;
+		padding: 10px 25px;
+		/*border-radius: 12px;
+          font-weight: bold;*/
+		/*background-color: #fff;*/
+		cursor: pointer;
+		transition: background-image .1s;
+		background-image: url('../../Content/images/cp211/certificate_btn_01.png');
+		background-repeat: no-repeat;
+	}
+	
+	#id_cp211_mission_map_certification:hover {
+		/*color: #fff;
+          background-color: #f59c19;*/
+		background-image: url('../../Content/images/cp211/certificate_btn_02.png');
+	}
+	
+	#id_cp211_mission_map_container .cs_cp211_mission_map_open_btn {
+		/*  position: absolute;
+            width: 110px;
+            height: 95px;
+            cursor: pointer;*/
+		background-image: url('/Content/images/cp211/stone1_normal.png') !important;
+		/* 기본 돌 */
+		/*  background-size: cover;
+            background-repeat: no-repeat;
+            transition: .3s;*/
+	}
+	
+	#id_cp211_mission_map_container .cs_cp211_mission_map_open_btn .arrow {
+		position: absolute;
+		text-align: center;
+		/*margin: 1240px 887px;*/
+		top: -20px;
+		left: 26px;
+		pointer-events: none;
+		z-index: 20;
+	}
+	
+	#id_cp211_mission_map_container .cs_cp211_mission_map_open_btn .arrow > img {
+		width: 90%;
+		text-decoration: none;
+	}
+	
+	#id_cp211_mission_map_container .cs_cp211_mission_map_btn_common {
+		position: absolute;
+		width: 110px;
+		height: 96px;
+		cursor: pointer;
+		background-image: url('/Content/images/cp211/stone1_lock_02_sm.png');
+		/* 잠긴 돌 */
+		background-size: cover;
+		background-repeat: no-repeat;
+		transition: .3s;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(2) {
+		top: 955px;
+		left: 67%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(3) {
+		top: 1078px;
+		left: 45.2%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(4) {
+		top: 917px;
+		left: 24%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(5) {
+		top: 666px;
+		left: 19.5%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(6) {
+		top: 468px;
+		left: 28.5%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(7) {
+		top: 391px;
+		left: 44.2%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(8) {
+		top: 373px;
+		left: 61%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(9) {
+		top: 229px;
+		left: 71.5%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(10) {
+		top: 40px;
+		left: 67%;
+	}
+	
+	.cs_cp211_mission_map_btn_common:nth-child(11) {
+		top: -24px;
+		left: 46%;
+	}
+	
+	#id_cp211_mission_map_container .cs_cp211_mission_map_clear_btn {
+		position: absolute;
+		width: 110px;
+		height: 95px;
+		cursor: pointer;
+		background-image: url('/Content/images/cp211/stone1_complete.png');
+		/* 완료시 바뀌는 돌 */
+		background-size: cover;
+		background-repeat: no-repeat;
+		transition: .3s;
+	}
+	
+	#id_cp211_mission_map_container > .cp211-main-mission-explanationBox {
+		position: absolute;
+		width: 372px;
+		height: 177px;
+		background-color: rgba(0, 0, 0, .5);
+		border-radius: 25px;
+		text-align: center;
+		color: #fff;
+	}
+	
+	#id_cp211_mission_map_container .explanationBox-title {
+		font-weight: bold;
+		font-size: 25px;
+		padding-top: 40px;
+		font-family: 'CookieRun Bold';
+	}
+	
+	#id_cp211_mission_map_container .explanationBox-content {
+		font-size: 17px;
+		padding-top: 8px;
+	}
+	
+	.cs_cp211_mission_map_btn:hover {
+		transform: scale(1.2);
+	}
+	
+	.cs_cp211_mission_map_clear_btn:hover {
+		transform: scale(1.2);
+	}
+	
+	@keyframes scaleUpDown {
+		0%,
+		100% {
+			transform: scaleY(1) scaleX(1);
+			opacity: 0.7;
+		}
+		50%,
+		90% {
+			transform: scaleY(1.2);
+			opacity: 0.7;
+		}
+		75% {
+			transform: scaleY(1.0);
+			opacity: 0.7;
+		}
+		80% {
+			transform: scaleX(1.0);
+			opacity: 0.7;
+		}
+	}
+	
+	@keyframes shake {
+		0%,
+		100% {
+			transform: skewX(0) scale(1);
+		}
+		50% {
+			transform: skewX(5deg) scale(0.9);
+		}
+	}
+	
+	@keyframes particleUp {
+		0% {
+			opacity: 0;
+		}
+		20% {
+			opacity: 1;
+			opacity: 0.5;
+		}
+		80% {
+			opacity: 1;
+			opacity: 0.5;
+		}
+		100% {
+			opacity: 0;
+			top: -100%;
+			transform: scale(0.5);
+		}
+	}
+	
+	@keyframes glow {
+		0%,
+		100% {
+			background-color: #ef5a00;
+			opacity: 0.5;
+		}
+		50% {
+			background-color: #ff7800;
+			opacity: 0.5;
+		}
+	}
+	
+	.fire {
+		position: absolute;
+		/*top: calc(50% - 50px);*/
+		/*left: calc(50% - 50px);*/
+		top: 1588px;
+		left: calc(50% - 27px);
+		width: 90px;
+		height: 90px;
+		background-color: transparent;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.fire-main {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		animation: scaleUpDown 3s ease-out;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.fire-main .main-fire {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
+		transform: scaleX(0.8) rotate(45deg);
+		border-radius: 0 40% 60% 40%;
+		filter: drop-shadow(0 0 10px #d43322);
+	}
+	
+	.fire-main .particle-fire {
+		position: absolute;
+		top: 60%;
+		left: 45%;
+		width: 10px;
+		height: 10px;
+		background-color: #ef5a00;
+		border-radius: 50%;
+		filter: drop-shadow(0 0 10px #d43322);
+		animation: particleUp 2s ease-out 0;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.fire-right {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		animation: shake 2s ease-out 0;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.fire-right .main-fire {
+		position: absolute;
+		top: 15%;
+		right: -25%;
+		width: 80%;
+		height: 80%;
+		background-color: #ef5a00;
+		transform: scaleX(0.8) rotate(45deg);
+		border-radius: 0 40% 60% 40%;
+		filter: drop-shadow(0 0 10px #d43322);
+	}
+	
+	.fire-right .particle-fire {
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		width: 15px;
+		height: 15px;
+		background-color: #ef5a00;
+		transform: scaleX(0.8) rotate(45deg);
+		border-radius: 50%;
+		filter: drop-shadow(0 0 10px #d43322);
+		animation: particleUp 2s ease-out 0;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.fire-left {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		animation: shake 3s ease-out 0;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.fire-left .main-fire {
+		position: absolute;
+		top: 15%;
+		left: -20%;
+		width: 80%;
+		height: 80%;
+		background-color: #ef5a00;
+		transform: scaleX(0.8) rotate(45deg);
+		border-radius: 0 40% 60% 40%;
+		filter: drop-shadow(0 0 10px #d43322);
+	}
+	
+	.fire-left .particle-fire {
+		position: absolute;
+		top: 10%;
+		left: 20%;
+		width: 10%;
+		height: 10%;
+		background-color: #ef5a00;
+		border-radius: 50%;
+		filter: drop-shadow(0 0 10px #d43322);
+		animation: particleUp 3s infinite ease-out 0;
+		animation-fill-mode: both;
+	}
+	
+	.fire-bottom .main-fire {
+		position: absolute;
+		top: 30%;
+		left: 20%;
+		width: 75%;
+		height: 75%;
+		background-color: #ff7800;
+		transform: scaleX(0.8) rotate(45deg);
+		border-radius: 0 40% 100% 40%;
+		filter: blur(10px);
+		animation: glow 2s ease-out 0;
+		animation-iteration-count: infinite;
+		animation-fill-mode: both;
+	}
+	
+	.rotate {
+		-moz-animation: rotate 3s linear infinite;
+		-webkit-animation: rotate 3s linear infinite;
+		animation: rotate 3s linear infinite;
+	}
+	
+	@keyframes rotate {
+		from {
+			transform: rotateY(0deg);
+		}
+		to {
+			transform: rotateY(359deg);
+		}
+	}
+	
+	#classCertificate .date_wrap .cp211_date {
+		font-size: 22px;
+	}
+	
+	body {
+		padding-bottom: 0px;
+	}
+	
+	html {
+		scroll-behavior: smooth;
+	}
+	/* cp211 form */
+	
+	.login-box {
+		width: 500px;
+		height: 850px;
+		border: 3px solid red;
+		text-align: center;
+	}
+	</style>
+
+	<div id="id_cp211_main_container" class="cs_cp211_center">
+		<div id="id_cp211_base_background"></div>
+		<!--로그인 버튼-->
+		<div id="id_cp211_main_login_wrap">
+			<ul>
+				<li class="cs_cp211_main_login_btn"><i class="fas fa-user"></i>로그인</li>
+			</ul>
+		</div>
+		<div id="id_cp211_sub_container_0" class="cs_cp211_center">
+			<div id="id_cp211_mission_start">
+				<p class="cs_cp211_mission_start_btn">START</p>
+			</div>
+			<div id="id_cp211_land_animal_container"> <img class="cat" src="/Content/images/cp211/cat.png" alt="cat" /> <img class="chicken-02" src="/Content/images/cp211/chicken_02.png" alt="chicken_02" /> <img class="crab" src="/Content/images/cp211/crab.png" alt="crab" /> <img class="chicken-01" src="/Content/images/cp211/chicken_01.png" alt="chicken_01" /> <img class="bear" src="/Content/images/cp211/bear.png" alt="bear" /> </div>
+			<div id="id_cp211_mission_map_container">
+				<!--설명 말풍선-->
+				<div class="cp211-main-mission-explanationBox-01 cp211-main-mission-explanationBox" style="top:812px;left:37%;">
+					<p class="explanationBox-title">"&nbsp;함께 무대를 청소해요&nbsp;"</p>
+					<p class="explanationBox-content">동물 친구들의 댄스대회가 열리기 전에
+						<br>청소기로 무대 위를 깨끗이 청소해주세요!</p>
+				</div>
+				<div class="cp211-main-mission-explanationBox-02 cp211-main-mission-explanationBox con" style="top:128px;left:37%;">
+					<p class="explanationBox-title">"&nbsp;동물 친구들과 춤을 춰요&nbsp;"</p>
+					<p class="explanationBox-content">무대가 깨끗해졌어요! 이제 동물 친구들을
+						<br>불러와 함께 즐겁게 춤을 춰 볼까요?</p>
+				</div>
+			</div>
+			<div class="fire">
+				<div class="fire-left">
+					<div class="main-fire"></div>
+					<div class="particle-fire"></div>
+				</div>
+				<div class="fire-main">
+					<div class="main-fire"></div>
+					<div class="particle-fire"></div>
+				</div>
+				<div class="fire-right">
+					<div class="main-fire"></div>
+					<div class="particle-fire"></div>
+				</div>
+				<div class="fire-bottom">
+					<div class="main-fire"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="classroom_popup_background">
+		<div id="classroom_popup" class="cs_cp211_form"></div>
+	</div>
+	<audio id="id_cp211_sound_main_background" autoplay="autoplay" loop>
+		<source src="/Content/sound/cp211/main/main_background.mp3" type="audio/mpeg" /> </audio>
+	<script>
+	$(document).ready(function() {
+		let sound = document.getElementById("id_cp211_sound_main_background");
+		sound.volume = 0.3;
+		document.body.addEventListener("mousedown", function() {
+			sound.play()
+		})
+	});
+	</script>
+</body>
+
+</html>

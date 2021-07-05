@@ -1,0 +1,129 @@
+.. Fancy API documentation master file, created by
+   sphinx-quickstart on Sat Feb 28 05:22:51 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Fancy Seller API
+=====================================
+
+.. Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+To make an API request, you must prefix the url with ``https://api.fancy.com/rest-api/v1/seller/{seller-id}/``
+and send your API token as a parameter. All request/response formats are JSON.
+
+1. GET request example::
+
+    GET /rest-api/v1/seller/1001/dashboard/summary/daily?token=APITOKEN
+    Host: api.fancy.com
+
+2. POST request example::
+
+    POST /rest-api/v1/seller/1001/products/
+    Host: api.fancy.com
+    Content-Type: application/json
+
+    { "token": "APITOKEN", "title": "New Item", "price": "19.80", ... }
+
+=================
+Dashboard Summary
+=================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSummaryView
+   :members:
+
+====================
+Dashboard Area Chart
+====================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardAreaChartDataView
+   :members:
+
+=======================
+Dashboard Shop Activity
+=======================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardShopActivityListView
+   :members:
+
+=====================
+Dashboard Best Sellers
+=====================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardBestSellerListView
+   :members:
+
+=======================
+Dashboard Referrals
+=======================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardReferralListView
+   :members:
+
+========================
+Dashboard Search History
+========================
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.dashboard.views.DashboardSearchKeywordView
+   :members:
+
+======
+Orders
+======
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderListView
+   :members:
+
+============
+Order Detail
+============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.sale_orders.views.SellerOrderDetailView
+   :members:
+
+============
+Product List
+============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.products.views.ProductListView
+   :members:
+
+==============
+Product Detail
+==============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.products.views.ProductDetailView
+   :members:
+
+=============
+Customer List
+=============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.customers.views.CustomerListView
+   :members:
+
+=============
+Customer Info
+=============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrderInfoView
+   :members:
+
+===============
+Customer Orders
+===============
+
+.. autoclass:: fancy.rest_api.v1.seller_dashboard.customers.views.CustomerOrdersView
+   :members:
+
+
+.. 
+    Indices and tables
+    ==================
+
+    * :ref:`genindex`
+    * :ref:`modindex`
+    * :ref:`search`
+

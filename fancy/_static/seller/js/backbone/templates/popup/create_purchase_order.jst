@@ -1,0 +1,122 @@
+<p class="ltit"><%= title %></p>
+<div class="data-frm">
+    <dl class="show">
+        <dt><%= gettext('Warehouse') %></dt>
+        <dd class="warehouse">
+            <p><label class="label">To</label>
+            <select name="warehouse">
+                <% _.each(warehouses, function(warehouse) { %>
+                    <option value="<%= warehouse.id %>"><%= warehouse.name %></option>
+                <% }) %>
+            </select></p>
+            <address>
+            </address>
+        </dd>
+    </dl>
+    <dl class="show">
+        <dt><%= gettext('Vendor information') %></dt>
+        <dd class="vendor-info">
+            <fieldset>
+                <p class="company"><input type="text" class="text" name="vendor_company" placeholder="Company name" value="<%= seller.brand_name%>"></p>
+                <p class="contact"><input type="text" class="text" name="vendor_contact" placeholder="Contact name" value="<%= seller.full_name%>"></p>
+                <p class="adds1"><input type="text" class="text" name="vendor_address1" placeholder="Address line 1" value="<%= seller.address1%>"></p>
+                <p class="adds2"><input type="text" class="text" name="vendor_address2" placeholder="Address line 2" value="<%= seller.address2%>"></p>
+                <p class="city"><input type="text" class="text" name="vendor_city" placeholder="City" value="<%= seller.city%>"></p>
+                <p class="state"><select name="vendor_state">
+                    <option value="">NONE</option>
+                    <% _.each(states, function(state) { %>
+                        <option value="<%= state.code %>"><%= state.state %></option>
+                    <% }) %>
+                </select></p>
+                <p class="zip"><input type="text" class="text" name="vendor_zip" placeholder="Zip code" value="<%= seller.zip%>"></p>
+                <p class="phone"><input type="text" class="text" name="vendor_phone" placeholder="Phone number" value="<%= seller.contact_phone%>"></p>
+                <p class="country"><select name="vendor_country">
+                    <option value="">NONE</option>
+                    <% _.each(countries, function(country) { %>
+                        <option value="<%= country.id %>" <% if (currentCountryCode == country.id) { %> selected <% } %>><%= country.display_name %></option>
+                    <% }) %>
+                </select></p>
+                <p class="email"><input type="text" class="text" name="vendor_email" placeholder="E-mail" value="<%= seller.email%>"></p>
+            </fieldset>
+        </dd>
+    </dl>
+    <dl class="show">
+        <dt><%= gettext('Comment') %></dt>
+        <dd class="comment"><p><textarea class="text" name='comments' placeholder="Write a comment..."><%= purchaseOrder.comment %></textarea></p></dd>
+    </dl>
+    <dl class="show">
+        <dt><%= gettext('Products') %></dt>
+        <dd class="products table"><table class="tb-type2">
+            <colgroup>
+		<col width="*" />
+		<col width="50" />
+		<col width="50" />
+		<col width="50" />
+	    </colgroup>
+            <thead>
+                <tr>
+                    <th class="title"><%= gettext('Product') %></th>
+                    <th><%= gettext('Orders') %></th>
+                    <th><%= gettext('Qty') %></th>
+		    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table></dd>
+    </dl>
+    <dl class="show">
+        <dt><%= gettext('Shipping Information') %></dt>
+        <dd class="ship-info">            
+            <p><select onchange="$('.ship-info .tracking, .ship-info .reference').hide();$(this).closest('.ship-info').find('p.'+$(this).val()).show();">
+                <option value="tracking">Tracking #</option>
+                <option value="reference">Order Reference #</option>
+            </select></p>
+            <p class="tracking" style="display: inline-block;">
+                <select class="carrier" name='carrier'>
+                <% _.each(carriers, function(carrier) { %>
+                    <option value="<%= carrier.id %>"><%= carrier.name %></option>
+                <% }) %>
+                </select>
+                <select class="service_level" name='service-level'>
+                <option value="-1">UNDEFINED</option>
+                </select>
+                <input type="text" class="text" value="<%= purchaseOrder.tracking_id %>" placeholder="Number" name='tracking-id'>
+                <span class="calendar"><input type="text" class="text" placeholder="ETA" name="eta"><i class="icon"></i></span>
+            </p>
+            <p class="reference" style="display: none;">
+                <input type="text" class="text" value="<%= purchaseOrder.order_ref_num %>" placeholder="Number" name='order-ref-num'>
+                <span class="calendar"><input type="text" class="text" placeholder="ETA" name="eta"><i class="icon"></i></span>
+            </p>
+            <p class="eta"></p>
+        </dd>
+    </dl> 
+    <dl class="show" style='display:none'>
+        <dt><%= gettext('Extra information') %></dt>
+        <dd class="others-info">
+            <p class="invoice"><input type="text" class="text" name="merchant_invoice_ref" placeholder="Merchant invoice"></p>
+            <p class="reference"><input type="text" class="text" name="wire_ref_num" placeholder="Wire reference #"></p>
+            <p class="cost"><span class="benchmark"><input type="text" class="text" name="shipping_cost" placeholder="Shipping cost"><small>USD</small></span></p>
+            <p class="reference_extra"><input type="text" class="text" name="paypal_ref_num" placeholder="Paypal reference #"></p>
+            <p class="cost_extra"><span class="benchmark"><input type='hidden' name='extra_cost_type' value='1'><input type="text" class="text" name="extra_cost" placeholder="Extra shipping cost"><small>USD</small></span></p>
+            <p class="sale"><span class="benchmark"><input type="text" class="text" name="sales_tax" placeholder="Sales tax"><small>USD</small></span></p>
+            <p class="discount"><span class="benchmark"><input type="text" class="text" name="discount_value" placeholder="Total discount value" readonly value="0"><small>USD</small></span></p>
+            <p class="total"><input type="text" class="text" name="card_last_four" placeholder="Credit card last 4 digits"></p>
+            <p class="tag"><input type="text" class="text" name="tag" placeholder="Tag"></p>
+            <p class="order-type"><select name="po_type">                
+                <option value="0">Sell-First</option>                
+                <option value="1">Wholesale</option>                
+                <option value="2">Inventory Move</option>                
+                <option value="3">Subscription Items</option>                
+                <option value="4">Design</option>
+            </select></p>
+        </dd>
+    </dl>
+</div>
+<div class="btn-area">
+    <% if (canSend) { %>
+    <button class="btns-gray-embo btn-send"><%= gettext('Send') %><i class="icon"></i></button>
+    <% } %>
+    <button class="btns-blue-embo btn-save"><%= gettext('Save') %></button>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

@@ -1,0 +1,202 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+  <title>Fancy Widget</title> 
+  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js'></script> 
+  
+  <style type='text/css'>
+    div.item {
+    float:left;
+    position:relative;
+    vertical-align:middle;
+}
+ 
+div.item a img{
+    border-style : none;
+    vertical-align:middle;
+}
+ 
+div.fancy_box1{
+    height: 51px;
+    min-width: 140px;
+    width: 100%;
+    float: left;
+    background-image: url(//thefancy-media-ec.thefancy.com/emails/images/logo.png);
+    border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+}
+ 
+div.out_box2 {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 3px solid rgba(140, 149, 157, 0.6);
+    background: url(/_ui/fancyit/images/common/bg_shop-signed.png);
+}
+div.fancy_box2 {
+    float:none;
+    height:40px;
+    width:100%;
+}
+.logo-shop {
+    float: left;
+    text-indent: -999em;
+    position: relative;
+    left: 17px;
+    top:10px;
+    width: 125px;
+    height: 40px;
+    outline: 0;
+}
+.logo-shop-back2 {
+    background: url(/_ui/fancyit/images/common/shop_popup.png) no-repeat -129px -328px;
+}
+ 
+#optional_link {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 21px;
+ 
+    color: #1F518E;
+    text-decoration: none;
+}
+  </style> 
+  
+  <script type='text/javascript'> 
+    if ( Array.prototype.indexOf == null ) {
+      Array.prototype.indexOf = function (e) {
+        for ( var l=this.length , i = 0; i < l ;i++)
+        {
+          if ( this[i]==e) return i;
+        }
+        return -1;
+      }
+    }
+  //<![CDATA[ 
+  $(function(){
+    (function() {
+      function queryString() {
+        var param_names = ['rows','cols','thumbsize','source','div_style','with_diagonal','show_link','ref'];
+        var loc = location.search.substring(1, location.search.length);
+        var param_value = false;
+        var params = loc.split("&");
+        for (i = 0; i < params.length; i++) {
+          param_name = params[i].substring(0, params[i].indexOf('='));
+          if (param_names.indexOf(param_name) != -1) {
+            if (!param_value) param_value = {};
+            param_value[param_name] = params[i].substring(params[i].indexOf('=') + 1)
+          }
+        }
+        $("#widget_fancy").attr(param_value);
+      }
+    queryString();
+
+    var widget_div = $("#widget_fancy");
+    
+    $.ajax({
+        type:'GET',
+        url: "http://www.thefancy.com/jsonfeed/"+widget_div.attr('source') + "?callback=?",
+        dataType:'json',
+        success:function(l) {
+              var rows = widget_div.attr('rows');
+              var cols = widget_div.attr('cols');
+              var items = l;
+              var count = 0, n = items.length;
+              var thumb_size = parseInt(widget_div.attr('thumbsize'));
+              var thumb_margin = (thumb_size > 90) ? 20 : 10;
+              for ( var i = 0 ; i++ < rows ; )
+              {
+                  for ( var j = 0 ; j++ < cols ; )
+                  {
+                      var item = items[count++];
+                      var desc;
+                      if (widget_div.attr('ref') != 'null' && widget_div.attr('ref') != undefined ){
+                      desc = $('<a target="_blank" href="'+item.url+'?ref='+widget_div.attr('ref')+'"></a>');
+                      }
+                      else{
+                          desc = $('<a target="_blank" href="'+item.url+'"></a>');
+                      }
+                      var img_url;
+                      img_url = item["thumb_image_url_"+thumb_size];
+                      var img = $('<img src="'+img_url+'"/>');
+                      img.css( {'max-height':thumb_size+'px' , 'max-width':thumb_size+'px'});
+                      desc.append(img);
+                      var nspan= $("<div class='item'>");
+                      nspan.css({ width:thumb_size+'px', height:thumb_size+'px',textAlign:'center',lineHeight : (thumb_size-6)+"px" , margin : thumb_margin +"px"});
+                      nspan.append(desc);
+    
+                      widget_div.append( nspan);
+                      if ( count == n ) 
+                      { 
+                          i = rows; break; 
+                      }
+                  }
+                  widget_div.append($('<div style="clear: both;"></div>'));
+              }
+    widget_div.css({width :(thumb_size+thumb_margin*2)* cols , height: (thumb_size+thumb_margin*2)*rows})
+      $("body").css({width :(thumb_size+thumb_margin*2)* cols + 5 , height: (thumb_size+thumb_margin*2)*rows +5});
+              var div_style = parseInt(widget_div.attr('div_style'));
+              switch( div_style ) {
+                  case 1:
+                      boxing_style1( widget_div );
+                      break;
+                  case 2:
+                      boxing_style2( widget_div );
+                      break;
+                  default:
+                      break;
+              }
+              
+              var with_diagonal= widget_div.attr('with_diagonal');
+              if ( with_diagonal == "1" ) {
+                  widget_div.find("div.item").css('background','url(/_ui/images/common/bg_figure.png) repeat 0 0');
+              }
+              var show_link= widget_div.attr('show_link');
+              if ( show_link== "1" ) {
+                  var l = widget_div.attr('source').split("/");
+                  var _link, _title;
+                  
+                  if (l.length == 2 && l[1] == "following") 
+                  {
+                      _link = "http://www.thefancy.com/"+l[0]+"/"+l[1];
+                      _message = l[0]+"'s Following";
+                  } else if ( l.length == 1 && l[0] != "homepage" )
+                  {
+                      _link = "http://www.thefancy.com/"+l[0];
+                      _message = l[0]+"'s Collection";
+                  }
+                  else {
+                      _link = "http://www.thefancy.com/";
+                      _message = "Fancy";
+                  }
+                  widget_div.append("<div style='text-align:center'><a id='optional_link' href='"+_link+"' target='_blank' >"+_message+"</a></div>");
+                  widget_div.css('height',parseInt(widget_div.css('height'))+25 );
+              }
+          } 
+    });
+    function boxing_style1(pdiv) {
+        pdiv.css({border:'1px solid #ddd','-moz-border-radius':'5px','border-radius':'5px'});
+        pdiv.css('height',parseInt(pdiv.css('height'))+55 );
+        pdiv.prepend($('<div class="fancy_box1"><a href="http://www.thefancy.com" target="_blank" class="logo-shop">Fancy</a></div>'));
+    }
+    function boxing_style2(pdiv) {
+        pdiv.addClass('out_box2')
+        pdiv.css('height',parseInt(pdiv.css('height'))+45 );
+        pdiv.prepend($('<div class="fancy_box2"><a href="http://www.thefancy.com" target="_blank" class="logo-shop logo-shop-back2">Fancy</a></div>'));
+ 
+    }
+    
+})();
+  });/*Dongwoo :)*/
+  //]]> 
+  </script> 
+  
+</head> 
+<body> 
+  <div id="widget_fancy"></div>
+</body> 
+</html> 
+
+

@@ -1,0 +1,320 @@
+.summary._card {
+  position: relative;
+  background: #FFF;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.03), 0 0px 0px 1px rgba(0, 0, 0, 0.01);
+          box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.03), 0 0px 0px 1px rgba(0, 0, 0, 0.01);
+  -webkit-transition: 0.1s -webkit-box-shadow ease-in-out;
+  transition: 0.1s -webkit-box-shadow ease-in-out;
+  transition: 0.1s box-shadow ease-in-out;
+  transition: 0.1s box-shadow ease-in-out, 0.1s -webkit-box-shadow ease-in-out;
+}
+
+.summary._card .bio {
+  display: none;
+}
+
+.summary._card .cover {
+  -webkit-box-shadow: inset 0 -23px 0 #fff;
+          box-shadow: inset 0 -23px 0 #fff;
+  display: block;
+  margin-bottom: 62px;
+  background: #3d4a5d;
+  border-radius: 5px 5px 0 0;
+  text-align: left;
+  position: relative;
+}
+
+.summary._card .cover .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 132px);
+  border-radius: 5px 5px 0 0;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+}
+
+.summary._card .cover img {
+  width: 100%;
+  display: block;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  left: 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.summary._card .cover.blue {
+  background: #92a7bd;
+}
+
+.summary._card .cover.silver {
+  background: #a3a7af;
+}
+
+.summary._card .cover.green {
+  background: #92b3bd;
+}
+
+.summary._card .cover.purple {
+  background: #929fbd;
+}
+
+.summary._card .info {
+  display: block;
+  padding: 52px 0 0;
+  color: #8a8f9c;
+  font-size: 13px;
+  line-height: 17px;
+  text-align: center;
+  position: absolute;
+  bottom: 85px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  min-height: 63px;
+}
+
+.summary._card .info > a:first-child {
+  display: block;
+  color: #8a8f9c;
+}
+
+.summary._card .info .description {
+  display: none;
+  position: relative;
+  overflow: hidden;
+  height: 34px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 12px;
+  margin-bottom: 90px;
+  line-height: 17px;
+}
+
+.summary._card .info .description:after {
+  content: '';
+  position: absolute;
+  top: 17px;
+  right: 20px;
+  width: 30%;
+  height: 17px;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(60%, rgba(255, 255, 255, 0)), color-stop(90%, white));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 60%, white 90%);
+  pointer-events: none;
+}
+
+.summary._card .info .followers, .summary._card .info .location {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.summary._card .info .location {
+  display: block;
+}
+
+.summary._card .info .username {
+  display: block;
+  color: #383d48;
+  font-size: 13.5px;
+  padding: 5px 0 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.summary._card .logo {
+  position: absolute;
+  left: 50%;
+  top: -40px;
+  margin-left: -40px;
+  border-radius: 100%;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  width: 76px;
+  background-color: #FFF;
+  border: 3px solid #fff;
+}
+
+.summary._card .logo img {
+  vertical-align: top;
+  width: 100%;
+  border-radius: 100%;
+  background: no-repeat 50% 50%;
+  background-size: cover;
+  background-color: #FFF;
+}
+
+.summary._card .ic-verified, .summary._card .ic-lock {
+  margin: -3px 0px 0px 2px;
+  display: inline-block;
+  height: 17px;
+  vertical-align: middle;
+}
+
+.summary._card .ic-verified {
+  width: 17px;
+  background: url("../../images/svg/ic_user.svg") no-repeat -16px -16px;
+  background-size: 82px;
+}
+
+.summary._card .ic-lock {
+  width: 15px;
+  background: url("../../images/normal/user-icon.png") no-repeat -65px -115px;
+  background-size: 200px 200px;
+}
+
+.summary._card .tooltip {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.summary._card .tooltip:hover small {
+  display: block;
+}
+
+.summary._card .tooltip small {
+  display: none;
+  background: #2c3239;
+  padding: 0 11px;
+  line-height: 22px;
+  font-size: 11px;
+  bottom: 17px;
+  left: 50%;
+  position: absolute;
+  white-space: nowrap;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.summary._card .tooltip small:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 4px solid transparent;
+  margin-left: -4px;
+  border-top-color: #2c3239;
+}
+
+.summary._card .tooltip .icon.shop {
+  display: block;
+  width: 11px;
+  height: 10px;
+  background: url("../../images/normal/find_people.png") no-repeat -90px -40px;
+  background-size: 200px 70px;
+}
+
+.summary._card .go-shop, .summary._card .follow-user-link {
+  display: none;
+  font-weight: bold;
+  line-height: 35px;
+  text-align: center;
+  font-size: 12px;
+  border-top: 1px solid #f9f9f9;
+  color: #A5A8B1;
+  padding: 1px 0 0 0;
+}
+
+.summary._card .go-shop:hover, .summary._card .follow-user-link:hover {
+  color: #787d8a;
+}
+
+.summary._card .follow-user-link.dimmed, .summary._card .follow-user-link.dimmed:hover {
+  border-color: #f2f2f2;
+}
+
+.summary._card .follow-user-link.following, .summary._card .follow-user-link.following:hover {
+  color: #4978b3;
+}
+
+.summary._card .figure-list {
+  text-align: center;
+  height: 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 0 25px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 0 0 5px 5px;
+}
+
+.summary._card .figure-list:after {
+  clear: both;
+  display: block;
+  content: '';
+  height: 0;
+  overflow: hidden;
+}
+
+.summary._card .figure-list a, .summary._card .figure-list > img {
+  display: none;
+  vertical-align: top;
+  width: 60px;
+  height: 60px;
+  margin: 0 2px;
+  background: no-repeat 50% 50% #f7f7f7;
+  background-size: cover;
+}
+
+.summary._card .figure-list .figure {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.summary._card .figure-list .figure, .summary._card .figure-list > img {
+  background: no-repeat 50% 50% #f7f7f7;
+  background-size: cover;
+}
+
+.summary._card .figure-list a:nth-child(1), .summary._card .figure-list a:nth-child(2), .summary._card .figure-list a:nth-child(3), .summary._card .figure-list > img:nth-child(1), .summary._card .figure-list > img:nth-child(2), .summary._card .figure-list > img:nth-child(3) {
+  display: inline-block;
+}
+
+.summary._card .figure-list > a > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: no-repeat 50% 50% #f7f7f7;
+  background-size: cover;
+}
+
+.summary._card.store .logo, .summary._card.store .logo img {
+  border-radius: 5px;
+}
+
+.summary._card:hover {
+  -webkit-box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.03);
+          box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.03);
+}
+
+.summary._card:hover .cover:after {
+  opacity: 0.1;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .summary._card .ic-lock {
+    background-image: url("../../images/retina/user-icon.png");
+  }
+  .summary._card .tooltip .icon.shop {
+    background-image: url("../../images/retina/find_people.png");
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .summary._card .cover .bg {
+    height: calc(100% - 53px);
+  }
+  .summary._card .figure-list {
+    display: none;
+  }
+  .summary._card .info {
+    bottom: 0;
+  }
+}
+/*# sourceMappingURL=stores_card.v2.css.map */

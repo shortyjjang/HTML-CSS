@@ -1,0 +1,13 @@
+<% if(status=='ready') { %>
+	<video style="width:116px;height:116px" <% if(thumbnail){ %>poster="<%=thumbnail%>"<% } %> ><source src="<%=url%>"></video>
+	<a href="#" class="btns-gray-embo btn-edit">Edit</a>
+	<a href="#" class="btns-gray-embo btn-del">Delete</a>
+	<span class="time"><%=time%></span>
+<% } else { %>
+	<em class="processing">
+		<span class="loader"></span>
+		<label>PROCESSING</label>
+	</em>
+	<a href="#" class="btns-gray-embo btn-edit">Edit</a>
+	<a href="#" class="btns-gray-embo btn-cancel">Cancel</a>
+<% } %>

@@ -1,0 +1,86 @@
+<p class="title"><label class="label">Option title</label>
+<input type="text" class="text" placeholder="Size" value="<%-name%>">
+<span class="tooltip"><em><b>Example:</b> Size, Color, Material</em></span></p>
+<div class="option"><label class="label"><%-(name?name:'Option')%> values</label>
+    <%if(type=='swatch'){%>
+    <ul class="option-picker multi-text color">
+        <%for(i in values){%>
+        <li class="selected" data-id="<%-values[i]%>" data-color="<%-swatch[values[i]]||values[i]%>" style="background:<%-swatch[values[i]]||values[i]%>">
+            <a href="#" class="tooltip"><%-values[i]%><em>Click to edit</em></a>
+            <a href="#" class="btn-move">Organize</a>
+            <a href="#" class="btn-del">Remove</a>
+            <div class="popup-palette">
+                <input type="text" class="paletteLabel" placeholder="Label" value="<%-values[i]%>">
+                <input type="text" class="showPalette" <%-swatch[values[i]]||values[i]||''%>>
+                <button type="button" class="btn-swatch-save">Save</button>
+            </div>
+        </li>
+        <%}%>
+        <li class="select-lists">
+            <a href="#" class="add"></a>
+            <div class="popup-palette">
+                <input type="text" class="paletteLabel" placeholder="Label">
+                <input type="text" class="showPalette" value="#1A1B1C">
+                <button type="button" class="btn-swatch-save">Save</button>
+            </div>
+        </li>
+    </ul>
+    <%}else if(type=='thumbnail'){%>
+    <ul class="option-picker multi-text thumbnail">
+        <%for(i in values){%>
+        <li class="selected" data-id="<%-values[i]%>">
+            <img src="/_ui/images/common/blank.gif" style="background-image:url('<%-thumbnail[values[i]]||'none'%>')" alt="<%-values[i]%>">
+            <a href="#" class="btn-edit tooltip"></a>
+            <span class="popup-thumb" style="display: none;">
+                <span class="figure" data-image_url="<%-thumbnail[values[i]]||''%>">
+                    <img src="/_ui/images/common/blank.gif" style="background-image:url('<%-thumbnail[values[i]]||'none'%>')" alt="<%-values[i]%>">
+                    <input type="file" name="upload-file">
+                    <em class="infscr-loading" style="display:none"><span class="loading">Loading</span></em>
+                    <a href="#" class="btn-del">Remove</a>
+                </span>
+                <input type="text" placeholder="Label" value="<%-values[i]%>">
+                <button class="btn-thumbnail-save">Save</button>
+            </span>
+        </li>
+        <%}%>
+        <li class="select-lists">
+            <a href="#" class="add"></a>
+            <span class="popup-thumb">
+                <span class="figure">
+                    <img src="/_ui/images/common/blank.gif">
+                    <input type="file" name="upload-file">
+                    <em class="infscr-loading" style="display:none"><span class="loading">Loading</span></em>
+                </span>
+                <input type="text" placeholder="Label">
+                <button class="btn-thumbnail-save">Save</button>
+            </span>
+        </li>
+    </ul>
+    <%}else{%>
+    <ul class="option-picker multi-text">
+        <%for(i in values){%>
+        <li class="selected" data-id="<%-values[i]%>">
+            <a href="#" class="tooltip" tabindex="-1"><%-values[i]%><em>Click to rename</em></a>
+            <a href="#" class="btn-move" tabindex="-1">Organize</a>
+            <a href="#" class="btn-del" tabindex="-1">Remove</a>
+            <span class="rename-frm" style="display: none;">
+                <input type="text" value="<%-values[i]%>" tabindex="-1">
+                <button class="btn-rename" tabindex="-1">Save</button>
+            </span>
+        </li>
+        <%}%>
+        <li class="select-lists">
+            <input type="text" placeholder="Type here to add option values">
+        </li>
+    </ul>
+    <%}%>
+</div>
+<p class="style">
+<select name="type" tabindex=-1>
+    <option value='dropdown' <%if(type=='dropdown'){%>selected<%}%>>Dropdown</option>
+    <option value='button' <%if(type=='button'){%>selected<%}%>>Button</option>
+    <option value='swatch' <%if(type=='swatch'){%>selected<%}%>>Swatch</option>
+    <option value='thumbnail' <%if(type=='thumbnail'){%>selected<%}%>>Thumbnail</option>
+</select></p>
+<a href="#" class="btn-move tooltip"><em>Organize</em></a>
+<a href="#" class="btn-del tooltip"><em>Remove option</em></a>

@@ -1,0 +1,5 @@
+<a href="<%= getPageURL(page - 1) %>" class="page-number prev <% if (!prev) { %>disabled<% } %>">Prev</a>
+<a href="<%= getPageURL(page + 1) %>" class="page-number next <% if (!next) { %>disabled<% } %>">Next</a>
+<% for (var i=0; i<page_links.length; i++) { %>
+<a href="<%= getPageURL(page_links[i].page) %>" class="page-number <% if (page_links[i].page == page) { %>current<% } %>"><%= page_links[i].page %></a>
+<% } %>

@@ -1,0 +1,46 @@
+<p class="ltit">Update prices</p>
+<div class="data-frm">
+    <p>Update price and sale price for your product options.</p>
+    <div class="pricing">
+        <p class="price"><label class="label">Price</label>
+        <input type="text" class="text" name="retail_price" placeholder="$" value=""></p>
+        <p class="price discount"><label class="label">Sale price </label>
+        <span class="unit"><input type="text" class="text" name="price" value=""><small style='display:none'>% OFF</small></span></p>
+    </div>
+    <div class="options">
+        <table>
+            <colgroup>
+                <col width="*">
+                <col width="90">
+                <col width="90">
+                <col width="120">
+                <col width="120">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Options</th>
+                    <th>Price Before</th>
+                    <th>Price After</th>
+                    <th>Sale Price Before</th>
+                    <th>Sale Price After</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(options, function(option) { %>
+                    <tr <%if(option.get('id')){%>id="<%-option.get('id')%>"<%}else{%>tid="<%-option.get('tid')%>"<%}%> >
+                        <td><input type="checkbox" checked> <label><%-option.get('name')%></label></td>
+                        <td>$<%-option.get('retail_price')%></td>
+                        <td>$<%-option.get('retail_price')%></td>
+                        <td>$<%-option.get('price_original')%></td>
+                        <td>$<%-option.get('price_original')%></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="btn-area">
+    <button class="btns-white btn-cancel">Cancel</button>
+    <button class="btns-blue-embo btn-add">Update</button>
+</div>
+<button type="button" class="ly-close" title="Close"><i class="ic-del-black"></i></button>

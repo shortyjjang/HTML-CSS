@@ -1,0 +1,75 @@
+<p class="ltit">Confirm your phone number</p>
+<div class="start">
+  <ol class="step">
+    <li class="step1 done">Enter Phone Number</li>
+    <li class="step2">Verify code</li>
+  </ol>
+  <fieldset class="sms">
+    <p>Please confirm your phone number here. We’ll text you a confirmation code.</p>
+    <div class="data-frm">
+      <p class="phone"><label class="label">Phone number</label>
+      <input type="text" class="text" value="<%=phoneNumber%>"></p>
+      <small class="comment">Enter your phone number including country code.</small>
+    </div>
+  </fieldset>
+  <div class="btn-area sms">
+    <a href="#" class="to_voice">Confirm number by Voice Call</a>
+    <button class="btns-gray-embo cancel">Cancel</button>
+    <button class="btns-blue-embo btn-send">Send code</button>
+  </div>
+  <fieldset class="voice" style='display:none'>
+    <p>Confirm your phone number. We will call you and have you enter a PIN into your phone.</p>
+	<div class="data-frm">
+		<p class="phone"><label class="label">Phone number</label>
+		<input type="text" class="text"></p>
+		<small class="comment">Enter your phone number including country code.</small>
+	</div>
+  </fieldset>
+	<div class="btn-area voice"  style='display:none'>
+		<a href="#" class="to_sms">Confirm number by SMS</a>
+		<button class="btns-gray-embo cancel">Cancel</button>
+		<button class="btns-blue-embo btn-send">Call me</button>
+	</div>
+</div>
+<div class="verify sms" style="display:none;">
+  <ol class="step">
+    <li class="step1 done">Enter Phone Number</li>
+    <li class="step2 done">Verify code</li>
+  </ol>
+  <fieldset>
+    <p>Please enter the confirmation code that was texted to your phone.</p>
+    <input type="text" class="text" placeholder="XXXX">
+  </fieldset>
+  <div class="btn-area">
+    <a href="#" class="resend">Resend confirmation code</a>
+    <button class="btns-gray-embo btn-back">Go Back</button>
+    <button class="btns-blue-embo btn-confirm">Confirm</button>
+  </div>
+</div>
+<div class="verify voice" style="display:none;">
+	<ol class="step">
+		<li class="step1 done">Enter Phone Number</li>
+		<li class="step2 done">Verify Code</li>
+	</ol>
+	<fieldset>
+		<p>Please enter these digits when you answer the phone.</p>
+		<span class="digits"></span>
+		<span class="digits"></span>
+	</fieldset>
+	<div class="btn-area">
+		<button class="btns-gray-embo btn-back">Go Back</button>
+	</div>
+</div>
+<div class="success" style="display:none;">
+  <p><b>Success!</b> Your phone number is now confirmed.</p>
+  <div class="btn-area">
+    <button class="btns-gray-embo close">Close</button>
+  </div>
+</div>
+<div class="failed" style="display:none;">
+	<p><b>Confirmation failed.</b> We were not able to confirm your phone number. Try again.</p>
+	<div class="btn-area">
+		<button class="btns-gray-embo btn-back">Go Back</button>
+	</div>
+</div>
+<button class="ly-close"><i class="ic-del-black"></i></button>

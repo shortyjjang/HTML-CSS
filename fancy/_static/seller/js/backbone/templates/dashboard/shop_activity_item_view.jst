@@ -1,0 +1,76 @@
+<% if (status == 'order_received') { %>
+    <span class="status order_received">
+        <img src="/_ui/images/common/blank.gif" style="background-image: url('<%= customer.img_url %>');" />
+    </span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <% if (customer.username == 'guestuser') { %>
+            <%= customer.name %>
+        <% } else { %>
+            <a href="/<%= customer.username %>" class="username"><%= customer.name %></a>
+        <% } %>
+        <%= gettext(" placed a new order: ") %> 
+        <a href="/merchant/orders/management/detail/<%= order_id_str%>/<%if (user.attributes.is_admin_senior){%>?seller_id=<%= user.attributes.id_str%><%}%>">Order #<%= order_id_str %></a>
+        <% if(order.is_gift) {%>
+            <span class="label gift">GIFT</span> 
+        <% } %>
+        <% if(order.is_vip){%><span class="label vip">VIP</span> <% } %> 
+        <small class="detail">
+            <%= order.quantity %><%= gettext(" items, Order Total of ") %><%= numeral(order.total_price).format("$0,0.00") %>
+        </small>
+    </em>
+<% } else if (status == 'order_canceled') { %>
+    <span class="status order_17"><img src="/_ui/images/common/blank.gif" /></span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <%= gettext("Order canceled: ") %>
+        <a href="/merchant/orders/management/detail/<%= order_id_str%>">Order #<%= order_id_str %></a>
+        <% if(order.is_gift){%><span class="label gift">GIFT</span> <% } %>
+        <% if(order.is_vip) {%><span class="label vip">VIP</span> <% } %> 
+        <small>at <%= moment.utc(date).format('h:mm a') %></small>
+    </em>
+<% } else if (status == 'shipped') { %>
+    <span class="status shipped"><img src="/_ui/images/common/blank.gif" /></span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <%= gettext("Shipping process started: ") %>
+        <a href="/merchant/orders/management/detail/<%= order_id_str%>">Order #<%= order_id_str %></a>
+        <% if(order.is_gift){%><span class="label gift">GIFT</span> <% } %>
+        <% if(order.is_vip) {%><span class="label vip">VIP</span> <% } %> 
+        <small>at <%= moment.utc(date).format('h:mm a') %></small>
+    </em>
+<% } else if (status == 'sold_out') { %>
+    <span class="status sold_out"><img src="/_ui/images/common/blank.gif" /></span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <%= gettext("Sold out item: ") %>
+        <a href="/merchant/products?search-field=id&search-text=<%= sale_item.id_str %>" class="thingname"><%= sale_item.title %></a>
+    </em>
+<% } else if (status == 'remaining_warning') { %>
+    <span class="status remaining_warning"><img src="/_ui/images/common/blank.gif" /></span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <%= gettext("Low quantity on following item: ") %>
+        <a href="/merchant/products?search-field=id&search-text=<%= sale_item.id_str %>" class="thingname"><%= sale_item.title %></a>
+        (<%= sale_item.num_available %> remaining)
+    </em>
+<% } else if (status == 'return_requested' || status == 'exchange_requested') { %>
+    <span class="status order_received">
+        <img src="/_ui/images/common/blank.gif" style="background-image: url('<%= customer.img_url %>');" />
+    </span>
+    <big class="date"><%= moment.utc(date).fromNow() %></big>
+    <em>
+        <% if (customer.username == 'guestuser') { %>
+            <%= customer.name %>
+        <% } else { %>
+            <a href="/<%= customer.username %>" class="username"><%= customer.name %></a>
+        <% } %>
+        <% if (status === 'return_requested') { %>
+            <%= gettext(" requested a return: ") %> 
+        <% } else if (status === 'exchange_requested'){ %>
+            <%= gettext(" requested a exchange: ") %> 
+        <% } %>
+        <a href="/merchant/orders/return-requests/<%= return_request_id_str %><%if (user.attributes.is_admin_senior){%>?seller_id=<%= user.attributes.id_str%><%}%>">Request #<%= return_request_id_str %></a>
+        <% if(order.is_vip){%><span class="label vip">VIP</span> <% } %> 
+    </em>
+<% } %>

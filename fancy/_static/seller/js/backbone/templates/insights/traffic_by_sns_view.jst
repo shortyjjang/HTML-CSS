@@ -1,0 +1,36 @@
+<dt>Social</dt>
+<dd><ul class="range">
+    <li class="fb">
+        <i class="icon"></i><span class="label">FACEBOOK</span>
+        <span class="detail"><%= count_from_facebook %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_facebook/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_facebook/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+    <li class="tw">
+        <i class="icon"></i><span class="label">Twitter</span>
+        <span class="detail"><%= count_from_twitter %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_twitter/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_twitter/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+    <li class="gp">
+        <i class="icon"></i><span class="label">Google+</span>
+        <span class="detail"><%= count_from_plus %></span>
+        <% if (total) { %>
+            <small class="val"><%= numeral(count_from_plus/total).format("0,0.0%") %></small>
+            <span class="gauge" style="width:<%= count_from_plus/total * 100 %>%"></span>
+        <% } else { %>
+            <small class="val">0%</small>
+            <span class="gauge" style="width:0%"></span>
+        <% } %>
+    </li>
+</ul></dd>

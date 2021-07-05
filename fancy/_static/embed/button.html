@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Fancy</title>
+	<link rel="stylesheet" media="all" type="text/css" href="/embed/css/embed.css?20130722" />
+	<!--[if IE]>
+	<link rel="stylesheet" media="all" type="text/css" href="/embed/css/embed-ie.css" />
+	<![endif]-->
+</head>
+<body class="embed">
+	<a href="#" id="buy-with-fancy" class="btn-green-cart"><span class="icon-cart"><em></em><i class="icon"></i></span> <b>Buy</b> with <span class="logo">Fancy</span></a>
+	<script>
+	var args = {};
+
+	location.search.replace(/[\?&](\w+)=([^&]+)/g, function($0,$1,$2){ args[$1] = $2 });
+
+	var a = document.getElementById('buy-with-fancy');
+	a.onclick = function(event){
+		event = event || window.event;
+		var w,t,u='https://'+location.host+'/embed/';
+
+		if(args.id){
+			u+='buy/'+args.id;
+		}else if(args.keywords){
+			u+='keyword/'+args.keywords;
+		}
+		u+=(args.ref?'?ref='+args.ref:'')+(args.new?'&new':'');
+
+		if(window.postMessage && args.type == "layer"){
+			parent.postMessage('open\t'+u,args.loc);
+		}else{
+			w = window.open(u, 'fancy', 'width=425,height=560');
+			try{w.focus()}catch(e){};
+		}
+
+		if(event.preventDefault) event.preventDefault();
+
+		return false;
+	};
+	</script>
+</body>
+</html>

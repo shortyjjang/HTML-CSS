@@ -1,0 +1,24 @@
+<div class="summary option_count_<%-values.length%>">
+    <p class="img">
+        <input type="file" name="upload-file" multiple="" style="display:none">
+        <a href="#">
+            <img src="//static-ec1.thefancy.com/_ui/images/common/blank.gif" <%if(images.models.length){%> style="background-image:url('<%-images.models[0].attributes.url_310%>');"<%}%>>
+            <em class="infscr-loading" style="display:none"><span class="loading">Loading</span></em>
+        </a>
+    </p>
+    <%for(var i=0;i<option_meta.length;i++){%>
+    <p class="option">
+        <label class="label"><%-option_meta[i] && option_meta[i].name || ''%></label>
+        <input type="text" placeholder="<%-option_meta[i] && option_meta[i].name || ''%>" class="name">
+    </p>
+    <%}%>
+    <p class="price">
+        <label class="label">Price</label>
+        <span class="unit"><em>$</em><input type="text" class="text price" name="retail_price"></span>
+    </p>
+    <p class="qty">
+        <label class="label">QTY</label>
+        <span class="unit"><input type="text" maxlength="6" class="text" name="qty" placeholder="∞"></span>
+    </p>
+    <a href="#" class="btns-gray-embo btn-add">Add</a>
+</div>

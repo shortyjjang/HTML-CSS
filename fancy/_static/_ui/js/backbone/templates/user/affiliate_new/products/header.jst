@@ -1,0 +1,43 @@
+<h2 class="ptit embo"><b>Products</b></h2>
+<fieldset class="search">
+    <span class="sort"><select>
+        <option value="newest">Newest</option>
+        <option value="popular">Popular</option>
+        <option value="price_asc">Price: Low to High</option>
+        <option value="price_desc">Price: High to Low</option>
+    </select></span>
+</fieldset>
+<div class="refine">
+    <dl class="cate category">
+        <dt onclick="$(this).closest('.refine').find('dl:not(.cate)').removeClass('opened');"><span>Everything</span><select>
+            <option value="">Everything</option>
+            <% _.each(categories, function(category) { %>
+            <option value="<%=category.id%>"><%=category.display%></option>
+            <% }) %>
+        </select></dt>
+    </dl>
+    <dl class="filter">
+        <dt onclick="$(this).closest('.refine').find('dl:not(.filter)').removeClass('opened');$(this).closest('dl').toggleClass('opened');">Filter by keyword</dt>
+        <dd>
+            <label class="label">Filter</label>
+            <fieldset class="keyword">
+                <input type="text" placeholder="Filter by keyword" class="text" value="">
+                <a href="#" class="remove" style="display:none">Remove</a>
+            </fieldset>
+        </dd>
+    </dl>
+    <dl class="price">
+        <dt class="amount" onclick="$(this).closest('.refine').find('dl:not(.price)').removeClass('opened');$(this).closest('dl').toggleClass('opened');">Any Price</dt>
+        <dd>
+            <label class="label">Price</label>
+            <div class="amount">
+                $<span class="min">1</span> -
+                $<span class="max">1000+</span>
+            </div>
+            <fieldset>
+                <div id="slider-range" data-highest-price="1000"></div>
+            </fieldset>
+        </dd>
+    </dl>
+    <a href="#" class="btn-reset" style="display: none;">Reset</a>
+</div>

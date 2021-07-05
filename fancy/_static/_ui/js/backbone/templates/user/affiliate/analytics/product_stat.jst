@@ -1,0 +1,13 @@
+<li class="products-value"><b><%= total_products %></b> Products</li>
+<li class="clicks-value"><b><%= total_clicks %></b> Clicks</li>
+<li class="sales-value"><b><%= total_sales %></b> Sales</li>
+<li class="commission-value"><b><%= numeral(total_commission).format("$0,0.00") %></b> Commission</li>
+<li class="conversion-value">
+    <b>
+        <% if (total_clicks) { %>
+            <%= numeral(total_sales / total_clicks).format("0,0.0%") %>
+        <% } else { %>
+            <%= numeral(1).format("0,0.0%") %>
+        <% } %>
+    </b> Conversion
+</li>
